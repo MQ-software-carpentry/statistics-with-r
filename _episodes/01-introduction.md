@@ -75,11 +75,20 @@ convert them to a `factor`. Ordinal variables can use the special type of factor
 
 > ## What types of variables are these?
 >
->
+> 1. Weight
+> 1. Smoking status (Never smoked, Previously smoked, Currently smokes)
+> 1. Grade (percentage)
+> 1. Grade (Fail, Pass, Credit, Distinction, High Distinction)
+> 1. Agreement with a statement (Strongly agree, Agree, Neither agree nor disagree,
+>    Disagree, Strongly disagree)
 >
 > > ## Solution
 > > 
-> >
+> > 1. Weight: quantitative, continuous
+> > 1. Smoking status: qualitative, nominal
+> > 1. Grade (percentage): quantitative, continuous
+> > 1. Grade (category): qualitative, ordinal
+> > 1. Agreement: qualitative, ordinal
 > {: .solution}
 {: .challenge}
 
