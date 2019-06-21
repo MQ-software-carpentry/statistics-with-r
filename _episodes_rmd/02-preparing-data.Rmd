@@ -11,8 +11,38 @@ keypoints:
 - "Data should have 1 observation per row."
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, include=FALSE}
 source("../bin/chunk-options.R")
+```
+
+First, we need to load the `tidyverse` package (actually a collection of packages).
+
+```{r packages, message=FALSE}
+library(tidyverse)
+```
+
+We can now load the **Pattani** data from the Excel file. For the notes, this is stored
+in the `data` directory. It might be different for you.
+
+```{r read_data}
+path <- file.path("..", "data", "Pattani.xlsx")
+pattani <- readxl::read_excel(path, sheet = "Data", skip = 1)
+```
+
+`readxl::read_excel` is used to explicitly call the `read_excel` function in the `readxl`
+package.
+
+
+
+```{r pattani_str}
+pattani
+```
+
+
+```{r rename_columns}
+pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
+  rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`)
+
 ```
 
 {% include links.md %}
