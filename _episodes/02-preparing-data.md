@@ -37,7 +37,8 @@ pattani <- readxl::read_excel(path, sheet = "Data", skip = 1)
 `readxl::read_excel` is used to explicitly call the `read_excel` function in the `readxl`
 package.
 
-
+We would like to see what the data looks like now that it has been read into R. You can
+just type the name of the dataset.
 
 
 ~~~
@@ -65,6 +66,8 @@ pattani
 ~~~
 {: .output}
 
+Having names with spaces in them can make them more difficult to work with. We can add to
+the way that we read the file to modify the names.
 
 
 ~~~
