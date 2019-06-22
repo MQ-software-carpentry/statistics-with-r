@@ -41,7 +41,7 @@ REQUIRED_FILES = {
 }
 
 # Episode filename pattern.
-P_EPISODE_FILENAME = re.compile(r'/_episodes/(\d\d)-[-\w]+.md$')
+P_EPISODE_FILENAME = re.compile(r'[/\\]_episodes[/\\](\d\d)-[-\w]+.md$')
 
 # Pattern to match lines ending with whitespace.
 P_TRAILING_WHITESPACE = re.compile(r'\s+$')
@@ -273,6 +273,7 @@ def check_fileset(source_dir, reporter, filenames_present):
 
     # Check files with predictable names.
     required = [p.replace('%', source_dir) for p in REQUIRED_FILES]
+    required = [p.replace('/', os.sep) for p in required]
     missing = set(required) - set(filenames_present)
     for m in missing:
         reporter.add(None, 'Missing required file {0}', m)

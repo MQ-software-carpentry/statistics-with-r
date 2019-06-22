@@ -3,10 +3,12 @@
 
 # Settings
 MAKEFILES=Makefile $(wildcard *.mk)
-JEKYLL=jekyll
-JEKYLL_VERSION=3.7.3
+JEKYLL=bundle exec jekyll
+JEKYLL_VERSION=3.8.5
 PARSER=bin/markdown_ast.rb
 DST=_site
+PYTHON=C:/ProgramData/Anaconda3/python.exe
+BASH=sh
 
 # Controls
 .PHONY : commands clean files
@@ -31,7 +33,7 @@ site : lesson-md
 
 # repo-check        : check repository settings.
 repo-check :
-	@bin/repo_check.py -s .
+	${PYTHON} bin/repo_check.py -s .
 
 ## clean            : clean up junk files.
 clean :
@@ -54,7 +56,7 @@ clean-rmd :
 
 ## workshop-check   : check workshop homepage.
 workshop-check :
-	@bin/workshop_check.py .
+	${PYTHON} bin/workshop_check.py .
 
 ## ----------------------------------------
 ## Commands specific to lesson websites.
@@ -89,19 +91,19 @@ HTML_DST = \
 lesson-md : ${RMD_DST}
 
 _episodes/%.md: _episodes_rmd/%.Rmd
-	@bin/knit_lessons.sh $< $@
+	${BASH} bin/knit_lessons.sh $< $@
 
 ## lesson-check     : validate lesson Markdown.
 lesson-check : lesson-fixme
-	@bin/lesson_check.py -s . -p ${PARSER} -r _includes/links.md
+	${PYTHON} bin/lesson_check.py -s . -p ${PARSER} -r _includes/links.md
 
 ## lesson-check-all : validate lesson Markdown, checking line lengths and trailing whitespace.
 lesson-check-all :
-	@bin/lesson_check.py -s . -p ${PARSER} -r _includes/links.md -l -w --permissive
+	${PYTHON} bin/lesson_check.py -s . -p ${PARSER} -r _includes/links.md -l -w --permissive
 
 ## unittest         : run unit tests on checking tools.
 unittest :
-	@bin/test_lesson_check.py
+	${PYTHON} bin/test_lesson_check.py
 
 ## lesson-files     : show expected names of generated files for debugging.
 lesson-files :
@@ -112,7 +114,7 @@ lesson-files :
 
 ## lesson-fixme     : show FIXME markers embedded in source files.
 lesson-fixme :
-	@fgrep -i -n FIXME ${MARKDOWN_SRC} || true
+	@grep -F -i -n FIXME ${MARKDOWN_SRC} || true
 
 #-------------------------------------------------------------------------------
 # Include extra commands if available.
