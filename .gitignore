@@ -10,3 +10,4 @@ _site
 .RData
 desktop.ini
 *.Rproj
+Gemfile.lock
