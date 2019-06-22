@@ -36,7 +36,7 @@ package.
 We would like to see what the data looks like now that it has been read into R. You can
 just type the name of the dataset.
 
-```{r pattani_str}
+```{r print_pattani}
 pattani
 ```
 
@@ -46,7 +46,41 @@ the way that we read the file to modify the names.
 ```{r rename_columns}
 pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
   rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`)
-
 ```
+
+> ## What does `%>%` mean?
+> 
+> `%>%` is something from the `tidyverse` called a **pipe**. It allows you to take the output
+> from 1 function (in this case `read_excel`) and put it directly into another function
+> (`rename`). It is as though there is a **pipe** connecting the functions together.
+{: .callout}
+
+Previously we got a preview of the data, but we might want to get some summary statistics
+about the columns. You can use the function `summary` for this.
+
+```{r summary}
+summary(pattani)
+```
+
+Have a look at the `character` columns. What sort of variables are these?
+
+If we convert these to `factor` then R knows that they are categorical variables and does
+some helpful things for us. We will use the `as_factor` function, which is part of the
+`tidyverse`. There is also a base R function `as.factor` (note the . instead of _) but we
+will use the `tidyverse` version.
+
+```{r convert_to_factors}
+pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
+  rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`) %>%
+  mutate(gender = as_factor(gender), school = as_factor(school), water = as_factor(water))
+```
+
+What happens if we run the summary now?
+
+```{r summary_factors}
+summary(pattani)
+```
+
+The factor variables now show the number of each element in the variables.
 
 {% include links.md %}

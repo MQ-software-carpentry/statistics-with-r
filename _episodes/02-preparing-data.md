@@ -76,4 +76,89 @@ pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
 ~~~
 {: .language-r}
 
+> ## What does `%>%` mean?
+> 
+> `%>%` is something from the `tidyverse` called a **pipe**. It allows you to take the output
+> from 1 function (in this case `read_excel`) and put it directly into another function
+> (`rename`). It is as though there is a **pipe** connecting the functions together.
+{: .callout}
+
+Previously we got a preview of the data, but we might want to get some summary statistics
+about the columns. You can use the function `summary` for this.
+
+
+~~~
+summary(pattani)
+~~~
+{: .language-r}
+
+
+
+~~~
+       ID          blood_lead         age            gender         
+ Min.   :  1.0   Min.   : 4.00   Min.   : 5.000   Length:434        
+ 1st Qu.:116.2   1st Qu.: 8.70   1st Qu.: 8.000   Class :character  
+ Median :231.5   Median :11.70   Median : 9.000   Mode  :character  
+ Mean   :229.5   Mean   :12.05   Mean   : 9.281                     
+ 3rd Qu.:344.8   3rd Qu.:14.70   3rd Qu.:11.000                     
+ Max.   :454.0   Max.   :28.30   Max.   :13.000                     
+                 NA's   :1                                          
+    school             duration         water           ln_blood_lead  
+ Length:434         Min.   : 2.000   Length:434         Min.   :1.386  
+ Class :character   1st Qu.: 5.000   Class :character   1st Qu.:2.163  
+ Mode  :character   Median : 8.000   Mode  :character   Median :2.460  
+                    Mean   : 7.922                      Mean   :2.425  
+                    3rd Qu.:10.000                      3rd Qu.:2.688  
+                    Max.   :13.000                      Max.   :3.343  
+                                                        NA's   :1      
+~~~
+{: .output}
+
+Have a look at the `character` columns. What sort of variables are these?
+
+If we convert these to `factor` then R knows that they are categorical variables and does
+some helpful things for us. We will use the `as_factor` function, which is part of the
+`tidyverse`. There is also a base R function `as.factor` (note the . instead of _) but we
+will use the `tidyverse` version.
+
+
+~~~
+pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
+  rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`) %>%
+  mutate(gender = as_factor(gender), school = as_factor(school), water = as_factor(water))
+~~~
+{: .language-r}
+
+What happens if we run the summary now?
+
+
+~~~
+summary(pattani)
+~~~
+{: .language-r}
+
+
+
+~~~
+       ID          blood_lead         age          gender   
+ Min.   :  1.0   Min.   : 4.00   Min.   : 5.000   Boy :204  
+ 1st Qu.:116.2   1st Qu.: 8.70   1st Qu.: 8.000   Girl:230  
+ Median :231.5   Median :11.70   Median : 9.000             
+ Mean   :229.5   Mean   :12.05   Mean   : 9.281             
+ 3rd Qu.:344.8   3rd Qu.:14.70   3rd Qu.:11.000             
+ Max.   :454.0   Max.   :28.30   Max.   :13.000             
+                 NA's   :1                                  
+        school       duration          water     ln_blood_lead  
+ Tangkadeng:136   Min.   : 2.000   Boil   :163   Min.   :1.386  
+ Thamthalu : 46   1st Qu.: 5.000   Stand  :163   1st Qu.:2.163  
+ Tachi     :128   Median : 8.000   Filter : 48   Median :2.460  
+ Tesabal 3 : 62   Mean   : 7.922   Nothing: 56   Mean   :2.425  
+ Sabarang  : 62   3rd Qu.:10.000   NA's   :  4   3rd Qu.:2.688  
+                  Max.   :13.000                 Max.   :3.343  
+                                                 NA's   :1      
+~~~
+{: .output}
+
+The factor variables now show the number of each element in the variables.
+
 {% include links.md %}
