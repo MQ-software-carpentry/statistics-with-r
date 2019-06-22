@@ -1,6 +1,7 @@
 # Contributing
 
-[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site], and [Library Carpentry][lc-site]) are open source projects,
+[The Carpentries][c-site] ([Software Carpentry][swc-site], [Data Carpentry][dc-site],
+and [Library Carpentry][lc-site]) are open source projects,
 and we welcome contributions of all kinds:
 new lessons,
 fixes to existing material,
@@ -111,7 +112,8 @@ To use the web interface for contributing to a lesson:
 1.  Fork the originating repository to your GitHub profile.
 2.  Within your version of the forked repository, move to the `gh-pages` branch and
 create a new branch for each significant change being made.
-3.  Navigate to the file(s) you wish to change within the new branches and make revisions as required.
+3.  Navigate to the file(s) you wish to change within the new branches and make revisions as
+required.
 4.  Commit all changed files within the appropriate branches.
 5.  Create individual pull requests from each of your changed branches
 to the `gh-pages` branch within the originating repository.
@@ -119,12 +121,12 @@ to the `gh-pages` branch within the originating repository.
 repository and the pull requests will update automatically.
 7.  Repeat as needed until all feedback has been addressed.
 
-When starting work, please make sure your clone of the originating `gh-pages` branch is up-to-date
-before creating your own revision-specific branch(es) from there.
+When starting work, please make sure your clone of the originating `gh-pages` branch is
+up-to-date before creating your own revision-specific branch(es) from there.
 Additionally, please only work from your newly-created branch(es) and *not*
 your clone of the originating `gh-pages` branch.
-Lastly, published copies of all the lessons are available in the `gh-pages` branch of the originating
-repository for reference while revising.
+Lastly, published copies of all the lessons are available in the `gh-pages` branch of the
+originating repository for reference while revising.
 
 ## Other Resources
 
