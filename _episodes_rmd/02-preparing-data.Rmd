@@ -46,6 +46,8 @@ the way that we read the file to modify the names.
 ```{r rename_columns}
 pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
   rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`)
+
+pattani
 ```
 
 > ## What does `%>%` mean?
@@ -54,6 +56,8 @@ pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
 > from 1 function (in this case `read_excel`) and put it directly into another function
 > (`rename`). It is as though there is a **pipe** connecting the functions together.
 {: .callout}
+
+### Simple summary statistics
 
 Previously we got a preview of the data, but we might want to get some summary statistics
 about the columns. You can use the function `summary` for this.
@@ -66,8 +70,8 @@ Have a look at the `character` columns. What sort of variables are these?
 
 If we convert these to `factor` then R knows that they are categorical variables and does
 some helpful things for us. We will use the `as_factor` function, which is part of the
-`tidyverse`. There is also a base R function `as.factor` (note the . instead of _) but we
-will use the `tidyverse` version.
+`tidyverse`. There is also a base R function `as.factor` (note the `.` instead of `_`)
+but we will use the `tidyverse` version.
 
 ```{r convert_to_factors}
 pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
@@ -82,5 +86,78 @@ summary(pattani)
 ```
 
 The factor variables now show the number of each element in the variables.
+
+## Visualising the data
+
+We will start with a histogram of the levels of lead in the blood.
+
+```{r histogram_bl, warning=FALSE, message=FALSE}
+ggplot(pattani, aes(x = blood_lead)) +
+  geom_histogram()
+```
+
+For a lot of the statistical tests that we will be doing later, we would like the variable
+to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
+
+```{r histogram_lnbl, warning=FALSE, message=FALSE}
+ggplot(pattani, aes(x = ln_blood_lead)) +
+  geom_histogram()
+```
+
+It looks a little bit better. We can also use a QQ-plot to check for normality.
+
+```{r qqplot, warning=FALSE}
+ggplot(pattani, aes(sample = blood_lead)) +
+  geom_qq() +
+  geom_qq_line()
+```
+
+
+What if we wanted to see the difference between the boys and girls?
+
+```{r histogram_gender, warning=FALSE, message=FALSE}
+ggplot(pattani, aes(x = blood_lead, fill = gender)) +
+  geom_histogram()
+```
+
+That produced a stacked histogram, which isn't all that easy to read. It might be better
+if they were side-by-side.
+
+```{r histogram_gender_dodge, warning=FALSE, message=FALSE}
+ggplot(pattani, aes(x = blood_lead, fill = gender)) +
+  geom_histogram(position = "dodge")
+```
+
+There doesn't seem to be much difference. Perhaps we should try a box plot. Notice that
+`gender` is now the `x` variable and `blood_lead` is the `y` variable.
+
+```{r boxplot_gender, warning=FALSE}
+ggplot(pattani, aes(x = gender, y = blood_lead)) +
+  geom_boxplot()
+```
+
+The box plot also suggests that there isn't much difference between boys and girls.
+What about between schools?
+
+```{r boxplot_school, warning=FALSE}
+ggplot(pattani, aes(x = school, y = blood_lead)) +
+  geom_boxplot()
+```
+
+There does seems to be more difference between schools than between genders. We can add
+gender back in again. Again, we have to use `position = "dodge"`.
+
+```{r boxplot_school_gender, warning=FALSE}
+ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
+  geom_boxplot(position = "dodge")
+```
+
+You can add a little bit of space between the boxes.
+
+```{r boxplot_school_gender_dodge, warning=FALSE}
+ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
+  geom_boxplot(position = position_dodge(1))
+```
+
 
 {% include links.md %}

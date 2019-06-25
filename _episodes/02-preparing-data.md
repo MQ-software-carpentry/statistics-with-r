@@ -73,8 +73,30 @@ the way that we read the file to modify the names.
 ~~~
 pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
   rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`)
+
+pattani
 ~~~
 {: .language-r}
+
+
+
+~~~
+# A tibble: 434 x 8
+      ID blood_lead   age gender school     duration water  ln_blood_lead
+   <dbl>      <dbl> <dbl> <chr>  <chr>         <dbl> <chr>          <dbl>
+ 1     1       11.7    13 Boy    Tangkadeng       13 Boil            2.46
+ 2     2       11.8    13 Boy    Tangkadeng        5 Boil            2.47
+ 3     3        6.4    13 Girl   Tangkadeng       13 Stand           1.86
+ 4     4        6.9    11 Girl   Tangkadeng       11 Boil            1.93
+ 5     5       10.3    13 Girl   Tangkadeng        5 Boil            2.33
+ 6     6        8.3    13 Girl   Tangkadeng       13 Filter          2.12
+ 7     7        6.2    13 Girl   Tangkadeng        5 Filter          1.82
+ 8     8        9.4    13 Boy    Tangkadeng       13 Stand           2.24
+ 9     9       14.9    11 Boy    Tangkadeng       11 Boil            2.70
+10    10        8.1    11 Girl   Tangkadeng       11 Filter          2.09
+# ... with 424 more rows
+~~~
+{: .output}
 
 > ## What does `%>%` mean?
 > 
@@ -82,6 +104,8 @@ pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
 > from 1 function (in this case `read_excel`) and put it directly into another function
 > (`rename`). It is as though there is a **pipe** connecting the functions together.
 {: .callout}
+
+### Simple summary statistics
 
 Previously we got a preview of the data, but we might want to get some summary statistics
 about the columns. You can use the function `summary` for this.
@@ -118,8 +142,8 @@ Have a look at the `character` columns. What sort of variables are these?
 
 If we convert these to `factor` then R knows that they are categorical variables and does
 some helpful things for us. We will use the `as_factor` function, which is part of the
-`tidyverse`. There is also a base R function `as.factor` (note the . instead of _) but we
-will use the `tidyverse` version.
+`tidyverse`. There is also a base R function `as.factor` (note the `.` instead of `_`)
+but we will use the `tidyverse` version.
 
 
 ~~~
@@ -160,5 +184,114 @@ summary(pattani)
 {: .output}
 
 The factor variables now show the number of each element in the variables.
+
+## Visualising the data
+
+We will start with a histogram of the levels of lead in the blood.
+
+
+~~~
+ggplot(pattani, aes(x = blood_lead)) +
+  geom_histogram()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-histogram_bl-1.png" title="plot of chunk histogram_bl" alt="plot of chunk histogram_bl" width="612" style="display: block; margin: auto;" />
+
+For a lot of the statistical tests that we will be doing later, we would like the variable
+to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
+
+
+~~~
+ggplot(pattani, aes(x = ln_blood_lead)) +
+  geom_histogram()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-histogram_lnbl-1.png" title="plot of chunk histogram_lnbl" alt="plot of chunk histogram_lnbl" width="612" style="display: block; margin: auto;" />
+
+It looks a little bit better. We can also use a QQ-plot to check for normality.
+
+
+~~~
+ggplot(pattani, aes(sample = blood_lead)) +
+  geom_qq() +
+  geom_qq_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-qqplot-1.png" title="plot of chunk qqplot" alt="plot of chunk qqplot" width="612" style="display: block; margin: auto;" />
+
+
+What if we wanted to see the difference between the boys and girls?
+
+
+~~~
+ggplot(pattani, aes(x = blood_lead, fill = gender)) +
+  geom_histogram()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-histogram_gender-1.png" title="plot of chunk histogram_gender" alt="plot of chunk histogram_gender" width="612" style="display: block; margin: auto;" />
+
+That produced a stacked histogram, which isn't all that easy to read. It might be better
+if they were side-by-side.
+
+
+~~~
+ggplot(pattani, aes(x = blood_lead, fill = gender)) +
+  geom_histogram(position = "dodge")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-histogram_gender_dodge-1.png" title="plot of chunk histogram_gender_dodge" alt="plot of chunk histogram_gender_dodge" width="612" style="display: block; margin: auto;" />
+
+There doesn't seem to be much difference. Perhaps we should try a box plot. Notice that
+`gender` is now the `x` variable and `blood_lead` is the `y` variable.
+
+
+~~~
+ggplot(pattani, aes(x = gender, y = blood_lead)) +
+  geom_boxplot()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-boxplot_gender-1.png" title="plot of chunk boxplot_gender" alt="plot of chunk boxplot_gender" width="612" style="display: block; margin: auto;" />
+
+The box plot also suggests that there isn't much difference between boys and girls.
+What about between schools?
+
+
+~~~
+ggplot(pattani, aes(x = school, y = blood_lead)) +
+  geom_boxplot()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-boxplot_school-1.png" title="plot of chunk boxplot_school" alt="plot of chunk boxplot_school" width="612" style="display: block; margin: auto;" />
+
+There does seems to be more difference between schools than between genders. We can add
+gender back in again. Again, we have to use `position = "dodge"`.
+
+
+~~~
+ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
+  geom_boxplot(position = "dodge")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-boxplot_school_gender-1.png" title="plot of chunk boxplot_school_gender" alt="plot of chunk boxplot_school_gender" width="612" style="display: block; margin: auto;" />
+
+You can add a little bit of space between the boxes.
+
+
+~~~
+ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
+  geom_boxplot(position = position_dodge(1))
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-boxplot_school_gender_dodge-1.png" title="plot of chunk boxplot_school_gender_dodge" alt="plot of chunk boxplot_school_gender_dodge" width="612" style="display: block; margin: auto;" />
+
 
 {% include links.md %}
