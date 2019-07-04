@@ -198,6 +198,27 @@ ggplot(pattani, aes(x = blood_lead)) +
 
 <img src="../fig/rmd-histogram_bl-1.png" title="plot of chunk histogram_bl" alt="plot of chunk histogram_bl" width="612" style="display: block; margin: auto;" />
 
+I am not a fan of the grey background that is the default with `ggplot` graphs. You can
+change that by adding a theme.
+
+
+~~~
+ggplot(pattani, aes(x = blood_lead)) +
+  geom_histogram() +
+  theme_bw()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-histogram_bl_bw-1.png" title="plot of chunk histogram_bl_bw" alt="plot of chunk histogram_bl_bw" width="612" style="display: block; margin: auto;" />
+
+I will set the default theme so that I don't have to specify it each time.
+
+
+~~~
+theme_set(theme_bw())
+~~~
+{: .language-r}
+
 For a lot of the statistical tests that we will be doing later, we would like the variable
 to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
 
@@ -222,6 +243,17 @@ ggplot(pattani, aes(sample = blood_lead)) +
 
 <img src="../fig/rmd-qqplot-1.png" title="plot of chunk qqplot" alt="plot of chunk qqplot" width="612" style="display: block; margin: auto;" />
 
+### Distribution?
+
+> - The **distribution** of a variable tells us what values it takes and how often it
+>   takes these values.
+> - When examining a distribution, look for **shape**, **center**, and **spread** and for
+>   clear **deviations** from the overall shape.
+>
+> _Moore, McCabe & Craig (2017)_
+{: .quotation}
+
+### Now back to what we were doing
 
 What if we wanted to see the difference between the boys and girls?
 
