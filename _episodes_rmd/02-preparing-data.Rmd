@@ -111,22 +111,6 @@ I will set the default theme so that I don't have to specify it each time.
 theme_set(theme_bw())
 ```
 
-For a lot of the statistical tests that we will be doing later, we would like the variable
-to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
-
-```{r histogram_lnbl, warning=FALSE, message=FALSE}
-ggplot(pattani, aes(x = ln_blood_lead)) +
-  geom_histogram()
-```
-
-It looks a little bit better. We can also use a QQ-plot to check for normality.
-
-```{r qqplot, warning=FALSE}
-ggplot(pattani, aes(sample = blood_lead)) +
-  geom_qq() +
-  geom_qq_line()
-```
-
 ### Distribution?
 
 > - The **distribution** of a variable tells us what values it takes and how often it
@@ -137,7 +121,42 @@ ggplot(pattani, aes(sample = blood_lead)) +
 > _Moore, McCabe & Craig (2017)_
 {: .quotation}
 
+You have probably heard of the Normal distribution, which has a **bell shape**.
+
+```{r normal_dist, fig.cap="Normal distribution"}
+ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) + ylab("") +
+  scale_y_continuous(breaks = NULL)
+```
+
+There are several other distributions. Several of the tests and models that we will discuss
+in this workshop have as one of the assumptions that either the data or the residuals
+of the model are Normally distributed.
+
 ### Now back to what we were doing
+
+For a lot of the statistical tests that we will be doing later, we would like the variable
+to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
+
+```{r histogram_lnbl, warning=FALSE, message=FALSE}
+ggplot(pattani, aes(x = ln_blood_lead)) +
+  geom_histogram()
+```
+
+It looks a little bit better. We can also use a QQ-plot to check for normality. The points
+should lie approximately along the line.
+
+```{r qqplot, warning=FALSE}
+ggplot(pattani, aes(sample = blood_lead)) +
+  geom_qq() +
+  geom_qq_line()
+```
+
+```{r qqplot_ln, warning=FALSE}
+ggplot(pattani, aes(sample = ln_blood_lead)) +
+  geom_qq() +
+  geom_qq_line()
+```
 
 What if we wanted to see the difference between the boys and girls?
 

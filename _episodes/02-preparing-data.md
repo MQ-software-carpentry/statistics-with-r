@@ -219,6 +219,34 @@ theme_set(theme_bw())
 ~~~
 {: .language-r}
 
+### Distribution?
+
+> - The **distribution** of a variable tells us what values it takes and how often it
+>   takes these values.
+> - When examining a distribution, look for **shape**, **center**, and **spread** and for
+>   clear **deviations** from the overall shape.
+>
+> _Moore, McCabe & Craig (2017)_
+{: .quotation}
+
+You have probably heard of the Normal distribution, which has a **bell shape**.
+
+
+~~~
+ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) + ylab("") +
+  scale_y_continuous(breaks = NULL)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-normal_dist-1.png" title="Normal distribution" alt="Normal distribution" width="612" style="display: block; margin: auto;" />
+
+There are several other distributions. Several of the tests and models that we will discuss
+in this workshop have as one of the assumptions that either the data or the residuals
+of the model are Normally distributed.
+
+### Now back to what we were doing
+
 For a lot of the statistical tests that we will be doing later, we would like the variable
 to be normally distributed. Looking at the histogram, it should be symmetric and bell-shaped.
 
@@ -231,7 +259,8 @@ ggplot(pattani, aes(x = ln_blood_lead)) +
 
 <img src="../fig/rmd-histogram_lnbl-1.png" title="plot of chunk histogram_lnbl" alt="plot of chunk histogram_lnbl" width="612" style="display: block; margin: auto;" />
 
-It looks a little bit better. We can also use a QQ-plot to check for normality.
+It looks a little bit better. We can also use a QQ-plot to check for normality. The points
+should lie approximately along the line.
 
 
 ~~~
@@ -243,17 +272,15 @@ ggplot(pattani, aes(sample = blood_lead)) +
 
 <img src="../fig/rmd-qqplot-1.png" title="plot of chunk qqplot" alt="plot of chunk qqplot" width="612" style="display: block; margin: auto;" />
 
-### Distribution?
 
-> - The **distribution** of a variable tells us what values it takes and how often it
->   takes these values.
-> - When examining a distribution, look for **shape**, **center**, and **spread** and for
->   clear **deviations** from the overall shape.
->
-> _Moore, McCabe & Craig (2017)_
-{: .quotation}
+~~~
+ggplot(pattani, aes(sample = ln_blood_lead)) +
+  geom_qq() +
+  geom_qq_line()
+~~~
+{: .language-r}
 
-### Now back to what we were doing
+<img src="../fig/rmd-qqplot_ln-1.png" title="plot of chunk qqplot_ln" alt="plot of chunk qqplot_ln" width="612" style="display: block; margin: auto;" />
 
 What if we wanted to see the difference between the boys and girls?
 
