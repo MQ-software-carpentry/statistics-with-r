@@ -1,6 +1,6 @@
 ---
-title: "Preparing Data"
-teaching: 30
+title: "Preparing and Investigating Data"
+teaching: 60
 exercises: 0
 questions:
 - "What to do before you can bring the data into R?"
