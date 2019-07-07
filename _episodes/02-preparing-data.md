@@ -66,6 +66,41 @@ pattani
 ~~~
 {: .output}
 
+> ## Read in the cuckoo data
+>
+> Use the `read_csv` function in the `readr` package to load `cuckoo.csv`.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > cuckoo <- readr::read_csv(file.path("..", "data", "cuckoo.csv"))
+> > cuckoo
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 45 x 2
+> >    Nest  Length
+> >    <chr>  <dbl>
+> >  1 Robin   21.8
+> >  2 Robin   23.9
+> >  3 Robin   23  
+> >  4 Robin   22.3
+> >  5 Robin   23.3
+> >  6 Robin   22  
+> >  7 Robin   22.4
+> >  8 Robin   22.6
+> >  9 Robin   22.4
+> > 10 Robin   22  
+> > # ... with 35 more rows
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
 Having names with spaces in them can make them more difficult to work with. We can add to
 the way that we read the file to modify the names.
 
@@ -185,6 +220,35 @@ summary(pattani)
 
 The factor variables now show the number of each element in the variables.
 
+> ## Convert cuckoo data to a factor
+>
+> Convert the `Nest` column to a factor and display the summary.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > cuckoo <- readr::read_csv(file.path("..", "data", "cuckoo.csv")) %>%
+> >   mutate(Nest = as_factor(Nest))
+> > summary(cuckoo)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> >       Nest        Length     
+> >  Robin  :16   Min.   :19.80  
+> >  Wren   :15   1st Qu.:21.20  
+> >  Sparrow:14   Median :22.30  
+> >               Mean   :22.24  
+> >               3rd Qu.:23.00  
+> >               Max.   :25.00  
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
 ## Visualising the data
 
 We will start with a histogram of the levels of lead in the blood.
@@ -218,6 +282,23 @@ I will set the default theme so that I don't have to specify it each time.
 theme_set(theme_bw())
 ~~~
 {: .language-r}
+
+> ## Create a histogram of the cuckoo egg lengths
+>
+> Create a histogram of the cuckoo egg lengths
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > ggplot(cuckoo, aes(x = Length)) +
+> >   geom_histogram(bins = 10)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-cuckoo_histogram-1.png" title="plot of chunk cuckoo_histogram" alt="plot of chunk cuckoo_histogram" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 ### Distribution?
 
@@ -305,6 +386,23 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 
 <img src="../fig/rmd-histogram_gender_dodge-1.png" title="plot of chunk histogram_gender_dodge" alt="plot of chunk histogram_gender_dodge" width="612" style="display: block; margin: auto;" />
 
+> ## Cuckoo egg lengths by host nest
+>
+> Create a histogram of the cuckoo egg lengths with colours showing the host nest species.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > ggplot(cuckoo, aes(x = Length, fill = Nest)) +
+> >   geom_histogram(position = "dodge", bins = 10)
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-cuckoo_histogram_nest-1.png" title="plot of chunk cuckoo_histogram_nest" alt="plot of chunk cuckoo_histogram_nest" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
+
 There doesn't seem to be much difference. Perhaps we should try a box plot. Notice that
 `gender` is now the `x` variable and `blood_lead` is the `y` variable.
 
@@ -328,6 +426,23 @@ ggplot(pattani, aes(x = school, y = blood_lead)) +
 {: .language-r}
 
 <img src="../fig/rmd-boxplot_school-1.png" title="plot of chunk boxplot_school" alt="plot of chunk boxplot_school" width="612" style="display: block; margin: auto;" />
+
+> ## Box plot of cuckoo egg lengths by host nest
+>
+> Create a box plot of the cuckoo egg lengths with colours showing the host nest species.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > ggplot(cuckoo, aes(x = Nest, y = Length)) +
+> >   geom_boxplot()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-cuckoo_boxplot-1.png" title="plot of chunk cuckoo_boxplot" alt="plot of chunk cuckoo_boxplot" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 There does seems to be more difference between schools than between genders. We can add
 gender back in again. Again, we have to use `position = "dodge"`.

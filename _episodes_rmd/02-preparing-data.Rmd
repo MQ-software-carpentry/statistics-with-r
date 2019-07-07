@@ -40,6 +40,19 @@ just type the name of the dataset.
 pattani
 ```
 
+> ## Read in the cuckoo data
+>
+> Use the `read_csv` function in the `readr` package to load `cuckoo.csv`.
+>
+> > ## Solution
+> >
+> > ```{r read_cuckoo, message=FALSE}
+> > cuckoo <- readr::read_csv(file.path("..", "data", "cuckoo.csv"))
+> > cuckoo
+> > ```
+> {: .solution}
+{: .challenge}
+
 Having names with spaces in them can make them more difficult to work with. We can add to
 the way that we read the file to modify the names.
 
@@ -87,6 +100,20 @@ summary(pattani)
 
 The factor variables now show the number of each element in the variables.
 
+> ## Convert cuckoo data to a factor
+>
+> Convert the `Nest` column to a factor and display the summary.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_factor, message=FALSE}
+> > cuckoo <- readr::read_csv(file.path("..", "data", "cuckoo.csv")) %>%
+> >   mutate(Nest = as_factor(Nest))
+> > summary(cuckoo)
+> > ```
+> {: .solution}
+{: .challenge}
+
 ## Visualising the data
 
 We will start with a histogram of the levels of lead in the blood.
@@ -110,6 +137,19 @@ I will set the default theme so that I don't have to specify it each time.
 ```{r set_theme}
 theme_set(theme_bw())
 ```
+
+> ## Create a histogram of the cuckoo egg lengths
+>
+> Create a histogram of the cuckoo egg lengths
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_histogram}
+> > ggplot(cuckoo, aes(x = Length)) +
+> >   geom_histogram(bins = 10)
+> > ```
+> {: .solution}
+{: .challenge}
 
 ### Distribution?
 
@@ -173,6 +213,19 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
   geom_histogram(position = "dodge")
 ```
 
+> ## Cuckoo egg lengths by host nest
+>
+> Create a histogram of the cuckoo egg lengths with colours showing the host nest species.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_histogram_nest}
+> > ggplot(cuckoo, aes(x = Length, fill = Nest)) +
+> >   geom_histogram(position = "dodge", bins = 10)
+> > ```
+> {: .solution}
+{: .challenge}
+
 There doesn't seem to be much difference. Perhaps we should try a box plot. Notice that
 `gender` is now the `x` variable and `blood_lead` is the `y` variable.
 
@@ -188,6 +241,19 @@ What about between schools?
 ggplot(pattani, aes(x = school, y = blood_lead)) +
   geom_boxplot()
 ```
+
+> ## Box plot of cuckoo egg lengths by host nest
+>
+> Create a box plot of the cuckoo egg lengths with colours showing the host nest species.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_boxplot}
+> > ggplot(cuckoo, aes(x = Nest, y = Length)) +
+> >   geom_boxplot()
+> > ```
+> {: .solution}
+{: .challenge}
 
 There does seems to be more difference between schools than between genders. We can add
 gender back in again. Again, we have to use `position = "dodge"`.
