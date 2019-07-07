@@ -226,6 +226,22 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 > {: .solution}
 {: .challenge}
 
+<!--
+> ## Cuckoo egg lengths dotplot
+>
+> Create a dotplot of the cuckoo egg lengths. You can use the `geom_dotplot` function.
+> You might want to use `binwidth = 0.5` in `geom_dotplot`.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_dotplot}
+> > ggplot(cuckoo, aes(x = Length, fill = Nest)) +
+> >   geom_dotplot(binwidth = 0.5)
+> > ```
+> {: .solution}
+{: .challenge}
+-->
+
 There doesn't seem to be much difference. Perhaps we should try a box plot. Notice that
 `gender` is now the `x` variable and `blood_lead` is the `y` variable.
 
