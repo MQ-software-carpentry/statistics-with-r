@@ -9,7 +9,8 @@ objectives:
 - "Choose the appropriate test for the data you have."
 - ""
 keypoints:
-- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical predictors."
+- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical
+  predictors."
 source: "Rmd"
 ---
 
@@ -121,6 +122,18 @@ a different technique when you have more than 2 groups, like the 5 schools. This
 `aov`. Be aware that there is also a function `anova` although this is used after you have
 fit the model using `aov`.
 
+One-way anova is a statistical technique that can be used to investigate the effect of a single
+categorical predictor variable on a continuous response variable. The effect is measured by
+looking at the values from different groups and comparing the averages. Of course, in any such
+situation there will be variability. If the variability _within_ each group is noticeably less
+than the variability _between_ the groups, then we decide that there are significant differences
+between the groups.
+
+One-way anova generalises the two-sample _t_ test. You can think of the two-sample _t_ test as
+comparing the values from two groups. Alternatively, you can think of it as seeing whether the
+grouping variable has an effect on the response variable (and so here we can look at grouping
+variables with 3, 4 or more values).
+
 You can still use ANOVAs for 2 groups:
 
 ```{r anova_gender}
@@ -208,3 +221,39 @@ ggplot(school_aov_augment, aes(sample = .resid)) +
 ```
 
 They seem closer to normality than the model with gender, but still a small amount of concern.
+
+### ANOVA with 2 variables
+
+So far we have only looked at models with 1 variable. You can extend the ANOVA model to look
+at multiple variables, for example both gender and school.
+
+```{r anova_gensch}
+both_aov <- aov(blood_lead ~ gender * school, data = pattani)
+summary.lm(both_aov)
+```
+
+> ## A note on nesting models
+> Another way of writing this model would be
+> 
+> ```{r, eval=FALSE}
+> aov(blood_lead ~ gender + school + gender:school, data = pattani)
+> ```
+{: .callout}
+
+The interaction term is not significant so we can run the model again without it.
+
+```{r anova_gensch2}
+both_aov2 <- aov(blood_lead ~ gender + school, data = pattani)
+summary.lm(both_aov2)
+```
+
+We can compare these models with the `anova` function.
+
+```{r compare_anova}
+anova(school_aov, both_aov2, both_aov)
+```
+
+> ## Thanks
+>
+> Some of these notes are based on material in Moore, McCabe & Craig (2017), Peter
+> Petocz's lecture notes for STAT270, and Drew Allen's _Intro to Statistics in R_ workshop.

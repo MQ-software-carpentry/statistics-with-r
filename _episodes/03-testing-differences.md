@@ -11,7 +11,8 @@ objectives:
 - "Choose the appropriate test for the data you have."
 - ""
 keypoints:
-- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical predictors."
+- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical
+  predictors."
 source: "Rmd"
 ---
 
@@ -218,6 +219,18 @@ a different technique when you have more than 2 groups, like the 5 schools. This
 **analysis of variance** or **ANOVA**. The main R function to perform this analysis is
 `aov`. Be aware that there is also a function `anova` although this is used after you have
 fit the model using `aov`.
+
+One-way anova is a statistical technique that can be used to investigate the effect of a single
+categorical predictor variable on a continuous response variable. The effect is measured by
+looking at the values from different groups and comparing the averages. Of course, in any such
+situation there will be variability. If the variability _within_ each group is noticeably less
+than the variability _between_ the groups, then we decide that there are significant differences
+between the groups.
+
+One-way anova generalises the two-sample _t_ test. You can think of the two-sample _t_ test as
+comparing the values from two groups. Alternatively, you can think of it as seeing whether the
+grouping variable has an effect on the response variable (and so here we can look at grouping
+variables with 3, 4 or more values).
 
 You can still use ANOVAs for 2 groups:
 
@@ -442,3 +455,126 @@ ggplot(school_aov_augment, aes(sample = .resid)) +
 <img src="../fig/rmd-residual_school-1.png" title="plot of chunk residual_school" alt="plot of chunk residual_school" width="612" style="display: block; margin: auto;" />
 
 They seem closer to normality than the model with gender, but still a small amount of concern.
+
+### ANOVA with 2 variables
+
+So far we have only looked at models with 1 variable. You can extend the ANOVA model to look
+at multiple variables, for example both gender and school.
+
+
+~~~
+both_aov <- aov(blood_lead ~ gender * school, data = pattani)
+summary.lm(both_aov)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+aov(formula = blood_lead ~ gender * school, data = pattani)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.5148 -2.2727 -0.4159  1.7806 14.9231 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                  8.7194     0.3926  22.210  < 2e-16 ***
+genderGirl                  -0.5036     0.5747  -0.876 0.381405    
+schoolThamthalu              8.8954     0.7518  11.833  < 2e-16 ***
+schoolTachi                  4.6575     0.6063   7.682  1.1e-13 ***
+schoolTesabal 3              6.5677     0.7156   9.177  < 2e-16 ***
+schoolSabarang               2.9533     0.8115   3.639 0.000307 ***
+genderGirl:schoolThamthalu  -2.2797     1.1513  -1.980 0.048334 *  
+genderGirl:schoolTachi      -0.2470     0.8305  -0.297 0.766264    
+genderGirl:schoolTesabal 3   0.2810     1.0229   0.275 0.783674    
+genderGirl:schoolSabarang    0.3633     1.0546   0.345 0.730615    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.331 on 423 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.4233,	Adjusted R-squared:  0.411 
+F-statistic: 34.49 on 9 and 423 DF,  p-value: < 2.2e-16
+~~~
+{: .output}
+
+> ## A note on nesting models
+> Another way of writing this model would be
+> 
+> 
+> ~~~
+> aov(blood_lead ~ gender + school + gender:school, data = pattani)
+> ~~~
+> {: .language-r}
+{: .callout}
+
+The interaction term is not significant so we can run the model again without it.
+
+
+~~~
+both_aov2 <- aov(blood_lead ~ gender + school, data = pattani)
+summary.lm(both_aov2)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+aov(formula = blood_lead ~ gender + school, data = pattani)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.6655 -2.3123 -0.4629  1.7763 14.9371 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       8.8237     0.3247  27.173  < 2e-16 ***
+genderGirl       -0.7271     0.3251  -2.237   0.0258 *  
+schoolThamthalu   7.9418     0.5698  13.938  < 2e-16 ***
+schoolTachi       4.5392     0.4136  10.974  < 2e-16 ***
+schoolTesabal 3   6.7156     0.5119  13.119  < 2e-16 ***
+schoolSabarang    3.2276     0.5151   6.266 9.04e-10 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.336 on 427 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.4162,	Adjusted R-squared:  0.4093 
+F-statistic: 60.88 on 5 and 427 DF,  p-value: < 2.2e-16
+~~~
+{: .output}
+
+We can compare these models with the `anova` function.
+
+
+~~~
+anova(school_aov, both_aov2, both_aov)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Model 1: blood_lead ~ school
+Model 2: blood_lead ~ gender + school
+Model 3: blood_lead ~ gender * school
+  Res.Df    RSS Df Sum of Sq      F  Pr(>F)  
+1    428 4807.6                              
+2    427 4752.0  1    55.674 5.0168 0.02562 *
+3    423 4694.3  4    57.678 1.2993 0.26953  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+> ## Thanks
+>
+> Some of these notes are based on material in Moore, McCabe & Craig (2017), Peter
+> Petocz's lecture notes for STAT270, and Drew Allen's _Intro to Statistics in R_ workshop.
