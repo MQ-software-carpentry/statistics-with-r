@@ -11,7 +11,7 @@ objectives:
 - "Choose the appropriate test for the data you have."
 - ""
 keypoints:
-- "You can use t-tests and ANOVAs if you have a continuous response and categorical predictors."
+- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical predictors."
 source: "Rmd"
 ---
 
@@ -149,5 +149,63 @@ pattani %>%
 {: .output}
 
 ## Testing the difference between 2 groups
+
+Going back to the difference by gender,
+
+
+~~~
+pattani %>%
+  group_by(gender) %>%
+  summarise(mean = mean(blood_lead, na.rm = TRUE), sd = sd(blood_lead, na.rm = TRUE))
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 2 x 3
+  gender  mean    sd
+  <fct>  <dbl> <dbl>
+1 Boy     12.4  4.57
+2 Girl    11.7  4.11
+~~~
+{: .output}
+
+We can see that the means of the boys are similar to the means of the girls, but we would like
+to formally test if they are statistically different from each other. One way to do this is
+with a **_t_ test**.
+
+The question we are asking is **Is the mean blood lead level for the boys different to the mean
+blood lead level for the girls?** Formally, we could say:
+
+$$H_0: \mu_{boys} = \mu_{girls} \\
+H_1: \mu_{boys} \neq \mu_{girls}$$
+
+
+~~~
+t.test(blood_lead ~ gender, data = pattani)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+	Welch Two Sample t-test
+
+data:  blood_lead by gender
+t = 1.5858, df = 410.97, p-value = 0.1136
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.1594838  1.4905952
+sample estimates:
+ mean in group Boy mean in group Girl 
+          12.40049           11.73493 
+~~~
+{: .output}
+
+Notice that the means shown for each group are the same as what we calculated earlier. The
+**alternative hypothesis** is that the **difference in means is not equal to 0**, as we
+mentioned.
 
 ## Analysis of Variance (ANOVA)

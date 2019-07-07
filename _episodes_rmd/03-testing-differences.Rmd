@@ -9,7 +9,7 @@ objectives:
 - "Choose the appropriate test for the data you have."
 - ""
 keypoints:
-- "You can use t-tests and ANOVAs if you have a continuous response and categorical predictors."
+- "You can use _t_ tests and ANOVAs if you have a continuous response and categorical predictors."
 source: "Rmd"
 ---
 
@@ -81,5 +81,31 @@ pattani %>%
 ```
 
 ## Testing the difference between 2 groups
+
+Going back to the difference by gender,
+
+```{r summarise_gender2}
+pattani %>%
+  group_by(gender) %>%
+  summarise(mean = mean(blood_lead, na.rm = TRUE), sd = sd(blood_lead, na.rm = TRUE))
+```
+
+We can see that the means of the boys are similar to the means of the girls, but we would like
+to formally test if they are statistically different from each other. One way to do this is
+with a **_t_ test**.
+
+The question we are asking is **Is the mean blood lead level for the boys different to the mean
+blood lead level for the girls?** Formally, we could say:
+
+$$H_0: \mu_{boys} = \mu_{girls} \\
+H_1: \mu_{boys} \neq \mu_{girls}$$
+
+```{r, ttest}
+t.test(blood_lead ~ gender, data = pattani)
+```
+
+Notice that the means shown for each group are the same as what we calculated earlier. The
+**alternative hypothesis** is that the **difference in means is not equal to 0**, as we
+mentioned.
 
 ## Analysis of Variance (ANOVA)
