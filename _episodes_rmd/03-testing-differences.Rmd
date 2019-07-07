@@ -2,7 +2,7 @@
 title: "Testing differences in categories"
 author: "Tim Keighley"
 teaching: 60
-exercises: 0
+exercises: 30
 questions:
 - ""
 objectives:
@@ -25,6 +25,9 @@ path <- file.path("..", "data", "Pattani.xlsx")
 pattani <- readxl::read_excel(path, sheet = "Data", skip = 1) %>%
   rename(blood_lead = `blood lead`, ln_blood_lead = `ln(blood lead)`) %>%
   mutate(gender = as_factor(gender), school = as_factor(school), water = as_factor(water))
+
+cuckoo <- readr::read_csv(file.path("..", "data", "cuckoo.csv")) %>%
+  mutate(Nest = as_factor(Nest))
 
 theme_set(theme_bw())
 ```
@@ -82,6 +85,22 @@ pattani %>%
   group_by(gender, school) %>%
   summarise(mean = mean(blood_lead, na.rm = TRUE), sd = sd(blood_lead, na.rm = TRUE))
 ```
+
+> ## Cuckoo egg lengths
+>
+> Find the mean and standard deviation for the cuckoo eggs by host nest type.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_summarise}
+> > cuckoo %>%
+> >   group_by(Nest) %>%
+> >   summarise(mean = mean(Length), sd = sd(Length))
+> > ```
+> >
+> > We don't have to use `na.rm = TRUE` because there aren't any missing values.
+> {: .solution}
+{: .challenge}
 
 ## Testing the difference between 2 groups
 
@@ -210,6 +229,19 @@ summary output. The other schools are being compared with this school. The p-val
 schools are less than 0.05, so they are all statistically different from the first school.
 The overall p-value is also less than 0.05.
 
+> ## Cuckoo egg lengths ANOVA
+>
+> Perform an ANOVA on the cuckoo data.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_anova}
+> > cuckoo_aov <- aov(Length ~ Nest, data = cuckoo)
+> > summary.lm(cuckoo_aov)
+> > ```
+> {: .solution}
+{: .challenge}
+
 Again, we should check the residuals to see if they are Normal.
 
 ```{r residual_school}
@@ -221,6 +253,22 @@ ggplot(school_aov_augment, aes(sample = .resid)) +
 ```
 
 They seem closer to normality than the model with gender, but still a small amount of concern.
+
+> ## Cuckoo ANOVA residuals
+>
+> Check the residuals for the cuckoo ANOVA.
+>
+> > ## Solution
+> >
+> > ```{r cuckoo_residuals}
+> > cuckoo_aov_augment <- broom::augment(cuckoo_aov, cuckoo)
+> >
+> > ggplot(cuckoo_aov_augment, aes(sample = .resid)) +
+> >   geom_qq() +
+> >   geom_qq_line()
+> > ```
+> {: .solution}
+{: .challenge}
 
 ### ANOVA with 2 variables
 
@@ -257,3 +305,6 @@ anova(school_aov, both_aov2, both_aov)
 >
 > Some of these notes are based on material in Moore, McCabe & Craig (2017), Peter
 > Petocz's lecture notes for STAT270, and Drew Allen's _Intro to Statistics in R_ workshop.
+{: .callout}
+
+{% include links.md %}

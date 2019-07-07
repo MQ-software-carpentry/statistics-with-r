@@ -4,7 +4,7 @@
 title: "Testing differences in categories"
 author: "Tim Keighley"
 teaching: 60
-exercises: 0
+exercises: 30
 questions:
 - ""
 objectives:
@@ -148,6 +148,36 @@ pattani %>%
 10 Girl   Sabarang   11.5   2.87
 ~~~
 {: .output}
+
+> ## Cuckoo egg lengths
+>
+> Find the mean and standard deviation for the cuckoo eggs by host nest type.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > cuckoo %>%
+> >   group_by(Nest) %>%
+> >   summarise(mean = mean(Length), sd = sd(Length))
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > # A tibble: 3 x 3
+> >   Nest     mean    sd
+> >   <fct>   <dbl> <dbl>
+> > 1 Robin    22.6 0.682
+> > 2 Wren     21.1 0.754
+> > 3 Sparrow  23.1 1.02 
+> > ~~~
+> > {: .output}
+> >
+> > We don't have to use `na.rm = TRUE` because there aren't any missing values.
+> {: .solution}
+{: .challenge}
 
 ## Testing the difference between 2 groups
 
@@ -440,6 +470,46 @@ summary output. The other schools are being compared with this school. The p-val
 schools are less than 0.05, so they are all statistically different from the first school.
 The overall p-value is also less than 0.05.
 
+> ## Cuckoo egg lengths ANOVA
+>
+> Perform an ANOVA on the cuckoo data.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > cuckoo_aov <- aov(Length ~ Nest, data = cuckoo)
+> > summary.lm(cuckoo_aov)
+> > ~~~
+> > {: .language-r}
+> > 
+> > 
+> > 
+> > ~~~
+> > 
+> > Call:
+> > aov(formula = Length ~ Nest, data = cuckoo)
+> > 
+> > Residuals:
+> >      Min       1Q   Median       3Q      Max 
+> > -2.17143 -0.32000 -0.07143  0.44375  1.92857 
+> > 
+> > Coefficients:
+> >             Estimate Std. Error t value Pr(>|t|)    
+> > (Intercept)  22.5563     0.2061 109.468  < 2e-16 ***
+> > NestWren     -1.4363     0.2962  -4.849 1.74e-05 ***
+> > NestSparrow   0.5152     0.3016   1.708    0.095 .  
+> > ---
+> > Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+> > 
+> > Residual standard error: 0.8242 on 42 degrees of freedom
+> > Multiple R-squared:  0.5133,	Adjusted R-squared:  0.4901 
+> > F-statistic: 22.15 on 2 and 42 DF,  p-value: 2.705e-07
+> > ~~~
+> > {: .output}
+> {: .solution}
+{: .challenge}
+
 Again, we should check the residuals to see if they are Normal.
 
 
@@ -455,6 +525,26 @@ ggplot(school_aov_augment, aes(sample = .resid)) +
 <img src="../fig/rmd-residual_school-1.png" title="plot of chunk residual_school" alt="plot of chunk residual_school" width="612" style="display: block; margin: auto;" />
 
 They seem closer to normality than the model with gender, but still a small amount of concern.
+
+> ## Cuckoo ANOVA residuals
+>
+> Check the residuals for the cuckoo ANOVA.
+>
+> > ## Solution
+> >
+> > 
+> > ~~~
+> > cuckoo_aov_augment <- broom::augment(cuckoo_aov, cuckoo)
+> > 
+> > ggplot(cuckoo_aov_augment, aes(sample = .resid)) +
+> >   geom_qq() +
+> >   geom_qq_line()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-cuckoo_residuals-1.png" title="plot of chunk cuckoo_residuals" alt="plot of chunk cuckoo_residuals" width="612" style="display: block; margin: auto;" />
+> {: .solution}
+{: .challenge}
 
 ### ANOVA with 2 variables
 
@@ -578,3 +668,6 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 >
 > Some of these notes are based on material in Moore, McCabe & Craig (2017), Peter
 > Petocz's lecture notes for STAT270, and Drew Allen's _Intro to Statistics in R_ workshop.
+{: .callout}
+
+{% include links.md %}

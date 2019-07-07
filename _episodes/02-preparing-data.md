@@ -3,7 +3,7 @@
 # Instead, please edit 02-preparing-data.md in _episodes_rmd/
 title: "Preparing and Investigating Data"
 teaching: 60
-exercises: 0
+exercises: 30
 questions:
 - "What to do before you can bring the data into R?"
 objectives:

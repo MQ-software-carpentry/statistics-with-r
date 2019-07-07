@@ -1,7 +1,7 @@
 ---
 title: "Preparing and Investigating Data"
 teaching: 60
-exercises: 0
+exercises: 30
 questions:
 - "What to do before you can bring the data into R?"
 objectives:
