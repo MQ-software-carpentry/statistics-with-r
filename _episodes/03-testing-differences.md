@@ -173,7 +173,7 @@ pattani %>%
 
 We can see that the means of the boys are similar to the means of the girls, but we would like
 to formally test if they are statistically different from each other. One way to do this is
-with a **_t_ test**.
+with a **_t_ test**, using the R function `t.test`.
 
 The question we are asking is **Is the mean blood lead level for the boys different to the mean
 blood lead level for the girls?** Formally, we could say:
@@ -206,6 +206,153 @@ sample estimates:
 
 Notice that the means shown for each group are the same as what we calculated earlier. The
 **alternative hypothesis** is that the **difference in means is not equal to 0**, as we
-mentioned.
+mentioned. The **p-value** is
+0.1136. This indicates that the
+the mean blood lead level for the boys and girls is not significantly different at the 0.05
+level. The 95% confidence interval includes 0, which is another way to see that the means
+are not different from each other.
 
 ## Analysis of Variance (ANOVA)
+
+A **_t_ test** can only be used when you have 2 groups, like boys and girls, so we need to use
+a different technique when you have more than 2 groups, like the 5 schools. This is the
+**analysis of variance** or **ANOVA**. The main R function to perform this analysis is
+`aov`. Be aware that there is also a function `anova` although this is used after you have
+fit the model using `aov`.
+
+You can still use ANOVAs for 2 groups:
+
+
+~~~
+gender_aov <- aov(blood_lead ~ gender, data = pattani)
+gender_aov
+~~~
+{: .language-r}
+
+
+
+~~~
+Call:
+   aov(formula = blood_lead ~ gender, data = pattani)
+
+Terms:
+                  gender Residuals
+Sum of Squares    47.791  8091.610
+Deg. of Freedom        1       431
+
+Residual standard error: 4.332902
+Estimated effects may be unbalanced
+1 observation deleted due to missingness
+~~~
+{: .output}
+
+This give us some information, but there are some other things that we might like to know,
+like the p-value. Previously we used the `summary` function to get a summary of the data.
+We can also use it to get a summary of an ANOVA object.
+
+
+~~~
+summary(gender_aov)
+~~~
+{: .language-r}
+
+
+
+~~~
+             Df Sum Sq Mean Sq F value Pr(>F)
+gender        1     48   47.79   2.546  0.111
+Residuals   431   8092   18.77               
+1 observation deleted due to missingness
+~~~
+{: .output}
+
+Actually not that useful. But ANOVAs are a special type of linear model (which we will talk
+about in more detail tomorrow) so we can directly call the `summary.lm` function which deals
+with linear models.
+
+
+~~~
+summary.lm(gender_aov)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+aov(formula = blood_lead ~ gender, data = pattani)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.4005 -3.4005 -0.4005  2.6995 15.8995 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  12.4005     0.3034  40.877   <2e-16 ***
+genderGirl   -0.6656     0.4171  -1.595    0.111    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.333 on 431 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.005872,	Adjusted R-squared:  0.003565 
+F-statistic: 2.546 on 1 and 431 DF,  p-value: 0.1113
+~~~
+{: .output}
+
+Now we can see the p-value and several other pieces of information about the fitted model.
+
+We should check if the model fit well. To do this we will need to get some of the parameters
+from the fitted model. The `augment` function in the `broom` package helps with this.
+
+
+~~~
+gender_aov_augment <- broom::augment(gender_aov, pattani)
+gender_aov_augment
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 433 x 15
+      ID blood_lead   age gender school duration water ln_blood_lead
+   <dbl>      <dbl> <dbl> <fct>  <fct>     <dbl> <fct>         <dbl>
+ 1     1       11.7    13 Boy    Tangk~       13 Boil           2.46
+ 2     2       11.8    13 Boy    Tangk~        5 Boil           2.47
+ 3     3        6.4    13 Girl   Tangk~       13 Stand          1.86
+ 4     4        6.9    11 Girl   Tangk~       11 Boil           1.93
+ 5     5       10.3    13 Girl   Tangk~        5 Boil           2.33
+ 6     6        8.3    13 Girl   Tangk~       13 Filt~          2.12
+ 7     7        6.2    13 Girl   Tangk~        5 Filt~          1.82
+ 8     8        9.4    13 Boy    Tangk~       13 Stand          2.24
+ 9     9       14.9    11 Boy    Tangk~       11 Boil           2.70
+10    10        8.1    11 Girl   Tangk~       11 Filt~          2.09
+# ... with 423 more rows, and 7 more variables: .fitted <dbl>,
+#   .se.fit <dbl>, .resid <dbl>, .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
+#   .std.resid <dbl>
+~~~
+{: .output}
+
+One of the assumptions of the ANOVA model is that the residuals are Normally distributed.
+Like before, we can use a QQ plot to check for normality.
+
+
+~~~
+ggplot(gender_aov_augment, aes(sample = .resid)) +
+  geom_qq() +
+  geom_qq_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-residual_qq-1.png" title="plot of chunk residual_qq" alt="plot of chunk residual_qq" width="612" style="display: block; margin: auto;" />
+
+The points deviate from the line, so the residuals are probably not normally distributed.
+Something to consider, but we will move on with the model.
+
+
+
+### ANOVA with more than 2 groups
+
+
