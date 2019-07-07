@@ -97,10 +97,8 @@ to formally test if they are statistically different from each other. One way to
 with a **_t_ test**, using the R function `t.test`.
 
 The question we are asking is **Is the mean blood lead level for the boys different to the mean
-blood lead level for the girls?** Formally, we could say:
-
-$$H_0: \mu_{boys} = \mu_{girls} \\
-H_1: \mu_{boys} \neq \mu_{girls}$$
+blood lead level for the girls?** <!-- Formally, we could say: $$H_0: \mu_{boys} = \mu_{girls} \\
+H_1: \mu_{boys} \neq \mu_{girls}$$ -->
 
 ```{r, ttest}
 t.test(blood_lead ~ gender, data = pattani)
@@ -192,3 +190,21 @@ now we should use it on a variable with more than 2 groups.
 school_aov <- aov(blood_lead ~ school, data = pattani)
 summary.lm(school_aov)
 ```
+
+As a reminder, the names of the schools were `r I(paste(levels(pattani$school), sep = ", "))`.
+Notice that the first school, `r I(levels(pattani$school)[1])`, does not appear in the
+summary output. The other schools are being compared with this school. The p-values of all the
+schools are less than 0.05, so they are all statistically different from the first school.
+The overall p-value is also less than 0.05.
+
+Again, we should check the residuals to see if they are Normal.
+
+```{r residual_school}
+school_aov_augment <- broom::augment(school_aov, pattani)
+
+ggplot(school_aov_augment, aes(sample = .resid)) +
+  geom_qq() +
+  geom_qq_line()
+```
+
+They seem closer to normality than the model with gender, but still a small amount of concern.

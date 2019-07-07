@@ -176,10 +176,8 @@ to formally test if they are statistically different from each other. One way to
 with a **_t_ test**, using the R function `t.test`.
 
 The question we are asking is **Is the mean blood lead level for the boys different to the mean
-blood lead level for the girls?** Formally, we could say:
-
-$$H_0: \mu_{boys} = \mu_{girls} \\
-H_1: \mu_{boys} \neq \mu_{girls}$$
+blood lead level for the girls?** <!-- Formally, we could say: $$H_0: \mu_{boys} = \mu_{girls} \\
+H_1: \mu_{boys} \neq \mu_{girls}$$ -->
 
 
 ~~~
@@ -422,3 +420,25 @@ Multiple R-squared:  0.4093,	Adjusted R-squared:  0.4038
 F-statistic: 74.15 on 4 and 428 DF,  p-value: < 2.2e-16
 ~~~
 {: .output}
+
+As a reminder, the names of the schools were Tangkadeng, Thamthalu, Tachi, Tesabal 3, Sabarang.
+Notice that the first school, Tangkadeng, does not appear in the
+summary output. The other schools are being compared with this school. The p-values of all the
+schools are less than 0.05, so they are all statistically different from the first school.
+The overall p-value is also less than 0.05.
+
+Again, we should check the residuals to see if they are Normal.
+
+
+~~~
+school_aov_augment <- broom::augment(school_aov, pattani)
+
+ggplot(school_aov_augment, aes(sample = .resid)) +
+  geom_qq() +
+  geom_qq_line()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-residual_school-1.png" title="plot of chunk residual_school" alt="plot of chunk residual_school" width="612" style="display: block; margin: auto;" />
+
+They seem closer to normality than the model with gender, but still a small amount of concern.
