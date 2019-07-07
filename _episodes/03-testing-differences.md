@@ -207,7 +207,8 @@ sample estimates:
 Notice that the means shown for each group are the same as what we calculated earlier. The
 **alternative hypothesis** is that the **difference in means is not equal to 0**, as we
 mentioned. The **p-value** is
-0.1136. This indicates that the
+0.1136.
+This indicates that the
 the mean blood lead level for the boys and girls is not significantly different at the 0.05
 level. The 95% confidence interval includes 0, which is another way to see that the means
 are not different from each other.
@@ -302,6 +303,35 @@ F-statistic: 2.546 on 1 and 431 DF,  p-value: 0.1113
 {: .output}
 
 Now we can see the p-value and several other pieces of information about the fitted model.
+Looking at the line for the gender variable, you can see that the p-value is
+0.1113,
+which is equivalent to the p-value from the _t_ test.
+It is slightly different from the previous p-value because the standard
+_t_ test makes slightly different assumptions from the ANOVA. We can get them to match by
+using the `var.equal = TRUE` argument to `t.test`.
+
+
+~~~
+t.test(blood_lead ~ gender, data = pattani, var.equal = TRUE)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+	Two Sample t-test
+
+data:  blood_lead by gender
+t = 1.5955, df = 431, p-value = 0.1113
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.1543414  1.4854528
+sample estimates:
+ mean in group Boy mean in group Girl 
+          12.40049           11.73493 
+~~~
+{: .output}
 
 We should check if the model fit well. To do this we will need to get some of the parameters
 from the fitted model. The `augment` function in the `broom` package helps with this.
@@ -355,4 +385,40 @@ Something to consider, but we will move on with the model.
 
 ### ANOVA with more than 2 groups
 
+We have used ANOVA on a variable with 2 groups, which we could have done with a _t_ test, but
+now we should use it on a variable with more than 2 groups.
 
+
+~~~
+school_aov <- aov(blood_lead ~ school, data = pattani)
+summary.lm(school_aov)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+aov(formula = blood_lead ~ school, data = pattani)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.3652 -2.2844 -0.4312  1.8688 15.3688 
+
+Coefficients:
+                Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       8.4844     0.2885  29.413  < 2e-16 ***
+schoolThamthalu   7.9808     0.5722  13.948  < 2e-16 ***
+schoolTachi       4.4468     0.4135  10.755  < 2e-16 ***
+schoolTesabal 3   6.6914     0.5142  13.014  < 2e-16 ***
+schoolSabarang    3.0978     0.5142   6.025 3.65e-09 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 3.352 on 428 degrees of freedom
+  (1 observation deleted due to missingness)
+Multiple R-squared:  0.4093,	Adjusted R-squared:  0.4038 
+F-statistic: 74.15 on 4 and 428 DF,  p-value: < 2.2e-16
+~~~
+{: .output}

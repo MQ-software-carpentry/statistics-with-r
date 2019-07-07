@@ -109,7 +109,8 @@ t.test(blood_lead ~ gender, data = pattani)
 Notice that the means shown for each group are the same as what we calculated earlier. The
 **alternative hypothesis** is that the **difference in means is not equal to 0**, as we
 mentioned. The **p-value** is
-`r I(round(t.test(blood_lead ~ gender, data = pattani)$p.value, 4))`. This indicates that the
+`r I(sprintf("%0.4f", t.test(blood_lead ~ gender, data = pattani)$p.value))`.
+This indicates that the
 the mean blood lead level for the boys and girls is not significantly different at the 0.05
 level. The 95% confidence interval includes 0, which is another way to see that the means
 are not different from each other.
@@ -146,6 +147,16 @@ summary.lm(gender_aov)
 ```
 
 Now we can see the p-value and several other pieces of information about the fitted model.
+Looking at the line for the gender variable, you can see that the p-value is
+`r I(sprintf("%0.4f", broom::glance(gender_aov)$p.value))`,
+which is equivalent to the p-value from the _t_ test.
+It is slightly different from the previous p-value because the standard
+_t_ test makes slightly different assumptions from the ANOVA. We can get them to match by
+using the `var.equal = TRUE` argument to `t.test`.
+
+```{r, ttest2}
+t.test(blood_lead ~ gender, data = pattani, var.equal = TRUE)
+```
 
 We should check if the model fit well. To do this we will need to get some of the parameters
 from the fitted model. The `augment` function in the `broom` package helps with this.
@@ -174,4 +185,10 @@ ggplot(gender_aov_augment, aes(x = .fitted, y = .resid)) +
 
 ### ANOVA with more than 2 groups
 
+We have used ANOVA on a variable with 2 groups, which we could have done with a _t_ test, but
+now we should use it on a variable with more than 2 groups.
 
+```{r anova_school}
+school_aov <- aov(blood_lead ~ school, data = pattani)
+summary.lm(school_aov)
+```
