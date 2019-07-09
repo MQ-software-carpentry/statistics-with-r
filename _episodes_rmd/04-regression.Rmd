@@ -1079,6 +1079,7 @@ Illustrated on the squid data set.
 
 ```{r}
 model <- lm(Y ~ ., data = squid)
+model$call$data <- squid # Should not be needed when running by hand
 ols_step_forward_p(model)
 ```
 Final model has $X_5$, $X_4$ and $X_2$.
@@ -1086,7 +1087,8 @@ Final model has $X_5$, $X_4$ and $X_2$.
 ###### Forward stepwise elimination in R
 
 ```{r}
-modelb<-lm(Y ~ .,data=squid)
+modelb <- lm(Y ~ ., data = squid)
+modelb$call$data <- squid # Should not be needed when running by hand
 ols_step_backward_p(modelb)
 ```
 
@@ -1095,7 +1097,8 @@ Final model has $X_2$, $X-4$ and $X_5$.
 ###### Stepwise regression in R
 
 ```{r}
-models<-lm(Y ~ .,data=squid)
+models <- lm(Y ~ ., data = squid)
+models$call$data <- squid # Should not be needed when running by hand
 ols_step_both_p(models)
 ```
 
@@ -1104,7 +1107,8 @@ Final model has $X_5$ and $X_4$.
 ###### Best Subsets Regression in R
 
 ```{r}
-modelbs<-lm(Y ~ .,data=squid)
+modelbs <- lm(Y ~ ., data = squid)
+modelbs$call$data <- squid # Should not be needed when running by hand
 ols_step_best_subset(modelbs)
 ```
 
@@ -1458,11 +1462,12 @@ par(mfrow=c(2,2))
 plot(fit3)
 ```
 
-The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage.
+The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage. To actually identify the points use hatvalues(fit) where fit is whatever name you gave to the model fitted to the data.
 
-*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations* https://en.wikipedia.org/wiki/Leverage_(statistics)
+*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations*
+<https://en.wikipedia.org/wiki/Leverage_(statistics)>
 
-if they were removed the parameter estimates could be quite different. Such points are said to have high leverage. One rule of thumb for identifying such points is when
+One rule of thumb for identifying such points is when
 $$h_{ii}>2\frac{(p+1)}{n}.$$
 We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$ There are no high leverage points under the model fitted.
 
@@ -1470,9 +1475,18 @@ We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)
 
 According to Cook and Weisberg we flag acase as influential if $D_i\geq F_{p+1,n-p-1;0.50}$. For this example all Cook's distances are close to zero so appears that there are no influential points.
 
+The following can be used to obtain Cook's Disances.
+
+```{r}
+library(car)
+
+cooks.distance(fit)
+```
+To get $D_i\geq F_{p+1,n-p-1;0.50}$ use qf(.5, df1=p+1, df2=n-p-1) in R where you substitute the number values of df1 and df2.
+
 **4. Categorical Predictors**
 
-To fit models with categorical predictors with more than two values (levels) we need to use the **glm** command in R. 
+To fit models with categorical predictors with more than two values (levels) we need to use the **lm** command in R. 
 
 **Example: BMD Data set**
 
@@ -1513,7 +1527,7 @@ The predictor TRTPRV takes on the value 0 if the subject had not previously take
 The regression of BMD against BMI and TRTPRV gives:
 
 ```{r}
-bmd<-read.csv("BMD.csv")
+bmd<-read_csv(file.path("..", "data", "BMD.csv"))
 names(bmd)<-c("BMD","BMI","AGE","CALCIUM","WTKG","HTCM","MENOPYRS","SMKCODE","PARITY","ALCOHOL","TRTPRV","AGEMENOP","BMI_CAT","OSTEOFAM")
 fit<-lm(BMD~BMI+TRTPRV,data=bmd)
 summary(fit)
@@ -1813,9 +1827,8 @@ We conclude that moderate smokers have mean BMD levels significantly lower than 
 
 A sensible choice for referent category will be a category which:
 
-*for numerical stability: is not sparse; has a reasonable number of observations; and
-
-*is a sensible point of reference in the context of the problem.
+- for numerical stability: is not sparse; has a reasonable number of observations; and
+- is a sensible point of reference in the context of the problem.
 
 In the BMD example, we have the following frequencies for Smkcode:
 

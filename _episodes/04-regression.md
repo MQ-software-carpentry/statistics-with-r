@@ -1725,6 +1725,7 @@ Illustrated on the squid data set.
 
 ~~~
 model <- lm(Y ~ ., data = squid)
+model$call$data <- squid # Should not be needed when running by hand
 ols_step_forward_p(model)
 ~~~
 {: .language-r}
@@ -1732,16 +1733,86 @@ ols_step_forward_p(model)
 
 
 ~~~
-Error in eval(model$call$data): object 'squid' not found
+Forward Selection Method    
+---------------------------
+
+Candidate Terms: 
+
+1. X1 
+2. X2 
+3. X3 
+4. X4 
+5. X5 
+
+We are selecting variables based on p value...
+
+Variables Entered: 
+
+- X5 
+- X4 
+- X2 
+
+No more variables to be added.
+
+Final Model Output 
+------------------
+
+                        Model Summary                          
+--------------------------------------------------------------
+R                       0.981       RMSE                0.678 
+R-Squared               0.962       Coef. Var          16.169 
+Adj. R-Squared          0.955       MSE                 0.460 
+Pred R-Squared          0.930       MAE                 0.524 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+
+                               ANOVA                                 
+--------------------------------------------------------------------
+               Sum of                                               
+              Squares        DF    Mean Square       F         Sig. 
+--------------------------------------------------------------------
+Regression    207.643         3         69.214     150.44    0.0000 
+Residual        8.281        18          0.460                      
+Total         215.925        21                                     
+--------------------------------------------------------------------
+
+                                  Parameter Estimates                                    
+----------------------------------------------------------------------------------------
+      model      Beta    Std. Error    Std. Beta      t        Sig      lower     upper 
+----------------------------------------------------------------------------------------
+(Intercept)    -5.980         0.659                 -9.073    0.000    -7.365    -4.596 
+         X5    17.109         3.082        0.798     5.551    0.000    10.634    23.584 
+         X4     6.879         2.783        0.489     2.472    0.024     1.033    12.726 
+         X2    -2.890         2.346       -0.292    -1.232    0.234    -7.820     2.040 
+----------------------------------------------------------------------------------------
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+
+                           Selection Summary                            
+-----------------------------------------------------------------------
+        Variable                  Adj.                                     
+Step    Entered     R-Square    R-Square     C(p)       AIC       RMSE     
+-----------------------------------------------------------------------
+   1    X5            0.9455      0.9428    5.7794    54.6672    0.7670    
+   2    X4            0.9584      0.9540    2.1456    50.7185    0.6875    
+   3    X2            0.9616      0.9553    2.7354    50.9387    0.6783    
+-----------------------------------------------------------------------
+~~~
+{: .output}
 Final model has $X_5$, $X_4$ and $X_2$.
 
 ###### Forward stepwise elimination in R
 
 
 ~~~
-modelb<-lm(Y ~ .,data=squid)
+modelb <- lm(Y ~ ., data = squid)
+modelb$call$data <- squid # Should not be needed when running by hand
 ols_step_backward_p(modelb)
 ~~~
 {: .language-r}
@@ -1749,9 +1820,77 @@ ols_step_backward_p(modelb)
 
 
 ~~~
-Error in eval(model$call$data): object 'squid' not found
+Backward Elimination Method 
+---------------------------
+
+Candidate Terms: 
+
+1 . X1 
+2 . X2 
+3 . X3 
+4 . X4 
+5 . X5 
+
+We are eliminating variables based on p value...
+
+Variables Removed: 
+
+- X3 
+- X1 
+
+No more variables satisfy the condition of p value = 0.3
+
+
+Final Model Output 
+------------------
+
+                        Model Summary                          
+--------------------------------------------------------------
+R                       0.981       RMSE                0.678 
+R-Squared               0.962       Coef. Var          16.169 
+Adj. R-Squared          0.955       MSE                 0.460 
+Pred R-Squared          0.930       MAE                 0.524 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+
+                               ANOVA                                 
+--------------------------------------------------------------------
+               Sum of                                               
+              Squares        DF    Mean Square       F         Sig. 
+--------------------------------------------------------------------
+Regression    207.643         3         69.214     150.44    0.0000 
+Residual        8.281        18          0.460                      
+Total         215.925        21                                     
+--------------------------------------------------------------------
+
+                                  Parameter Estimates                                    
+----------------------------------------------------------------------------------------
+      model      Beta    Std. Error    Std. Beta      t        Sig      lower     upper 
+----------------------------------------------------------------------------------------
+(Intercept)    -5.980         0.659                 -9.073    0.000    -7.365    -4.596 
+         X2    -2.890         2.346       -0.292    -1.232    0.234    -7.820     2.040 
+         X4     6.879         2.783        0.489     2.472    0.024     1.033    12.726 
+         X5    17.109         3.082        0.798     5.551    0.000    10.634    23.584 
+----------------------------------------------------------------------------------------
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+
+                          Elimination Summary                           
+-----------------------------------------------------------------------
+        Variable                  Adj.                                     
+Step    Removed     R-Square    R-Square     C(p)       AIC       RMSE     
+-----------------------------------------------------------------------
+   1    X3             0.963      0.9543    4.1582    52.1665    0.6858    
+   2    X1            0.9616      0.9553    2.7354    50.9387    0.6783    
+-----------------------------------------------------------------------
+~~~
+{: .output}
 
 Final model has $X_2$, $X-4$ and $X_5$.
 
@@ -1759,7 +1898,8 @@ Final model has $X_2$, $X-4$ and $X_5$.
 
 
 ~~~
-models<-lm(Y ~ .,data=squid)
+models <- lm(Y ~ ., data = squid)
+models$call$data <- squid # Should not be needed when running by hand
 ols_step_both_p(models)
 ~~~
 {: .language-r}
@@ -1767,9 +1907,76 @@ ols_step_both_p(models)
 
 
 ~~~
-Error in eval(model$call$data): object 'squid' not found
+Stepwise Selection Method   
+---------------------------
+
+Candidate Terms: 
+
+1. X1 
+2. X2 
+3. X3 
+4. X4 
+5. X5 
+
+We are selecting variables based on p value...
+
+Variables Entered/Removed: 
+
+- X5 added 
+- X4 added 
+
+No more variables to be added/removed.
+
+
+Final Model Output 
+------------------
+
+                        Model Summary                          
+--------------------------------------------------------------
+R                       0.979       RMSE                0.687 
+R-Squared               0.958       Coef. Var          16.387 
+Adj. R-Squared          0.954       MSE                 0.473 
+Pred R-Squared          0.945       MAE                 0.529 
+--------------------------------------------------------------
+ RMSE: Root Mean Square Error 
+ MSE: Mean Square Error 
+ MAE: Mean Absolute Error 
+
+                               ANOVA                                 
+--------------------------------------------------------------------
+               Sum of                                               
+              Squares        DF    Mean Square       F         Sig. 
+--------------------------------------------------------------------
+Regression    206.945         2        103.473    218.947    0.0000 
+Residual        8.979        19          0.473                      
+Total         215.925        21                                     
+--------------------------------------------------------------------
+
+                                   Parameter Estimates                                    
+-----------------------------------------------------------------------------------------
+      model      Beta    Std. Error    Std. Beta       t        Sig      lower     upper 
+-----------------------------------------------------------------------------------------
+(Intercept)    -6.335         0.601                 -10.543    0.000    -7.593    -5.077 
+         X5    15.016         2.606        0.700      5.763    0.000     9.562    20.470 
+         X4     4.154         1.710        0.295      2.429    0.025     0.574     7.734 
+-----------------------------------------------------------------------------------------
 ~~~
-{: .error}
+{: .output}
+
+
+
+~~~
+
+                            Stepwise Selection Summary                              
+-----------------------------------------------------------------------------------
+                     Added/                   Adj.                                     
+Step    Variable    Removed     R-Square    R-Square     C(p)       AIC       RMSE     
+-----------------------------------------------------------------------------------
+   1       X5       addition       0.946       0.943    5.7790    54.6672    0.7670    
+   2       X4       addition       0.958       0.954    2.1460    50.7185    0.6875    
+-----------------------------------------------------------------------------------
+~~~
+{: .output}
 
 Final model has $X_5$ and $X_4$.
 
@@ -1777,7 +1984,8 @@ Final model has $X_5$ and $X_4$.
 
 
 ~~~
-modelbs<-lm(Y ~ .,data=squid)
+modelbs <- lm(Y ~ ., data = squid)
+modelbs$call$data <- squid # Should not be needed when running by hand
 ols_step_best_subset(modelbs)
 ~~~
 {: .language-r}
@@ -1785,9 +1993,37 @@ ols_step_best_subset(modelbs)
 
 
 ~~~
-Error in eval(model$call$data): object 'squid' not found
+   Best Subsets Regression   
+-----------------------------
+Model Index    Predictors
+-----------------------------
+     1         X5             
+     2         X4 X5          
+     3         X2 X4 X5       
+     4         X1 X2 X4 X5    
+     5         X1 X2 X3 X4 X5 
+-----------------------------
+
+                                                 Subsets Regression Summary                                                  
+-----------------------------------------------------------------------------------------------------------------------------
+                       Adj.        Pred                                                                                       
+Model    R-Square    R-Square    R-Square     C(p)       AIC        SBIC        SBC       MSEP      FPE       HSP       APC  
+-----------------------------------------------------------------------------------------------------------------------------
+  1        0.9455      0.9428      0.9343    5.7794    54.6672     -8.0766    57.9403    0.6475    0.6418    0.0310    0.0654 
+  2        0.9584      0.9540      0.9448    2.1456    50.7185    -10.5305    55.0827    0.5490    0.5370    0.0263    0.0547 
+  3        0.9616      0.9553      0.9301    2.7354    50.9387     -9.1759    56.3940    0.5659    0.5437    0.0271    0.0554 
+  4        0.9630      0.9543      0.9262    4.1582    52.1665     -6.9128    58.7128    0.6147    0.5772    0.0294    0.0588 
+  5        0.9633      0.9519        0.91    6.0000    53.9501     -4.2645    61.5874    0.6898    0.6298    0.0330    0.0642 
+-----------------------------------------------------------------------------------------------------------------------------
+AIC: Akaike Information Criteria 
+ SBIC: Sawa's Bayesian Information Criteria 
+ SBC: Schwarz Bayesian Criteria 
+ MSEP: Estimated error of prediction, assuming multivariate normality 
+ FPE: Final Prediction Error 
+ HSP: Hocking's Sp 
+ APC: Amemiya Prediction Criteria 
 ~~~
-{: .error}
+{: .output}
 
 Using Mallow's $C_p$ would go for Model 3. Full model always has Mallow's $C_p = p$.
 
@@ -2963,11 +3199,12 @@ plot(fit3)
 
 <img src="../fig/rmd-unnamed-chunk-54-1.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="612" style="display: block; margin: auto;" />
 
-The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage.
+The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage. To actually identify the points use hatvalues(fit) where fit is whatever name you gave to the model fitted to the data.
 
-*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations* https://en.wikipedia.org/wiki/Leverage_(statistics)
+*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations*
+<https://en.wikipedia.org/wiki/Leverage_(statistics)>
 
-if they were removed the parameter estimates could be quite different. Such points are said to have high leverage. One rule of thumb for identifying such points is when
+One rule of thumb for identifying such points is when
 $$h_{ii}>2\frac{(p+1)}{n}.$$
 We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$ There are no high leverage points under the model fitted.
 
@@ -2975,9 +3212,36 @@ We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)
 
 According to Cook and Weisberg we flag acase as influential if $D_i\geq F_{p+1,n-p-1;0.50}$. For this example all Cook's distances are close to zero so appears that there are no influential points.
 
+The following can be used to obtain Cook's Disances.
+
+
+~~~
+library(car)
+
+cooks.distance(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+           1            2            3            4            5 
+1.491363e-02 2.714110e-02 2.203842e-02 8.236742e-03 1.047932e-03 
+           6            7            8            9           10 
+1.119823e-02 4.391635e-02 3.386806e-02 1.075475e-01 7.001717e-03 
+          11           12           13           14           15 
+9.366549e-02 4.016974e-03 1.165020e-02 1.624058e-01 1.044987e-01 
+          16           17           18           19           20 
+1.840585e-05 1.209214e-01 1.045333e-01 6.708925e-02 5.233727e-02 
+          21           22 
+2.204762e-02 1.522339e-02 
+~~~
+{: .output}
+To get $D_i\geq F_{p+1,n-p-1;0.50}$ use qf(.5, df1=p+1, df2=n-p-1) in R where you substitute the number values of df1 and df2.
+
 **4. Categorical Predictors**
 
-To fit models with categorical predictors with more than two values (levels) we need to use the **glm** command in R. 
+To fit models with categorical predictors with more than two values (levels) we need to use the **lm** command in R. 
 
 **Example: BMD Data set**
 
@@ -3019,56 +3283,38 @@ The regression of BMD against BMI and TRTPRV gives:
 
 
 ~~~
-bmd<-read.csv("BMD.csv")
+bmd<-read_csv(file.path("..", "data", "BMD.csv"))
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Warning in file(file, "rt"): cannot open file 'BMD.csv': No such file or
-directory
+Parsed with column specification:
+cols(
+  BMD = col_double(),
+  BMI = col_double(),
+  AGE = col_double(),
+  CALCIUM = col_double(),
+  WTKG = col_double(),
+  HTCM = col_double(),
+  MENOPYRS = col_double(),
+  SMKCODE = col_double(),
+  PARITY = col_double(),
+  ALCOHOL = col_double(),
+  TRTPRV = col_double(),
+  AGEMENOP = col_double(),
+  BMI_CAT = col_double(),
+  OSTEOFAM = col_double()
+)
 ~~~
-{: .error}
-
-
-
-~~~
-Error in file(file, "rt"): cannot open the connection
-~~~
-{: .error}
+{: .output}
 
 
 
 ~~~
 names(bmd)<-c("BMD","BMI","AGE","CALCIUM","WTKG","HTCM","MENOPYRS","SMKCODE","PARITY","ALCOHOL","TRTPRV","AGEMENOP","BMI_CAT","OSTEOFAM")
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in names(bmd) <- c("BMD", "BMI", "AGE", "CALCIUM", "WTKG", "HTCM", : object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 fit<-lm(BMD~BMI+TRTPRV,data=bmd)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit)
 ~~~
 {: .language-r}
@@ -3078,23 +3324,23 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Mass ~ Height + Waist, data = mass)
+lm(formula = BMD ~ BMI + TRTPRV, data = bmd)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--8.9319 -3.2881  0.6235  3.5401  5.2012 
+     Min       1Q   Median       3Q      Max 
+-0.32088 -0.08494  0.00583  0.09239  0.38783 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
-Height        0.3439     0.1559   2.206  0.03990 *  
-Waist         1.1909     0.1240   9.604    1e-08 ***
+(Intercept) 0.945730   0.076010  12.442   <2e-16 ***
+BMI         0.005948   0.002867   2.075   0.0402 *  
+TRTPRV      0.032468   0.028704   1.131   0.2603    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.147 on 19 degrees of freedom
-Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
-F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+Residual standard error: 0.1446 on 119 degrees of freedom
+Multiple R-squared:  0.04411,	Adjusted R-squared:  0.02805 
+F-statistic: 2.746 on 2 and 119 DF,  p-value: 0.06826
 ~~~
 {: .output}
 
@@ -3127,19 +3373,6 @@ If we regress BMD on SMKCODE we get:
 
 ~~~
 fit1<-lm(BMD~SMKCODE,data=bmd)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit1)
 ~~~
 {: .language-r}
@@ -3149,23 +3382,22 @@ summary(fit1)
 ~~~
 
 Call:
-lm(formula = y ~ x1 + x2, data = data1)
+lm(formula = BMD ~ SMKCODE, data = bmd)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--12.8407  -4.2836   0.0165   4.0220   9.5455 
+-0.32688 -0.09233  0.00366  0.10306  0.41163 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  12.4042     1.1830  10.485  < 2e-16 ***
-x1           -0.6230     0.1833  -3.399 0.000982 ***
-x2           -6.2591     1.0580  -5.916 4.96e-08 ***
+(Intercept)  1.18137    0.02970  39.782  < 2e-16 ***
+SMKCODE     -0.05710    0.02117  -2.697  0.00801 ** 
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.29 on 97 degrees of freedom
-Multiple R-squared:  0.3243,	Adjusted R-squared:  0.3104 
-F-statistic: 23.28 on 2 and 97 DF,  p-value: 5.539e-09
+Residual standard error: 0.143 on 120 degrees of freedom
+Multiple R-squared:  0.05714,	Adjusted R-squared:  0.04929 
+F-statistic: 7.273 on 1 and 120 DF,  p-value: 0.008007
 ~~~
 {: .output}
 
@@ -3210,19 +3442,6 @@ which means there is a perfect collinearity between the indicator variables. Ano
 
 ~~~
 fit<-lm(BMD ~ factor(SMKCODE), data = bmd)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit)
 ~~~
 {: .language-r}
@@ -3232,23 +3451,23 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Mass ~ Height + Waist, data = mass)
+lm(formula = BMD ~ factor(SMKCODE), data = bmd)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--8.9319 -3.2881  0.6235  3.5401  5.2012 
+     Min       1Q   Median       3Q      Max 
+-0.33018 -0.08980  0.00036  0.09505  0.40832 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
-Height        0.3439     0.1559   2.206  0.03990 *  
-Waist         1.1909     0.1240   9.604    1e-08 ***
+                 Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       1.12758    0.01412  79.835  < 2e-16 ***
+factor(SMKCODE)2 -0.12711    0.04706  -2.701  0.00792 ** 
+factor(SMKCODE)3 -0.08718    0.04507  -1.934  0.05544 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.147 on 19 degrees of freedom
-Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
-F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+Residual standard error: 0.1419 on 119 degrees of freedom
+Multiple R-squared:  0.07856,	Adjusted R-squared:  0.06307 
+F-statistic: 5.073 on 2 and 119 DF,  p-value: 0.007689
 ~~~
 {: .output}
 
@@ -3264,12 +3483,7 @@ boxplot(BMD~SMKCODE,data=bmd)
 ~~~
 {: .language-r}
 
-
-
-~~~
-Error in eval(m$data, parent.frame()): object 'bmd' not found
-~~~
-{: .error}
+<img src="../fig/rmd-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" />
 
 in which we can see the lower BMDs of smokers. This suggests another method of analysis: one-way analysis of variance. The model is
 $$Y_{ij}=\mu+\alpha_j+\varepsilon_{ij},   i=1,\ldots,n_j;    j=1,2,3$$
@@ -3295,11 +3509,10 @@ anova(fit)
 ~~~
 Analysis of Variance Table
 
-Response: Mass
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-Height     1  610.86  610.86  35.514 9.788e-06 ***
-Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
-Residuals 19  326.80   17.20                      
+Response: BMD
+                 Df  Sum Sq  Mean Sq F value   Pr(>F)   
+factor(SMKCODE)   2 0.20441 0.102204  5.0727 0.007689 **
+Residuals       119 2.39759 0.020148                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -3326,7 +3539,7 @@ ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, sl
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
 
 We say here that there is no interaction between X and S.
 
@@ -3342,7 +3555,7 @@ ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, sl
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="612" style="display: block; margin: auto;" />
 
 The slope of the relationship between $y$ and $x$ depends on the value of $S$. 
 
@@ -3383,19 +3596,6 @@ and other definitions are as for model (1). The results are
 
 ~~~
 fit<-lm(BMD ~ BMI+factor(SMKCODE), data = bmd)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit)
 ~~~
 {: .language-r}
@@ -3405,23 +3605,24 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Mass ~ Height + Waist, data = mass)
+lm(formula = BMD ~ BMI + factor(SMKCODE), data = bmd)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--8.9319 -3.2881  0.6235  3.5401  5.2012 
+     Min       1Q   Median       3Q      Max 
+-0.31668 -0.08025  0.00546  0.09665  0.39288 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
-Height        0.3439     0.1559   2.206  0.03990 *  
-Waist         1.1909     0.1240   9.604    1e-08 ***
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       0.986226   0.074111  13.307   <2e-16 ***
+BMI               0.005428   0.002795   1.942   0.0545 .  
+factor(SMKCODE)2 -0.126571   0.046518  -2.721   0.0075 ** 
+factor(SMKCODE)3 -0.078738   0.044763  -1.759   0.0812 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.147 on 19 degrees of freedom
-Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
-F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+Residual standard error: 0.1403 on 118 degrees of freedom
+Multiple R-squared:  0.1071,	Adjusted R-squared:  0.0844 
+F-statistic: 4.718 on 3 and 118 DF,  p-value: 0.003806
 ~~~
 {: .output}
 
@@ -3437,11 +3638,11 @@ anova(fit)
 ~~~
 Analysis of Variance Table
 
-Response: Mass
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-Height     1  610.86  610.86  35.514 9.788e-06 ***
-Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
-Residuals 19  326.80   17.20                      
+Response: BMD
+                 Df  Sum Sq  Mean Sq F value   Pr(>F)   
+BMI               1 0.08804 0.088044  4.4717 0.036566 * 
+factor(SMKCODE)   2 0.19062 0.095311  4.8408 0.009538 **
+Residuals       118 2.32333 0.019689                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -3462,19 +3663,6 @@ $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\
 
 ~~~
 fit1<-lm(BMD ~ BMI*factor(SMKCODE), data = bmd)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'bmd' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit1)
 ~~~
 {: .language-r}
@@ -3484,23 +3672,26 @@ summary(fit1)
 ~~~
 
 Call:
-lm(formula = y ~ x1 + x2, data = data1)
+lm(formula = BMD ~ BMI * factor(SMKCODE), data = bmd)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
--12.8407  -4.2836   0.0165   4.0220   9.5455 
+-0.31624 -0.08058  0.00551  0.09204  0.39303 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  12.4042     1.1830  10.485  < 2e-16 ***
-x1           -0.6230     0.1833  -3.399 0.000982 ***
-x2           -6.2591     1.0580  -5.916 4.96e-08 ***
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.981566   0.079424  12.359   <2e-16 ***
+BMI                   0.005607   0.003002   1.868   0.0643 .  
+factor(SMKCODE)2     -0.251757   0.265309  -0.949   0.3446    
+factor(SMKCODE)3      0.259077   0.343809   0.754   0.4526    
+BMI:factor(SMKCODE)2  0.004827   0.010065   0.480   0.6324    
+BMI:factor(SMKCODE)3 -0.013786   0.013880  -0.993   0.3227    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.29 on 97 degrees of freedom
-Multiple R-squared:  0.3243,	Adjusted R-squared:  0.3104 
-F-statistic: 23.28 on 2 and 97 DF,  p-value: 5.539e-09
+Residual standard error: 0.1407 on 116 degrees of freedom
+Multiple R-squared:  0.1169,	Adjusted R-squared:  0.0788 
+F-statistic:  3.07 on 5 and 116 DF,  p-value: 0.01222
 ~~~
 {: .output}
 
@@ -3516,11 +3707,12 @@ anova(fit1)
 ~~~
 Analysis of Variance Table
 
-Response: y
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-x1         1  323.32  323.32  11.554 0.0009825 ***
-x2         1  979.39  979.39  34.999 4.956e-08 ***
-Residuals 97 2714.43   27.98                      
+Response: BMD
+                     Df  Sum Sq  Mean Sq F value   Pr(>F)   
+BMI                   1 0.08804 0.088044  4.4445 0.037166 * 
+factor(SMKCODE)       2 0.19062 0.095311  4.8114 0.009831 **
+BMI:factor(SMKCODE)   2 0.02542 0.012710  0.6416 0.528309   
+Residuals           116 2.29791 0.019810                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -3580,11 +3772,12 @@ anova(fit1)
 ~~~
 Analysis of Variance Table
 
-Response: y
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-x1         1  323.32  323.32  11.554 0.0009825 ***
-x2         1  979.39  979.39  34.999 4.956e-08 ***
-Residuals 97 2714.43   27.98                      
+Response: BMD
+                     Df  Sum Sq  Mean Sq F value   Pr(>F)   
+BMI                   1 0.08804 0.088044  4.4445 0.037166 * 
+factor(SMKCODE)       2 0.19062 0.095311  4.8114 0.009831 **
+BMI:factor(SMKCODE)   2 0.02542 0.012710  0.6416 0.528309   
+Residuals           116 2.29791 0.019810                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -3599,7 +3792,7 @@ plot(fit1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-65-1.png" title="plot of chunk unnamed-chunk-65" alt="plot of chunk unnamed-chunk-65" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-66-1.png" title="plot of chunk unnamed-chunk-66" alt="plot of chunk unnamed-chunk-66" width="612" style="display: block; margin: auto;" />
 
 Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does look like a random scatter about zero and the Normal Q-Q plot looks linear.
 
@@ -3633,11 +3826,11 @@ anova(fit)
 ~~~
 Analysis of Variance Table
 
-Response: Mass
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-Height     1  610.86  610.86  35.514 9.788e-06 ***
-Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
-Residuals 19  326.80   17.20                      
+Response: BMD
+                 Df  Sum Sq  Mean Sq F value   Pr(>F)   
+BMI               1 0.08804 0.088044  4.4717 0.036566 * 
+factor(SMKCODE)   2 0.19062 0.095311  4.8408 0.009538 **
+Residuals       118 2.32333 0.019689                    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -3651,7 +3844,7 @@ plot(fit1)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-67-1.png" title="plot of chunk unnamed-chunk-67" alt="plot of chunk unnamed-chunk-67" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-unnamed-chunk-68-1.png" title="plot of chunk unnamed-chunk-68" alt="plot of chunk unnamed-chunk-68" width="612" style="display: block; margin: auto;" />
 **Tests for individual coefficients**
 
 
@@ -3665,23 +3858,24 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Mass ~ Height + Waist, data = mass)
+lm(formula = BMD ~ BMI + factor(SMKCODE), data = bmd)
 
 Residuals:
-    Min      1Q  Median      3Q     Max 
--8.9319 -3.2881  0.6235  3.5401  5.2012 
+     Min       1Q   Median       3Q      Max 
+-0.31668 -0.08025  0.00546  0.09665  0.39288 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
-Height        0.3439     0.1559   2.206  0.03990 *  
-Waist         1.1909     0.1240   9.604    1e-08 ***
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       0.986226   0.074111  13.307   <2e-16 ***
+BMI               0.005428   0.002795   1.942   0.0545 .  
+factor(SMKCODE)2 -0.126571   0.046518  -2.721   0.0075 ** 
+factor(SMKCODE)3 -0.078738   0.044763  -1.759   0.0812 .  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 4.147 on 19 degrees of freedom
-Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
-F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+Residual standard error: 0.1403 on 118 degrees of freedom
+Multiple R-squared:  0.1071,	Adjusted R-squared:  0.0844 
+F-statistic: 4.718 on 3 and 118 DF,  p-value: 0.003806
 ~~~
 {: .output}
 
@@ -3697,9 +3891,8 @@ We conclude that moderate smokers have mean BMD levels significantly lower than 
 
 A sensible choice for referent category will be a category which:
 
-*for numerical stability: is not sparse; has a reasonable number of observations; and
-
-*is a sensible point of reference in the context of the problem.
+- for numerical stability: is not sparse; has a reasonable number of observations; and
+- is a sensible point of reference in the context of the problem.
 
 In the BMD example, we have the following frequencies for Smkcode:
 
