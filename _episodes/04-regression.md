@@ -1730,9 +1730,19 @@ mcg1<-read_csv(file.path("..", "Data", "MCG1.csv"))
 
 
 ~~~
-Error: '../Data/MCG1.csv' does not exist in current working directory ('C:/Users/mq20084022/Documents/statistics-with-r/_episodes_rmd').
+Parsed with column specification:
+cols(
+  MCG = col_double(),
+  Other = col_double(),
+  Temp = col_double(),
+  Members = col_double(),
+  Top50 = col_double(),
+  Date = col_character(),
+  Home = col_character(),
+  Away = col_character()
+)
 ~~~
-{: .error}
+{: .output}
 
 
 
@@ -1744,28 +1754,28 @@ mcg1
 
 
 ~~~
-Error in eval(expr, envir, enclos): object 'mcg1' not found
+# A tibble: 41 x 8
+     MCG Other  Temp Members Top50 Date       Home  Away 
+   <dbl> <dbl> <dbl>   <dbl> <dbl> <chr>      <chr> <chr>
+ 1  8.65 72.9     24    12.6     5 27/03/1993 NM    Bris 
+ 2 49.9  60.8     21    26.0     7 3/04/1993  Ess   Carl 
+ 3 24.4  59.8     24    16.9     5 17/04/1993 NM    Melb 
+ 4 46.6   9.27    22    27.0     8 1/05/1993  Ess   Gee  
+ 5 29.3  74.8     17    22.9     7 8/05/1993  Rich  StK  
+ 6 34.4  61.9     16    51.6     8 22/05/1993 Ess   Adel 
+ 7 17.8  92.1     19    13.0     4 29/05/1993 Rich  Syd  
+ 8 37.1  23.4     13    29.9     9 12/06/1993 Carl  Gee  
+ 9 44.1  61.2     14    21.6     6 19/06/1993 Melb  Ess  
+10 19.1  54.9     13    21.5     7 26/06/1993 Ess   Rich 
+# ... with 31 more rows
 ~~~
-{: .error}
+{: .output}
 
 Fitting the model without the controlling variable.
 
 
 ~~~
 fit1<-lm(MCG ~ Members,data=mcg1)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'mcg1' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit1)
 ~~~
 {: .language-r}
@@ -1775,22 +1785,22 @@ summary(fit1)
 ~~~
 
 Call:
-lm(formula = squid$Y ~ squid$X1)
+lm(formula = MCG ~ Members, data = mcg1)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--1.99324 -0.73236  0.09125  0.63951  1.61488 
+    Min      1Q  Median      3Q     Max 
+-37.602  -8.161  -0.114   8.453  31.575 
 
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -8.4831     0.8457  -10.03 3.01e-09 ***
-squid$X1      8.6299     0.5601   15.41 1.47e-12 ***
+(Intercept)   9.6216     8.0103   1.201 0.236935    
+Members       1.2073     0.2873   4.202 0.000149 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.916 on 20 degrees of freedom
-Multiple R-squared:  0.9223,	Adjusted R-squared:  0.9184 
-F-statistic: 237.4 on 1 and 20 DF,  p-value: 1.468e-12
+Residual standard error: 15.57 on 39 degrees of freedom
+Multiple R-squared:  0.3117,	Adjusted R-squared:  0.294 
+F-statistic: 17.66 on 1 and 39 DF,  p-value: 0.0001488
 ~~~
 {: .output}
 
@@ -1806,10 +1816,10 @@ anova(fit1)
 ~~~
 Analysis of Variance Table
 
-Response: squid$Y
-          Df  Sum Sq Mean Sq F value    Pr(>F)    
-squid$X1   1 199.145 199.145  237.37 1.468e-12 ***
-Residuals 20  16.779   0.839                      
+Response: MCG
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+Members    1 4279.8  4279.8   17.66 0.0001488 ***
+Residuals 39 9451.5   242.3                      
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -1820,19 +1830,6 @@ Fitting the model with the controlling variable.
 
 ~~~
 fit2<-lm(MCG ~ Members + Top50,data=mcg1)
-~~~
-{: .language-r}
-
-
-
-~~~
-Error in is.data.frame(data): object 'mcg1' not found
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit2)
 ~~~
 {: .language-r}
@@ -1842,23 +1839,23 @@ summary(fit2)
 ~~~
 
 Call:
-lm(formula = squid$Y ~ squid$X1 + squid$X2)
+lm(formula = MCG ~ Members + Top50, data = mcg1)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
--2.1466 -0.7121  0.1499  0.6422  1.4965 
+-38.124  -9.259   0.387   8.682  30.940 
 
 Coefficients:
-            Estimate Std. Error t value Pr(>|t|)    
-(Intercept)  -8.4556     0.8675  -9.747 7.93e-09 ***
-squid$X1      7.7377     2.4157   3.203  0.00468 ** 
-squid$X2      1.0125     2.6635   0.380  0.70805    
+            Estimate Std. Error t value Pr(>|t|)   
+(Intercept)   1.5101    11.1320   0.136  0.89281   
+Members       1.0728     0.3143   3.413  0.00154 **
+Top50         1.9474     1.8584   1.048  0.30130   
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.9362 on 19 degrees of freedom
-Multiple R-squared:  0.9229,	Adjusted R-squared:  0.9148 
-F-statistic: 113.7 on 2 and 19 DF,  p-value: 2.681e-11
+Residual standard error: 15.55 on 38 degrees of freedom
+Multiple R-squared:  0.331,	Adjusted R-squared:  0.2958 
+F-statistic: 9.401 on 2 and 38 DF,  p-value: 0.0004818
 ~~~
 {: .output}
 
@@ -1874,11 +1871,11 @@ anova(fit2)
 ~~~
 Analysis of Variance Table
 
-Response: squid$Y
-          Df  Sum Sq Mean Sq  F value    Pr(>F)    
-squid$X1   1 199.145 199.145 227.2154 5.049e-12 ***
-squid$X2   1   0.127   0.127   0.1445     0.708    
-Residuals 19  16.653   0.876                       
+Response: MCG
+          Df Sum Sq Mean Sq F value    Pr(>F)    
+Members    1 4279.8  4279.8 17.7044 0.0001518 ***
+Top50      1  265.5   265.5  1.0981 0.3012961    
+Residuals 38 9186.0   241.7                      
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -1900,9 +1897,9 @@ cor(mcg1$MCG,mcg1$Top50)
 
 
 ~~~
-Error in is.data.frame(y): object 'mcg1' not found
+[1] 0.3548781
 ~~~
-{: .error}
+{: .output}
 
 Now correlation between MCG and Top50 is 0.355. After controlling for Members, the correlation between MCG and Top50 has shrunk to 0.17.
 
@@ -2823,12 +2820,18 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 In general, an $m$’th order interaction involves $m+1$ predictors.
 
-**EXAMPLE:** If we have the second-order  $X_1X_2X_3$ interaction, we would also include the first-order interactions $X_1X_2$, $X_1X_3$ and $X_2X_3$ as well as the main effects $X_1$, $X_2$ and $X_3$.
+**EXAMPLE:** If we have the second-order  $X_1X_2X_3$ interaction, we would also include the
+first-order interactions $X_1X_2$, $X_1X_3$ and $X_2X_3$ as well as the main effects
+$X_1$, $X_2$ and $X_3$.
 
-*When fitting a higher-order interaction term, we always include the corresponding lower-order terms in the model. 
+- When fitting a higher-order interaction term, we always include the corresponding lower-order
+  terms in the model. 
 
-*A model with interaction terms is more difficult to interpret than one with just main effects. 
+- A model with interaction terms is more difficult to interpret than one with just main effects.
 
-*The higher the order of the interactions, the harder the interpretation becomes.
+- The higher the order of the interactions, the harder the interpretation becomes.
 
-*We will always prefer a model with fewer interaction terms if the models have similar $R_{Adj}^2$.
+- We will always prefer a model with fewer interaction terms if the models have similar
+  $R_{Adj}^2$.
+
+{% include links.md %}
