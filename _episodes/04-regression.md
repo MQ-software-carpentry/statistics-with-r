@@ -17,6 +17,12 @@ source: "Rmd"
 
 
 
+## PDF version + exercises
+
+[PDF notes](../files/Day 2 Regression.pdf)
+
+[Exercises](../files/Day_2_Exercises.pdf)
+
 ## 1. Regression Introduction
 
 Regression analysis is a conceptually simple method for investigating functional relationships
