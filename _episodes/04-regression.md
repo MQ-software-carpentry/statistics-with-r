@@ -112,8 +112,7 @@ $$\begin{array}{|c|c|c|c|c|c|}\hline
 3 & y_3 & x_{31} &	x_{32} &  \cdots &	x_{3p}\\
 \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\ 
 n	& y_n & x_{n1} &	x_{n2} &  \cdots &	x_{np}\\ \hline
-\end{array}
-$$
+\end{array}$$
 
 Each **row** corresponds to an **observation**. Each **column** corresponds to a **variable**.
 For each observation we have one value for the response variable and one value for each of the
