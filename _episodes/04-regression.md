@@ -87,15 +87,15 @@ $$E(Y)=\beta_0+\beta_1 X_1+\beta_2 X_2+\cdots+\beta_6 X_6$$
 The $\beta_0$, $\beta_1$, $\beta_2$,$\cdots$, $\beta_6$ are called regression parameters or
 coefficients, are unknown constants that need to be estimated from the data.
 
-**1.2 STEPS IN REGRESSION ANALYSIS**
+### 1.2 STEPS IN REGRESSION ANALYSIS
 
-**Statement of the problem**
+#### Statement of the problem
 
 Question/s to be addressed by the analysis must be carefully thought out.
 
 **EXAMPLE:** Determine the sale price for some houses in Macquarie.
 
-**Selection of potentially relevant variables**
+#### Selection of potentially relevant variables
 
 Select a set of variables that are thought to explain or predict the response variable.
 Usually use those suggested by experts in the area of study.
@@ -104,17 +104,17 @@ Usually use those suggested by experts in the area of study.
 
 Usually record data as follows
 
-<!-- $$ -->
-<!-- \begin{array}{|c|c|c|c|c|c|}\hline -->
-<!-- \mbox{Observation} & \mbox{Response}	& \multicolumn{4}{c}{\mbox{Predictors}\\ -->
-<!-- \mbox{Number} & (Y) & X_1 & 	X_2 & \cdots 	& X_p \\ \hline -->
-<!-- 1	& y_1 &	x_{11} &	x_{12} &  \cdots &	x_{1p} \\ -->
-<!-- 2	& y_2 & x_{21} &	x_{22} &  \cdots &	x_{2p}\\ -->
-<!-- 3	& y_3 & x_{31} &	x_{32} &  \cdots &	x_{3p}\\ -->
-<!-- \vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\ -->
-<!-- n	& y_n & x_{n1} &	x_{n2} &  \cdots &	x_{np}\\ \hline -->
-<!-- \end{array} -->
-<!-- $$ -->
+$$\begin{array}{|c|c|c|c|c|c|}\hline
+\mbox{Observation} & \mbox{Response}	& \mbox{Predictor 1} & \mbox{Predictor 2} & \cdots & \mbox{Predictor p}\\
+\mbox{Number} & (Y) & (X_1) & 	(X_2) & \cdots 	& (X_p)\\ \hline
+1	& y_1 &	x_{11} &	x_{12} &  \cdots &	x_{1p} \\
+2	& y_2 & x_{21} &	x_{22} &  \cdots &	x_{2p}\\	
+3 & y_3 & x_{31} &	x_{32} &  \cdots &	x_{3p}\\
+\vdots & \vdots & \vdots & \vdots & \vdots & \vdots\\ 
+n	& y_n & x_{n1} &	x_{n2} &  \cdots &	x_{np}\\ \hline
+\end{array}
+$$
+
 Each **row** corresponds to an **observation**. Each **column** corresponds to a **variable**.
 For each observation we have one value for the response variable and one value for each of the
 $p$ predictors.
@@ -125,7 +125,7 @@ divide categorical variables as being ordinal or nominal (no ordering in the cat
 **EXAMPLE:** In the Maquarie Real Estate example, except for Contract Date, all variables can be
 considered to be quantitative.
 
-**Model specification **
+#### Model specification
 
 $$Y=f(X_1,X_2,\cdots,X_p)+\varepsilon$$
 Need to select the form of the function $f(X_1,X_2,\cdots,X_p)$. Could be specified initially by
@@ -138,7 +138,7 @@ classified as linear or nonlinear. Do the regression parameters enter the equati
 nonlinearly?
 
  
-**Various Classifications of Regression Analysis**
+#### Various Classifications of Regression Analysis
 
 $$ \begin{array}{ll} \hline
 \mbox{Type of Regression} &	\mbox{Conditions}\\ \hline
@@ -159,13 +159,13 @@ $$ \begin{array}{ll} \hline
 (Page 15, Regression Analysis by Example, Third Edition by Samprit Chatterjee, Ali S. Hadi and
 Bertram Price (2000).)
 
-**Choice of fitting model**
+#### Choice of fitting model
 
 The Least Squares method is most commonly used. Under certain conditions this method produces
 estimators with desirable properties. We will use least squares or weighted least squares most
 of the time. 
 
-**Model fitting**
+#### Model fitting
 
 Estimation of regression parameters or fitting the model to the collected data using the chosen
 method of fitting. It is usual to denote estimates of the regression parameters
@@ -185,7 +185,7 @@ variables not observed in our data, the obtained $\hat{Y}$ is called the **predi
 *Do not predict the response variable for a set of predictor variables outside the range of the
 data.*
 
-**Model validation and criticism**
+#### Model validation and criticism
  
 The assumptions made about the data to fit a particular model need to be checked. This can only
 be done after the model has been fitted to the data.
@@ -200,7 +200,7 @@ will not be valid. There is no point looking at p-values if the model assumption
 **EXAMPLE:** Suppose that the new Macquarie Real Estate Agent has the feeling that house price
 is closely related to block size.
 
-I have the data saved in the file **Macquarie2018.csv** that you can download from the following
+I have the data saved in the file `Macquarie2018.csv` that you can download from the following
 location ….
 
 I use the `readr` package which is part of the Tidyverse to get the data into R. Make sure you
@@ -312,7 +312,7 @@ the model is adequate and the normality assumption holds you can make the follow
 The Block Size accounts for 8.2% of the variation in Price. The regression is not significant
 (p-value=0.157).
 
-**1.3 COVARIANCE AND CORRELATION COEFFICIENT**
+### 1.3 COVARIANCE AND CORRELATION COEFFICIENT
 
 We are interested in studying the relationship between a response variable $Y$ and a single
 predictor $X$.The covariance between $Y$ and $X$ measures the direction of the linear
@@ -344,13 +344,13 @@ x1 & y1 & x2 & y2 & x3 & y3 & x4 & y4\\ \hline
 7 &	4.82 &	7 &	7.26 &	7 &	6.42 &	8 &	7.91\\
 5 &	5.68 &	5 &	4.74 &	5 &	5.73 &	8 &	6.89\\ \hline
 \end{array}$$
-The file **Anscombe.csv** contains this data.
+The file `Anscombe.csv` contains this data.
 
 
 ~~~
 library(tidyverse)
 library(readr)
-mydata1<-read_csv(file.path("..", "data", "Anscomb.csv"))
+mydata1 <- read_csv(file.path("..", "data", "Anscomb.csv"))
 ~~~
 {: .language-r}
 
@@ -411,7 +411,7 @@ ggarrange(p1,p2,p3,p4,ncol=2,nrow=2)
 
 <img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
 
-Base R has the cor() function to produce correlations and the cov() function to produce
+Base R has the `cor()` function to produce correlations and the `cov()` function to produce
 covariances. The default is Pearson's correlation.
 
 
@@ -481,7 +481,7 @@ and x4, such a point is called highly influential because if it was removed the 
 would be very different. Only the plot of y1 versis x1 could be considered to be approximately
 linear.
 
-**1.4 THE SIMPLE LINEAR REGRESSION MODEL**
+### 1.4 THE SIMPLE LINEAR REGRESSION MODEL
 
 If the scatter plot of response variable ($Y$) against predictor variable ($X$) is approximately
 linear we use it to study the relationship between $Y$ and $X$.The response variable $Y$ is of
@@ -504,7 +504,7 @@ $$ E(Y|X=x)=\mu_{Y|x}=\beta_0+\beta_1x $$
 which means "The expected value of the random variable $Y$, given that $X$ is fixed at the value
 $x$, is equal to $\beta_0+\beta_1 x$".
 
-**1.4.1 Least squares estimation**
+#### 1.4.1 Least squares estimation
 
 The least squares estimates of $\beta_0$ and $\beta_1$ are those values $\hat{\beta}_0$ and
 $\hat{\beta}_1$ that minimise the 'residual sum of squares' function 
@@ -523,7 +523,7 @@ We estimate the variance $\sigma^2$ by
 $$\hat{\sigma}^2=\frac{SSE}{n-2}$$
 where $SSE=\sum e_i^2=\sum(y_i-\hat{y}_i)^2=(S_{YY}-\hat{\beta}_1S_{XY})$.
 
-**1.4.2 Properties of the estimators**
+#### 1.4.2 Properties of the estimators
 
 $E(\hat{\beta}_1)=\beta_1$, 
 	
@@ -549,16 +549,16 @@ at the extremes.
 Replacing $\sigma^2$ in (2) and (1) by $\hat{\sigma}^2$ we get unbiased estimators of the
 variances of $\hat{\beta}_0$ and $\hat{\beta}_1$. 
 
-**1.4.3 Tests of hypotheses**
+#### 1.4.3 Tests of hypotheses
 
-**Hypothesis tests concerning the slope**
+##### Hypothesis tests concerning the slope
 
 Test $H_0:\beta_1=\beta_1^0$ against $H_1:\beta_1 \neq \beta_1^0$    using  test statistic
 $t_1=\frac{\hat{\beta}_1-\beta_1^0}{s.e.(\hat{\beta}_1)}$ which has a $t_{n-2}$  distribution if
 H_0 is true. 
 
 **Rejection region:** $|t| \geq t_{n-2;\alpha/2}$ where $\alpha=0.05$ if testing at 5%
-signinicance level. 
+significance level. 
 
 **P-value:** p-value>$\alpha$
 
@@ -603,7 +603,7 @@ results. You need to make sure you extract all the information for the style you
 for example APS style requires more (see https://apastyle.apa.org/ or do a google search if the
 information isn't there).
 
-**A Test Using Correlation Coefficient**
+##### A Test Using Correlation Coefficient
 	
 Test $H_0:\rho=0$ versus $H_1:\rho \neq 0$ using test statistic
 $t=\frac{r}{\sqrt{(1-r^2)/(n-2)}}$ which has a $t_{n-2}$ distribution when $H_0$ is true. 
@@ -611,7 +611,7 @@ $t=\frac{r}{\sqrt{(1-r^2)/(n-2)}}$ which has a $t_{n-2}$ distribution when $H_0$
 This is also equivalent to testing $H_0:\beta_1 = 0$ against $H_1:\beta_1 \neq 0$   in a simple
 linear regression of $Y$ on $X$.
 
-**Hypothesis tests concerning the intercept**
+##### Hypothesis tests concerning the intercept
 
 Test of $H_0:\beta_0=\beta_0^0$ against $H_1:\beta_0\neq \beta_0^0$ is based on
 $t_0=\frac{\hat{\beta}_0-\beta_0^0}{s.e.(\hat{\beta}_0)}$  which has a $t_{n-2}$ distribution if
@@ -623,11 +623,11 @@ Back to regressing Price on Block Size. The previous output had a p-value of 2.8
 (0.0000282) so if the model is adequate and normality assumption holds you would conclude that
 the intercept is significant (testing $H_0:\beta_0=0$ against $H_1:\beta_0\neq 0$).
 
-**Confidence Intervals and Prediction Intervals**
+##### Confidence Intervals and Prediction Intervals
 
-Sometimes you don't just want to quote a p-value but provide a confidence interval.This output
-is available from lm in R.For more details see
-https://stat.ethz.ch/R-manual/R-devel/library/stats/html/confint.html
+Sometimes you don't just want to quote a p-value but provide a confidence interval. This output
+is available from `lm` in R. For more details see
+<https://stat.ethz.ch/R-manual/R-devel/library/stats/html/confint.html>
 
 
 ~~~
@@ -652,12 +652,13 @@ values plot looks like a random scatter about zero and the normal probability pl
 linear).
  
 To get prediction intervals you need to create a new data frame that sets the Block Size. The
-example below is only getting a default 95% prediction interval for a block of size 800 m2.
+example below is only getting a default 95% prediction interval for a block of
+size 800 m<sup>2<sup>.
 
 
 ~~~
-newdata<-data.frame(Block_Size=800)
-predict(fit,newdata,interval="predict")
+newdata <- data.frame(Block_Size = 800)
+predict(fit, newdata, interval = "predict")
 ~~~
 {: .language-r}
 
@@ -674,7 +675,7 @@ at CHP which is available online from the library.
 If the model assumptions hold then the predicted price for a block size of 800 m2 is \$751,814.8
 and the 95% prediction interval is (\$549,136.4, \$954,493.3).
 
-**1.4.6 Analysis of variance (ANOVA)**
+#### 1.4.6 Analysis of variance (ANOVA)
 
 ANOVA is a technique where the total variability in a set of data is split up into components
 assigned to various sources of variability:
@@ -717,7 +718,7 @@ be looking at residual plots in more detail in the next section. Residual plots 
 checking assumptions.**
 
 
-**1.4 Revision of Matrix Algebra**
+### 1.4 Revision of Matrix Algebra
 
 When we extend the simple linear regression to the multiple linear regression the mathematics is
 simplified if we use matrix algebra.
@@ -733,7 +734,7 @@ $A^T=\left(\begin{matrix}a_{11}&a_{21}&\cdots&a_{m1}\\a_{12}&a_{22}&\cdots&a_{m2
 
 **DEFN:** A square matrix has $m=n$; i.e., number of rows equals number of columns.
 
-**Special square matrices:**
+#### Special square matrices:
 
 **Diagonal matrix:** all entries not on the main diagonal are zero.
 $D=\left(\begin{matrix}d_1&0&0&\cdots&0\\0&d_2&0&\cdots&0\\0&0&d_3&\ddots&\vdots\\\vdots&\vdots&\ddots&\ddots&0\\0&0&\cdots&0&d_n\\\end{matrix}\right)$, also written
@@ -746,7 +747,7 @@ For simple $2 \times 2$ matrices I am going to illustrate matrix addition, subtr
 multiplication which just scales up for larger matrices. Note the entry by entry nature of the
 operations.
 
-**Matrix operations**
+#### Matrix operations
 
 **Addition:** $\left(\begin{matrix}a_{11}&a_{12}\\a_{21}&a_{22}\\\end{matrix}\right)+\left(\begin{matrix}b_{11}&b_{12}\\b_{21}&b_{22}\\\end{matrix}\right)=\left(\begin{matrix}a_{11}+b_{11}&a_{12}+b_{12}\\a_{21}+b_{21}&a_{22}+b_{22}\\\end{matrix}\right)$
 
@@ -767,14 +768,14 @@ and in general
 $A\times I=A$
 hence the term **identity matrix**.
 
-**Matrix inversion**
+#### Matrix inversion
 
 For a scalar $k$, the inverse of $k$ is $k^{-1}$ defined as $k\times k^{-1}=1$.
 
 For a square matrix $A$, the inverse of $A$ is $A^{-1}$ where $A\times A^{-1}=I$.
 
 
-**1.6 SIMPLE LINEAR REGRESSION IN MATRIX FORM**
+### 1.6 SIMPLE LINEAR REGRESSION IN MATRIX FORM
 
 Model: $Y_i=\beta_0+\beta_1X_i+\varepsilon_i$, $i=1,\cdots,n$.
 
@@ -798,9 +799,9 @@ $$\hat{\beta}=\left(\begin{matrix}\hat{\beta}_0\\\hat{\beta}_1\\\end{matrix}\rig
 
 Models with $\beta_0=0$ can arise in several ways. Most obvious is if $x= 0$ must imply that $y = 0$. Regression through the origin can be carried out using the same model $Y=X\beta+\varepsilon$ by defining the $X$ matrix without the first column of 1's. 
 
-**1.7 MULTIPLE LINEAR REGRESSION**
+### 1.7 MULTIPLE LINEAR REGRESSION
 
-**1.7.1 EXAMPLE**
+#### 1.7.1 EXAMPLE
 
 **Heatflux:** As part of a test of solar thermal energy, the total heat flux from homes is measured. Researchers wish to examine whether total heat flux (Heatflux) can be predicted by insulation (Insulation), by the position of the focal points in the east (East), south (South), and north (North) directions, and by the time of day (Time). The data are from the book by D.C. Montgomery and E.A. Peck, published by John Wiley \& Sons in 1982, titled \"Introduction to Linear Regression Analysis\". You can find this data in the file **heatflux.csv**. 
 
@@ -919,7 +920,7 @@ F-statistic: 40.84 on 5 and 23 DF,  p-value: 1.077e-10
 
 The p-value for the F statistic is very small (much smaller than 0.05) so the regression is significant which means that at least one of the predictors is needed in the model. The five predictors explain for 87.7\% ofthe variability in the response HeatFlux.
 
-**1.7.2 Multiple linear regression: matrix form**
+#### 1.7.2 Multiple linear regression: matrix form
 
 **Model:** $Y=\beta_0+\beta_1X_1+\cdots+\beta_pX_p+\varepsilon$
 
@@ -946,7 +947,7 @@ The $(p+1)\times(p+1)$ matrix $(X^TX)$ is a symmetric matrix whose elements cons
 **Unbiased estimate of $\sigma^2$:**
 ${\hat{\sigma}}^2=\frac{1}{n-p-1}(y-X\hat{\beta})^T(y-X\hat{\beta})=\frac{1}{n-p-1}\sum{(y-{\hat{y}}_i)^2}$
 
-**Properties of the least squares estimators**
+##### Properties of the least squares estimators
 
 $E(\hat{\beta})=E(X^TX)^{-1}X^Ty=\beta$.
 
@@ -957,11 +958,11 @@ If we assume that $\varepsilon$ has a normal distribution, then $ \hat{\beta}$ a
 Here the distribution of the residual mean square is given by $\frac{(n-p-1)^2\hat{\sigma}^2}{\sigma^2} \sim \chi_{n-p-1}^2$. The estimated variance of $\hat{\beta}$ is given by $\hat{\sigma}^2(X^TX)^{-1}$, and standard errors are obtained as $\hat{\sigma}$ multiplied by the square root of the diagonal elements of the $(X^TX)^{-1}$ matrix.
 
 
-**Predictions and fitted values**
+##### Predictions and fitted values
 
 If we observe a vector of predictors $x$ (including a 1) for which we don't know the response, the predicted response is $\hat{y}=x^T\hat{\beta}$ with standard error of prediction $\mathrm{s.e.pred}=s\sqrt{1+x^T(X^TX)^{-1}x}$. Similarly, the estimated mean response when the predictors take the value $x$ is $\hat{y}=x^T\hat{\beta}$ with standard error of fit $\mathrm{s.e.}(\mathrm{fit})=s\sqrt{x^T(X^{T}X)^{-1}x}$.
 
-**2.1 HYPOTHESIS TESTS**
+### 2.1 HYPOTHESIS TESTS
 
 We wish to test whether
 
@@ -975,18 +976,21 @@ In general, we have a null model (reduced model), in which some or all of the pr
 $$F=\frac{\hat{\sigma}_0^2}{\hat{\sigma}^2}$$
 where $\hat{\sigma}^2$ is the usual estimate of $\sigma^2$ under the full model and $\hat{\sigma}_0^2$ is the estimate of $\sigma^2$ under the null model (reduced model). If the null model holds $\hat{\sigma}_0^2$ equals $\sigma^2$ and if the null model does not hold then it is greater than $\sigma^2$.	Having more parameters in the model will always reduce the residual variation. Therefore $\sigma^2\le\hat{\sigma}_0^2$.If the null model holds we would expect $F$ to be approximately equal to 1 and if the full model holds we would expect $F$ to be greater than 1. If $F$ is large the full model has reduced the residual variation substantially, the additional predictors are useful in the prediction of the $y$  whereas if $F$ is close to 1 then the additional predictors in the full model have not reduced the residual variation by much so we would use the null model.
 
-**2.1.1 Test for overall significance of the regression**
+#### 2.1.1 Test for overall significance of the regression
 
 If we had $p$ predictors the full model would be
 
 $$y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_{ip}x_p+\varepsilon_i,   i=1,\cdots,n.$$
-	If we are interested in testing whether the regression is significant or not we are interested in testing whether some of the predictors ($X_i$'s) are useful or not. 
-	The null model would be that none of the predictors are useful:
+If we are interested in testing whether the regression is significant or not we are interested
+in testing whether some of the predictors ($X_i$'s) are useful or not. 
+The null model would be that none of the predictors are useful:
 $$y_i=\beta_0+\varepsilon_i,   i=1,\cdots,n.$$
-	We test the hypothesis $H_0:\beta_1=\beta_2=\cdots=\beta_p=0$ against $H_1:$ at least one $\beta_i\neq0$. In matrix notation
+We test the hypothesis $H_0:\beta_1=\beta_2=\cdots=\beta_p=0$ against
+$H_1:$ at least one $\beta_i\neq0$. In matrix notation
 	
 $$H_0:\left(\begin{matrix}\beta_1\\\beta_2\\\vdots\\\beta_p\\\end{matrix}\right)=\left(\begin{matrix}0\\0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\beta_1\\\beta_2\\\vdots\\\beta_p\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\vdots\\0\\\end{matrix}\right).$$
-Here the regression mean square would be used to estimate $\sigma^2$ under the full model and the residual mean square would be used to estimate $\sigma^2$ under the null model. 
+Here the regression mean square would be used to estimate $\sigma^2$ under the full model and
+the residual mean square would be used to estimate $\sigma^2$ under the null model. 
 	The test statistic is 
 $$F=\frac{MSR}{MSE}=\frac{SSR/p}{SSE/(n-p-1)}$$
 which under the null hypothesis has a $F_{p,n-p-1}$ distribution. 
@@ -1000,7 +1004,8 @@ $$ \begin{array}{l|llll}\hline
 \mbox{Total} & n-1 & SST & & \\ \hline
 \end{array} $$
 
-where $SST$, $SSR$ and $SSE$ are defined as before. We have exactly the same decomposition as before that 
+where $SST$, $SSR$ and $SSE$ are defined as before. We have exactly the same decomposition as
+before that 
 
 SST = SSR + SSE
 
@@ -1008,25 +1013,46 @@ Now, $R^2=\frac{SSR}{SST}$ is the proportion of the variance explained by the re
 
 We can show that 
 $$F=\frac{R^2/p}{(1-R^2)/(n-p-1)}.$$
-	A small value of $R^2$ will result in a small value of $F$ and we will not reject $H_0$ in favour of $H_1$. A value of $R^2$ close to 1 will result in a large value of $F$ and we will reject $H_0$ in favour of $H_1$.
+A small value of $R^2$ will result in a small value of $F$ and we will not reject $H_0$ in
+favour of $H_1$. A value of $R^2$ close to 1 will result in a large value of $F$ and we will
+reject $H_0$ in favour of $H_1$.
  
 We already have seen an example of testing whether the regression is significant.
 
-**2.1.2 Selecting the "best" model***
+#### 2.1.2 Selecting the "best" model
 
-There is no unique criterion for choosing the "best" model. We want as simple a model as possible that adequately explains what is going on ("principle of parsimony"). The more parameters in the model, the closer the fitted values will be to the observed data and the higher $R^2$ will be but the standard errors of the estimates ${\hat{\beta}}_i$ will increase because we are estimating more parameters on the same amount of information. We trade off between (i) Few $X$'s (small $p$): lower $R^2$ but more precise $\beta_i$'s and (ii) Many $X$'s (large $p$): higher $R^2$ but less precise $\beta_i$'s. We try to find that set of predictors which give an acceptable model fit, or $R^2$. If a predictor does not add to the model's explanation of the variation of $Y$  in a significant way, it is not added to the model, even though it would have reduced $R^2$.
+There is no unique criterion for choosing the "best" model. We want as simple a model as
+possible that adequately explains what is going on ("principle of parsimony"). The more
+parameters in the model, the closer the fitted values will be to the observed data and the
+higher $R^2$ will be but the standard errors of the estimates ${\hat{\beta}}_i$ will increase
+because we are estimating more parameters on the same amount of information. We trade off
+between (i) Few $X$'s (small $p$): lower $R^2$ but more precise $\beta_i$'s and (ii) Many $X$'s
+(large $p$): higher $R^2$ but less precise $\beta_i$'s. We try to find that set of predictors
+which give an acceptable model fit, or $R^2$. If a predictor does not add to the model's
+explanation of the variation of $Y$  in a significant way, it is not added to the model, even
+though it would have reduced $R^2$.
 
-**Comparing two models**
+##### Comparing two models
 
-The **reduced model** is the model with the smallest number of parameters. We want to test $H_0:$ reduced model is appropriate against $H_1:$ full model is appropriate. To formally test this we need to fit the reduced model and record from the output the Residual (Error) Sum of Squares and its associated degrees of freedom, which we denote by $SSE_{RM}$ and $DF_{RM}$ respectively. The same information is required from fitting the full model, label the residual sum of squares and its associated degrees of freedom by $SSE_{FM}$ and $DF_{FM}$.  The appropriate test statistic is
+The **reduced model** is the model with the smallest number of parameters. We want to test
+$H_0:$ reduced model is appropriate against $H_1:$ full model is appropriate. To formally test
+this we need to fit the reduced model and record from the output the Residual (Error) Sum of
+Squares and its associated degrees of freedom, which we denote by $SSE_{RM}$ and $DF_{RM}$
+respectively. The same information is required from fitting the full model, label the residual
+sum of squares and its associated degrees of freedom by $SSE_{FM}$ and $DF_{FM}$.  The
+appropriate test statistic is
 $$T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}.$$
 	We reject $H_0$ in favour of $H_1$ at the $100\alpha\%$ significance level if
-$T>F_{DF_{RM}-DF_{FM},DF_{FM};\alpha}$.	This is only valid if the model assumptions hold. We will look at regression diagnostics in detail the next section.
+$T>F_{DF_{RM}-DF_{FM},DF_{FM};\alpha}$.	This is only valid if the model assumptions hold. We
+will look at regression diagnostics in detail the next section.
 
-**Partial F-tests**
+##### Partial F-tests
 
 Assume that we have $n$ observations. The full model has all the $p$ predictors in it. 
-The reduced model has one predictor removed, say the i'th predictor. We use the same test statistic as above and reject $H_0:\beta_i=0$ in favour of $H_1:\beta_i\neq0$ at the $\alpha100\%$ significance level if $T>F_{1,n-p-1;\alpha}$. You can think of the partial F tests as assessing variables as if they were the last being added to the model.
+The reduced model has one predictor removed, say the i'th predictor. We use the same test
+statistic as above and reject $H_0:\beta_i=0$ in favour of $H_1:\beta_i\neq0$ at the
+$\alpha100\%$ significance level if $T>F_{1,n-p-1;\alpha}$. You can think of the partial F tests
+as assessing variables as if they were the last being added to the model.
 
 An equivalent way of testing $H_0:\beta_i=0$ versus $H_1:\beta_i\neq 0$ is using
 $t=\frac{\hat{\beta}_i}{S.E.(\hat{\beta}}_i)}$
@@ -1034,7 +1060,7 @@ which has a $t_{n-p-1}$ distribution if $H_0$ is true.
 R routine **lm** gives you the partial F-tests in this way. 
 	The disadvantage of partial F-tests is that they are not independent tests. 
 
-**EXAMPLE: Heat Flux revisited**
+##### EXAMPLE: Heat Flux revisited
 
 ~~~
 summary(fit)
@@ -1069,14 +1095,20 @@ F-statistic: 40.84 on 5 and 23 DF,  p-value: 1.077e-10
 ~~~
 {: .output}
 
-The Partial F-tests p-values are given in the Pr(>|t|) column. You only look at these if the model assumptions hold. Suppose they do, then you would conclude at the 5\% significance level that the predictors Insulation and South are significant. 
+The Partial F-tests p-values are given in the Pr(>|t|) column. You only look at these if the
+model assumptions hold. Suppose they do, then you would conclude at the 5\% significance level
+that the predictors Insulation and South are significant. 
 
-**Sequential F tests**
+##### Sequential F tests
 
-Assume that we have Sn$ observations.	Variables are added to the model in a particular order and at each step the most recent predictor being entered into the model is tested for significance. 
-R function lm can provide the output. All you need do is divide the sequential sum of squares by the residual mean sum of squares for the full model and compare with $F_{1,n-p-1}$. 
-	The advantage of the sequential $F$ tests are that they are independent tests. 
-	The disadvantage is that the tests may be highly dependent on the order in which the predictors enter the model. 
+Assume that we have $Sn$ observations.	Variables are added to the model in a particular order
+and at each step the most recent predictor being entered into the model is tested for
+significance. 
+R function `lm` can provide the output. All you need do is divide the sequential sum of squares
+by the residual mean sum of squares for the full model and compare with $F_{1,n-p-1}$. 
+The advantage of the sequential $F$ tests are that they are independent tests. 
+The disadvantage is that the tests may be highly dependent on the order in which the
+predictors enter the model. 
 
 
 ~~~
@@ -1106,7 +1138,7 @@ East, South and North are significant (at 1\% significance level or 0.5\% signif
 
 **EXERCISE** Try different orderings of the predictors. There are 5 ways you can choose the first predictor, 4 ways for the second predictor, 3 ways of choosing the third predictor, 2 ways of choosing the fourth predictor, and only one way to choose the fifth predictor giving $5 \times 4 \times 3 \times 2 \times 1 = 120$ combinations.
 
-**Using R Square** ($R^2$)
+##### Using R Square ($R^2$)
 
 When a linear regression model is fitted using function lm in R you can extract $R^2$. 
 
@@ -1127,27 +1159,45 @@ R Square gives the "proportion of variation in the response data that is explain
 
 Note that Multiple R-squared given earlier is the same as R-squared in the **lm** function.
 
-**Using Adjusted R Square** ($R_{ADJ}^2$) 
+##### Using Adjusted R Square ($R_{ADJ}^2$) 
 
-When a linear regression model is fitted using **lm** in R you can always obtain $R_{ADJ}^2$ (Adjusted R-Squared). This is $R_{ADJ}^2=1-\frac{n-1}{n-p}(1-R^2)$ which does not necessarily increase if more terms are added to the model. The model with the largest $R_{ADJ}^2$ is usually chosen.
+When a linear regression model is fitted using `lm` in R you can always obtain $R_{ADJ}^2$
+(Adjusted R-Squared). This is $R_{ADJ}^2=1-\frac{n-1}{n-p}(1-R^2)$ which does not necessarily
+increase if more terms are added to the model. The model with the largest $R_{ADJ}^2$ is usually
+chosen.
 
-**EXAMPLE** For the Heat Flux data using all the predictors the Adjusted R-squared is 0.8768. See earlier output.
+**EXAMPLE** For the Heat Flux data using all the predictors the Adjusted R-squared is 0.8768.
+See earlier output.
 
-**Using** $\hat{\sigma}^2$**, the residual mean square (MSE)**
+##### Using $\hat{\sigma}^2$, the residual mean square (MSE)
 
-We choose the model with the smallest $\hat{\sigma}^2$ or if the next smallest $\hat{\sigma}^2$ is close to the smallest $\hat{\sigma}^2$ but the model has less terms in it we would choose it.
+We choose the model with the smallest $\hat{\sigma}^2$ or if the next smallest $\hat{\sigma}^2$
+is close to the smallest $\hat{\sigma}^2$ but the model has less terms in it we would choose it.
 	
-**Mallows** $C_p$ **(A Criterion Based Method)**
+##### Mallows $C_p$ (A Criterion Based Method)
 
-Predicted values obtained from a regression equation based on a subset of variables are generally biased. We use the mean square error of the predicted value to judge the performance of an equation. The	measure standardized total mean squared error of prediction for the observed data by
+Predicted values obtained from a regression equation based on a subset of variables are
+generally biased. We use the mean square error of the predicted value to judge the performance
+of an equation. The	measure standardized total mean squared error of prediction for the observed
+data by
 $$J_p=\frac{1}{\sigma^2}\sum{MSE(\hat{y}_i)}$$
-where MSE($\hat{y}_i$) is the ith predicted value from an equation with $p$ terms (number of parameters in equation) and $\sigma^2$ is the variance of the random errors.	This statistic places special emphasis on observed data, and good subsets will result in small values. 
+where MSE($\hat{y}_i$) is the ith predicted value from an equation with $p$ terms (number of
+parameters in equation) and $\sigma^2$ is the variance of the random errors.	This statistic
+places special emphasis on observed data, and good subsets will result in small values. 
 
 We can estimate the value of this statistic from the data by Mallows' $C$, calculated from:
 $$C_p=\frac{SSE_p}{\hat{\sigma}^2}+(2p-n)$$
 where $\hat{\sigma}^2$ is from the linear model with the full set of $q$ variables.
 
-Mallows' $C_p$ has these properties: (i) it is easily calculated from usual regression summaries, (ii) it measures the difference in fitting errors between the full and the subset models, (iii) it has a random and a fixed component giving a trade off between better fit and more parameters, and (iv)it can be used to compare subset models - although it is not necessarily true that a smaller value means a better subset model, any model with $C_p\le p$ will be a good model.
+Mallows' $C_p$ has these properties:
+
+1. it is easily calculated from usual regression summaries,
+1. it measures the difference in fitting errors between the full and the subset
+   models,
+1. it has a random and a fixed component giving a trade off between better fit and more
+   parameters, and
+1. it can be used to compare subset models --- although it is not necessarily true that a
+   smaller value means a better subset model, any model with $C_p\le p$ will be a good model.
 
 We can use leaps to otain the Mallow's $C_p$. Note that when $p$ equals the number of predictors in the full model that Mallow's $C_p$ always equals $p$.
 
@@ -1229,13 +1279,26 @@ $Cp
 
 According to Mallow's $C_p$ none of the models are any good.
 
-**Multicollinearity**
+##### Multicollinearity
 
-When predictors are related to each other, regression modelling can be very confusing. Estimated effects can change in magnitude and even sign.	Two predictors are collinear if $c_1x_1+c_2x_2=c_0$ for constants $c_1,c_2,c_0$. The definition of collinearity extends to several predictors. More important, however, is approximate collinearity, when predictors are closely but not exactly related and the equation holds approximately.	In some packages (e.g. Minitab) a message is given if you perform a regression where there is too much collinearity. If the collinearity is extreme, a variable will be dropped before the calculations are carried out. If the collinearity is exact, this causes no loss of information, and if the collinearity is approximate, only a small amount of information is lost.
+When predictors are related to each other, regression modelling can be very confusing. Estimated
+effects can change in magnitude and even sign.	Two predictors are collinear if
+$c_1x_1+c_2x_2=c_0$ for constants $c_1,c_2,c_0$. The definition of collinearity extends to
+several predictors. More important, however, is approximate collinearity, when predictors are
+closely but not exactly related and the equation holds approximately.	In some packages (e.g.
+Minitab) a message is given if you perform a regression where there is too much collinearity. If
+the collinearity is extreme, a variable will be dropped before the calculations are carried out.
+If the collinearity is exact, this causes no loss of information, and if the collinearity is
+approximate, only a small amount of information is lost.
 
-Alternatively, we can ask for variance inflation factors (VIFs) associated with each predictor. These come from the formula for the variance of the parameter estimates $Var(\hat{\beta}_i)=\sigma^2\left(\frac{1}{1-R_i^2}\right)\left(\frac{1}{SX_iX_i}\right)$, with $R_i^2$ the square of the multiple correlation between $X_i$ and the other $X’s$, and  $1/(1-R_i^2)$ being the amount by which the variance is increased, or inflated, due to collinearity.
-	If none of the VIFs are greater than 10 then collinearity is not a problem.
-	
+Alternatively, we can ask for variance inflation factors (VIFs) associated with each predictor.
+These come from the formula for the variance of the parameter estimates
+$Var(\hat{\beta}_i)=\sigma^2\left(\frac{1}{1-R_i^2}\right)\left(\frac{1}{SX_iX_i}\right)$,
+with $R_i^2$ the square of the multiple correlation between $X_i$ and the other $X’s$,
+and $1/(1-R_i^2)$ being the amount by which the variance is increased, or inflated, due to
+collinearity.
+If none of the VIFs are greater than 10 then collinearity is not a problem.
+
 **EXAMPLE** Revisiting Heat Flux example.
 
 
@@ -1295,17 +1358,34 @@ Insulation       East      South      North       Time
 
 All VIFs are less than 10 so there is no multicollinearity problem.
 
-**Multiple correlation coefficient**
+##### Multiple correlation coefficient
 
-The multiple correlation coefficient $R_{Y|X_1,\cdots,X_p}$ is a measure of the association between $Y$ and $X_1,\ldots,X_p$ jointly. Its square is what we have called $R^2$. We can interpret $R_{Y|X_1,\cdots,X_p}$ as the correlation between $Y$ and the regression equation involving $X_1,\ldots,X_p$. It is defined as $R_{Y|X_1,\cdots,X_p}=\frac{\sum(y_i-\bar{y})(y_i-\hat{y})}{\sum(y_i-\bar{y})^2 \sum (y_i-\bar\hat{y})^2}$ where $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1x_{i1}+\hat{\beta}_2x_{i2}+\cdots \hat{\beta}_px_{ip}$, $i=1,\ldots,n$, is the fitted value or predicted value for $y_i$ and $\bar\hat{y}=\frac{1}{n}\sum \hat{y}_i$ is the mean of the fitted values. (It turns out that $\bar{\hat{y}}=\bar{y}$ always.)
+The multiple correlation coefficient $R_{Y|X_1,\cdots,X_p}$ is a measure of the association
+between $Y$ and $X_1,\ldots,X_p$ jointly. Its square is what we have called $R^2$. We can
+interpret $R_{Y|X_1,\cdots,X_p}$ as the correlation between $Y$ and the regression equation
+involving $X_1,\ldots,X_p$. It is defined as
+$R_{Y|X_1,\cdots,X_p}=\frac{\sum(y_i-\bar{y})(y_i-\hat{y})}{\sum(y_i-\bar{y})^2 \sum (y_i-\bar\hat{y})^2}$
+where
+$\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1x_{i1}+\hat{\beta}_2x_{i2}+\cdots \hat{\beta}_px_{ip}$, $i=1,\ldots,n$,
+is the fitted value or predicted value for $y_i$ and $\bar\hat{y}=\frac{1}{n}\sum \hat{y}_i$
+is the mean of the fitted values. (It turns out that $\bar{\hat{y}}=\bar{y}$ always.)
 
-Also, $R_{Y|X_1,\cdots,X_p}^2=\frac{SST-SSE}{SST}=\frac{SSR}{SST}$ and it is interpreted as the proportion of total variation (SST) that is explained by the regression involving $X_1,\ldots,X_p$ (SSR).
+Also, $R_{Y|X_1,\cdots,X_p}^2=\frac{SST-SSE}{SST}=\frac{SSR}{SST}$ and it is interpreted as the
+proportion of total variation (SST) that is explained by the regression involving
+$X_1,\ldots,X_p$ (SSR).
 
-**Variable selection**
+##### Variable selection
 
-To combat collinearity or to find a parsimonious model we may wish to select only some of the predictor variables available. Assume that we have $n$ cases with values observed on $k$ predictor variables $X_1,X_2,\cdots,X_k$ and a response $Y$. Let $p$ = the number of predictors in a selected subset (including the intercept) and assume all necessary transformations have been carried out. 
+To combat collinearity or to find a parsimonious model we may wish to select only some of the
+predictor variables available. Assume that we have $n$ cases with values observed on $k$
+predictor variables $X_1,X_2,\cdots,X_k$ and a response $Y$. Let $p$ = the number of predictors
+in a selected subset (including the intercept) and assume all necessary transformations have
+been carried out. 
 
-The full model can be written as $Y=X_1\beta_1+X_2\beta_2+\varepsilon$ (vector notation, with X_1 an n by p matrix) and the subset model $Y=X_1\beta_1+\varepsilon$ is obtained by putting $\beta_2=0$. The subset model is tested against the full model using a generalised F-test, as usual.
+The full model can be written as $Y=X_1\beta_1+X_2\beta_2+\varepsilon$ (vector notation, with
+X_1 an n by p matrix) and the subset model $Y=X_1\beta_1+\varepsilon$ is obtained by putting
+$\beta_2=0$. The subset model is tested against the full model using a generalised F-test, as
+usual.
 
 $$ \begin{array}{l|llll}\hline
 \mbox{Source} & df & SS & MS & F\\ \hline
@@ -1318,7 +1398,7 @@ $$ \begin{array}{l|llll}\hline
 \mbox{Total} & n-1 & SST & & \\ \hline
 \end{array} $$
 
-**Selecting variables on substantive grounds**
+##### Selecting variables on substantive grounds
 
 The most important method for selecting variables is based on a knowledge of the situation and the variables being studied. 
 
@@ -1328,34 +1408,42 @@ The most important method for selecting variables is based on a knowledge of the
 
 **EXAMPLE:** Weisberg (1981) gives an example ‘Highway data’, from a Masters thesis modelling the automobile accident rate in terms of 13 independent variables. Here there are $2^{13} = 8192$ possible subset models, which can be reduced by considering two points: (i) Three variables, FAI, PA and MA, should be kept together since they are indicator variables for different types of highways, with a fourth type indicated if each of these variables equals zero and (ii) The variable LEN, length of segment under study, is required by definition. This now gives a total of 512 possible subset models, still a large number but much fewer than originally.
 
-**Stepwise methods of variable selection**
+##### Stepwise methods of variable selection
 
 Often we have to use the data to find a reasonable subset of the predictors for use in a model. A stepwise procedure is a systematic way of examining only a few subsets of each size and choosing a path through all possible models.
 
-*Forward selection*
+###### Forward selection
 
 We begin with a simple regression model with the best single predictor (largest $R^2$, $F$ or $t$).We then add the predictor that increases $R^2$ the most, or would have the largest $F$ or $t$ of any of the other variables. We continue thus, but stop when you reach a subset of predetermined size, or when no other variable has an $F$ greater than $F$ to enter, or if any variable would cause unacceptable collinearity.
 
-*Backward elimination* 
+###### Backward elimination
 
 We begin with the full model. We then remove the variable with the smallest $F$ or $t$, the variable that would reduce $R^2$ the least. We continue thus, but stop when you reach a subset of predetermined size, or when all variables remaining in the model have $F$ greater than $F$ to remove.
 
-*Stepwise*
+###### Stepwise
 
 This is a combination of the previous two methods. We start with one variable, as in forward selection, and at each step take one of four options: add a variable, remove a variable, exchange two variables or stop. If there are at least two variables in the model, remove a variable if it has $F$ less than $F$ to remove. If there are at least two variables in the model, remove a variable if this would result in a larger $R^2$ than obtained previously with that many variables. Exchange a variable in the model with one not in the model if this would increase $R^2$. Add a variable if it has the largest $F$ greater than $F$ to enter and the collinearity tolerance is OK.
 
-*Remarks*
+###### Remarks
 
 * Stepwise methods entail less computing than Best Subsets Regression. 
-* Order in which variables enter or leave the equation should not be interpreted as reflecting the relative importance of the variables.
+* Order in which variables enter or leave the equation should not be interpreted as reflecting
+  the relative importance of the variables.
 * If data is noncollinear all three methods should give nearly the same selection of variables.
-* CHP recommend Backward Elimination over Forward Selection because the full variable set is calculated and available for inspection even though it may not be used in the final equation.
+* CHP recommend Backward Elimination over Forward Selection because the full variable set is
+  calculated and available for inspection even though it may not be used in the final equation.
 * Backward Elimination copes better with multicollinearity.
-* Residual plots for various “best” models fitted to data should always be examined and if found to be unsatisfactory the model should not be used.
+* Residual plots for various “best” models fitted to data should always be examined and if found
+  to be unsatisfactory the model should not be used.
 
-**EXAMPLE:** Squid data (This data set is from Classical and Modern Regression with Applications by R.H. Myers published in 1990.) An experiment was conducted to study the size of squid eaten by sharks and tuna.
+**EXAMPLE:** Squid data (This data set is from Classical and Modern Regression with Applications
+by R.H. Myers published in 1990.) An experiment was conducted to study the size of squid eaten
+by sharks and tuna.
 
-The regressors are characteristics of the beak or mouth of the squid. They are X1 = Beak length in inches, X2 = Wing length in inches, X3 =  Beak to notch length, X4 = Notch to wing length, and X5 = Width in inches. The response (Y) is the weight of the squid in pounds. These data are given below.
+The regressors are characteristics of the beak or mouth of the squid. They are X1 = Beak length
+in inches, X2 = Wing length in inches, X3 =  Beak to notch length, X4 = Notch to wing length,
+and X5 = Width in inches. The response (Y) is the weight of the squid in pounds. These data are
+given below.
 
 $$ \begin{array}{|c|ccccc|c|ccccc|}\hline
 Y & X_1 & X_2 & X_3 & X_4 & X_5 &  Y & X_1 & X_2 & X_3 & X_4 & X_5\\ \hline
@@ -1372,7 +1460,9 @@ Y & X_1 & X_2 & X_3 & X_4 & X_5 &  Y & X_1 & X_2 & X_3 & X_4 & X_5\\ \hline
 1.98 & 1.30 &	1.10 &	0.45 &	0.76 &	0.38 &	6.88 &	1.73 &	1.67 &	0.64 &	1.14 &	0.55\\ \hline
 \end{array}$$
 
-We first fit the model $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\varepsilon$ to the above data.
+We first fit the model
+$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\varepsilon$
+to the above data.
 
 Before doing this we should first obtain a matrix scatter plot of the data.
 
@@ -1415,7 +1505,9 @@ pairs(squid)
 
 <img src="../fig/rmd-read_squid-1.png" title="plot of chunk read_squid" alt="plot of chunk read_squid" width="612" style="display: block; margin: auto;" />
 
-The relationship between $Y$ and each predictor separately is approximately linear with positive slope. More worrying is the obvious correlations between most of the predictors, there may be multicollinearity.
+The relationship between $Y$ and each predictor separately is approximately linear with positive
+slope. More worrying is the obvious correlations between most of the predictors, there may be
+multicollinearity.
 
 Seeing what happens when we fit the multiple linear regression.
 
@@ -1430,9 +1522,11 @@ plot(fit3)
 
 <img src="../fig/rmd-squid_lm-1.png" title="plot of chunk squid_lm" alt="plot of chunk squid_lm" width="612" style="display: block; margin: auto;" />
 
-The model is not adequate, the Residual versus Fitted values plot does not look like a random scatter about zero. We cannot proceed to make valid inference.
+The model is not adequate, the Residual versus Fitted values plot does not look like a random
+scatter about zero. We cannot proceed to make valid inference.
 
-For the moment, just to illustrate what to do if the model was adequate and the normality assumption held, look at the model out put.
+For the moment, just to illustrate what to do if the model was adequate and the normality
+assumption held, look at the model out put.
 
 
 ~~~
@@ -1468,9 +1562,13 @@ F-statistic: 84.07 on 5 and 16 DF,  p-value: 6.575e-11
 ~~~
 {: .output}
 
-Partial F tests suggest that the “best” model contains only one predictor variable and that is X5. (Since the model assumptions are violated the above inference is dangerous.)
+Partial F tests suggest that the “best” model contains only one predictor variable and that is
+X5. (Since the model assumptions are violated the above inference is dangerous.)
 
-We could also look at the “best” model suggested by sequential F tests. The order in which the parameters are listed can affect the conclusions reached significantly. A full-scale model-building process cannot be based on sequential F tests unless there is an appropriate selection of order of variables based on subject matter expertise.
+We could also look at the “best” model suggested by sequential F tests. The order in which the
+parameters are listed can affect the conclusions reached significantly. A full-scale
+model-building process cannot be based on sequential F tests unless there is an appropriate
+selection of order of variables based on subject matter expertise.
 
 
 ~~~
@@ -1544,7 +1642,9 @@ F-statistic: 135.1 on 3 and 18 DF,  p-value: 1.572e-12
 ~~~
 {: .output}
 
-The appropriate test statistic for testing $H_0:\ Y=\beta_0+\beta_1X_1+\beta_3X_3+\beta_5X_5+\varepsilon$  against $H_1:Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\varepsilon$  is
+The appropriate test statistic for testing
+$H_0: Y=\beta_0+\beta_1X_1+\beta_3X_3+\beta_5X_5+\varepsilon$  against
+$H_1: Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\varepsilon$  is
 $$T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}$$
 We reject $H_0$ in favour of $H_1$ at the 100$\alpha\%$ significance level if
 $T>F_{DF_{RM}-DF_{FM},DF_{FM};\alpha}$.
@@ -1596,7 +1696,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-Now, from the output above $SSE_{FM}=7.918$, $DF_{FM}=16$, $SSE_{REM}=9.183$, and $DF_{RM}=18$ so our test statistic
+Now, from the output above $SSE_{FM}=7.918$, $DF_{FM}=16$, $SSE_{REM}=9.183$,
+and $DF_{RM}=18$ so our test statistic
 $$T=\frac{\left(9.183-7.918\right)/(18-16)}{7.918/16}=1.28.$$
 Need to compare this with $F_{2,18;0.05}$. 
 
@@ -1617,7 +1718,7 @@ Since $T=1.28 \ngeq 3.5546$  we cannot reject $H_0$ in favour of $H_1$ at the $5
 
 If the model assumptions were not being met the above inference is dangerous.
 
-*Forward stepwise regression in R*
+###### Forward stepwise regression in R
 
 Illustrated on the squid data set.
 
@@ -1636,7 +1737,7 @@ Error in eval(model$call$data): object 'squid' not found
 {: .error}
 Final model has $X_5$, $X_4$ and $X_2$.
 
-*Forward stepwise elimination in R*
+###### Forward stepwise elimination in R
 
 
 ~~~
@@ -1654,7 +1755,7 @@ Error in eval(model$call$data): object 'squid' not found
 
 Final model has $X_2$, $X-4$ and $X_5$.
 
-*Stepwise regression in R*
+###### Stepwise regression in R
 
 
 ~~~
@@ -1672,7 +1773,7 @@ Error in eval(model$call$data): object 'squid' not found
 
 Final model has $X_5$ and $X_4$.
 
-*Best Subsets Regression in R*
+###### Best Subsets Regression in R
 
 
 ~~~
@@ -1692,19 +1793,34 @@ Using Mallow's $C_p$ would go for Model 3. Full model always has Mallow's $C_p =
 
 Using Adjusted $R^2$ would go for Model 3. 
 
-Other packages will give you the estimate of $\hat{\sigma}^2$ or $\hat{\sigma}$ for each model and you would go for the model with the smallest or close to smallest $\hat{\sigma}^2$ with the least number of parameters in it.
+Other packages will give you the estimate of $\hat{\sigma}^2$ or $\hat{\sigma}$ for each model
+and you would go for the model with the smallest or close to smallest $\hat{\sigma}^2$ with the
+least number of parameters in it.
 
-**2.2 PARTIAL CORRELATION**
+### 2.2 PARTIAL CORRELATION
 
-Partial correlation is the correlation between two variables while controlling for the effects of one or more other variables.The partial correlation between $Y$ and $X$, after controlling for $Z_1,\cdots,Z_p$ is denoted by $r_{YX|Z_1,cdots,Z_p}$. Its square is defined as follows
-$r_{YX|Z_1,\cdots,Z_p}^2=\frac{SSE_{Z_1,\cdots,Z_p}-SSE_{X,Z_1,\cdots,Z_p}}{SSE_{Z_1,\cdots,Z_p}}$. This is the reduction in sum of squares due to adding $X$ into the model, given $Z_1,\cdots,Z_p$ already in the model divided by the residual sum of squares for the model only having $Z_1,\cdots,Z_p$. The quantity $r_{YX|Z_1,\cdots,Z_p}$ is called the $p^{th}$ order partial correlation coefficient. The R package **ppcor** can be used to calculate partial correlations. See https://cran.r-project.org/web/packages/ppcor/ppcor.pdf.	If we compare the controlled correlation ($r_{YX|Z_1,\cdots,Z_p}$) with the original correlation ($r_{YX}$) and if there is no difference, the inference is that the control variables have no effect. 
+Partial correlation is the correlation between two variables while controlling for the effects
+of one or more other variables.The partial correlation between $Y$ and $X$, after controlling
+for $Z_1,\cdots,Z_p$ is denoted by $r_{YX|Z_1,cdots,Z_p}$. Its square is defined as follows
+$r_{YX|Z_1,\cdots,Z_p}^2=\frac{SSE_{Z_1,\cdots,Z_p}-SSE_{X,Z_1,\cdots,Z_p}}{SSE_{Z_1,\cdots,Z_p}}$.
+This is the reduction in sum of squares due to adding $X$ into the model, given $Z_1,\cdots,Z_p$
+already in the model divided by the residual sum of squares for the model only having
+$Z_1,\cdots,Z_p$. The quantity $r_{YX|Z_1,\cdots,Z_p}$ is called the $p^{th}$ order partial
+correlation coefficient. The R package **ppcor** can be used to calculate partial correlations.
+See <https://cran.r-project.org/web/packages/ppcor/ppcor.pdf>. If we compare the controlled
+correlation ($r_{YX|Z_1,\cdots,Z_p}$) with the original correlation ($r_{YX}$) and if there is
+no difference, the inference is that the control variables have no effect. 
 
-*Test of the partial correlation coefficient*
-The partial correlation coefficient is an estimate $r_{YX|Z_1,\cdots,Z_p}^2$ of the population quantity $\rho_{YX|Z_1,\ldots,Z_p}^2$. We test $H_0:\rho_{YX|Z_1,\ldots,Z_p}^2=0$ versus $H_1:\rho_{YX|Z_1,\ldots,Z_p}^2\neq0$ via the partial F-test with test statistic
+###### Test of the partial correlation coefficient
+
+The partial correlation coefficient is an estimate $r_{YX|Z_1,\cdots,Z_p}^2$ of the population
+quantity $\rho_{YX|Z_1,\ldots,Z_p}^2$. We test $H_0:\rho_{YX|Z_1,\ldots,Z_p}^2=0$ versus
+$H_1:\rho_{YX|Z_1,\ldots,Z_p}^2\neq0$ via the partial F-test with test statistic
 $T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}$
-where the reduced model regresses $Y$ on $Z_1,\cdots,Z_p$ and the full model regresses $Y$ on $X,Z_1,\cdots,Z_p$.
+where the reduced model regresses $Y$ on $Z_1,\cdots,Z_p$ and the full model regresses $Y$ on
+$X,Z_1,\cdots,Z_p$.
 
-**EXAMPLE: MCG** (For details see http://www.statsci.org/data/oz/afl.html.)
+**EXAMPLE: MCG** (For details see <http://www.statsci.org/data/oz/afl.html>)
 
 Want to investigate the effect on football game attendance of various covariates.
 
@@ -1712,8 +1828,10 @@ $$
 \begin{array}{l|l} \hline
 \mbox{Variable} & \mbox{Description} \\ \hline
 \mbox{MCG} & 	\mbox{Attendance at the MCG in 1000's.}\\
-\mbox{Members} & \mbox{The sum of the memberships of the two clubs whose teams were playing the match in question in 1000's.} \\
-\mbox{Top50} & \mbox{The number of players in the top 50 in the AFL who happened to be playing in the match in question.} \\ \hline
+\mbox{Members} & \mbox{The sum of the memberships of the two clubs whose teams were playing the
+match in question in 1000's.} \\
+\mbox{Top50} & \mbox{The number of players in the top 50 in the AFL who happened to be playing
+in the match in question.} \\ \hline
 \end{array}
 $$
 
@@ -1723,7 +1841,7 @@ Here $Y=$MCG, $X=$Top50 and $Z=$Members.
 
 ~~~
 library(tidyverse)
-mcg1<-read_csv(file.path("..", "Data", "MCG1.csv"))
+mcg1 <- read_csv(file.path("..", "Data", "MCG1.csv"))
 ~~~
 {: .language-r}
 
@@ -1775,7 +1893,7 @@ Fitting the model without the controlling variable.
 
 
 ~~~
-fit1<-lm(MCG ~ Members,data=mcg1)
+fit1 <- lm(MCG ~ Members, data = mcg1)
 summary(fit1)
 ~~~
 {: .language-r}
@@ -1829,7 +1947,7 @@ Fitting the model with the controlling variable.
 
 
 ~~~
-fit2<-lm(MCG ~ Members + Top50,data=mcg1)
+fit2 <- lm(MCG ~ Members + Top50, data = mcg1)
 summary(fit2)
 ~~~
 {: .language-r}
@@ -1890,7 +2008,7 @@ $$=0.0280907$$
 $$r_{YX|Z}=\sqrt{0.0280907}=0.167603$$
 
 ~~~
-cor(mcg1$MCG,mcg1$Top50)
+cor(mcg1$MCG, mcg1$Top50)
 ~~~
 {: .language-r}
 
@@ -1903,7 +2021,7 @@ cor(mcg1$MCG,mcg1$Top50)
 
 Now correlation between MCG and Top50 is 0.355. After controlling for Members, the correlation between MCG and Top50 has shrunk to 0.17.
 
-**3.1	CONFOUNDING**
+### 3.1 CONFOUNDING
 
 An extraneous variable is an independent variable that is not of direct interest to the study, but does have an influence on the response.
 
@@ -2833,5 +2951,768 @@ $X_1$, $X_2$ and $X_3$.
 
 - We will always prefer a model with fewer interaction terms if the models have similar
   $R_{Adj}^2$.
+
+**Some other diagnostics**
+
+
+~~~
+par(mfrow=c(2,2))
+plot(fit3)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-54-1.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="612" style="display: block; margin: auto;" />
+
+The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage.
+
+*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations* https://en.wikipedia.org/wiki/Leverage_(statistics)
+
+if they were removed the parameter estimates could be quite different. Such points are said to have high leverage. One rule of thumb for identifying such points is when
+$$h_{ii}>2\frac{(p+1)}{n}.$$
+We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$ There are no high leverage points under the model fitted.
+
+**Influential points** are captured by **Cook's distance** ($D_i$). 	An influential observation is an observation if it was removed the regression parameter estimates could be quite different. Such points are said to have high influence.
+
+According to Cook and Weisberg we flag acase as influential if $D_i\geq F_{p+1,n-p-1;0.50}$. For this example all Cook's distances are close to zero so appears that there are no influential points.
+
+**4. Categorical Predictors**
+
+To fit models with categorical predictors with more than two values (levels) we need to use the **glm** command in R. 
+
+**Example: BMD Data set**
+
+We have a sample of n=122 postmenopausal women, who took part in a clinical trial of hormone replacement therapy (HRT). The following variables were measured at the start of the trial:
+
+BMD: Bone mineral density at the spine (g/cm²)
+
+BMI : Body Mass Index (kg/m² ) 
+
+AGE: Years
+
+CALCIUM : Daily calcium intake (mg)
+
+WTKG:  Weight (kg) 
+
+HTCM: Height (cm)
+
+MENOPYRS : Number of years since menopause
+
+SMKCODE : Smoking status (1=none, 2= 1-10 cigarettes/day, 3= >10 cigarettes/day)
+
+PARITY : Number of children
+
+ALCOHOL : Alcohol intake (1= none, 2= ≤1 drink/day, 3= 2-3 drinks/day, 4= ≥4 drinks/day)
+
+TRTPRV : Previous HRT (0=no, 1=yes)
+
+AGEMENOP : Age at menopause
+
+BMI_CAT : BMI category (1=underweight, 2=normal, 3=overweight, 4=obese, 5=very obese)
+
+OSTEOFAM : Family history of osteoporosis (0=no, 1=yes)
+
+The study was undertaken to assess the effect of HRT on bone mineral density; at the start of the trial, it is of interest to explain the relationship of BMD with the covariates.
+
+The predictor TRTPRV takes on the value 0 if the subject had not previously taken hormone replacement therapy (HRT), and 1 if she had. 
+ 
+The regression of BMD against BMI and TRTPRV gives:
+
+
+~~~
+bmd<-read.csv("BMD.csv")
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning in file(file, "rt"): cannot open file 'BMD.csv': No such file or
+directory
+~~~
+{: .error}
+
+
+
+~~~
+Error in file(file, "rt"): cannot open the connection
+~~~
+{: .error}
+
+
+
+~~~
+names(bmd)<-c("BMD","BMI","AGE","CALCIUM","WTKG","HTCM","MENOPYRS","SMKCODE","PARITY","ALCOHOL","TRTPRV","AGEMENOP","BMI_CAT","OSTEOFAM")
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in names(bmd) <- c("BMD", "BMI", "AGE", "CALCIUM", "WTKG", "HTCM", : object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+fit<-lm(BMD~BMI+TRTPRV,data=bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(data): object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+summary(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = Mass ~ Height + Waist, data = mass)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.9319 -3.2881  0.6235  3.5401  5.2012 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
+Height        0.3439     0.1559   2.206  0.03990 *  
+Waist         1.1909     0.1240   9.604    1e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.147 on 19 degrees of freedom
+Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
+F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+~~~
+{: .output}
+
+TRTPRV is not significant (p=0.260), but let's consider what the regression is telling us. 
+
+If TRTPRV=0:
+
+If TRTPRV=0:
+
+$$BMD_i=0.945730+0.005948 ΒΜΙ_i$$
+
+If TRTPRV=1:
+
+$$BMD_i = 0.945730+0.005948ΒΜΙ_i+0.032468×1\\
+ = 0.9782+0.005948ΒΜΙ_i$$
+In other words, having TRTPRV=1 results in an increase in the predicted value of BMD of 0.03247 g/cm². 
+Note that the values of 0 and 1 assigned to TRTPRV are arbitrary, and any other coding would produce the same fitted values. 
+
+TRTPRV is a categorical predictor, or factor, with two levels. What happens when there are more then two levels? Consider the predictor SMKCODE:
+
+$$\begin{array}{ll}
+\mbox{Level} &	\mbox{Description}\\ \hline
+1	& \mbox{Non-smoker}\\
+2	& \mbox{Moderate smoker: 1-10 cigarettes/day}\\
+3	& \mbox{Heavy smoker: >10 cigarettes/day} \\ \hline
+\end{array} $$
+
+If we regress BMD on SMKCODE we get:
+
+
+~~~
+fit1<-lm(BMD~SMKCODE,data=bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(data): object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+summary(fit1)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = y ~ x1 + x2, data = data1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.8407  -4.2836   0.0165   4.0220   9.5455 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  12.4042     1.1830  10.485  < 2e-16 ***
+x1           -0.6230     0.1833  -3.399 0.000982 ***
+x2           -6.2591     1.0580  -5.916 4.96e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.29 on 97 degrees of freedom
+Multiple R-squared:  0.3243,	Adjusted R-squared:  0.3104 
+F-statistic: 23.28 on 2 and 97 DF,  p-value: 5.539e-09
+~~~
+{: .output}
+
+
+SMKCODE=1: $BMD_i= 1.18-0.0571\times 1 =1.1229$
+
+SMKCODE=2:$BMD_i=1.18-0.0571\times 2 = 1.0658$
+
+SMKCODE=3:$BMD_i = 1.18-0.0571 \times 3=1.0087$
+
+This means that there is a predicted decrease in BMD of 0.0571 g/cm² when SMKCODE changes from 1 to 2, and from 2 to 3. This doesn't make much sense: why should there be an equal difference in mean BMD between non-smokers and moderate smokers, as between moderate and heavy smokers?
+
+If we had using different codings for SMKCODE, we would have obtained a totally different answer. This makes no sense at all. What we need is a model which recognises that the levels of a categorical variable are not to be taken literally as numerical values, but rather as indicators of different states that the variable can be in. For this we need the concept of an indicator variable.
+
+**Indicator variables**
+
+Going back to the BMD smoking variable, we define three indicator variables $S_1$, $S_2$ and $S_3$:
+
+$$S_{i1}=\left\{ \begin{array}{ll}
+ 1 & \mbox{, if i'th person is a nonsmoker;}\\
+ 0 & \mbox{, otherwise.} \end{array} \right. $$
+ $$S_{i2}=\left\{ \begin{array}{ll}
+ 1 & \mbox{, if i'th person is a moderate smoker;}\\
+ 0 & \mbox{, otherwise.} \end{array} \right. $$
+
+$$S_{i3}=\left\{ \begin{array}{ll}
+ 1 & \mbox{, if i'th person is a heavy smoker;}\\
+ 0 & \mbox{, otherwise.} \end{array} \right. $$
+ 
+The values of  $S_1$, $S_2$   and $S_3$ will then be as follows:
+ 
+$$\begin{array}{cccc}\hline
+\mbox{SMKCODE} & S_1 & S_2 & S_3 \\ \hline	 
+1	& 1 &	0	& 0\\
+2	& 0	& 1	& 0\\
+3	& 0	& 0	& 1\\ \hline
+\end{array}$$
+
+We can then include $S_1$, $S_2$   and $S_3$  in the model. The problem with this approach is collinearity. We will always have for i-th subject: $S_{i1}+S_{i2}+S_{i3}=1$,     
+which means there is a perfect collinearity between the indicator variables. Another way to think of this is that we are giving the model redundant information: for example, for the i-th subject, if we have $S_{i1}=0$  and $S_{i2}=0$   then we know that we must have  $S_{i3}=1$. We only need to provide two bits of information about SMKCODE in order to convey all of the information. We leave out one of the indicator variables, and the level of the categorical variable corresponding to the indicator variable which we leave out, is called the **referent category**.
+
+
+~~~
+fit<-lm(BMD ~ factor(SMKCODE), data = bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(data): object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+summary(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = Mass ~ Height + Waist, data = mass)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.9319 -3.2881  0.6235  3.5401  5.2012 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
+Height        0.3439     0.1559   2.206  0.03990 *  
+Waist         1.1909     0.1240   9.604    1e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.147 on 19 degrees of freedom
+Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
+F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+~~~
+{: .output}
+
+The referrent category is $S_1$, nonsmoker.
+
+**Another way of looking at the problem**
+
+We have performed an analysis to determine whether Smoking (a categorical variable or factor) is a significant predictor of BMD. An appropriate visual display is the boxplot:
+
+
+~~~
+boxplot(BMD~SMKCODE,data=bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in eval(m$data, parent.frame()): object 'bmd' not found
+~~~
+{: .error}
+
+in which we can see the lower BMDs of smokers. This suggests another method of analysis: one-way analysis of variance. The model is
+$$Y_{ij}=\mu+\alpha_j+\varepsilon_{ij},   i=1,\ldots,n_j;    j=1,2,3$$
+where
+$Y_{ij} =$	  BMD of i-th subject in smoking group j
+
+$\mu =$	 Overall mean BMD
+
+$\alpha_j=$	 Effect of smoking group j
+
+$n_j=$ 	 Number of subjects in smoking group j
+
+$$\sum_{j=1}^{3}{\alpha_j=0},  \varepsilon_{ij}\sim N(0,\sigma^2)$$
+
+
+~~~
+anova(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Response: Mass
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+Height     1  610.86  610.86  35.514 9.788e-06 ***
+Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
+Residuals 19  326.80   17.20                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+### 5.1 ANALYSIS OF COVARIANCE
+
+A regression based on a single, categorical predictor is equivalent to a one-way ANOVA. A regression based on more categorical variables as predictors (say m of them) would have been equivalent to an m-way ANOVA. Once we include categorical predictors in the regression framework, by using indicator variables, there is nothing stopping us from also including one or more covariates (or continuous predictors) in the model. 
+Say we have one covariate ($X$) and one categorical predictor ($S$), which has $k$ levels. Assuming that the last (k-th) level of S is the referent category, a possible model is
+
+$$
+y_i=\beta_0+\beta_1x_i+\gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1}+\varepsilon_i,~~~(1)$$
+$\varepsilon_i \sim N(0,\sigma^2)$ independently $i=1,\ldots,n$
+
+What (1) is assuming is that the slope of the relationship between $y$ and $x$ is $\beta_1$, irrespective of the value of $S$. This may be depicted, for $k=3$, as:
+
+
+~~~
+x<-c(0,1,2,3,4,5,6,7,8,9,10)
+y<-13.4+0.623*x
+example1 <- data.frame(x, y)
+ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, slope = 0.623,col="blue") + geom_abline(intercept=13.4,slope=0.623) + 
+  geom_abline(intercept=14.4,slope=0.623,col="red")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-60-1.png" title="plot of chunk unnamed-chunk-60" alt="plot of chunk unnamed-chunk-60" width="612" style="display: block; margin: auto;" />
+
+We say here that there is no interaction between X and S.
+
+Another possible scenario is:
+
+
+~~~
+x<-c(0,1,2,3,4,5,6,7,8,9,10)
+y<-13.4+1.623*x
+example1 <- data.frame(x, y)
+ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, slope = 0.623,col="blue") + geom_abline(intercept=13.4,slope=1.623) + 
+  geom_abline(intercept=14.4,slope=0.23,col="red")
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
+
+The slope of the relationship between $y$ and $x$ depends on the value of $S$. 
+
+This is formulated as follows: 
+$$\begin{array}{cccc} 
+y_i	& =	& \beta_0	+ \beta_1 x_i	& \mbox{(covariate main effect)}\\
+& &	+ \gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1} &	\mbox{(factor main effects)}\\
+&	&	+ \delta_1(x_i \times S_{i1})+\cdots +\delta_{k-1}(x_i \times S_{i,k-1})&	\mbox{(interaction terms)}\\
+& &		+ \epsilon_i & \\
+\end{array}$$
+
+Rewrite as
+
+$$\begin{array}{ccc} 
+y_i	& =	& \beta_0	\\
+& & + \delta_1 S_{i1} x_{i1}+\ldots+\delta_{k-1}S_{i,k-1}x_i+\beta_1x_i\\
+& &	+ \gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1}\\
+& &		+ \epsilon_i\\
+\end{array}$$
+
+We have differential slopes for different levels of $S$. 	For the referent category $k$, the slope is $\beta_1$.
+
+No interaction hypothesis:
+$$H_0:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)=\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right)$$
+
+No effect of S hypothesis assuming no interaction:
+$$H_0:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)=\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right)$$
+
+**BMD example**
+
+Body mass index (BMI) is an important predictor of bone mineral density (BMD). It is a simple matter to include BMI in the model. The following is the model with no interaction, i.e. the same slope between BMD and BMI, irrespective of the subject's smoking status:
+$$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\varepsilon_i$$
+where
+
+$BMI_i$ = body mass index of i-th subject
+and other definitions are as for model (1). The results are
+
+
+~~~
+fit<-lm(BMD ~ BMI+factor(SMKCODE), data = bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(data): object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+summary(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = Mass ~ Height + Waist, data = mass)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.9319 -3.2881  0.6235  3.5401  5.2012 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
+Height        0.3439     0.1559   2.206  0.03990 *  
+Waist         1.1909     0.1240   9.604    1e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.147 on 19 degrees of freedom
+Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
+F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+~~~
+{: .output}
+
+
+
+~~~
+anova(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Response: Mass
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+Height     1  610.86  610.86  35.514 9.788e-06 ***
+Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
+Residuals 19  326.80   17.20                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+The fitted model is $$BMD_i=0.986+0.00543 \cdot BMI_i-0.12657\cdot S2-0.07874\cdot S3$$
+**Interpretation of parameters:**
+
+The predicted effect on BMD of an increase of 1 kg/m² of BMI, is a increase of 0.005 g/cm².
+
+The predicted effect on BMD of a person being a moderate smoker. compared with a nonsmoker, is a decrease of 0.127 g/cm².
+
+The predicted effect on BMD of a person being a heavy smoker. compared with a nonsmoker, is a decrease of 0.079 g/cm².
+
+The model with interaction is
+$$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\cdot S_{i2})+\\
+\delta_3(BMI_i\cdot S_{i3})+\varepsilon_i$$
+
+
+~~~
+fit1<-lm(BMD ~ BMI*factor(SMKCODE), data = bmd)
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in is.data.frame(data): object 'bmd' not found
+~~~
+{: .error}
+
+
+
+~~~
+summary(fit1)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = y ~ x1 + x2, data = data1)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-12.8407  -4.2836   0.0165   4.0220   9.5455 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  12.4042     1.1830  10.485  < 2e-16 ***
+x1           -0.6230     0.1833  -3.399 0.000982 ***
+x2           -6.2591     1.0580  -5.916 4.96e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.29 on 97 degrees of freedom
+Multiple R-squared:  0.3243,	Adjusted R-squared:  0.3104 
+F-statistic: 23.28 on 2 and 97 DF,  p-value: 5.539e-09
+~~~
+{: .output}
+
+
+
+~~~
+anova(fit1)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Response: y
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+x1         1  323.32  323.32  11.554 0.0009825 ***
+x2         1  979.39  979.39  34.999 4.956e-08 ***
+Residuals 97 2714.43   27.98                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+Model fitted:
+$$B\hat{M}D_i	=	0.98157 +0.005607BMI_1
+		-0.2518S_{i2}+0.2591S_{i3}\\
+		+0.00483(BMI_i\times S_{i2})-0.01379(BMI_i\times S_{i3})
+$$
+Alternatively:
+
+SMKCODE=1:$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i$
+
+SMKCODE=2:	$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i-0.2518+0.00483\cdot BMI_i$
+
+$=0.72977+0.010437\cdot BMI_i$
+
+SMKCODE=3:	$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i+0.2591-0.01379\cdot BMI_i$
+
+$=1.2407-0.008183\cdot BMI_i$
+
+**Interpretation of parameters:**
+
+Interaction makes interpretation more complicated.
+
+The predicted effect on BMD of an increase of 1 kg/m² of BMI, is:
+
+-  for a nonsmoker: an increase of 0.005607 
+g/cm²;
+
+-  for a moderate smoker: an increase of 
+001 043 7 g/cm²;
+
+-  for a heavy smoker: a decrease of 0.008 
+183 g/cm².
+
+The predicted effect on BMD of a person being a moderate smoker compared with a non-smoker: $-0.25180+0.00483\cdot BMI_i$
+
+The predicted effect on BMD of a person being a heavy smoker compared with a non-smoker:
+$0.2591-0.01379\cdot BMI_i$
+
+**Test for interaction**
+
+Always test for interaction before main effects. If interaction is present then we need to retain the main effects in the model. We want to test
+$$H_0:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
+We can do this by looking at the anova of the model we fitted with interaction.
+
+
+~~~
+anova(fit1)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Response: y
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+x1         1  323.32  323.32  11.554 0.0009825 ***
+x2         1  979.39  979.39  34.999 4.956e-08 ***
+Residuals 97 2714.43   27.98                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+The p-value associated with the interaction term is $0.0095$ which is significant. Only can say if this model assumptions hold:
+
+
+~~~
+par(mfrow=c(2,2))
+plot(fit1)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-65-1.png" title="plot of chunk unnamed-chunk-65" alt="plot of chunk unnamed-chunk-65" width="612" style="display: block; margin: auto;" />
+
+Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does look like a random scatter about zero and the Normal Q-Q plot looks linear.
+
+We conclude that there is no evidence to confirm a BMI-smoking interaction effect on bone mineral density.
+
+**Test for categorical predictor (no interaction present)**
+
+In the presence of interaction, we need the main effects to be present in the model and so do not need to check for their significance. 
+
+In the absence of interaction, we test for the overall significance of the categorical predictor, again via a multiple partial F-test. (R gives you this when you obtain the anova of the model fitted without an interaction term whit was fit above.)
+
+The full model is
+
+$$\begin{array}{cccc} 
+y_i	& =	& \beta_0	+ \beta_1 x_i	& \mbox{(covariate main effect)}\\
+& &	+ \gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1} &	\mbox{(factor main effects)}\\
+& &		+ \epsilon_i & \\
+\end{array}$$
+We test:
+$$H_0:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\ 0\\ \end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
+We can do this by looking at the anova of the model we fitted with no interaction earlier.
+
+
+~~~
+anova(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+Analysis of Variance Table
+
+Response: Mass
+          Df  Sum Sq Mean Sq F value    Pr(>F)    
+Height     1  610.86  610.86  35.514 9.788e-06 ***
+Waist      1 1586.49 1586.49  92.237 1.005e-08 ***
+Residuals 19  326.80   17.20                      
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+The p-value associated with the  is $0.0095$ which is significant. We strongly reject $H_0$  in favour of  $H_1$. We conclude that Smoking is a significant predictor of BMD, after correcting (or controlling) for Body Mass Index.We only can say if this model assumptions hold:
+
+
+~~~
+par(mfrow=c(2,2))
+plot(fit1)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-unnamed-chunk-67-1.png" title="plot of chunk unnamed-chunk-67" alt="plot of chunk unnamed-chunk-67" width="612" style="display: block; margin: auto;" />
+**Tests for individual coefficients**
+
+
+~~~
+summary(fit)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Call:
+lm(formula = Mass ~ Height + Waist, data = mass)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-8.9319 -3.2881  0.6235  3.5401  5.2012 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -89.3517    26.0808  -3.426  0.00283 ** 
+Height        0.3439     0.1559   2.206  0.03990 *  
+Waist         1.1909     0.1240   9.604    1e-08 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.147 on 19 degrees of freedom
+Multiple R-squared:  0.8705,	Adjusted R-squared:  0.8569 
+F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
+~~~
+{: .output}
+
+Test for the significance of $\gamma_j$, compared with the referent category. 
+
+For $H_0:\gamma_2=0$ we have $\gamma_2$ significant (p=0.0075) and for $H_0:\gamma_3=0$, we have $\gamma_3$ not significant (p=0.081). 
+
+We conclude that moderate smokers have mean BMD levels significantly lower than nonsmokers, but that heavy smokers' mean BMD levels are not significantly different from nonsmokers. [The numbers of heavy smokers in the sample was small, making the detection of a significant difference unlikely, even if there was a significant difference in the population.]
+
+**Caution:** Here we have performed two hypothesis tests, both at a 5% level of significance. Is the overall significance of our conclusion still 5%? If not, is it greater than or less than 5%?
+
+**Referent category revisited**
+
+A sensible choice for referent category will be a category which:
+
+*for numerical stability: is not sparse; has a reasonable number of observations; and
+
+*is a sensible point of reference in the context of the problem.
+
+In the BMD example, we have the following frequencies for Smkcode:
+
+$$\begin{array}{cc}\hline
+\mbox{Level} &	\mbox{Number}\\ \hline
+1	& 101\\
+2	& 10\\
+3	& 11\\ \hline
+\mbox{Total} &	122\\ \hline
+\end{array}
+$$
+There are few moderate and heavy smokers relative to nonsmokers, and a comparison with reference to nonsmokers makes sense.
+
+Transformation of variables will be covered in the last Exercise for Day 2.
 
 {% include links.md %}
