@@ -79,8 +79,10 @@ mydata
 Block Size ($X_1$), Bedrooms ($X_2$), Bathrooms ($X_3$), Ensuites ($X_4$), Garages ($X_5$),
 Carports ($X_6$).
 
-**Regression Model:** 
+**Regression Model:**
 $$Y=f(X_1,X_2,X_3,X_4,X_5,X_6)+\varepsilon$$
+![Regression equation](https://latex.codecogs.com/svg.latex?Y=f(X_1,X_2,X_3,X_4,X_5,X_6)&plus;\varepsilon)
+
 This is used as an approximation to the true relationship between $Y$ and $X_1$, $X_2$, $X_3$,
 $X_4$, $X_5$, $X_6$.
 	
