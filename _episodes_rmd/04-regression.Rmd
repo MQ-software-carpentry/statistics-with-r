@@ -28,9 +28,12 @@ options(tinytex.verbose = TRUE)
 
 ## 1. Regression Introduction
 
-Regression analysis is a conceptually simple method for investigating functional relationships
-among variables. Regression Analysis By Example by Samprit Chatterjee, Ali S. Hadi and Bertram
-Price available online from the MQ library. 
+> Regression analysis is a conceptually simple method for investigating functional relationships
+> among variables.
+> 
+> _Regression Analysis By Example_ by Samprit Chatterjee, Ali S. Hadi and Bertram Price
+> available online from the MQ library. 
+{: .quotation}
 
 **EXAMPLE:** A new Real Estate agent in Macquarie, ACT wants to come up with a sale price for a
 house based on some physical characteristics.
@@ -103,8 +106,8 @@ $p$ predictors.
 We can classify the variables as **quantitative** or **qualitative** (categorical) and further
 divide categorical variables as being ordinal or nominal (no ordering in the categories). 
 
-**EXAMPLE:** In the Maquarie Real Estate example, except for Contract Date, all variables can be
-considered to be quantitative.
+**EXAMPLE:** In the Macquarie Real Estate example, except for Contract Date, all variables can
+be considered to be quantitative.
 
 #### Model specification
 
@@ -311,7 +314,7 @@ two variables better. Looking at the plot of y3 versus x3 it is obvious if it wa
 second last data point the relationship would be perfectly linear with a positive slope. Look at
 the last plot, if it wasn't for the point on its own there would be no relationship between y4
 and x4, such a point is called highly influential because if it was removed the curve fitted
-would be very different. Only the plot of y1 versis x1 could be considered to be approximately
+would be very different. Only the plot of y1 versus x1 could be considered to be approximately
 linear.
 
 ### 1.4 THE SIMPLE LINEAR REGRESSION MODEL
@@ -407,8 +410,8 @@ hypothesis $H_0:\beta_1=0$ in favour of $H_1:\beta_1 \neq 0$. In a report you wo
 something like "Insufficient evidence to support house prices being influenced by block sizes in
 Macquarie (p=0.157)". Different journals have different requirements for reporting statistical
 results. You need to make sure you extract all the information for the style you have to use,
-for example APS style requires more (see https://apastyle.apa.org/ or do a google search if the
-information isn't there).
+for example APS style requires more (see <https://apastyle.apa.org/> or do a Google search if
+the information isn't there).
 
 ##### A Test Using Correlation Coefficient
 	
@@ -440,7 +443,7 @@ is available from `lm` in R. For more details see
 confint(fit)
 ```
 
-This is giving you a default 95% confidendence interval for the intercept and slope. You would
+This is giving you a default 95% confidence interval for the intercept and slope. You would
 write something like the "95% confidence interval is (-74.3,412.3) for Block Size", since the
 confidence interval contains zero there is insufficient evidence that Block Size influences
 Price. Again, only report this information if the model assumptions hold (residual versus fitted
@@ -458,8 +461,8 @@ predict(fit, newdata, interval = "predict")
 For details on how confidence interval or prediction intervals are calculated from formula look
 at CHP which is available online from the library.
 
-If the model assumptions hold then the predicted price for a block size of 800 m2 is \$751,814.8
-and the 95% prediction interval is (\$549,136.4, \$954,493.3).
+If the model assumptions hold then the predicted price for a block size of 800 m<sup>2</sup>
+is \$751,814.8 and the 95% prediction interval is (\$549,136.4, \$954,493.3).
 
 #### 1.4.6 Analysis of variance (ANOVA)
 
@@ -623,7 +626,7 @@ Looking at the Residual vs Fitted values plot, ignore the Loess smoother line fi
 summary(fit)
 ```
 
-The p-value for the F statistic is very small (much smaller than 0.05) so the regression is significant which means that at least one of the predictors is needed in the model. The five predictors explain for 87.7\% ofthe variability in the response HeatFlux.
+The p-value for the F statistic is very small (much smaller than 0.05) so the regression is significant which means that at least one of the predictors is needed in the model. The five predictors explain for 87.7\% of the variability in the response HeatFlux.
 
 #### 1.7.2 Multiple linear regression: matrix form
 
@@ -731,8 +734,12 @@ possible that adequately explains what is going on ("principle of parsimony"). T
 parameters in the model, the closer the fitted values will be to the observed data and the
 higher $R^2$ will be but the standard errors of the estimates ${\hat{\beta}}_i$ will increase
 because we are estimating more parameters on the same amount of information. We trade off
-between (i) Few $X$'s (small $p$): lower $R^2$ but more precise $\beta_i$'s and (ii) Many $X$'s
-(large $p$): higher $R^2$ but less precise $\beta_i$'s. We try to find that set of predictors
+between
+
+1. Few $X$'s (small $p$): lower $R^2$ but more precise $\beta_i$'s and
+1. Many $X$'s (large $p$): higher $R^2$ but less precise $\beta_i$'s.
+
+We try to find that set of predictors
 which give an acceptable model fit, or $R^2$. If a predictor does not add to the model's
 explanation of the variation of $Y$  in a significant way, it is not added to the model, even
 though it would have reduced $R^2$.
@@ -762,8 +769,8 @@ as assessing variables as if they were the last being added to the model.
 An equivalent way of testing $H_0:\beta_i=0$ versus $H_1:\beta_i\neq 0$ is using
 $t=\frac{\hat{\beta}_i}{S.E.(\hat{\beta}}_i)}$
 which has a $t_{n-p-1}$ distribution if $H_0$ is true.
-R routine **lm** gives you the partial F-tests in this way. 
-	The disadvantage of partial F-tests is that they are not independent tests. 
+The R function `lm` gives you the partial F-tests in this way. 
+The disadvantage of partial F-tests is that they are not independent tests. 
 
 ##### EXAMPLE: Heat Flux revisited
 ```{r}
@@ -795,15 +802,18 @@ East, South and North are significant (at 1\% significance level or 0.5\% signif
 
 ##### Using R Square ($R^2$)
 
-When a linear regression model is fitted using function lm in R you can extract $R^2$. 
+When a linear regression model is fitted using function `lm` in R you can extract $R^2$. 
 
 ```{r}
 summary(fit)$r.squared
 ```
         
-R Square gives the "proportion of variation in the response data that is explained by the model".	An acceptable value for $R^2$ depends on the context of the model fitting. 	R Square ($R^2$) is a dangerous criterion for model comparisons, any additional model terms will automatically increase it.
+R Square gives the "proportion of variation in the response data that is explained by the
+model".	An acceptable value for $R^2$ depends on the context of the model fitting. R Square
+($R^2$) is a dangerous criterion for model comparisons, any additional model terms will
+automatically increase it.
 
-Note that Multiple R-squared given earlier is the same as R-squared in the **lm** function.
+Note that Multiple R-squared given earlier is the same as R-squared in the `lm` function.
 
 ##### Using Adjusted R Square ($R_{ADJ}^2$) 
 
@@ -843,9 +853,10 @@ Mallows' $C_p$ has these properties:
 1. it has a random and a fixed component giving a trade off between better fit and more
    parameters, and
 1. it can be used to compare subset models --- although it is not necessarily true that a
-   smaller value means a better subset model, any model with $C_p\le p$ will be a good model.
+   smaller value means a better subset model, any model with $C_p \le p$ will be a good model.
 
-We can use leaps to otain the Mallow's $C_p$. Note that when $p$ equals the number of predictors in the full model that Mallow's $C_p$ always equals $p$.
+We can use `leaps` to obtain the Mallow's $C_p$. Note that when $p$ equals the number of
+predictors in the full model that Mallow's $C_p$ always equals $p$.
 
 ```{r}
 require(leaps)
@@ -928,13 +939,22 @@ $$ \begin{array}{l|llll}\hline
 
 ##### Selecting variables on substantive grounds
 
-The most important method for selecting variables is based on a knowledge of the situation and the variables being studied. 
+The most important method for selecting variables is based on a knowledge of the situation and the variables being studied.
 
-**EXAMPLE:**  The variables HT (height) and WT (weight) can be combined into BMI (body mass index = weight per height squared). 
+**EXAMPLE:**  The variables `HT` (height) and `WT` (weight) can be combined into
+`BMI` (body mass index = weight per height squared). 
 
 **EXAMPLE:** A number of test scores can be combined into an average.
 
-**EXAMPLE:** Weisberg (1981) gives an example ‘Highway data’, from a Masters thesis modelling the automobile accident rate in terms of 13 independent variables. Here there are $2^{13} = 8192$ possible subset models, which can be reduced by considering two points: (i) Three variables, FAI, PA and MA, should be kept together since they are indicator variables for different types of highways, with a fourth type indicated if each of these variables equals zero and (ii) The variable LEN, length of segment under study, is required by definition. This now gives a total of 512 possible subset models, still a large number but much fewer than originally.
+**EXAMPLE:** Weisberg (1981) gives an example ‘Highway data’, from a Masters thesis modelling
+the automobile accident rate in terms of 13 independent variables. Here there are
+$2^{13} = 8192$ possible subset models, which can be reduced by considering two points:
+
+1. Three variables, `FAI`, `PA` and `MA`, should be kept together since they are indicator
+   variables for different types of highways, with a fourth type indicated if each of these
+   variables equals zero and
+1. The variable `LEN`, length of segment under study, is required by definition. This now gives
+   a total of 512 possible subset models, still a large number but much fewer than originally.
 
 ##### Stepwise methods of variable selection
 
@@ -957,7 +977,7 @@ This is a combination of the previous two methods. We start with one variable, a
 * Stepwise methods entail less computing than Best Subsets Regression. 
 * Order in which variables enter or leave the equation should not be interpreted as reflecting
   the relative importance of the variables.
-* If data is noncollinear all three methods should give nearly the same selection of variables.
+* If data is noncollinear, all three methods should give nearly the same selection of variables.
 * CHP recommend Backward Elimination over Forward Selection because the full variable set is
   calculated and available for inspection even though it may not be used in the final equation.
 * Backward Elimination copes better with multicollinearity.
@@ -1134,7 +1154,7 @@ $r_{YX|Z_1,\cdots,Z_p}^2=\frac{SSE_{Z_1,\cdots,Z_p}-SSE_{X,Z_1,\cdots,Z_p}}{SSE_
 This is the reduction in sum of squares due to adding $X$ into the model, given $Z_1,\cdots,Z_p$
 already in the model divided by the residual sum of squares for the model only having
 $Z_1,\cdots,Z_p$. The quantity $r_{YX|Z_1,\cdots,Z_p}$ is called the $p^{th}$ order partial
-correlation coefficient. The R package **ppcor** can be used to calculate partial correlations.
+correlation coefficient. The R package `ppcor` can be used to calculate partial correlations.
 See <https://cran.r-project.org/web/packages/ppcor/ppcor.pdf>. If we compare the controlled
 correlation ($r_{YX|Z_1,\cdots,Z_p}$) with the original correlation ($r_{YX}$) and if there is
 no difference, the inference is that the control variables have no effect. 
@@ -1274,12 +1294,17 @@ ggplot(mf, aes(x = x, y = y, colour = Sex)) +
     geom_abline(intercept = -4.8558, slope = 2.5324)
 ```
 
-Gender is a **confounder** in the regression. A confounder is a variable in a study that may not be of direct interest, but has an association with both response and predictor(s). Confounders must be taken into account or controlled for. If not, incorrect results such as that shown above may be obtained.
+Gender is a **confounder** in the regression. A confounder is a variable in a study that may not
+be of direct interest, but has an association with both response and predictor(s). Confounders
+must be taken into account or controlled for. If not, incorrect results such as that shown above
+may be obtained.
 
-Kleinbaurm et al [1] state:
-*In general, confounding exists if meaningfully different interpretations of the relationship of interest result when an extraneous variable is ignored or included in the data analysis.*
+Kleinbaum et al [1] state:
+*In general, confounding exists if meaningfully different interpretations of the relationship of
+interest result when an extraneous variable is ignored or included in the data analysis.*
 
-[1] Klienbaum, Kupper, Muller and Nizam (1998) Applied Regression Analysis and Other Multivariable Methods, Third Edition, Duxbury Press.
+[1] Kleinbaum, Kupper, Muller and Nizam (1998) _Applied Regression Analysis and Other
+Multivariable Methods_, Third Edition, Duxbury Press.
 
 **Controlling for a confounder**
 
@@ -1290,7 +1315,7 @@ anova(fit)
 ```
 
 
-*To put a plot with the fitted model here*
+FIXME *To put a plot with the fitted model here*
 
 **How do we identify when confounding is occurring?**
 
@@ -1467,63 +1492,71 @@ par(mfrow=c(2,2))
 plot(fit3)
 ```
 
-The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high leverage. To actually identify the points use hatvalues(fit) where fit is whatever name you gave to the model fitted to the data.
+The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high
+leverage. To actually identify the points use `hatvalues(fit)` where `fit` is whatever name you
+gave to the model fitted to the data.
 
-*Leverage is a measure of how far away the independent variable values of an observation are from those of the other observations*
+*Leverage is a measure of how far away the independent variable values of an observation are
+from those of the other observations*
 <https://en.wikipedia.org/wiki/Leverage_(statistics)>
 
 One rule of thumb for identifying such points is when
 $$h_{ii}>2\frac{(p+1)}{n}.$$
-We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$ There are no high leverage points under the model fitted.
+We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$
+There are no high leverage points under the model fitted.
 
-**Influential points** are captured by **Cook's distance** ($D_i$). 	An influential observation is an observation if it was removed the regression parameter estimates could be quite different. Such points are said to have high influence.
+**Influential points** are captured by **Cook's distance** ($D_i$). An influential observation
+is an observation if it was removed the regression parameter estimates could be quite different.
+Such points are said to have high influence.
 
-According to Cook and Weisberg we flag acase as influential if $D_i\geq F_{p+1,n-p-1;0.50}$. For this example all Cook's distances are close to zero so appears that there are no influential points.
+According to Cook and Weisberg we flag a case as influential if $D_i\geq F_{p+1,n-p-1;0.50}$.
+For this example all Cook's distances are close to zero so appears that there are no influential
+points.
 
-The following can be used to obtain Cook's Disances.
+The following can be used to obtain Cook's Distances.
 
 ```{r}
 library(car)
 
 cooks.distance(fit)
 ```
-To get $D_i\geq F_{p+1,n-p-1;0.50}$ use qf(.5, df1=p+1, df2=n-p-1) in R where you substitute the number values of df1 and df2.
+To get $D_i\geq F_{p+1,n-p-1;0.50}$ use `qf(.5, df1=p+1, df2=n-p-1)` in R where you substitute the number values of `df1` and `df2`.
 
 **4. Categorical Predictors**
 
-To fit models with categorical predictors with more than two values (levels) we need to use the **lm** command in R. 
+To fit models with categorical predictors with more than two values (levels) we need to use the `lm` command in R. 
 
 **Example: BMD Data set**
 
-We have a sample of n=122 postmenopausal women, who took part in a clinical trial of hormone replacement therapy (HRT). The following variables were measured at the start of the trial:
+We have a sample of n=122 post-menopausal women, who took part in a clinical trial of hormone replacement therapy (HRT). The following variables were measured at the start of the trial:
 
 BMD: Bone mineral density at the spine (g/cm²)
 
-BMI : Body Mass Index (kg/m² ) 
+BMI: Body Mass Index (kg/m²)
 
 AGE: Years
 
-CALCIUM : Daily calcium intake (mg)
+CALCIUM: Daily calcium intake (mg)
 
-WTKG:  Weight (kg) 
+WTKG: Weight (kg) 
 
 HTCM: Height (cm)
 
-MENOPYRS : Number of years since menopause
+MENOPYRS: Number of years since menopause
 
-SMKCODE : Smoking status (1=none, 2= 1-10 cigarettes/day, 3= >10 cigarettes/day)
+SMKCODE: Smoking status (1=none, 2= 1-10 cigarettes/day, 3= >10 cigarettes/day)
 
-PARITY : Number of children
+PARITY: Number of children
 
-ALCOHOL : Alcohol intake (1= none, 2= ≤1 drink/day, 3= 2-3 drinks/day, 4= ≥4 drinks/day)
+ALCOHOL: Alcohol intake (1= none, 2= ≤1 drink/day, 3= 2-3 drinks/day, 4= ≥4 drinks/day)
 
-TRTPRV : Previous HRT (0=no, 1=yes)
+TRTPRV: Previous HRT (0=no, 1=yes)
 
-AGEMENOP : Age at menopause
+AGEMENOP: Age at menopause
 
-BMI_CAT : BMI category (1=underweight, 2=normal, 3=overweight, 4=obese, 5=very obese)
+BMI_CAT: BMI category (1=underweight, 2=normal, 3=overweight, 4=obese, 5=very obese)
 
-OSTEOFAM : Family history of osteoporosis (0=no, 1=yes)
+OSTEOFAM: Family history of osteoporosis (0=no, 1=yes)
 
 The study was undertaken to assess the effect of HRT on bone mineral density; at the start of the trial, it is of interest to explain the relationship of BMD with the covariates.
 
@@ -1538,22 +1571,22 @@ fit<-lm(BMD~BMI+TRTPRV,data=bmd)
 summary(fit)
 ```
 
-TRTPRV is not significant (p=0.260), but let's consider what the regression is telling us. 
+`TRTPRV` is not significant (p=0.260), but let's consider what the regression is telling us. 
 
-If TRTPRV=0:
-
-If TRTPRV=0:
+If `TRTPRV=0`:
 
 $$BMD_i=0.945730+0.005948 ΒΜΙ_i$$
 
-If TRTPRV=1:
+If `TRTPRV=1`:
 
 $$BMD_i = 0.945730+0.005948ΒΜΙ_i+0.032468×1\\
  = 0.9782+0.005948ΒΜΙ_i$$
-In other words, having TRTPRV=1 results in an increase in the predicted value of BMD of 0.03247 g/cm². 
-Note that the values of 0 and 1 assigned to TRTPRV are arbitrary, and any other coding would produce the same fitted values. 
+In other words, having `TRTPRV=1` results in an increase in the predicted value of `BMD` of
+0.03247 g/cm².
+Note that the values of 0 and 1 assigned to `TRTPRV` are arbitrary, and any other coding would
+produce the same fitted values. 
 
-TRTPRV is a categorical predictor, or factor, with two levels. What happens when there are more then two levels? Consider the predictor SMKCODE:
+`TRTPRV` is a categorical predictor, or factor, with two levels. What happens when there are more then two levels? Consider the predictor `SMKCODE`:
 
 $$\begin{array}{ll}
 \mbox{Level} &	\mbox{Description}\\ \hline
@@ -1562,7 +1595,7 @@ $$\begin{array}{ll}
 3	& \mbox{Heavy smoker: >10 cigarettes/day} \\ \hline
 \end{array} $$
 
-If we regress BMD on SMKCODE we get:
+If we regress `BMD` on `SMKCODE` we get:
 
 ```{r}
 fit1<-lm(BMD~SMKCODE,data=bmd)
@@ -1572,17 +1605,25 @@ summary(fit1)
 
 SMKCODE=1: $BMD_i= 1.18-0.0571\times 1 =1.1229$
 
-SMKCODE=2:$BMD_i=1.18-0.0571\times 2 = 1.0658$
+SMKCODE=2: $BMD_i=1.18-0.0571\times 2 = 1.0658$
 
-SMKCODE=3:$BMD_i = 1.18-0.0571 \times 3=1.0087$
+SMKCODE=3: $BMD_i = 1.18-0.0571 \times 3=1.0087$
 
-This means that there is a predicted decrease in BMD of 0.0571 g/cm² when SMKCODE changes from 1 to 2, and from 2 to 3. This doesn't make much sense: why should there be an equal difference in mean BMD between non-smokers and moderate smokers, as between moderate and heavy smokers?
+This means that there is a predicted decrease in `BMD` of 0.0571 g/cm² when `SMKCODE` changes
+from 1 to 2, and from 2 to 3. This doesn't make much sense: why should there be an equal
+difference in mean `BMD` between non-smokers and moderate smokers, as between moderate and heavy
+smokers?
 
-If we had using different codings for SMKCODE, we would have obtained a totally different answer. This makes no sense at all. What we need is a model which recognises that the levels of a categorical variable are not to be taken literally as numerical values, but rather as indicators of different states that the variable can be in. For this we need the concept of an indicator variable.
+If we had used different a coding for `SMKCODE`, we would have obtained a totally different
+answer. This makes no sense at all. What we need is a model which recognises that the levels of
+a categorical variable are not to be taken literally as numerical values, but rather as
+indicators of different states that the variable can be in. For this we need the concept of an
+indicator variable.
 
 **Indicator variables**
 
-Going back to the BMD smoking variable, we define three indicator variables $S_1$, $S_2$ and $S_3$:
+Going back to the `BMD` smoking variable, we define three indicator variables $S_1$, $S_2$ and
+$S_3$:
 
 $$S_{i1}=\left\{ \begin{array}{ll}
  1 & \mbox{, if i'th person is a nonsmoker;}\\
@@ -1612,11 +1653,11 @@ fit<-lm(BMD ~ factor(SMKCODE), data = bmd)
 summary(fit)
 ```
 
-The referrent category is $S_1$, nonsmoker.
+The referrent category is $S_1$, non-smoker.
 
 **Another way of looking at the problem**
 
-We have performed an analysis to determine whether Smoking (a categorical variable or factor) is a significant predictor of BMD. An appropriate visual display is the boxplot:
+We have performed an analysis to determine whether Smoking (a categorical variable or factor) is a significant predictor of BMD. An appropriate visual display is the box plot:
 
 ```{r}
 boxplot(BMD~SMKCODE,data=bmd)
@@ -1716,9 +1757,9 @@ The fitted model is $$BMD_i=0.986+0.00543 \cdot BMI_i-0.12657\cdot S2-0.07874\cd
 
 The predicted effect on BMD of an increase of 1 kg/m² of BMI, is a increase of 0.005 g/cm².
 
-The predicted effect on BMD of a person being a moderate smoker. compared with a nonsmoker, is a decrease of 0.127 g/cm².
+The predicted effect on BMD of a person being a moderate smoker. compared with a non-smoker, is a decrease of 0.127 g/cm².
 
-The predicted effect on BMD of a person being a heavy smoker. compared with a nonsmoker, is a decrease of 0.079 g/cm².
+The predicted effect on BMD of a person being a heavy smoker. compared with a non-smoker, is a decrease of 0.079 g/cm².
 
 The model with interaction is
 $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\cdot S_{i2})+\\
@@ -1753,7 +1794,7 @@ Interaction makes interpretation more complicated.
 
 The predicted effect on BMD of an increase of 1 kg/m² of BMI, is:
 
--  for a nonsmoker: an increase of 0.005607 
+-  for a non-smoker: an increase of 0.005607 
 g/cm²;
 
 -  for a moderate smoker: an increase of 
@@ -1769,30 +1810,37 @@ $0.2591-0.01379\cdot BMI_i$
 
 **Test for interaction**
 
-Always test for interaction before main effects. If interaction is present then we need to retain the main effects in the model. We want to test
+Always test for interaction before main effects. If interaction is present then we need to
+retain the main effects in the model. We want to test
 $$H_0:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
-We can do this by looking at the anova of the model we fitted with interaction.
+We can do this by looking at the ANOVA of the model we fitted with interaction.
 
 ```{r}
 anova(fit1)
 ```
 
-The p-value associated with the interaction term is $0.0095$ which is significant. Only can say if this model assumptions hold:
+The p-value associated with the interaction term is $0.0095$ which is significant. Only can say
+if this model assumptions hold:
 
 ```{r}
 par(mfrow=c(2,2))
 plot(fit1)
 ```
 
-Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does look like a random scatter about zero and the Normal Q-Q plot looks linear.
+Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does
+look like a random scatter about zero and the Normal Q-Q plot looks linear.
 
-We conclude that there is no evidence to confirm a BMI-smoking interaction effect on bone mineral density.
+We conclude that there is no evidence to confirm a BMI-smoking interaction effect on bone
+mineral density.
 
 **Test for categorical predictor (no interaction present)**
 
-In the presence of interaction, we need the main effects to be present in the model and so do not need to check for their significance. 
+In the presence of interaction, we need the main effects to be present in the model and so do
+not need to check for their significance. 
 
-In the absence of interaction, we test for the overall significance of the categorical predictor, again via a multiple partial F-test. (R gives you this when you obtain the anova of the model fitted without an interaction term whit was fit above.)
+In the absence of interaction, we test for the overall significance of the categorical
+predictor, again via a multiple partial F-test. (R gives you this when you obtain the ANOVA of
+the model fitted without an interaction term whit was fit above.)
 
 The full model is
 
@@ -1803,12 +1851,15 @@ y_i	& =	& \beta_0	+ \beta_1 x_i	& \mbox{(covariate main effect)}\\
 \end{array}$$
 We test:
 $$H_0:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\ 0\\ \end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
-We can do this by looking at the anova of the model we fitted with no interaction earlier.
+We can do this by looking at the ANOVA of the model we fitted with no interaction earlier.
 
 ```{r}
 anova(fit)
 ```
-The p-value associated with the  is $0.0095$ which is significant. We strongly reject $H_0$  in favour of  $H_1$. We conclude that Smoking is a significant predictor of BMD, after correcting (or controlling) for Body Mass Index.We only can say if this model assumptions hold:
+The p-value associated with the model is $0.0095$ which is significant. We strongly reject
+$H_0$ in favour of $H_1$. We conclude that Smoking is a significant predictor of BMD,
+after correcting (or controlling) for Body Mass Index.We only can say if this model assumptions
+hold:
 
 ```{r}
 par(mfrow=c(2,2))
@@ -1824,7 +1875,7 @@ Test for the significance of $\gamma_j$, compared with the referent category.
 
 For $H_0:\gamma_2=0$ we have $\gamma_2$ significant (p=0.0075) and for $H_0:\gamma_3=0$, we have $\gamma_3$ not significant (p=0.081). 
 
-We conclude that moderate smokers have mean BMD levels significantly lower than nonsmokers, but that heavy smokers' mean BMD levels are not significantly different from nonsmokers. [The numbers of heavy smokers in the sample was small, making the detection of a significant difference unlikely, even if there was a significant difference in the population.]
+We conclude that moderate smokers have mean BMD levels significantly lower than non-smokers, but that heavy smokers' mean BMD levels are not significantly different from non-smokers. [The numbers of heavy smokers in the sample was small, making the detection of a significant difference unlikely, even if there was a significant difference in the population.]
 
 **Caution:** Here we have performed two hypothesis tests, both at a 5% level of significance. Is the overall significance of our conclusion still 5%? If not, is it greater than or less than 5%?
 
@@ -1835,7 +1886,7 @@ A sensible choice for referent category will be a category which:
 - for numerical stability: is not sparse; has a reasonable number of observations; and
 - is a sensible point of reference in the context of the problem.
 
-In the BMD example, we have the following frequencies for Smkcode:
+In the BMD example, we have the following frequencies for `Smkcode`:
 
 $$\begin{array}{cc}\hline
 \mbox{Level} &	\mbox{Number}\\ \hline
@@ -1845,7 +1896,7 @@ $$\begin{array}{cc}\hline
 \mbox{Total} &	122\\ \hline
 \end{array}
 $$
-There are few moderate and heavy smokers relative to nonsmokers, and a comparison with reference to nonsmokers makes sense.
+There are few moderate and heavy smokers relative to non-smokers, and a comparison with reference to non-smokers makes sense.
 
 Transformation of variables will be covered in the last Exercise for Day 2.
 
