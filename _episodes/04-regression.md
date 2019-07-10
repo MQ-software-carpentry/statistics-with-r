@@ -314,10 +314,17 @@ $$\hat{Y}=616614.3+169.0x$$
 
 where $Y=$ Price and $x=$ Block Size.
 
-You see that the Adjusted R-Squared is 0.08207 and that the F Statistic p-value is 0.1574, if
-the model is adequate and the normality assumption holds you can make the following statements:
 
-The Block Size accounts for 8.2% of the variation in Price. The regression is not significant
+
+You see that the Adjusted R-Squared is
+0.08207
+and that the F Statistic p-value is
+0.1574,
+if the model is adequate and the normality assumption holds you can make the following
+statements:
+
+The Block Size accounts for 8.2%
+of the variation in Price. The regression is not significant
 (p-value=0.157).
 
 ### 1.3 COVARIANCE AND CORRELATION COEFFICIENT
@@ -359,29 +366,6 @@ The file `Anscombe.csv` contains this data.
 library(tidyverse)
 library(readr)
 mydata1 <- read_csv(file.path("..", "data", "Anscomb.csv"))
-~~~
-{: .language-r}
-
-
-
-~~~
-Parsed with column specification:
-cols(
-  x1 = col_double(),
-  y1 = col_double(),
-  x2 = col_double(),
-  y2 = col_double(),
-  x3 = col_double(),
-  y3 = col_double(),
-  x4 = col_double(),
-  y4 = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
 mydata1
 ~~~
 {: .language-r}
@@ -478,16 +462,17 @@ cor(x4,y4)
 ~~~
 {: .output}
 
-To two decimal places, all 4 sets of data have 0.82 correlation yet the plots don't all look
-linear. Just because you have a high correlation is not a sufficient reason to fit a straight
-line to the data. Even though Data Set 2 has high positive correlation it is obvious from the
-plot of y2 vs x2 that a perfect nonlinear relationship describes the relationship between the
-two variables better. Looking at the plot of y3 versus x3 it is obvious if it wasn't for the
-second last data point the relationship would be perfectly linear with a positive slope. Look at
-the last plot, if it wasn't for the point on its own there would be no relationship between y4
-and x4, such a point is called highly influential because if it was removed the curve fitted
-would be very different. Only the plot of y1 versus x1 could be considered to be approximately
-linear.
+To two decimal places, all 4 sets of data have
+0.82
+correlation yet the plots don't all look linear. Just because you have a high correlation is not
+a sufficient reason to fit a straight line to the data. Even though Data Set 2 has high positive
+correlation it is obvious from the plot of `y2` vs `x2` that a perfect nonlinear relationship
+describes the relationship between the two variables better. Looking at the plot of `y3` versus
+`x3` it is obvious if it wasn't for the second last data point the relationship would be
+perfectly linear with a positive slope. Look at the last plot, if it wasn't for the point on its
+own there would be no relationship between `y4` and `x4`, such a point is called highly
+influential because if it was removed the curve fitted would be very different. Only the plot of
+`y1` versus `x1` could be considered to be approximately linear.
 
 ### 1.4 THE SIMPLE LINEAR REGRESSION MODEL
 
@@ -499,13 +484,14 @@ primary importance.
 $Var(\varepsilon_i)=\sigma^2$ and $Cov(\varepsilon_i,\varepsilon_j)=0$. 
 
 This model represents a linear relationship between the variables $x$ and $y$, with uncorrelated
-'errors' with constant variance. The 'errors' are not mistakes but represent the variation in
+_errors_ with constant variance. The _errors_ are not mistakes but represent the variation in
 the response that is not accounted for by the explanatory variable. We can also assume that
 $\varepsilon_i~N(0,\sigma^2)$ but this assumption is not needed for the least squares estimation
-but it is necessary for the standard confidence intervals and hypothesis tests. We 'fit the
-model' by estimating values for the parameters $\beta_0$ (intercept), $\beta_1$ (slope) and
+but it is necessary for the standard confidence intervals and hypothesis tests. We _fit the
+model_ by estimating values for the parameters $\beta_0$ (intercept), $\beta_1$ (slope) and
 $\sigma^2$.
-	Now
+
+Now
 
 $$ E(Y|X=x)=\mu_{Y|x}=\beta_0+\beta_1x $$
 
