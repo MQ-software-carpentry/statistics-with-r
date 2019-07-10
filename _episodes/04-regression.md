@@ -504,9 +504,9 @@ The least squares estimates of $\beta_0$ and $\beta_1$ are those values $\hat{\b
 $\hat{\beta}_1$ that minimise the 'residual sum of squares' function 
 $$S(\beta_0,\beta_1)=\sum_{i=1}^{n}{(y_i-(\beta_0+\beta_1x_i))^2}.$$
 
-The least squares estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ are 
-	$\hat{\beta}_0=y-\beta_1 \bar{x}$, $\beta_1=S_{XY}/S_{XX}$
-where   $S_{XX}=\sum (x_i-\bar{x})^2$,  $S_{XY}=\sum (x_i-\bar{x})(y_i-\bar{y})$, and  
+The least squares estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ are
+$\hat{\beta}_0=y-\beta_1 \bar{x}$, $\beta_1=S_{XY}/S_{XX}$
+where $S_{XX}=\sum (x_i-\bar{x})^2$,  $S_{XY}=\sum (x_i-\bar{x})(y_i-\bar{y})$, and  
 $S_{YY}=\sum (y_i-\bar{y})^2$.
 
 
@@ -547,16 +547,16 @@ variances of $\hat{\beta}_0$ and $\hat{\beta}_1$.
 
 ##### Hypothesis tests concerning the slope
 
-Test $H_0:\beta_1=\beta_1^0$ against $H_1:\beta_1 \neq \beta_1^0$    using  test statistic
-$t_1=\frac{\hat{\beta}_1-\beta_1^0}{s.e.(\hat{\beta}_1)}$ which has a $t_{n-2}$  distribution if
-H_0 is true. 
+Test $H_0:\beta_1=\beta_1^0$ against $H_1:\beta_1 \neq \beta_1^0$ using  test statistic
+$t_1=\frac{\hat{\beta}_1-\beta_1^0}{s.e.(\hat{\beta}_1)}$ which has a $t_{n-2}$ distribution if
+H_0 is true.
 
 **Rejection region:** $|t| \geq t_{n-2;\alpha/2}$ where $\alpha=0.05$ if testing at 5%
 significance level. 
 
 **P-value:** p-value>$\alpha$
 
-**EXAMPLE:** Regressing Price on Block Size. Done earlier, saved as "fit".
+**EXAMPLE:** Regressing Price on Block Size. Done earlier, saved as `fit`.
 
 
 ~~~
@@ -589,10 +589,12 @@ F-statistic: 2.252 on 1 and 13 DF,  p-value: 0.1574
 {: .output}
 
 If the model assumptions and normality assumption hold (which they don't) we would conclude that
-since the p-value associated with the coefficient of Block Size is 0.157 so we do not reject the
+since the p-value associated with the coefficient of Block Size is
+0.157 so we do not reject the
 hypothesis $H_0:\beta_1=0$ in favour of $H_1:\beta_1 \neq 0$. In a report you would write
 something like "Insufficient evidence to support house prices being influenced by block sizes in
-Macquarie (p=0.157)". Different journals have different requirements for reporting statistical
+Macquarie (p=0.157)".
+Different journals have different requirements for reporting statistical
 results. You need to make sure you extract all the information for the style you have to use,
 for example APS style requires more (see <https://apastyle.apa.org/> or do a Google search if
 the information isn't there).
@@ -602,19 +604,20 @@ the information isn't there).
 Test $H_0:\rho=0$ versus $H_1:\rho \neq 0$ using test statistic
 $t=\frac{r}{\sqrt{(1-r^2)/(n-2)}}$ which has a $t_{n-2}$ distribution when $H_0$ is true. 
 
-This is also equivalent to testing $H_0:\beta_1 = 0$ against $H_1:\beta_1 \neq 0$   in a simple
+This is also equivalent to testing $H_0:\beta_1 = 0$ against $H_1:\beta_1 \neq 0$ in a simple
 linear regression of $Y$ on $X$.
 
 ##### Hypothesis tests concerning the intercept
 
 Test of $H_0:\beta_0=\beta_0^0$ against $H_1:\beta_0\neq \beta_0^0$ is based on
-$t_0=\frac{\hat{\beta}_0-\beta_0^0}{s.e.(\hat{\beta}_0)}$  which has a $t_{n-2}$ distribution if
-$H_0$ is true
+$t_0=\frac{\hat{\beta}_0-\beta_0^0}{s.e.(\hat{\beta}_0)}$ which has a $t_{n-2}$ distribution if
+$H_0$ is true.
 
 **EXAMPLE:**
 
-Back to regressing Price on Block Size. The previous output had a p-value of 2.82e-05
-(0.0000282) so if the model is adequate and normality assumption holds you would conclude that
+Back to regressing Price on Block Size. The previous output had a p-value of
+2.82e-05 (0.0000282)
+so if the model is adequate and normality assumption holds you would conclude that
 the intercept is significant (testing $H_0:\beta_0=0$ against $H_1:\beta_0\neq 0$).
 
 ##### Confidence Intervals and Prediction Intervals
@@ -804,7 +807,7 @@ Models with $\beta_0=0$ can arise in several ways. Most obvious is if $x= 0$ mus
 library(tidyverse)
 library(ggpubr)
 
-heat_flux<-read_csv(file.path("..", "Data", "heatflux.csv"))
+heat_flux <- read_csv(file.path("..", "Data", "heatflux.csv"))
 ~~~
 {: .language-r}
 
@@ -849,7 +852,8 @@ heat_flux
 # ... with 19 more rows
 ~~~
 {: .output}
-Lets explore the data quickly graphically. The response variable is HeatFlux and we have five potential predictors Insulation, East, South, North, and Time.
+Lets explore the data quickly graphically. The response variable is HeatFlux and we have
+five potential predictors Insulation, East, South, North, and Time.
 
 
 ~~~
@@ -860,23 +864,34 @@ pairs(heat_flux)
 
 <img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
 
-Note that HeatFlux appears to be approximately linearly related to all predictors except time. We will fit a multiple linear regression of HeatFlux ($Y$) on the predictors Insulation ($X_1$), East ($X_2$), South ($X_3$), North ($X_4$), and Time ($X_5$).
+Note that HeatFlux appears to be approximately linearly related to all predictors except time.
+We will fit a multiple linear regression of HeatFlux ($Y$) on the predictors
+Insulation ($X_1$), East ($X_2$), South ($X_3$), North ($X_4$), and Time ($X_5$).
 
-**Suggested Model:** $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5 X_5 + \varepsilon$
+**Suggested Model:**
+$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5 X_5 + \varepsilon$
 
-We will now fit this model in R and look at various outputs which I will intersperse with comments.
+We will now fit this model in R and look at various outputs which I will intersperse with
+comments.
 
 
 ~~~
-fit<-lm(HeatFlux ~ Insulation + East + South + North + Time)
-par(mfrow=c(2,2))
+fit <- lm(HeatFlux ~ Insulation + East + South + North + Time)
+par(mfrow = c(2, 2))
 plot(fit)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
 
-Looking at the Residual vs Fitted values plot, ignore the Loess smoother line fitted, if it wasn't for a couple of points you probably would think this looks like a random scatter about zero so model adequate and proceed to check the normality assumption. The Normal Q-Q plot looks approximately linear so might be prepared to say the normality assumption holds. We are now in a position to make inference. Recall that you cannot test any hypotheses or obtain confidence intervals if the model assumptions do not hold.
+
+
+Looking at the Residual vs Fitted values plot, ignore the Loess smoother line fitted, if it
+wasn't for a couple of points you probably would think this looks like a random scatter about
+zero so model adequate and proceed to check the normality assumption. The Normal Q-Q plot looks
+approximately linear so might be prepared to say the normality assumption holds. We are now in a
+position to make inference. Recall that you cannot test any hypotheses or obtain confidence
+intervals if the model assumptions do not hold.
 
 
 ~~~
@@ -918,25 +933,37 @@ The p-value for the F statistic is very small (much smaller than 0.05) so the re
 
 **Model:** $Y=\beta_0+\beta_1X_1+\cdots+\beta_pX_p+\varepsilon$
 
-**Matrix form:** $y=X\beta+\varepsilon$,	where $y=\left(\begin{matrix}y_1\\\vdots\\y_n\\\end{matrix}\right)$, 
-$X=\left(\begin{matrix}1&x_{11}&x_{12}&\cdots&x_{1p}\\\vdots&\vdots&\vdots&&\vdots\\1&x_{n1}&x_{n2}&\cdots&x_{np}\\\end{matrix}\right)$,  $\beta=\left(\begin{matrix}\beta_0\\\beta_1\\\vdots\\\beta_p\\\end{matrix}\right)$ and 
+**Matrix form:** $y=X\beta+\varepsilon$, where
+$y=\left(\begin{matrix}y_1\\\vdots\\y_n\\\end{matrix}\right)$, 
+$X=\left(\begin{matrix}1&x_{11}&x_{12}&\cdots&x_{1p}\\\vdots&\vdots&\vdots&&\vdots\\1&x_{n1}&x_{n2}&\cdots&x_{np}\\\end{matrix}\right)$,
+$\beta=\left(\begin{matrix}\beta_0\\\beta_1\\\vdots\\\beta_p\\\end{matrix}\right)$ and 
 $\varepsilon=\left(\begin{matrix}\varepsilon_1\\\vdots\\\varepsilon_n\\\end{matrix}\right) \sim N(\mathbf{0},\sigma^2\mathbf{I})$.
 
-Matrix $X$ is called the data matrix or model matrix or the design matrix. The data matrix ($X$) displays the predictor data, one column for each predictor variable, together with a column of 1s (if there is an intercept in the model), and it shows the experimental design if the levels of the predictor variables are planned. Each row in the matrix $X$ shows the information on all predictors for one case.
+Matrix $X$ is called the data matrix or model matrix or the design matrix. The data matrix ($X$)
+displays the predictor data, one column for each predictor variable, together with a column of
+1s (if there is an intercept in the model), and it shows the experimental design if the levels
+of the predictor variables are planned. Each row in the matrix $X$ shows the information on all
+predictors for one case.
 
-The least squares estimates of the regression coefficients $\beta$ are those values $\hat{\beta}$ that minimise the 'residual sum of squares' function $SSE(\beta)=(y-X\beta)^T(y-X\beta)$. 
+The least squares estimates of the regression coefficients $\beta$ are those values
+$\hat{\beta}$ that minimise the 'residual sum of squares' function
+$SSE(\beta)=(y-X\beta)^T(y-X\beta)$. 
 
 **Normal equations:** $(X^TX)\hat{\beta}=X^Ty$
 
 **Solution:** $\hat{\beta}=(X^TX)^{-1}X^Ty$ (provided the inverse exists).
 
-The $(p+1)\times(p+1)$ matrix $(X^TX)$ is a symmetric matrix whose elements consist of sums of squares and sums of cross products of the elements in the columns of $X$. The nature of $(X^TX)$ plays an important role in the properties of the estimators $\hat{\beta}$ and will often be a large factor in the success or failure of the least squares estimation procedure.
+The $(p+1)\times(p+1)$ matrix $(X^TX)$ is a symmetric matrix whose elements consist of sums of
+squares and sums of cross products of the elements in the columns of $X$. The nature of $(X^TX)$
+plays an important role in the properties of the estimators $\hat{\beta}$ and will often be a
+large factor in the success or failure of the least squares estimation procedure.
 
 **Fitted values:** $\hat{y}=X\hat{\beta}$
 
 **Residuals:** $e=y-\hat{y}$.
 
-**Residual sum of squares:**  $SSE=(y-X\hat{\beta})^T(y-X\hat{\beta})=y^Ty-{\hat{\beta}}^T(X^TX)\hat{\beta}$
+**Residual sum of squares:**
+$SSE=(y-X\hat{\beta})^T(y-X\hat{\beta})=y^Ty-{\hat{\beta}}^T(X^TX)\hat{\beta}$
 
 **Unbiased estimate of $\sigma^2$:**
 ${\hat{\sigma}}^2=\frac{1}{n-p-1}(y-X\hat{\beta})^T(y-X\hat{\beta})=\frac{1}{n-p-1}\sum{(y-{\hat{y}}_i)^2}$
@@ -947,28 +974,49 @@ $E(\hat{\beta})=E(X^TX)^{-1}X^Ty=\beta$.
 
 $Var(\hat{\beta})=\sigma^2(X^TX)^{-1}$. 
 
-If we assume that $\varepsilon$ has a normal distribution, then $ \hat{\beta}$ also has a normal distribution with mean $\beta$ and variance $\sigma^2(X^TX)^{-1}$.
+If we assume that $\varepsilon$ has a normal distribution, then $ \hat{\beta}$ also has a normal
+distribution with mean $\beta$ and variance $\sigma^2(X^TX)^{-1}$.
 
-Here the distribution of the residual mean square is given by $\frac{(n-p-1)^2\hat{\sigma}^2}{\sigma^2} \sim \chi_{n-p-1}^2$. The estimated variance of $\hat{\beta}$ is given by $\hat{\sigma}^2(X^TX)^{-1}$, and standard errors are obtained as $\hat{\sigma}$ multiplied by the square root of the diagonal elements of the $(X^TX)^{-1}$ matrix.
+Here the distribution of the residual mean square is given by
+$\frac{(n-p-1)^2\hat{\sigma}^2}{\sigma^2} \sim \chi_{n-p-1}^2$. The estimated variance of
+$\hat{\beta}$ is given by $\hat{\sigma}^2(X^TX)^{-1}$, and standard errors are obtained as
+$\hat{\sigma}$ multiplied by the square root of the diagonal elements of the $(X^TX)^{-1}$
+matrix.
 
 
 ##### Predictions and fitted values
 
-If we observe a vector of predictors $x$ (including a 1) for which we don't know the response, the predicted response is $\hat{y}=x^T\hat{\beta}$ with standard error of prediction $\mathrm{s.e.pred}=s\sqrt{1+x^T(X^TX)^{-1}x}$. Similarly, the estimated mean response when the predictors take the value $x$ is $\hat{y}=x^T\hat{\beta}$ with standard error of fit $\mathrm{s.e.}(\mathrm{fit})=s\sqrt{x^T(X^{T}X)^{-1}x}$.
+If we observe a vector of predictors $x$ (including a 1) for which we don't know the response,
+the predicted response is $\hat{y}=x^T\hat{\beta}$ with standard error of prediction
+$\mathrm{s.e.pred}=s\sqrt{1+x^T(X^TX)^{-1}x}$. Similarly, the estimated mean response when the
+predictors take the value $x$ is $\hat{y}=x^T\hat{\beta}$ with standard error of fit
+$\mathrm{s.e.}(\mathrm{fit})=s\sqrt{x^T(X^{T}X)^{-1}x}$.
 
 ### 2.1 HYPOTHESIS TESTS
 
-We wish to test whether
-
-the overall regression is significant; i.e., are all the predictors taken together useful in the prediction of $Y$?
+We wish to test whether the overall regression is significant; i.e., are all the predictors
+taken together useful in the prediction of $Y$?
 
 Should a particular predictor be in the regression model?
 
-should a set of predictors be added to the regression model? (This situation arises when a group of predictors belong together.)
-	
-In general, we have a null model (reduced model), in which some or all of the predictors are left out of the model (i.e. some or all of $\beta_i$'s are hypothesised to be zero) and a full model which has all the predictors in the model (i.e. all $\beta_i$'s present). The general form of the test statistic is:
+Should a set of predictors be added to the regression model? (This situation arises when a group
+of predictors belong together.)
+
+In general, we have a null model (reduced model), in which some or all of the predictors are
+left out of the model (i.e. some or all of $\beta_i$'s are hypothesised to be zero) and a full
+model which has all the predictors in the model (i.e. all $\beta_i$'s present). The general form
+of the test statistic is:
 $$F=\frac{\hat{\sigma}_0^2}{\hat{\sigma}^2}$$
-where $\hat{\sigma}^2$ is the usual estimate of $\sigma^2$ under the full model and $\hat{\sigma}_0^2$ is the estimate of $\sigma^2$ under the null model (reduced model). If the null model holds $\hat{\sigma}_0^2$ equals $\sigma^2$ and if the null model does not hold then it is greater than $\sigma^2$.	Having more parameters in the model will always reduce the residual variation. Therefore $\sigma^2\le\hat{\sigma}_0^2$.If the null model holds we would expect $F$ to be approximately equal to 1 and if the full model holds we would expect $F$ to be greater than 1. If $F$ is large the full model has reduced the residual variation substantially, the additional predictors are useful in the prediction of the $y$  whereas if $F$ is close to 1 then the additional predictors in the full model have not reduced the residual variation by much so we would use the null model.
+where $\hat{\sigma}^2$ is the usual estimate of $\sigma^2$ under the full model and
+$\hat{\sigma}_0^2$ is the estimate of $\sigma^2$ under the null model (reduced model). If the
+null model holds $\hat{\sigma}_0^2$ equals $\sigma^2$ and if the null model does not hold then
+it is greater than $\sigma^2$.	Having more parameters in the model will always reduce the
+residual variation. Therefore $\sigma^2\le\hat{\sigma}_0^2$.If the null model holds we would
+expect $F$ to be approximately equal to 1 and if the full model holds we would expect $F$ to be
+greater than 1. If $F$ is large the full model has reduced the residual variation substantially,
+the additional predictors are useful in the prediction of the $y$  whereas if $F$ is close to 1
+then the additional predictors in the full model have not reduced the residual variation by much
+so we would use the null model.
 
 #### 2.1.1 Test for overall significance of the regression
 
@@ -1099,7 +1147,7 @@ that the predictors Insulation and South are significant.
 
 ##### Sequential F tests
 
-Assume that we have $Sn$ observations.	Variables are added to the model in a particular order
+Assume that we have $Sn$ observations. Variables are added to the model in a particular order
 and at each step the most recent predictor being entered into the model is tested for
 significance. 
 R function `lm` can provide the output. All you need do is divide the sequential sum of squares
@@ -1110,7 +1158,14 @@ predictors enter the model.
 
 
 ~~~
-anova(fit)
+fit5 <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
+fit4 <- lm(HeatFlux ~ Insulation + East + South + North, data = heat_flux)
+fit3 <- lm(HeatFlux ~ Insulation + East + South, data = heat_flux)
+fit2 <- lm(HeatFlux ~ Insulation + East, data = heat_flux)
+fit1 <- lm(HeatFlux ~ Insulation, data = heat_flux)
+fit0 <- lm(HeatFlux ~ 1, data = heat_flux)
+
+anova(fit0, fit1, fit2, fit3, fit4, fit5, test = "F")
 ~~~
 {: .language-r}
 
@@ -1119,22 +1174,31 @@ anova(fit)
 ~~~
 Analysis of Variance Table
 
-Response: HeatFlux
-           Df Sum Sq Mean Sq F value    Pr(>F)    
-Insulation  1 5783.8  5783.8 89.4964 2.155e-09 ***
-East        1  811.7   811.7 12.5602 0.0017316 ** 
-South       1 1181.5  1181.5 18.2822 0.0002832 ***
-North       1 5303.0  5303.0 82.0574 4.772e-09 ***
-Time        1  115.5   115.5  1.7873 0.1943335    
-Residuals  23 1486.4    64.6                      
+Model 1: HeatFlux ~ 1
+Model 2: HeatFlux ~ Insulation
+Model 3: HeatFlux ~ Insulation + East
+Model 4: HeatFlux ~ Insulation + East + South
+Model 5: HeatFlux ~ Insulation + East + South + North
+Model 6: HeatFlux ~ Insulation + East + South + North + Time
+  Res.Df     RSS Df Sum of Sq       F    Pr(>F)    
+1     28 14681.9                                   
+2     27  8898.1  1    5783.8 89.4964 2.155e-09 ***
+3     26  8086.4  1     811.7 12.5602 0.0017316 ** 
+4     25  6904.9  1    1181.5 18.2822 0.0002832 ***
+5     24  1601.9  1    5303.0 82.0574 4.772e-09 ***
+6     23  1486.4  1     115.5  1.7873 0.1943335    
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-East, South and North are significant (at 1\% significance level or 0.5\% significance level) according to the Sequential F Test.
+East, South and North are significant (at 1\% significance level or 0.5\% significance level)
+according to the Sequential F Test.
 
-**EXERCISE** Try different orderings of the predictors. There are 5 ways you can choose the first predictor, 4 ways for the second predictor, 3 ways of choosing the third predictor, 2 ways of choosing the fourth predictor, and only one way to choose the fifth predictor giving $5 \times 4 \times 3 \times 2 \times 1 = 120$ combinations.
+**EXERCISE** Try different orderings of the predictors. There are 5 ways you can choose the
+first predictor, 4 ways for the second predictor, 3 ways of choosing the third predictor,
+2 ways of choosing the fourth predictor, and only one way to choose the fifth predictor giving
+$5 \times 4 \times 3 \times 2 \times 1 = 120$ combinations.
 
 ##### Using R Square ($R^2$)
 
@@ -1167,8 +1231,8 @@ When a linear regression model is fitted using `lm` in R you can always obtain $
 increase if more terms are added to the model. The model with the largest $R_{ADJ}^2$ is usually
 chosen.
 
-**EXAMPLE** For the Heat Flux data using all the predictors the Adjusted R-squared is 0.8768.
-See earlier output.
+**EXAMPLE** For the Heat Flux data using all the predictors the Adjusted R-squared is
+0.8768. See earlier output.
 
 ##### Using $\hat{\sigma}^2$, the residual mean square (MSE)
 
@@ -1205,23 +1269,12 @@ predictors in the full model that Mallow's $C_p$ always equals $p$.
 
 
 ~~~
-require(leaps)
-~~~
-{: .language-r}
+library(leaps)
 
+x <- heat_flux[, -1]
+y <- heat_flux$HeatFlux
 
-
-~~~
-Loading required package: leaps
-~~~
-{: .output}
-
-
-
-~~~
-x<-cbind(Insulation,East,South,North,Time)
-y<-HeatFlux
-leaps(x,y)
+leaps(x, y)
 ~~~
 {: .language-r}
 
@@ -1306,46 +1359,8 @@ If none of the VIFs are greater than 10 then collinearity is not a problem.
 
 ~~~
 library(car)
-~~~
-{: .language-r}
 
-
-
-~~~
-Loading required package: carData
-~~~
-{: .output}
-
-
-
-~~~
-
-Attaching package: 'car'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:dplyr':
-
-    recode
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:purrr':
-
-    some
-~~~
-{: .output}
-
-
-
-~~~
-model1<-lm(HeatFlux~Insulation + East + South + North + Time,data=heat_flux)
+model1 <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
 vif(model1)
 ~~~
 {: .language-r}
@@ -1402,14 +1417,15 @@ $$ \begin{array}{l|llll}\hline
 
 ##### Selecting variables on substantive grounds
 
-The most important method for selecting variables is based on a knowledge of the situation and the variables being studied.
+The most important method for selecting variables is based on a knowledge of the situation and
+the variables being studied.
 
 **EXAMPLE:**  The variables `HT` (height) and `WT` (weight) can be combined into
 `BMI` (body mass index = weight per height squared). 
 
 **EXAMPLE:** A number of test scores can be combined into an average.
 
-**EXAMPLE:** Weisberg (1981) gives an example ‘Highway data’, from a Masters thesis modelling
+**EXAMPLE:** Weisberg (1981) gives an example **Highway data**, from a Masters thesis modelling
 the automobile accident rate in terms of 13 independent variables. Here there are
 $2^{13} = 8192$ possible subset models, which can be reduced by considering two points:
 
@@ -1421,19 +1437,35 @@ $2^{13} = 8192$ possible subset models, which can be reduced by considering two 
 
 ##### Stepwise methods of variable selection
 
-Often we have to use the data to find a reasonable subset of the predictors for use in a model. A stepwise procedure is a systematic way of examining only a few subsets of each size and choosing a path through all possible models.
+Often we have to use the data to find a reasonable subset of the predictors for use in a model.
+A stepwise procedure is a systematic way of examining only a few subsets of each size and
+choosing a path through all possible models.
 
 ###### Forward selection
 
-We begin with a simple regression model with the best single predictor (largest $R^2$, $F$ or $t$).We then add the predictor that increases $R^2$ the most, or would have the largest $F$ or $t$ of any of the other variables. We continue thus, but stop when you reach a subset of predetermined size, or when no other variable has an $F$ greater than $F$ to enter, or if any variable would cause unacceptable collinearity.
+We begin with a simple regression model with the best single predictor (largest $R^2$, $F$ or
+$t$).We then add the predictor that increases $R^2$ the most, or would have the largest $F$ or
+$t$ of any of the other variables. We continue thus, but stop when you reach a subset of
+predetermined size, or when no other variable has an $F$ greater than $F$ to enter, or if any
+variable would cause unacceptable collinearity.
 
 ###### Backward elimination
 
-We begin with the full model. We then remove the variable with the smallest $F$ or $t$, the variable that would reduce $R^2$ the least. We continue thus, but stop when you reach a subset of predetermined size, or when all variables remaining in the model have $F$ greater than $F$ to remove.
+We begin with the full model. We then remove the variable with the smallest $F$ or $t$, the
+variable that would reduce $R^2$ the least. We continue thus, but stop when you reach a subset
+of predetermined size, or when all variables remaining in the model have $F$ greater than $F$ to
+remove.
 
 ###### Stepwise
 
-This is a combination of the previous two methods. We start with one variable, as in forward selection, and at each step take one of four options: add a variable, remove a variable, exchange two variables or stop. If there are at least two variables in the model, remove a variable if it has $F$ less than $F$ to remove. If there are at least two variables in the model, remove a variable if this would result in a larger $R^2$ than obtained previously with that many variables. Exchange a variable in the model with one not in the model if this would increase $R^2$. Add a variable if it has the largest $F$ greater than $F$ to enter and the collinearity tolerance is OK.
+This is a combination of the previous two methods. We start with one variable, as in forward
+selection, and at each step take one of four options: add a variable, remove a variable,
+exchange two variables or stop. If there are at least two variables in the model, remove a
+variable if it has $F$ less than $F$ to remove. If there are at least two variables in the
+model, remove a variable if this would result in a larger $R^2$ than obtained previously with
+that many variables. Exchange a variable in the model with one not in the model if this would
+increase $R^2$. Add a variable if it has the largest $F$ greater than $F$ to enter and the
+collinearity tolerance is OK.
 
 ###### Remarks
 
@@ -1481,7 +1513,8 @@ Before doing this we should first obtain a matrix scatter plot of the data.
 ~~~
 library(tidyverse)
 library(ggpubr)
-squid<-read_csv(file.path("..", "Data", "Squid.csv"))
+
+squid <- read_csv(file.path("..", "Data", "Squid.csv"))
 squid
 ~~~
 {: .language-r}
@@ -1526,7 +1559,8 @@ Seeing what happens when we fit the multiple linear regression.
 ~~~
 # fit3<-lm(squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4 +squid$X5)
 fit3 <- lm(Y ~ X1 + X2 + X3 + X4 + X5, data = squid)
-par(mfrow=c(2,2))
+
+par(mfrow = c(2, 2))
 plot(fit3)
 ~~~
 {: .language-r}
@@ -1584,13 +1618,15 @@ selection of order of variables based on subject matter expertise.
 
 ~~~
 library(stats)
-fit5<-lm(squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4 +squid$X5)
-fit4<-lm(squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4)
-fit30<-lm(squid$Y ~ squid$X1 + squid$X2 + squid$X3)
-fit2<-lm(squid$Y ~ squid$X1 + squid$X2)
-fit1<-lm(squid$Y ~ squid$X1)
-fit0<-fit3<-lm(squid$Y ~ 1)
-anova(fit0,fit1,fit2,fit30,fit4,fit5,test="F")
+
+fit5 <- lm(Y ~ X1 + X2 + X3 + X4 + X5, data = squid)
+fit4 <- lm(Y ~ X1 + X2 + X3 + X4, data = squid)
+fit3 <- lm(Y ~ X1 + X2 + X3, data = squid)
+fit2 <- lm(Y ~ X1 + X2, data = squid)
+fit1 <- lm(Y ~ X1, data = squid)
+fit0 <- lm(Y ~ 1, data = squid)
+
+anova(fit0, fit1, fit2, fit3, fit4, fit5, test = "F")
 ~~~
 {: .language-r}
 
@@ -1599,12 +1635,12 @@ anova(fit0,fit1,fit2,fit30,fit4,fit5,test="F")
 ~~~
 Analysis of Variance Table
 
-Model 1: squid$Y ~ 1
-Model 2: squid$Y ~ squid$X1
-Model 3: squid$Y ~ squid$X1 + squid$X2
-Model 4: squid$Y ~ squid$X1 + squid$X2 + squid$X3
-Model 5: squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4
-Model 6: squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4 + squid$X5
+Model 1: Y ~ 1
+Model 2: Y ~ X1
+Model 3: Y ~ X1 + X2
+Model 4: Y ~ X1 + X2 + X3
+Model 5: Y ~ X1 + X2 + X3 + X4
+Model 6: Y ~ X1 + X2 + X3 + X4 + X5
   Res.Df     RSS Df Sum of Sq        F    Pr(>F)    
 1     21 215.925                                    
 2     20  16.779  1   199.145 402.4397 9.131e-13 ***
@@ -1622,7 +1658,8 @@ $Y=\beta_0+\beta_1X_1+\beta_3X_3+\beta_5X_5+\varepsilon$.
 
 
 ~~~
-fit135<-lm(squid$Y ~ squid$X1 + squid$X3 + squid$X5)
+fit135 <- lm(Y ~ X1 + X3 + X5, data = squid)
+
 summary(fit135)
 ~~~
 {: .language-r}
@@ -1632,7 +1669,7 @@ summary(fit135)
 ~~~
 
 Call:
-lm(formula = squid$Y ~ squid$X1 + squid$X3 + squid$X5)
+lm(formula = Y ~ X1 + X3 + X5, data = squid)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -1641,9 +1678,9 @@ Residuals:
 Coefficients:
             Estimate Std. Error t value Pr(>|t|)    
 (Intercept) -6.83999    0.87718  -7.798 3.52e-07 ***
-squid$X1     3.26593    1.60373   2.036   0.0567 .  
-squid$X3     0.07094    5.48254   0.013   0.9898    
-squid$X5    13.35925    4.72866   2.825   0.0112 *  
+X1           3.26593    1.60373   2.036   0.0567 .  
+X3           0.07094    5.48254   0.013   0.9898    
+X5          13.35925    4.72866   2.825   0.0112 *  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
@@ -1671,13 +1708,13 @@ anova(fit5)
 ~~~
 Analysis of Variance Table
 
-Response: squid$Y
+Response: Y
           Df  Sum Sq Mean Sq  F value    Pr(>F)    
-squid$X1   1 199.145 199.145 402.4397 9.131e-13 ***
-squid$X2   1   0.127   0.127   0.2560  0.619804    
-squid$X3   1   4.120   4.120   8.3249  0.010765 *  
-squid$X4   1   0.263   0.263   0.5325  0.476114    
-squid$X5   1   4.352   4.352   8.7951  0.009109 ** 
+X1         1 199.145 199.145 402.4397 9.131e-13 ***
+X2         1   0.127   0.127   0.2560  0.619804    
+X3         1   4.120   4.120   8.3249  0.010765 *  
+X4         1   0.263   0.263   0.5325  0.476114    
+X5         1   4.352   4.352   8.7951  0.009109 ** 
 Residuals 16   7.918   0.495                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1696,11 +1733,11 @@ anova(fit135)
 ~~~
 Analysis of Variance Table
 
-Response: squid$Y
+Response: Y
           Df  Sum Sq Mean Sq  F value    Pr(>F)    
-squid$X1   1 199.145 199.145 390.3744 1.188e-13 ***
-squid$X3   1   3.525   3.525   6.9103   0.01704 *  
-squid$X5   1   4.072   4.072   7.9816   0.01121 *  
+X1         1 199.145 199.145 390.3744 1.188e-13 ***
+X3         1   3.525   3.525   6.9103   0.01704 *  
+X5         1   4.072   4.072   7.9816   0.01121 *  
 Residuals 18   9.183   0.510                       
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -1714,7 +1751,7 @@ Need to compare this with $F_{2,18;0.05}$.
 
 
 ~~~
-qf(0.95,df1=2,df2=18)
+qf(0.95, df1 = 2, df2 = 18)
 ~~~
 {: .language-r}
 
@@ -1725,7 +1762,8 @@ qf(0.95,df1=2,df2=18)
 ~~~
 {: .output}
 
-Since $T=1.28 \ngeq 3.5546$  we cannot reject $H_0$ in favour of $H_1$ at the $5\%$ significance level. The reduced model here is plausible. 
+Since $T=1.28 \ngeq 3.5546$  we cannot reject $H_0$ in favour of $H_1$ at the $5\%$
+significance level. The reduced model here is plausible. 
 
 If the model assumptions were not being met the above inference is dangerous.
 
@@ -1903,7 +1941,7 @@ Step    Removed     R-Square    R-Square     C(p)       AIC       RMSE
 ~~~
 {: .output}
 
-Final model has $X_2$, $X-4$ and $X_5$.
+Final model has $X_2$, $X_4$ and $X_5$.
 
 ###### Stepwise regression in R
 
@@ -2088,30 +2126,8 @@ Here $Y=$MCG, $X=$Top50 and $Z=$Members.
 
 ~~~
 library(tidyverse)
+
 mcg1 <- read_csv(file.path("..", "Data", "MCG1.csv"))
-~~~
-{: .language-r}
-
-
-
-~~~
-Parsed with column specification:
-cols(
-  MCG = col_double(),
-  Other = col_double(),
-  Temp = col_double(),
-  Members = col_double(),
-  Top50 = col_double(),
-  Date = col_character(),
-  Home = col_character(),
-  Away = col_character()
-)
-~~~
-{: .output}
-
-
-
-~~~
 mcg1
 ~~~
 {: .language-r}
@@ -2141,6 +2157,7 @@ Fitting the model without the controlling variable.
 
 ~~~
 fit1 <- lm(MCG ~ Members, data = mcg1)
+
 summary(fit1)
 ~~~
 {: .language-r}
@@ -2195,6 +2212,7 @@ Fitting the model with the controlling variable.
 
 ~~~
 fit2 <- lm(MCG ~ Members + Top50, data = mcg1)
+
 summary(fit2)
 ~~~
 {: .language-r}
@@ -2266,34 +2284,21 @@ cor(mcg1$MCG, mcg1$Top50)
 ~~~
 {: .output}
 
-Now correlation between MCG and Top50 is 0.355. After controlling for Members, the correlation between MCG and Top50 has shrunk to 0.17.
+Now correlation between MCG and Top50 is 0.355.
+After controlling for Members, the correlation between MCG and Top50 has shrunk to 0.17.
 
 ### 3.1 CONFOUNDING
 
-An extraneous variable is an independent variable that is not of direct interest to the study, but does have an influence on the response.
+An extraneous variable is an independent variable that is not of direct interest to the study,
+but does have an influence on the response.
 
-**EXAMPLE:** We observe the following relationship between characteristics $y$ and $x$ in a sample of male members of a species:
-
-
-~~~
-males<-read_csv(file.path("..", "Data", "Males.csv"))
-~~~
-{: .language-r}
-
+**EXAMPLE:** We observe the following relationship between characteristics $y$ and $x$ in a
+sample of male members of a species:
 
 
 ~~~
-Parsed with column specification:
-cols(
-  x = col_double(),
-  y = col_double()
-)
-~~~
-{: .output}
+males <- read_csv(file.path("..", "Data", "Males.csv"))
 
-
-
-~~~
 plot(males)
 ~~~
 {: .language-r}
@@ -2304,24 +2309,8 @@ and the following for the females:
 
 
 ~~~
-females<-read_csv(file.path("..", "Data", "Females.csv"))
-~~~
-{: .language-r}
+females <- read_csv(file.path("..", "Data", "Females.csv"))
 
-
-
-~~~
-Parsed with column specification:
-cols(
-  x1 = col_double(),
-  y1 = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
 plot(females)
 ~~~
 {: .language-r}
@@ -2336,7 +2325,8 @@ Simple linear regression for the genders separately give:
 
 
 ~~~
-m<-lm(y~x,data=males)
+m <- lm(y ~ x, data = males)
+
 summary(m)
 ~~~
 {: .language-r}
@@ -2390,7 +2380,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ~~~
 plot(males)
-abline(a=2.5815,b=-2.7407)
+abline(a = 2.5815, b = -2.7407)
 ~~~
 {: .language-r}
 
@@ -2400,7 +2390,8 @@ abline(a=2.5815,b=-2.7407)
 
 
 ~~~
-f<-lm(y1~.,data=females)
+f <- lm(y1 ~ ., data = females)
+
 summary(f)
 ~~~
 {: .language-r}
@@ -2454,16 +2445,19 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ~~~
 plot(females)
-abline(a=15.3054,b=-3.0930)
+abline(a = 15.3054, b = -3.0930)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
 
-Intercepts ($\hat{\beta}_0$’s) are quite different for male and female regression equations but slopes  ($\hat{\beta}_1’s$) are similar. 
+Intercepts ($\hat{\beta}_0$’s) are quite different for male and female regression equations but
+slopes  ($\hat{\beta}_1’s$) are similar. 
 
-Reasonable to conclude that there is a negative linear relationship between Y and X, with a slope of -3. 
-(Test $H_0:\beta_1=-3$ against $H_1:\beta_1\neq-3$  for Males and Females separately to see this.)
+Reasonable to conclude that there is a negative linear relationship between Y and X, with a
+slope of -3.
+(Test $H_0:\beta_1=-3$ against $H_1:\beta_1\neq-3$  for Males and Females separately to see
+this.)
 
 **EXERCISE:** Do this for yourself. 
 
@@ -2472,32 +2466,14 @@ Now we regress $Y$ on $X$ with the males and females together:
 
 ~~~
 mf <- read_csv(file.path("..", "Data", "MF.csv"))
+mf
 ~~~
 {: .language-r}
 
 
 
 ~~~
-Parsed with column specification:
-cols(
-  x = col_double(),
-  y = col_double(),
-  Sex = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
-head(mf, n = 10)
-~~~
-{: .language-r}
-
-
-
-~~~
-# A tibble: 10 x 3
+# A tibble: 102 x 3
        x       y   Sex
    <dbl>   <dbl> <dbl>
  1  1     0.0573     1
@@ -2510,6 +2486,7 @@ head(mf, n = 10)
  8  1.14 -0.208      1
  9  1.16 -0.530      1
 10  1.18 -0.803      1
+# ... with 92 more rows
 ~~~
 {: .output}
 
@@ -2649,14 +2626,16 @@ for above example we get $\hat{\beta}_1=2.5324$.
 When gender is added to the model:
 $$Y_i=\beta_0+\beta_1X_i+\beta_2gender_i+\varepsilon$$
 we get $\hat{\beta}_1=-2.9168$. This is ample proof of confounding.
-	No formal statistical test for the equality of the $\beta_1$’s obtained under the two models exists; we need to use judgement, in conjunction with graphical evidence such as above.
-	Confounding happens when both response and predictor are affected by the same variable. Evidence of the cause of confounding is provided by plots of both $X$ and $Y$ against the confounder.
+No formal statistical test for the equality of the $\beta_1$’s obtained under the two models
+exists; we need to use judgement, in conjunction with graphical evidence such as above.
+Confounding happens when both response and predictor are affected by the same variable. Evidence
+of the cause of confounding is provided by plots of both $X$ and $Y$ against the confounder.
 
 
 ~~~
-par(mfrow=c(1,2))
-boxplot(x~Sex,data=mf)
-boxplot(y~Sex,data=mf)
+par(mfrow = c(1, 2))
+boxplot(x ~ Sex, data = mf)
+boxplot(y ~ Sex, data = mf)
 ~~~
 {: .language-r}
 
@@ -2665,7 +2644,10 @@ boxplot(y~Sex,data=mf)
 **Continuous confounders**
 
 **EXAMPLE:** Mass and Physical Measurements for Male Subjects
-Michael Larner measured the weight and various physical measurements for 22 male subjects aged 16 - 30. Subjects were randomly chosen volunteers, all in reasonable good health. Subjects were requested to slightly tense each muscle being measured to ensure measurement consistency. All measurements except mass are in cm. 
+Michael Larner measured the weight and various physical measurements for 22 male subjects aged
+16 - 30. Subjects were randomly chosen volunteers, all in reasonable good health. Subjects were
+requested to slightly tense each muscle being measured to ensure measurement consistency. All
+measurements except mass are in cm. 
 
 $$\begin{array}{ll} \hline
 \mbox{Variable} &	\mbox{Description}\\ \hline
@@ -2681,48 +2663,25 @@ $$\begin{array}{ll} \hline
 \mbox{Shoulders} & 	\mbox{Distance around shoulders, measured around the peak of the shoulder blades}\\ \hline
 \end{array}$$
 
-Larner, M. (1996). Mass and its Relationship to Physical Measurements. MS305 Data Project, Department of Mathematics, University of Queensland.
+Larner, M. (1996). _Mass and its Relationship to Physical Measurements_. MS305 Data Project,
+Department of Mathematics, University of Queensland.
 
-Say the purpose of the study was to explain men’s weight ($Y$) as a function of their height ($X_1$):
-
-
-~~~
-mass<-read_csv(file.path("..", "Data", "mass.csv"))
-~~~
-{: .language-r}
-
+Say the purpose of the study was to explain men’s weight ($Y$) as a function of their height
+($X_1$):
 
 
 ~~~
-Parsed with column specification:
-cols(
-  Mass = col_double(),
-  Fore = col_double(),
-  Bicep = col_double(),
-  Chest = col_double(),
-  Neck = col_double(),
-  Shoulder = col_double(),
-  Waist = col_double(),
-  Height = col_double(),
-  Calf = col_double(),
-  Thigh = col_double(),
-  Head = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
-names(mass)<-c("Mass","Fore","Bicep","Chest","Neck","Shoulder","Waist","Height","Calf","Thigh","Head")
-head(mass,n=10)
+mass <- read_csv(file.path("..", "Data", "mass.csv"))
+names(mass) <- c("Mass", "Fore", "Bicep", "Chest", "Neck", "Shoulder", "Waist", "Height",
+    "Calf", "Thigh", "Head")
+mass
 ~~~
 {: .language-r}
 
 
 
 ~~~
-# A tibble: 10 x 11
+# A tibble: 22 x 11
     Mass  Fore Bicep Chest  Neck Shoulder Waist Height  Calf Thigh  Head
    <dbl> <dbl> <dbl> <dbl> <dbl>    <dbl> <dbl>  <dbl> <dbl> <dbl> <dbl>
  1  77    28.5  33.5   100  38.5      114  85     178   37.5  53    58  
@@ -2735,13 +2694,15 @@ head(mass,n=10)
  8  69    27    31      95  37        108  84     182.  36    49    60  
  9  65    26.5  29      93  35        112  74     178.  34    47    55.5
 10  58    26.5  31      96  35        103  76     168.  35    46    58  
+# ... with 12 more rows
 ~~~
 {: .output}
 
 
 
 ~~~
-fit<-lm(Mass~Height,data=mass)
+fit <- lm(Mass ~ Height, data = mass)
+
 summary(fit)
 ~~~
 {: .language-r}
@@ -2794,7 +2755,8 @@ An extraneous variable in the study is $X_2=$ Waist. Let’s add it into the reg
 
 
 ~~~
-fit<-lm(Mass~Height + Waist,data=mass)
+fit <- lm(Mass ~ Height + Waist, data = mass)
+
 summary(fit)
 ~~~
 {: .language-r}
@@ -2856,44 +2818,37 @@ y_i=\beta_0+\beta_1x_{1i}+\beta_2x_{2i}+\varepsilon_i & & \\ \hline
 \end{array}
 $$
 
-The estimate of $\beta_1$ differs substantially depending on whether Waist is included in the model or not. Confounding is occurring because of important association between the extraneous variable (Waist) and the response variable Mass.
+The estimate of $\beta_1$ differs substantially depending on whether Waist is included in the
+model or not. Confounding is occurring because of important association between the extraneous
+variable (Waist) and the response variable Mass.
 
-It is often necessary to include in a model variables not of direct interest to the research question (i.e. extraneous variables), simply because omitting them from the analysis would lead to incorrect conclusions concerning the relationship between the variables of interest.
+It is often necessary to include in a model variables not of direct interest to the research
+question (i.e. extraneous variables), simply because omitting them from the analysis would lead
+to incorrect conclusions concerning the relationship between the variables of interest.
 
 **How do we know what extraneous variables, or potential confounders, to measure in a study?**
 
-We have to rely on previous knowledge, such as that gained from previous studies, to identify which variables, besides those of direct interest, we should be measuring.
+We have to rely on previous knowledge, such as that gained from previous studies, to identify
+which variables, besides those of direct interest, we should be measuring.
 
 
 **3.2 Interaction**
 
-Interaction occurs when the relationship between $Y$ and $X_1$ is different at different levels of a third variable $X_2$.
+Interaction occurs when the relationship between $Y$ and $X_1$ is different at different levels
+of a third variable $X_2$.
 
-**EXAMPLE:** Simulated data set. There is a continuous predictor $x_1$, and a categorical predictor $x_2$ which assumes the values 0 and 1. The variable $y$ increases linearly with $x_1$ when $x_2=0$, and decreases linearly with $x_1$ when $x_2=1$.
-
-
-~~~
-data1<-read_csv(file.path("..", "Data", "confounding.csv"))
-~~~
-{: .language-r}
-
+**EXAMPLE:** Simulated data set. There is a continuous predictor $x_1$, and a categorical
+predictor $x_2$ which assumes the values 0 and 1. The variable $y$ increases linearly with
+$x_1$ when $x_2=0$, and decreases linearly with $x_1$ when $x_2=1$.
 
 
 ~~~
-Parsed with column specification:
-cols(
-  y = col_double(),
-  x1 = col_double(),
-  x2 = col_double()
-)
-~~~
-{: .output}
+data1 <- read_csv(file.path("..", "Data", "confounding.csv"))
+names(data1) <- c("y", "x1", "x2")
 
-
-
-~~~
-names(data1)<-c("y","x1","x2")
-ggplot(data1,aes(x=x1,y=y,color=x2))+ggtitle("Figure 1: Interaction")+geom_point()
+ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+    ggtitle("Figure 1: Interaction") +
+    geom_point()
 ~~~
 {: .language-r}
 
@@ -2903,39 +2858,26 @@ An example of no interaction is:
 
 
 ~~~
-data2<-read_csv(file.path("..", "Data", "noconfounding.csv"))
-~~~
-{: .language-r}
+data2 <- read_csv(file.path("..", "Data", "noconfounding.csv"))
+names(data2) <- c("y", "x1", "x2")
 
-
-
-~~~
-Parsed with column specification:
-cols(
-  y = col_double(),
-  x1 = col_double(),
-  x2 = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
-names(data2)<-c("y","x1","x2")
-ggplot(data2,aes(x=x1,y=y,color=x2))+ggtitle("Figure 2: No interaction")+geom_point()
+ggplot(data2, aes(x = x1, y = y, colour = x2)) +
+    ggtitle("Figure 2: No interaction") +
+    geom_point()
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-47-1.png" title="plot of chunk unnamed-chunk-47" alt="plot of chunk unnamed-chunk-47" width="612" style="display: block; margin: auto;" />
 
-Here $y$ increases linearly with $x_1$, at the same rate (slope), irrespective of the value of $x_2$.
+Here $y$ increases linearly with $x_1$, at the same rate (slope), irrespective of the value of
+$x_2$.
 
 A regression of $Y$ on $X_1$ and $X_2$ for the data in Figure 1 gives:
 
 
 ~~~
-fit1<-lm(y~x1+x2,data=data1)
+fit1 <- lm(y ~ x1 + x2, data = data1)
+
 summary(fit1)
 ~~~
 {: .language-r}
@@ -2987,24 +2929,30 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-We are fitting a common slope, and allowing different intercepts for $x_2=0$ and $x_2=1$. We can write the model as
+We are fitting a common slope, and allowing different intercepts for $x_2=0$ and $x_2=1$.
+We can write the model as
 $$x_2=0: \hat{y}_i=12.4-0.623x_{1i}$$
 $$x_2=1:  \hat{y}_i=12.4-0.623x_{1i}-6.26\\
                     =6.14-0.623x_{1i}$$
                     
 
 ~~~
-ggplot(data1,aes(x=x1,y=y,color=x2))+geom_point()+geom_abline(intercept = 12.4, slope = -0.623) + geom_abline(intercept=6.14,slope=-0.623)
+ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+    geom_point() +
+    geom_abline(intercept = 12.4, slope = -0.623) +
+    geom_abline(intercept = 6.14, slope = -0.623)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-49-1.png" title="plot of chunk unnamed-chunk-49" alt="plot of chunk unnamed-chunk-49" width="612" style="display: block; margin: auto;" />
 
-In order to capture the true relationship, we include an interaction term, which is $x_1\times x_2:$
+In order to capture the true relationship, we include an interaction term, which is
+$x_1\times x_2:$
 
 
 ~~~
-fit2<-lm(y~x1*x2,data=data1)
+fit2 <- lm(y ~ x1 * x2, data = data1)
+
 summary(fit2)
 ~~~
 {: .language-r}
@@ -3066,7 +3014,10 @@ The fitted lines are shown with the data below:
 
 
 ~~~
-ggplot(data1,aes(x=x1,y=y,color=x2))+geom_point()+geom_abline(intercept = 4.29, slope = 0.999) + geom_abline(intercept=14.25,slope=-2.241)
+ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+    geom_point() +
+    geom_abline(intercept =  4.29, slope =  0.999) +
+    geom_abline(intercept = 14.25, slope = -2.241)
 ~~~
 {: .language-r}
 
@@ -3076,7 +3027,8 @@ Fitting a model with an interaction term to the data in Figure 2 gives:
 
 
 ~~~
-fit3<-lm(y~x1*x2,data=data2)
+fit3 <- lm(y ~ x1 * x2, data = data2)
+
 summary(fit3)
 ~~~
 {: .language-r}
@@ -3130,11 +3082,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-The interaction term $x_1x_2$ is not significant. Fitting a model without the interaction term gives:
+The interaction term $x_1x_2$ is not significant. Fitting a model without the interaction term
+gives:
 
 
 ~~~
-fit3<-lm(y~x1+x2,data=data2)
+fit3 <- lm(y ~ x1 + x2, data = data2)
+
 summary(fit3)
 ~~~
 {: .language-r}
@@ -3208,7 +3162,7 @@ $X_1$, $X_2$ and $X_3$.
 
 
 ~~~
-par(mfrow=c(2,2))
+par(mfrow = c(2, 2))
 plot(fit3)
 ~~~
 {: .language-r}
@@ -3220,7 +3174,7 @@ leverage. To actually identify the points use `hatvalues(fit)` where `fit` is wh
 gave to the model fitted to the data.
 
 *Leverage is a measure of how far away the independent variable values of an observation are
-from those of the other observations*
+from those of the other observations* \\
 <https://en.wikipedia.org/wiki/Leverage_(statistics)>
 
 One rule of thumb for identifying such points is when
@@ -3261,15 +3215,18 @@ cooks.distance(fit)
 2.204762e-02 1.522339e-02 
 ~~~
 {: .output}
-To get $D_i\geq F_{p+1,n-p-1;0.50}$ use `qf(.5, df1=p+1, df2=n-p-1)` in R where you substitute the number values of `df1` and `df2`.
+To get $D_i\geq F_{p+1,n-p-1;0.50}$ use `qf(.5, df1 = p+1, df2 = n-p-1)` in R where you
+substitute the number values of `df1` and `df2`.
 
 **4. Categorical Predictors**
 
-To fit models with categorical predictors with more than two values (levels) we need to use the `lm` command in R. 
+To fit models with categorical predictors with more than two values (levels) we need to use the
+`lm` command in R. 
 
 **Example: BMD Data set**
 
-We have a sample of n=122 post-menopausal women, who took part in a clinical trial of hormone replacement therapy (HRT). The following variables were measured at the start of the trial:
+We have a sample of n=122 post-menopausal women, who took part in a clinical trial of hormone
+replacement therapy (HRT). The following variables were measured at the start of the trial:
 
 BMD: Bone mineral density at the spine (g/cm²)
 
@@ -3299,46 +3256,22 @@ BMI_CAT: BMI category (1=underweight, 2=normal, 3=overweight, 4=obese, 5=very ob
 
 OSTEOFAM: Family history of osteoporosis (0=no, 1=yes)
 
-The study was undertaken to assess the effect of HRT on bone mineral density; at the start of the trial, it is of interest to explain the relationship of BMD with the covariates.
+The study was undertaken to assess the effect of HRT on bone mineral density; at the start of
+the trial, it is of interest to explain the relationship of BMD with the covariates.
 
-The predictor TRTPRV takes on the value 0 if the subject had not previously taken hormone replacement therapy (HRT), and 1 if she had. 
+The predictor `TRTPRV` takes on the value 0 if the subject had not previously taken hormone
+replacement therapy (HRT), and 1 if she had. 
  
-The regression of BMD against BMI and TRTPRV gives:
+The regression of `BMD` against `BMI` and `TRTPRV` gives:
 
 
 ~~~
-bmd<-read_csv(file.path("..", "data", "BMD.csv"))
-~~~
-{: .language-r}
+bmd <- read_csv(file.path("..", "data", "BMD.csv"))
+names(bmd) <- c("BMD", "BMI", "AGE", "CALCIUM", "WTKG", "HTCM", "MENOPYRS", "SMKCODE", "PARITY",
+    "ALCOHOL", "TRTPRV", "AGEMENOP", "BMI_CAT", "OSTEOFAM")
 
+fit <- lm(BMD ~ BMI + TRTPRV, data = bmd)
 
-
-~~~
-Parsed with column specification:
-cols(
-  BMD = col_double(),
-  BMI = col_double(),
-  AGE = col_double(),
-  CALCIUM = col_double(),
-  WTKG = col_double(),
-  HTCM = col_double(),
-  MENOPYRS = col_double(),
-  SMKCODE = col_double(),
-  PARITY = col_double(),
-  ALCOHOL = col_double(),
-  TRTPRV = col_double(),
-  AGEMENOP = col_double(),
-  BMI_CAT = col_double(),
-  OSTEOFAM = col_double()
-)
-~~~
-{: .output}
-
-
-
-~~~
-names(bmd)<-c("BMD","BMI","AGE","CALCIUM","WTKG","HTCM","MENOPYRS","SMKCODE","PARITY","ALCOHOL","TRTPRV","AGEMENOP","BMI_CAT","OSTEOFAM")
-fit<-lm(BMD~BMI+TRTPRV,data=bmd)
 summary(fit)
 ~~~
 {: .language-r}
@@ -3370,20 +3303,21 @@ F-statistic: 2.746 on 2 and 119 DF,  p-value: 0.06826
 
 `TRTPRV` is not significant (p=0.260), but let's consider what the regression is telling us. 
 
-If `TRTPRV=0`:
+If `TRTPRV = 0`:
 
 $$BMD_i=0.945730+0.005948 ΒΜΙ_i$$
 
-If `TRTPRV=1`:
+If `TRTPRV = 1`:
 
 $$BMD_i = 0.945730+0.005948ΒΜΙ_i+0.032468×1\\
  = 0.9782+0.005948ΒΜΙ_i$$
-In other words, having `TRTPRV=1` results in an increase in the predicted value of `BMD` of
+In other words, having `TRTPRV = 1` results in an increase in the predicted value of `BMD` of
 0.03247 g/cm².
 Note that the values of 0 and 1 assigned to `TRTPRV` are arbitrary, and any other coding would
 produce the same fitted values. 
 
-`TRTPRV` is a categorical predictor, or factor, with two levels. What happens when there are more then two levels? Consider the predictor `SMKCODE`:
+`TRTPRV` is a categorical predictor, or factor, with two levels. What happens when there are
+more then two levels? Consider the predictor `SMKCODE`:
 
 $$\begin{array}{ll}
 \mbox{Level} &	\mbox{Description}\\ \hline
@@ -3396,7 +3330,8 @@ If we regress `BMD` on `SMKCODE` we get:
 
 
 ~~~
-fit1<-lm(BMD~SMKCODE,data=bmd)
+fit1 <- lm(BMD ~ SMKCODE, data = bmd)
+
 summary(fit1)
 ~~~
 {: .language-r}
@@ -3459,8 +3394,8 @@ $$S_{i3}=\left\{ \begin{array}{ll}
  1 & \mbox{, if i'th person is a heavy smoker;}\\
  0 & \mbox{, otherwise.} \end{array} \right. $$
  
-The values of  $S_1$, $S_2$   and $S_3$ will then be as follows:
- 
+The values of $S_1$, $S_2$ and $S_3$ will then be as follows:
+
 $$\begin{array}{cccc}\hline
 \mbox{SMKCODE} & S_1 & S_2 & S_3 \\ \hline	 
 1	& 1 &	0	& 0\\
@@ -3468,12 +3403,20 @@ $$\begin{array}{cccc}\hline
 3	& 0	& 0	& 1\\ \hline
 \end{array}$$
 
-We can then include $S_1$, $S_2$   and $S_3$  in the model. The problem with this approach is collinearity. We will always have for i-th subject: $S_{i1}+S_{i2}+S_{i3}=1$,     
-which means there is a perfect collinearity between the indicator variables. Another way to think of this is that we are giving the model redundant information: for example, for the i-th subject, if we have $S_{i1}=0$  and $S_{i2}=0$   then we know that we must have  $S_{i3}=1$. We only need to provide two bits of information about SMKCODE in order to convey all of the information. We leave out one of the indicator variables, and the level of the categorical variable corresponding to the indicator variable which we leave out, is called the **referent category**.
+We can then include $S_1$, $S_2$ and $S_3$ in the model. The problem with this approach is
+collinearity. We will always have for i-th subject: $S_{i1}+S_{i2}+S_{i3}=1$,     
+which means there is a perfect collinearity between the indicator variables. Another way to
+think of this is that we are giving the model redundant information: for example, for the i-th
+subject, if we have $S_{i1}=0$ and $S_{i2}=0$ then we know that we must have $S_{i3}=1$.
+We only need to provide two bits of information about `SMKCODE` in order to convey all of the
+information. We leave out one of the indicator variables, and the level of the categorical
+variable corresponding to the indicator variable which we leave out, is called the
+**referent category**.
 
 
 ~~~
-fit<-lm(BMD ~ factor(SMKCODE), data = bmd)
+fit <- lm(BMD ~ factor(SMKCODE), data = bmd)
+
 summary(fit)
 ~~~
 {: .language-r}
@@ -3507,26 +3450,28 @@ The referrent category is $S_1$, non-smoker.
 
 **Another way of looking at the problem**
 
-We have performed an analysis to determine whether Smoking (a categorical variable or factor) is a significant predictor of BMD. An appropriate visual display is the box plot:
+We have performed an analysis to determine whether Smoking (a categorical variable or factor)
+is a significant predictor of BMD. An appropriate visual display is the box plot:
 
 
 ~~~
-boxplot(BMD~SMKCODE,data=bmd)
+boxplot(BMD ~ SMKCODE, data = bmd)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" />
 
-in which we can see the lower BMDs of smokers. This suggests another method of analysis: one-way analysis of variance. The model is
+in which we can see the lower BMDs of smokers. This suggests another method of analysis:
+one-way analysis of variance. The model is
 $$Y_{ij}=\mu+\alpha_j+\varepsilon_{ij},   i=1,\ldots,n_j;    j=1,2,3$$
 where
-$Y_{ij} =$	  BMD of i-th subject in smoking group j
+$Y_{ij} =$ BMD of _i_-th subject in smoking group _j_
 
-$\mu =$	 Overall mean BMD
+$\mu =$	Overall mean BMD
 
-$\alpha_j=$	 Effect of smoking group j
+$\alpha_j=$	Effect of smoking group _j_
 
-$n_j=$ 	 Number of subjects in smoking group j
+$n_j=$ Number of subjects in smoking group _j_
 
 $$\sum_{j=1}^{3}{\alpha_j=0},  \varepsilon_{ij}\sim N(0,\sigma^2)$$
 
@@ -3552,22 +3497,32 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 ### 5.1 ANALYSIS OF COVARIANCE
 
-A regression based on a single, categorical predictor is equivalent to a one-way ANOVA. A regression based on more categorical variables as predictors (say m of them) would have been equivalent to an m-way ANOVA. Once we include categorical predictors in the regression framework, by using indicator variables, there is nothing stopping us from also including one or more covariates (or continuous predictors) in the model. 
-Say we have one covariate ($X$) and one categorical predictor ($S$), which has $k$ levels. Assuming that the last (k-th) level of S is the referent category, a possible model is
+A regression based on a single, categorical predictor is equivalent to a one-way ANOVA.
+A regression based on more categorical variables as predictors (say _m_ of them) would have been
+equivalent to an _m_-way ANOVA. Once we include categorical predictors in the regression
+framework, by using indicator variables, there is nothing stopping us from also including one or
+more covariates (or continuous predictors) in the model. 
+Say we have one covariate ($X$) and one categorical predictor ($S$), which has $k$ levels.
+Assuming that the last ($k$-th) level of $S$ is the referent category, a possible model is
 
-$$
-y_i=\beta_0+\beta_1x_i+\gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1}+\varepsilon_i,~~~(1)$$
+$$y_i=\beta_0+\beta_1x_i+\gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1}+\varepsilon_i,~~~(1)$$
+
 $\varepsilon_i \sim N(0,\sigma^2)$ independently $i=1,\ldots,n$
 
-What (1) is assuming is that the slope of the relationship between $y$ and $x$ is $\beta_1$, irrespective of the value of $S$. This may be depicted, for $k=3$, as:
+What (1) is assuming is that the slope of the relationship between $y$ and $x$ is $\beta_1$,
+irrespective of the value of $S$. This may be depicted, for $k=3$, as:
 
 
 ~~~
-x<-c(0,1,2,3,4,5,6,7,8,9,10)
-y<-13.4+0.623*x
+x <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+y <- 13.4 + 0.623 * x
 example1 <- data.frame(x, y)
-ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, slope = 0.623,col="blue") + geom_abline(intercept=13.4,slope=0.623) + 
-  geom_abline(intercept=14.4,slope=0.623,col="red")
+
+ggplot(data = example1, aes(x = x, y = y)) +
+    geom_point() +
+    geom_abline(intercept = 12.4, slope = 0.623, col = "blue") +
+    geom_abline(intercept = 13.4, slope = 0.623) +
+    geom_abline(intercept = 14.4, slope = 0.623, col = "red")
 ~~~
 {: .language-r}
 
@@ -3579,11 +3534,15 @@ Another possible scenario is:
 
 
 ~~~
-x<-c(0,1,2,3,4,5,6,7,8,9,10)
-y<-13.4+1.623*x
+x <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+y <- 13.4 + 1.623 * x
 example1 <- data.frame(x, y)
-ggplot(data=example1,aes(x=x,y=y))+geom_point()+geom_abline(intercept = 12.4, slope = 0.623,col="blue") + geom_abline(intercept=13.4,slope=1.623) + 
-  geom_abline(intercept=14.4,slope=0.23,col="red")
+
+ggplot(data = example1, aes(x = x, y = y)) +
+    geom_point() +
+    geom_abline(intercept = 12.4, slope = 0.623, col = "blue") +
+    geom_abline(intercept = 13.4, slope = 1.623) + 
+    geom_abline(intercept = 14.4, slope = 0.23, col = "red")
 ~~~
 {: .language-r}
 
@@ -3608,7 +3567,8 @@ y_i	& =	& \beta_0	\\
 & &		+ \epsilon_i\\
 \end{array}$$
 
-We have differential slopes for different levels of $S$. 	For the referent category $k$, the slope is $\beta_1$.
+We have differential slopes for different levels of $S$. For the referent category $k$,
+the slope is $\beta_1$.
 
 No interaction hypothesis:
 $$H_0:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)=\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right)$$
@@ -3618,7 +3578,9 @@ $$H_0:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)=\l
 
 **BMD example**
 
-Body mass index (BMI) is an important predictor of bone mineral density (BMD). It is a simple matter to include BMI in the model. The following is the model with no interaction, i.e. the same slope between BMD and BMI, irrespective of the subject's smoking status:
+Body mass index (BMI) is an important predictor of bone mineral density (BMD). It is a simple
+matter to include BMI in the model. The following is the model with no interaction, i.e. the
+same slope between BMD and BMI, irrespective of the subject's smoking status:
 $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\varepsilon_i$$
 where
 
@@ -3627,7 +3589,8 @@ and other definitions are as for model (1). The results are
 
 
 ~~~
-fit<-lm(BMD ~ BMI+factor(SMKCODE), data = bmd)
+fit <- lm(BMD ~ BMI + factor(SMKCODE), data = bmd)
+
 summary(fit)
 ~~~
 {: .language-r}
@@ -3684,9 +3647,11 @@ The fitted model is $$BMD_i=0.986+0.00543 \cdot BMI_i-0.12657\cdot S2-0.07874\cd
 
 The predicted effect on BMD of an increase of 1 kg/m² of BMI, is a increase of 0.005 g/cm².
 
-The predicted effect on BMD of a person being a moderate smoker. compared with a non-smoker, is a decrease of 0.127 g/cm².
+The predicted effect on BMD of a person being a moderate smoker, compared with a non-smoker,
+is a decrease of 0.127 g/cm².
 
-The predicted effect on BMD of a person being a heavy smoker. compared with a non-smoker, is a decrease of 0.079 g/cm².
+The predicted effect on BMD of a person being a heavy smoker, compared with a non-smoker,
+is a decrease of 0.079 g/cm².
 
 The model with interaction is
 $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\cdot S_{i2})+\\
@@ -3694,7 +3659,8 @@ $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\
 
 
 ~~~
-fit1<-lm(BMD ~ BMI*factor(SMKCODE), data = bmd)
+fit1 <- lm(BMD ~ BMI * factor(SMKCODE), data = bmd)
+
 summary(fit1)
 ~~~
 {: .language-r}
@@ -3757,13 +3723,13 @@ $$B\hat{M}D_i	=	0.98157 +0.005607BMI_1
 $$
 Alternatively:
 
-SMKCODE=1:$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i$
+SMKCODE=1: $B\hat{M}D_i=0.98157+0.005607\cdot BMI_i$
 
-SMKCODE=2:	$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i-0.2518+0.00483\cdot BMI_i$
+SMKCODE=2: $B\hat{M}D_i=0.98157+0.005607\cdot BMI_i-0.2518+0.00483\cdot BMI_i$
 
 $=0.72977+0.010437\cdot BMI_i$
 
-SMKCODE=3:	$B\hat{M}D_i=0.98157+0.005607\cdot BMI_i+0.2591-0.01379\cdot BMI_i$
+SMKCODE=3: $B\hat{M}D_i=0.98157+0.005607\cdot BMI_i+0.2591-0.01379\cdot BMI_i$
 
 $=1.2407-0.008183\cdot BMI_i$
 
@@ -3773,16 +3739,14 @@ Interaction makes interpretation more complicated.
 
 The predicted effect on BMD of an increase of 1 kg/m² of BMI, is:
 
--  for a non-smoker: an increase of 0.005607 
-g/cm²;
+-  for a non-smoker: an increase of 0.005607 g/cm²;
 
--  for a moderate smoker: an increase of 
-001 043 7 g/cm²;
+-  for a moderate smoker: an increase of 0.010437 g/cm²;
 
--  for a heavy smoker: a decrease of 0.008 
-183 g/cm².
+-  for a heavy smoker: a decrease of 0.008183 g/cm².
 
-The predicted effect on BMD of a person being a moderate smoker compared with a non-smoker: $-0.25180+0.00483\cdot BMI_i$
+The predicted effect on BMD of a person being a moderate smoker compared with a non-smoker:
+$-0.25180+0.00483\cdot BMI_i$
 
 The predicted effect on BMD of a person being a heavy smoker compared with a non-smoker:
 $0.2591-0.01379\cdot BMI_i$
@@ -3821,7 +3785,7 @@ if this model assumptions hold:
 
 
 ~~~
-par(mfrow=c(2,2))
+par(mfrow = c(2, 2))
 plot(fit1)
 ~~~
 {: .language-r}
@@ -3874,6 +3838,7 @@ Residuals       118 2.32333 0.019689
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
+
 The p-value associated with the model is $0.0095$ which is significant. We strongly reject
 $H_0$ in favour of $H_1$. We conclude that Smoking is a significant predictor of BMD,
 after correcting (or controlling) for Body Mass Index.We only can say if this model assumptions
@@ -3881,12 +3846,13 @@ hold:
 
 
 ~~~
-par(mfrow=c(2,2))
+par(mfrow = c(2, 2))
 plot(fit1)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-unnamed-chunk-68-1.png" title="plot of chunk unnamed-chunk-68" alt="plot of chunk unnamed-chunk-68" width="612" style="display: block; margin: auto;" />
+
 **Tests for individual coefficients**
 
 
@@ -3923,11 +3889,17 @@ F-statistic: 4.718 on 3 and 118 DF,  p-value: 0.003806
 
 Test for the significance of $\gamma_j$, compared with the referent category. 
 
-For $H_0:\gamma_2=0$ we have $\gamma_2$ significant (p=0.0075) and for $H_0:\gamma_3=0$, we have $\gamma_3$ not significant (p=0.081). 
+For $H_0:\gamma_2=0$ we have $\gamma_2$ significant (p=0.0075) and for $H_0:\gamma_3=0$,
+we have $\gamma_3$ not significant (p=0.081). 
 
-We conclude that moderate smokers have mean BMD levels significantly lower than non-smokers, but that heavy smokers' mean BMD levels are not significantly different from non-smokers. [The numbers of heavy smokers in the sample was small, making the detection of a significant difference unlikely, even if there was a significant difference in the population.]
+We conclude that moderate smokers have mean BMD levels significantly lower than non-smokers,
+but that heavy smokers' mean BMD levels are not significantly different from non-smokers.
+[The numbers of heavy smokers in the sample was small, making the detection of a significant
+difference unlikely, even if there was a significant difference in the population.]
 
-**Caution:** Here we have performed two hypothesis tests, both at a 5% level of significance. Is the overall significance of our conclusion still 5%? If not, is it greater than or less than 5%?
+**Caution:** Here we have performed two hypothesis tests, both at a 5% level of significance.
+Is the overall significance of our conclusion still 5%? If not, is it greater than or less than
+5%?
 
 **Referent category revisited**
 
@@ -3946,7 +3918,8 @@ $$\begin{array}{cc}\hline
 \mbox{Total} &	122\\ \hline
 \end{array}
 $$
-There are few moderate and heavy smokers relative to non-smokers, and a comparison with reference to non-smokers makes sense.
+There are few moderate and heavy smokers relative to non-smokers, and a comparison with
+reference to non-smokers makes sense.
 
 Transformation of variables will be covered in the last Exercise for Day 2.
 
