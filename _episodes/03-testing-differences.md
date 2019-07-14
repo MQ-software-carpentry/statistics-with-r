@@ -14,6 +14,7 @@ keypoints:
 - "You can use _t_ tests and ANOVAs if you have a continuous response and categorical
   predictors."
 source: "Rmd"
+mathjax: true
 ---
 
 
@@ -208,11 +209,14 @@ with a **_t_ test**, using the R function `t.test`.
 
 The question we are asking is **Is the mean blood lead level for the boys different to the mean
 blood lead level for the girls?** Formally, we could say:
-<!-- $$H_0: \mu_{boys} = \mu_{girls} \\
-H_1: \mu_{boys} \neq \mu_{girls}$$ -->
 
+$$H_0: \mu_{boys} = \mu_{girls} \\
+H_1: \mu_{boys} \neq \mu_{girls}$$
+
+<!--
 H<sub>0</sub>: &mu;<sub>boys</sub> = &mu;<sub>girls</sub> \\
 H<sub>1</sub>: &mu;<sub>boys</sub> &ne; &mu;<sub>girls</sub>
+-->
 
 
 ~~~
