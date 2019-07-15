@@ -1,5 +1,5 @@
 ---
-title: "Day 3 Mixed Effects & Bayesian Statistics"
+title: "Mixed Effects & Bayesian Statistics"
 author: "Dr Tania Prvan"
 teaching: 60
 exercises: 30
@@ -23,8 +23,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ## PDF version + exercises
 
 [PDF notes](../files/Day 3 Mixed Effects and Bayesian Statistics.pdf)
-
-## Day 3 Mixed Effects Models and Introduction to Bayesian Statisics
 
 ```{r load_libraries, message=FALSE}
 library(tidyverse)
