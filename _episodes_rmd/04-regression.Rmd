@@ -134,22 +134,18 @@ nonlinearly?
  
 #### Various Classifications of Regression Analysis
 
-$$ \begin{array}{ll} \hline
-\mbox{Type of Regression} &	\mbox{Conditions}\\ \hline
-\mbox{Univariate}	 & \mbox{Only one quantitative response variable}\\
-\mbox{Multivariate}	& \mbox{Two or more quantitative response variables}\\
-	& & \\
-\mbox{Simple}	& \mbox{Only one predictor variable}\\
-\mbox{Multiple} & 	\mbox{Two or more predictor variables}\\
-	& & \\
-\mbox{Linear}	& \mbox{All parameters enter the equation linearly, possibly after transformation of the data}\\
-\mbox{Nonlinear} &	\mbox{The relationship between the response and some of the predictors is nonlinear or some of the parameters appear nonlinearly, but no transformation is possible to make the parameters appear linearly}\\
-	& & \\
-\mbox{Analysis of Variance}	& \mbox{All predictors are qualitative variables}\\
-\mbox{Analysis of Covariance} & 	\mbox{Some predictors are quantitative variables and others are qualitative variables}\\
-& & \\
-\mbox{Logistic}	& \mbox{The response variable is qualitative}\\ \hline
-\end{array} $$
+| Type of Regression | Conditions |
+| --- | --- |
+| Univariate | Only one quantitative response variable |
+| Multivariate | Two or more quantitative response variables |
+| Simple | Only one predictor variable |
+| Multiple | Two or more predictor variables |
+| Linear | All parameters enter the equation linearly, possibly after transformation of the data |
+| Nonlinear | The relationship between the response and some of the predictors is nonlinear or some of the parameters appear nonlinearly, but no transformation is possible to make the parameters appear linearly |
+| Analysis of Variance | All predictors are qualitative variables |
+| Analysis of Covariance | Some predictors are quantitative variables and others are qualitative variables |
+| Logistic | The response variable is qualitative |
+
 (Page 15, Regression Analysis by Example, Third Edition by Samprit Chatterjee, Ali S. Hadi and
 Bertram Price (2000).)
 
