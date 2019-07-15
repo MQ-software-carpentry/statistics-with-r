@@ -54,7 +54,7 @@ We can model and estimate within cluster correlations using mixed effects models
 
 Linear mixed effects models (sometimes called multilevel models depending on the context) have extra term(s) in addition to those found in the linear model (including multiple regression model) to allow for variation that is not explained by the independent variables of interest.
 
-We will use the R package *lme4* to fit mixed effects models.
+We will use the R package `lme4` to fit mixed effects models.
 
 The following example is from Winter and Grawunder (2012). 
 
@@ -62,7 +62,7 @@ The following example is from Winter and Grawunder (2012).
 
 This could be modelled as
 
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \epsilon $$
+$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \varepsilon $$
 
 where we only have one error term which is our unexplained random variation.
 
@@ -169,7 +169,7 @@ We should look at the data using statistical graphics.
 theme_set(theme_bw(base_size = 18))
 
 qplot(attitude, frequency, facets = . ~ subject,
-  colour = subject, geom = "boxplot", data = mydata)
+    colour = subject, geom = "boxplot", data = mydata)
 ~~~
 {: .language-r}
 
@@ -240,28 +240,29 @@ new <- data.frame(polite$frequency, informal$frequency)
 names(new) <- c("Polite_Pitch", "Informal_Pitch")
 
 ggplot(data = new, aes(x = Polite_Pitch, y = Informal_Pitch)) +
-  geom_point() +
-  geom_smooth(method = "lm")
+    geom_point() +
+    geom_smooth(method = "lm")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-split_data-1.png" title="plot of chunk split_data" alt="plot of chunk split_data" width="612" style="display: block; margin: auto;" />
 
-**Modeling individual means with random intercepts**
+#### Modeling individual means with random intercepts
 
-These individual differences in our politeness example can be modelled by assuming different random intercepts for each subject. This is reasonable to do because our subjects can be thought of as a random sample from a (very large) population. Each participant is given a different intercept value (i.e., a different mean voice pitch). These intercepts can be estimated using the function $lmer$ in the package $lme$.
+These individual differences in our politeness example can be modelled by assuming different random intercepts for each subject. This is reasonable to do because our subjects can be thought of as a random sample from a (very large) population. Each participant is given a different intercept value (i.e., a different mean voice pitch). These intercepts can be estimated using the function `lmer` in the package `lme`.
 
 Our fixed effects model was
 
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \epsilon $$
+$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \varepsilon $$
 
 Our mixed effects model, using R syntax, is
 
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \mbox{(1|subject)} + \epsilon $$
+$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \mbox{(1|subject)} + \varepsilon $$
 
-The term "(1|subject)" models the random intercept; that is, a different intercept is given for each subject and the 1 stands for intercept. The formula "(1|subject)" informs your model that it should expect multiple responses per subject, and these responses will depend on each subject’s baseline level. The non-independence arising from multiple responses by the same subject is now no longer a problem. We still have $\epsilon$ because even allowing for individual by-subject variation, there will still be “random” differences between different measurements made on the same subject.
+The term `(1|subject)` models the random intercept; that is, a different intercept is given for each subject and the 1 stands for intercept. The formula `(1|subject)` informs your model that it should expect multiple responses per subject, and these responses will depend on each subject’s baseline level. The non-independence arising from multiple responses by the same subject is now no longer a problem. We still have $\varepsilon$ because even allowing for individual by-subject variation, there will still be “random” differences between different measurements made on the same subject.
 
 Getting an idea of these different means:
+
 
 ~~~
 pitch_bysubj <- with(mydata, aggregate(frequency ~ subject, FUN = "mean"))
@@ -281,7 +282,8 @@ pitch_bysubj
 6      M7  102.1786
 ~~~
 {: .output}
-Now using the function *lmer* in the *lme4* package to fit the above mixed effects model:
+
+Now using the function `lmer` in the `lme4` package to fit the above mixed effects model:
 
 
 ~~~
@@ -303,6 +305,7 @@ M4    146.8220
 M7    103.6958
 ~~~
 {: .output}
+
 The estimates are very close to the actual mean frequencies (pitches).
 
 It can be shown that the actual mean frequency (pitch) across subjects is the estimated Intercept, and the standard deviation across the subjects’ mean frequency (pitch) is the standard deviation (Std.Dev.) of the random effects.
@@ -363,7 +366,7 @@ sd(coef(fit1)$subject[1][, '(Intercept)'])
 ~~~
 {: .output}
 
-This is also in the model output when using *summary*.
+This is also in the model output when using `summary`.
 
 
 ~~~
@@ -396,7 +399,7 @@ Fixed effects:
 ~~~
 {: .output}
 
-**Including fixed effects**
+#### Including fixed effects
 
 We should also include the hypothesised scenario (polite vs informal) in our model. Recall that our original question was "How is voice pitch is related to politeness?". Since we know there is a gender difference this has to be controlled for in the model and since even within a subject there are differences this has to also be accomodated.
 
@@ -411,18 +414,18 @@ $$E(\mbox{pitch}_j)=\mbox{intercept}+\mbox{intercept}_j+\mbox{attitude}+\mbox{ge
 
 ~~~
 mydata_bycond <- na.omit(mydata) %>%
-  group_by(gender, attitude) %>%
-  summarise(mean_pitch = mean(frequency))
+    group_by(gender, attitude) %>%
+    summarise(mean_pitch = mean(frequency))
   
 ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = gender, group = gender)) +
-  geom_line(size = 2) +
-  geom_point(size = 5, shape = 21, fill = "white")
+    geom_line(size = 2) +
+    geom_point(size = 5, shape = 21, fill = "white")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-mean_bycond-1.png" title="plot of chunk mean_bycond" alt="plot of chunk mean_bycond" width="612" style="display: block; margin: auto;" />
 
-Note we will use library *dplyr* which was loaded at the beginning.
+Note we will use library `dplyr` which was loaded at the beginning.
 
 We can also create contrasts. We will contrast code attitude and gender, so that we can see the effect of attitude at the “mean” between females and males, and the effect of gender at the mean between “informal” and “polite”.
 
@@ -501,9 +504,9 @@ gendrf_vs_m -0.001 -0.004
 ~~~
 {: .output}
 
-Our mean frequency (pitch) is 192.883, pitch is lower higher for informal than polite scenarios, coefficient of attitudeinf_vs_pol=9.7105, t=3.203, and pitch (frequency) is higher for females than males, b=54.102, t=5.137. By a rough rule-of-thumb t is probably significant if it’s greater than 2. If time permits testing significance of parameter estimates will be discussed.
+Our mean frequency (pitch) is 192.883, pitch is lower higher for informal than polite scenarios, coefficient of attitudeinf_vs_pol=9.7105, t=3.203, and pitch (frequency) is higher for females than males, b=54.102, t=5.137. By a rough rule-of-thumb _t_ is probably significant if it’s greater than 2. If time permits, testing significance of parameter estimates will be discussed.
 
-**More model information**
+#### More model information
 
 One useful measure to assess model fit is the AIC (An Information Criterion also known incorrectly as Akaike's Information Criterion according to an eminent Time Series researcher), which is $\mbox{deviance}+2∗(p+1)$, where $p$ is the number of parameters in the model (here, 1 is for the estimated residual variance, and $p$ is all the other parameters, e.g., our coefficents for fixed effects + our estimated variances, etc. for the random effects). Lower AICs are better, since higher deviances mean that the model is not fitting the data well. Since AIC increases as $p$ increases, AIC has a penalty term for more parameters.
 
@@ -514,7 +517,7 @@ $$\mbox{AIC}=\mbox{deviance}+2\cdot(p+1)$$
 
 ~~~
 logLikelihood <- logLik(fit2)
-deviance = -2*logLikelihood[1];
+deviance <- -2 * logLikelihood[1]
 deviance
 ~~~
 {: .language-r}
@@ -526,16 +529,16 @@ deviance
 ~~~
 {: .output}
 
-**Extracting all the coefficients**
+#### Extracting all the coefficients
 
 
 ~~~
-mydata_bysubj = na.omit(mydata) %>%
-  group_by(subject) %>%
-  summarise(mean_pitch = mean(frequency))
+mydata_bysubj <- na.omit(mydata) %>%
+    group_by(subject) %>%
+    summarise(mean_pitch = mean(frequency))
 
-ggplot(mydata_bysubj, aes(x=factor(subject), y=mean_pitch)) +
-  geom_point(size=4, aes(colour = factor(subject)))
+ggplot(mydata_bysubj, aes(x = factor(subject), y = mean_pitch)) +
+    geom_point(size = 4, aes(colour = factor(subject)))
 ~~~
 {: .language-r}
 
@@ -568,7 +571,7 @@ This model yields a separate intercept for each subject, in addition to a parame
 
 
 ~~~
-179.3003 + 0*(9.7) + 1*(54.10244)
+179.3003 + 0 * (9.7) + 1 * (54.10244)
 ~~~
 {: .language-r}
 
@@ -602,7 +605,7 @@ It is very close.
 
 **EXERCISE:**  Estimate M3's mean and compareit with the model fit.
 
-**Random slopes**
+#### Random slopes
 
 In the models above the effect of politeness was the same for all subjects, hence one coefficient for politeness. However, the effect of politeness might be different for different subjects; that is, there might be a politeness*subject interaction. For example, it might be expected that some people are more polite in polite scenarios, others less. So, we need a random slope model, where subjects and items are not only allowed to have differing intercepts, but where they are also allowed to have different slopes for the effect of politeness (i.e., different effects of condition (attitude) on pitch (frequency)).
 
@@ -612,28 +615,30 @@ lmer(pitch ~ condition + gender + (1 + condition | subject))
 
 pitch for subject A = intercept + subject A's intercept shift + condition + subject A's condition slope shift + gender
 
-Visualise the data by subject.
+##### Visualise the data by subject
 
 
 ~~~
 mydata_bycond <- na.omit(mydata) %>%
-  group_by(subject, attitude) %>%
-  summarise(mean_pitch = mean(frequency))
+    group_by(subject, attitude) %>%
+    summarise(mean_pitch = mean(frequency))
   
 ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = subject, group = subject)) +
-  geom_line(size = 2) +
-  geom_point(size = 5, shape = 21, fill = "white")
+    geom_line(size = 2) +
+    geom_point(size = 5, shape = 21, fill = "white")
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-pitch_bycond_plot-1.png" title="plot of chunk pitch_bycond_plot" alt="plot of chunk pitch_bycond_plot" width="612" style="display: block; margin: auto;" />
+
 The slopes don't look parallel.
 
 Now fitting a model with random slopes.
 
 
 ~~~
-fit3 <- lmer(frequency ~ attitude + gender + (1 + attitude | subject), REML = TRUE, data = mydata)
+fit3 <- lmer(frequency ~ attitude + gender + (1 + attitude | subject),
+    REML = TRUE, data = mydata)
 ~~~
 {: .language-r}
 
@@ -685,7 +690,8 @@ convergence code: 0
 boundary (singular) fit: see ?isSingular
 ~~~
 {: .output}
-Let's check out the message. You do this by typing "?issingular" in R. Look at the information.
+
+Let's check out the message. You do this by typing `?isSingular` in R. Look at the information.
 
 This model may not be suitable.
 
@@ -711,6 +717,7 @@ attr(,"class")
 [1] "coef.mer"
 ~~~
 {: .output}
+
 Comparing the two models.
 
 
@@ -732,16 +739,16 @@ fit3  7 803.49 820.42 -394.75   789.49 0.0241      2      0.988
 ~~~
 {: .output}
 
-Hardly any difference between the two deviances so you woud go for the simpler model. We already knew fit3 was problematic.
-Formally, look at $\chi^2(2)=0.02$ which has p-value = 0.988, no point in having random slopes. Could have made the decision based on AIC values, you go for the model with the smaller AIC which is fit2. 
+Hardly any difference between the two deviances so you woud go for the simpler model. We already knew `fit3` was problematic.
+Formally, look at $\chi^2(2)=0.02$ which has p-value = 0.988, no point in having random slopes. Could have made the decision based on AIC values, you go for the model with the smaller AIC which is `fit2`.
 
-**Testing significance**
+#### Testing significance
 
-Debatable whether you should get p-values for models fitted using *lmer*, determining the degrees of freedom (df) is the sticking point. The *lmerTest* can be used to get approximation to dfs hence p-values.
+Debatable whether you should get p-values for models fitted using `lmer`, determining the degrees of freedom (df) is the sticking point. The `lmerTest` can be used to get approximation to dfs hence p-values.
 
-**Model comparison**
+#### Model comparison
 
-A way to do this is likelihood ratio tests. Just like in multple linear regression you have a reduced model nested inside a full model. The test statistic is
+A way to do this is likelihood ratio tests. Just like in multiple linear regression you have a reduced model nested inside a full model. The test statistic is
 
 $$D=-2 \cdot \log \frac{\mbox{likelihood for reduced model}}{\mbox{likelihood for full model}}$$
 
@@ -753,6 +760,7 @@ $D$ has an approximate Chi-square distribution with $df(reduced)-df(full)$ degre
 ~~~
 fit4 <- lmer(frequency ~ gender + (1 | subject), REML = FALSE, data = mydata)
 fit4b <- lmer(frequency ~ attitude + gender + (1 | subject), REML = FALSE, data = mydata)
+
 anova(fit4, fit4b)
 ~~~
 {: .language-r}
@@ -776,24 +784,18 @@ Gender needs to stay in the model (when you look at the output the full model ha
 
 I won't be looking at REML versus ML.
 
-**Item effects**
+#### Item effects
 
 Still with the pitch example, different stimuli (here scenario) might cause a different value for "pitch" (frequency). If this true then, pitch for a given scenario  subject could be correlated across subjects, and even within a subject for the polite and informal attributes. This can be modelled this as a random effect.
 
 
 ~~~
 mydata$scenario <- factor(mydata$scenario)
-ggplot(mydata, aes(x=scenario, y=frequency,  colour=scenario)) +
-  geom_boxplot()
+
+ggplot(mydata, aes(x = scenario, y = frequency, colour = scenario)) +
+    geom_boxplot()
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: Removed 1 rows containing non-finite values (stat_boxplot).
-~~~
-{: .error}
 
 <img src="../fig/rmd-plot_scenario-1.png" title="plot of chunk plot_scenario" alt="plot of chunk plot_scenario" width="612" style="display: block; margin: auto;" />
 
@@ -801,7 +803,8 @@ Scenario seems to influence pitch (frequency).
 
 
 ~~~
-fit4 <- lmer(frequency ~ attitude + gender + (1|subject) + (1|scenario), data=mydata)
+fit4 <- lmer(frequency ~ attitude + gender + (1|subject) + (1|scenario), data = mydata)
+
 summary(fit4)
 ~~~
 {: .language-r}
@@ -842,7 +845,7 @@ gendrf_vs_m -0.001 -0.004
 
 
 ~~~
-anova(fit2, fit4, refit=FALSE)
+anova(fit2, fit4, refit = FALSE)
 ~~~
 {: .language-r}
 
@@ -860,6 +863,7 @@ fit4  6 790.23 804.74 -389.11   778.23 11.289      1  0.0007796 ***
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
+
 There appears to be a significant item (scenario) effect (p-value=0.0007796).
 
 
@@ -935,10 +939,12 @@ What happens when we vary the slope for each item?
 
 ~~~
 mydata_byscenario <- na.omit(mydata) %>%
-  group_by(scenario, attitude) %>%
-  summarise(mean_pitch = mean(frequency))
-  
-ggplot(mydata_byscenario, aes(x=attitude, y=mean_pitch, colour=scenario, group=scenario)) + geom_line() + geom_point(shape=21, fill="white")
+    group_by(scenario, attitude) %>%
+    summarise(mean_pitch = mean(frequency))
+
+ggplot(mydata_byscenario, aes(x = attitude, y = mean_pitch, colour = scenario, group = scenario)) +
+    geom_line() +
+    geom_point(shape = 21, fill = "white")
 ~~~
 {: .language-r}
 
@@ -946,7 +952,8 @@ ggplot(mydata_byscenario, aes(x=attitude, y=mean_pitch, colour=scenario, group=s
 
 
 ~~~
-fit4b<-lmer(frequency ~ attitude + gender + (1|subject) + (1 + attitude|scenario), data=mydata)
+fit4b <- lmer(frequency ~ attitude + gender + (1|subject) + (1 + attitude|scenario),
+    data = mydata)
 ~~~
 {: .language-r}
 
@@ -1006,7 +1013,7 @@ Model failed to converge with max|grad| = 0.0076045 (tol = 0.002, component 1)
 
 
 ~~~
-anova(fit4, fit4b, refit=FALSE)
+anova(fit4, fit4b, refit = FALSE)
 ~~~
 {: .language-r}
 
@@ -1023,8 +1030,8 @@ fit4   6 790.23 804.74 -389.11   778.23
 fit4b  8 793.88 813.23 -388.94   777.88 0.3523      2     0.8385
 ~~~
 {: .output}
-The p-value=0.8385 for the extra term in the full model is not significant, so having random slopes for scenario doesn't make much difference. That two scenarios are probably very similar in extracting similar differences between informal and polite situations.
 
+The p-value=0.8385 for the extra term in the full model is not significant, so having random slopes for scenario doesn't make much difference. That two scenarios are probably very similar in extracting similar differences between informal and polite situations.
 
 Now we consider an example with regression.
 
@@ -1034,7 +1041,7 @@ library(MASS)
 ~~~
 {: .language-r}
 
-The library MASS has the data set **oats**  which we can illustrate fitting a simple linear mixed effects model.
+The library MASS has the data set `oats` which we can illustrate fitting a simple linear mixed effects model.
 
 
 ~~~
@@ -1080,29 +1087,29 @@ str(oats)
 ~~~
 {: .output}
 
-The yield of oats from a split-plot field trial using three varieties and four levels of nitrogen  content. The experiment was laid out in 6 blocks of 3 main plots, each split into 4 sub-plots. The varieties were applied to the main plots and the nitrogen treatments to the sub-plots.
+The yield of oats from a split-plot field trial using three varieties and four levels of nitrogen content. The experiment was laid out in 6 blocks of 3 main plots, each split into 4 sub-plots. The varieties were applied to the main plots and the nitrogen treatments to the sub-plots.
 
-The original blocks come from an infinite number of possible blocks  so blocks should be a random effect. If you like, blocks are sampled from an infinite population.
+The original blocks come from an infinite number of possible blocks so blocks should be a random effect. If you like, blocks are sampled from an infinite population.
 
 
 ~~~
-p <- ggplot(data = oats, aes(N, Y)) + geom_point()
-p + facet_grid(B ~ V)+theme_bw()
+ggplot(data = oats, aes(N, Y)) +
+    geom_point() +
+    facet_grid(B ~ V)
 ~~~
 {: .language-r}
 
 <img src="../fig/rmd-plot_oats-1.png" title="plot of chunk plot_oats" alt="plot of chunk plot_oats" width="612" style="display: block; margin: auto;" />
  
-This is an example of a trellis graphic but when using ggplot you need to use facet_grid to get it. We have plotted Yield versus Nitrogen paneled by Block (rows) and Variety (columns). Always good, when possible, to obtain a visualisation of your data.
+This is an example of a trellis graphic but when using `ggplot` you need to use `facet_grid` to get it. We have plotted Yield versus Nitrogen paneled by Block (rows) and Variety (columns). Always good, when possible, to obtain a visualisation of your data.
  
- More nitrogen higher the yield.
+More nitrogen higher the yield.
 
-
-**Random effects**
+#### Random effects
 
 If we can assume that a factor with $n$ levels comes from a probability distribution we have a random effect. So blocks are a random effect because they come from a factor with an infinite number of levels. The blocks can be put anywhere in the area under consideration.
 
-**Mixed Effects Models**
+#### Mixed Effects Models
 
 Fixed **and** random effects 
 
@@ -1113,7 +1120,6 @@ Fixed **and** random effects
 We have the extra term $\gamma \cdot \zeta$ which is capturing the random effect.
 
 If we just fitted a linear model to the data ignoring block.
-
 
 
 ~~~
@@ -1167,7 +1173,8 @@ Now fitting the mixed effects model for the oats data set.
 
 
 ~~~
-model2 <- lmer(Y ~ V*N + (1|B/V), data=oats)
+model2 <- lmer(Y ~ V*N + (1|B/V), data = oats)
+
 summary(model2)
 ~~~
 {: .language-r}
@@ -1253,7 +1260,7 @@ V:N  6   321.7    53.6  0.3028
 ~~~
 {: .output}
 
-Looking at Random effects: this gives the variance attributable at different levels of the design. We see that there was quite a bit of variation between blocks, between varieties and residuals variation between the  nitrogen concentrations. Now looking at the Fixed Effects and comparing to the model without random effects (model 1)we see that the estimated parameters are the same but the estimated standard deviations are different.
+Looking at Random effects: this gives the variance attributable at different levels of the design. We see that there was quite a bit of variation between blocks, between varieties and residuals variation between the  nitrogen concentrations. Now looking at the Fixed Effects and comparing to the model without random effects (model 1) we see that the estimated parameters are the same but the estimated standard deviations are different.
 
 The take home message is that fitting a random effects model does not change the parameter estimates compared to fitting a model without random effects but that the standard deviations of the parameters are different.
 
@@ -1374,12 +1381,11 @@ attr(,"class")
 ~~~
 {: .output}
 
-The output looks quite different. For model2 every block and variety is given a different intercept (this came from the (1|B/V) which is setting up random intercepts for block (B) and variety (V) whereas for model1 the intercept is the same. Blocks were chosen from many potential blocks hence should be treated as a random effect and the three varieties have been chosen from many varieties hence a random effect. 
+The output looks quite different. For `model2` every block and variety is given a different intercept (this came from the `(1|B/V)` which is setting up random intercepts for block (`B`) and variety (`V`) whereas for `model1` the intercept is the same). Blocks were chosen from many potential blocks hence should be treated as a random effect and the three varieties have been chosen from many varieties hence a random effect. 
 
-We know how to check model1 assumptions. We will now look at checking model2 assumptions.
+We know how to check `model1` assumptions. We will now look at checking `model2` assumptions.
 
-
-**Diagnostics**
+#### Diagnostics
 
 *Scatterplot of residuals*
 
@@ -1435,7 +1441,7 @@ qqline(ranef(model2)[[2]][, 1], col = "violetred3")
 
 <img src="../fig/rmd-random_effects_qq2-1.png" title="plot of chunk random_effects_qq2" alt="plot of chunk random_effects_qq2" width="612" style="display: block; margin: auto;" />
 
-*Check assumptions*
+#### Check assumptions
 
 One slightly odd block when we first inspected the data.
 
@@ -1446,6 +1452,7 @@ plot(model2)
 {: .language-r}
 
 <img src="../fig/rmd-oats_model_plots-1.png" title="plot of chunk oats_model_plots" alt="plot of chunk oats_model_plots" width="612" style="display: block; margin: auto;" />
+
 This looks like a random scatter about zero.
 
 Now plot residuals.
@@ -1492,8 +1499,6 @@ Winter, B. (2013). Linear models and linear mixed effects models in R with lingu
 <https://stat.ethz.ch/R-manual/R-devel/library/MASS/html/oats.html>
 
 <https://www.statmethods.net/management/typeconversion.html>
-
-
 
 <https://cran.r-project.org/web/packages/lme4/lme4.pdf>
 
