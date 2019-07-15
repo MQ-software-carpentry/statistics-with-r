@@ -154,7 +154,9 @@ We should also include the hypothesised scenario (polite vs informal) in our mod
 
 Our final model is
 
+```r
 lmer(frequency ~ attitude+sex+(1|subject))
+```
  
 $$E(\mbox{pitch}_j)=\mbox{intercept}+\mbox{intercept}_j+\mbox{attitude}+\mbox{gender}$$
 ```{r mean_bycond}
