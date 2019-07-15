@@ -20,7 +20,7 @@ mathjax: true
 
 ## PDF version + exercises
 
-[PDF notes](../files/Day 3 Mixed Effects and Bayesian Statistics.pdf)
+[PDF notes](../files/Mixed Effects and Bayesian Statistics.pdf)
 
 
 ~~~
