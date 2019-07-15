@@ -109,9 +109,13 @@ ggplot(data = new, aes(x = Polite_Pitch, y = Informal_Pitch)) +
 These individual differences in our politeness example can be modelled by assuming different random intercepts for each subject. This is reasonable to do because our subjects can be thought of as a random sample from a (very large) population. Each participant is given a different intercept value (i.e., a different mean voice pitch). These intercepts can be estimated using the function $lmer$ in the package $lme$.
 
 Our fixed effects model was
+
 $$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \epsilon $$
+
 Our mixed effects model, using R syntax, is
+
 $$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \mbox{(1|subject)} + \epsilon $$
+
 The term "(1|subject)" models the random intercept; that is, a different intercept is given for each subject and the 1 stands for intercept. The formula "(1|subject)" informs your model that it should expect multiple responses per subject, and these responses will depend on each subject’s baseline level. The non-independence arising from multiple responses by the same subject is now no longer a problem. We still have $\epsilon$ because even allowing for individual by-subject variation, there will still be “random” differences between different measurements made on the same subject.
 
 Getting an idea of these different means:
@@ -159,6 +163,7 @@ lmer(frequency ~ attitude+sex+(1|subject))
 ```
  
 $$E(\mbox{pitch}_j)=\mbox{intercept}+\mbox{intercept}_j+\mbox{attitude}+\mbox{gender}$$
+
 ```{r mean_bycond}
 mydata_bycond <- na.omit(mydata) %>%
   group_by(gender, attitude) %>%
@@ -201,6 +206,7 @@ One useful measure to assess model fit is the AIC (An Information Criterion also
 $$\mbox{deviance}=−2∗\log \mbox{likelihood}$$
 
 $$\mbox{AIC}=\mbox{deviance}+2\cdot(p+1)$$
+
 ```{r deviance}
 logLikelihood <- logLik(fit2)
 deviance = -2*logLikelihood[1];
@@ -290,7 +296,9 @@ Debatable whether you should get p-values for models fitted using *lmer*, determ
 A way to do this is likelihood ratio tests. Just like in multple linear regression you have a reduced model nested inside a full model. The test statistic is
 
 $$D=-2 \cdot \log \frac{\mbox{likelihood for reduced model}}{\mbox{likelihood for full model}}$$
+
 $$=-2\cdot \log (\mbox{likelihood for reduced model})+2 \cdot \log (\mbox{likelihood for full model})$$
+
 $D$ has an approximate Chi-square distribution with $df(reduced)-df(full)$ degrees of freedom.
 
 ```{r models_with_gender}
