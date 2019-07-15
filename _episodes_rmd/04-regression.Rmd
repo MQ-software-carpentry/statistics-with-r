@@ -1,6 +1,6 @@
 ---
 title: "Regression"
-author: "Tania Prvan"
+author: "Dr Tania Prvan"
 teaching: 60
 exercises: 30
 questions:
