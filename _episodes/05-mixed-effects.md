@@ -18,6 +18,10 @@ mathjax: true
 
 
 
+## PDF version + exercises
+
+[PDF notes](../files/Day 3 Mixed Effects and Bayesian Statistics.pdf)
+
 ## Day 3 Mixed Effects Models and Introduction to Bayesian Statisics
 
 
