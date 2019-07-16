@@ -780,7 +780,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-Gender needs to stay in the model (when you look at the output the full model has a highly significan p-value, p=0.003).
+Attitude needs to stay in the model (when you look at the output the full model has a highly significan p-value, p=0.003).
 
 I won't be looking at REML versus ML.
 
