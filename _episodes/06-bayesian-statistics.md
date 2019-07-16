@@ -244,7 +244,7 @@ $$\begin{array}{lcc}\\\hline
 \mbox{Total} & 1 & 0\\ \hline\end{array}
 $$
 
-What this table is telling you is that, after being told that I’m carrying an umbrella, you believe that there’s a 51.4% chance that today will be a rainy day, and a 48.6% chance that it won’t. That’s the answer to our problem! The posterior probability of rain  given that I am ca rrying an umbrella, $P(h\|d)$, is 51.4%
+What this table is telling you is that, after being told that I’m carrying an umbrella, you believe that there’s a 51.4% chance that today will be a rainy day, and a 48.6% chance that it won’t. That’s the answer to our problem! The posterior probability of rain  given that I am carrying an umbrella, $P(h\|d)$, is 51.4%
 
 How did I calculate these numbers? You can probably guess. To work out that there was a 0.514 probability of “rain”, all I did was take the 0.045 probability of “rain and umbrella” and divide it by the 0.0875 chance of “umbrella”. This produces a table that satisfies our need to have everything sum to 1, and our need not to interfere with the relative plausibility of the two events that are actually consistent with the data. To say the same thing using fancy statistical jargon, what I’ve done here is divide the joint probability of the hypothesis and the data $P(d \cap h)$ by the marginal probability of the data $P(d)$, and this is what gives us the posterior probability of the hypothesis given that we know the data have been observed. To write this as an equation:
 
