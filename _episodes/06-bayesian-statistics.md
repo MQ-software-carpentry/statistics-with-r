@@ -111,7 +111,7 @@ Model-based Bayesian inference can be divided into four stages: model building, 
 
 4. Using deterministic functions build a structure for the parameters of the distribution.
 
-5. Specify a prior distribution (select the distributional family and specify the prior parameters; select between usin a nonimformative prior or incorporating known information and/or experts' opinion in our prior distribution).
+5. Specify a prior distribution (select the distributional family and specify the prior parameters; select between using a noninformative prior or incorporating known information and/or experts' opinion in our prior distribution).
 
 6. Write down the likelihood of the model.
 
@@ -120,14 +120,10 @@ Model-based Bayesian inference can be divided into four stages: model building, 
 **Stage 3** We may proceed with some or all of the following actions:
 
 1. Visually inspect the marginal posterior distributions of interest. Possible plots are
-
-a) Marginal posterior density or probability plots if analytical (have a known equation) or asymptotic methods are used.
-
-b) Marginal posterior histograms (or density estimates) for continuous variables and bar charts for discrete or categorical variables.
-
-c) Boxplots of the marginal posterior distributions
-
-d) Bivariate posterior plots (e.g contour plots) to identify and study correlations.
+   1. Marginal posterior density or probability plots if analytical (have a known equation) or asymptotic methods are used.
+   1. Marginal posterior histograms (or density estimates) for continuous variables and bar charts for discrete or categorical variables.
+   1. Boxplots of the marginal posterior distributions
+   1. Bivariate posterior plots (e.g contour plots) to identify and study correlations.
 
 2. Calculate posterior summaries (means, medians, standard deviations, correlations, quantiles) and 95% or 99% credible intervals (what Bayesian Inference uses instead of Confidence Intervals).
 
@@ -298,67 +294,55 @@ Note that all the numbers above make sense if the Bayes factor is greater than 1
 
 This is an actual problem in Abundance estimation which is used in, for example, wildlife management.
 
-● The problem: We can’t catch them all.
-● But we can catch some of them...
+- The problem: We can’t catch them all.
+- But we can catch some of them...
 
 **Mark an recapure**
 
 1. Catch a couple of fish.
-
 2. Mark them and throw them back.
 
 **Mark an recapure**
 
 1. Catch a couple of fish.
-
 2. Mark them and throw them back.
 
 **Mark and Re-capture**
 
 1. Catch a couple of fish.
-
 2. Mark them and throw them back.
-
 3. At a later point, catch a couple of fish again.
-
 4. Count how many are marked.
 
 Twenty were marked and five out of the 20 that were caught the second time were marked.
 
 **So, how many fish are in the lake?**
 
-● What are the probable number of fish in the
-lake?
-
-● We have almost already described the solution! (If we know about Bayesian Data Analysis, that is...)
+- What are the probable number of fish in the lake?
+- We have almost already described the solution! (If we know about Bayesian Data Analysis, that is...)
 
 some explanation here
 
 For parameters we have number of fish
 
 1. Mark 20 "fish"
-
 2. Sample 20 "fish"
-
 3. Count the number of marked fish
 
-We have 5 marked fish. This is our **Data**
+We have 5 marked fish. This is our **Data**.
 
 Our parameters contain uncertainty, we repeat the procedure, the number of marked fish in our new sample can be different from the previous sample.
 
-We could model the prior distribution for the parameters as being Uniform(0,250). 
+We could model the prior distribution for the parameters as being `Uniform(0, 250)`.
 
 **One simple way of fitting the model**
 
 1. Draw a large random sample from the “prior” probability distribution on the parameters.
-
 2. Plug in each draw into the generative model which generates a vector of “fake” data. 
-
 
 **Original capture re-capture using approximate Bayesian Computation**
 
 From <http://rpubs.com/rasmusab/live_coding_user_2015_bayes_tutorial>
-
 
 
 ~~~
@@ -436,7 +420,7 @@ length(post_fish)
 
 
 ~~~
-[1] 4338
+[1] 4389
 ~~~
 {: .output}
 
@@ -491,7 +475,7 @@ length(post_fish)
 
 
 ~~~
-[1] 1855
+[1] 1904
 ~~~
 {: .output}
 
@@ -1400,8 +1384,8 @@ Bayes factor analysis
 --------------
 [1] drug                          : 245.9026  ±0%
 [2] therapy                       : 0.7316007 ±0%
-[3] drug + therapy                : 692.1854  ±0.76%
-[4] drug + therapy + drug:therapy : 680.3073  ±0.88%
+[3] drug + therapy                : 715.6397  ±1.48%
+[4] drug + therapy + drug:therapy : 684.1846  ±1.12%
 
 Against denominator:
   Intercept only 
@@ -1423,10 +1407,10 @@ models/max(models)
 ~~~
 Bayes factor analysis
 --------------
-[1] drug                          : 0.3552554   ±0.76%
-[2] therapy                       : 0.001056943 ±0.76%
+[1] drug                          : 0.3436123   ±1.48%
+[2] therapy                       : 0.001022303 ±1.48%
 [3] drug + therapy                : 1           ±0%
-[4] drug + therapy + drug:therapy : 0.9828398   ±1.17%
+[4] drug + therapy + drug:therapy : 0.9560462   ±1.86%
 
 Against denominator:
   mood.gain ~ drug + therapy 
