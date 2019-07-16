@@ -46,7 +46,7 @@ is called the likelihood of the model and contains the information provided by t
 
 **EXAMPLE** When fitting a multiple regression to data the model is $\pmb{y} \sim N(X\pmb{\beta},\sigma^2I)$ where the parameter vector is given by $\pmb{\theta}=[\pmb{\beta}^T,\sigma^2]$.
 
-## 1.3 Bayes Theorem
+## 1.3 Bayes' Theorem
 
 Consider two possible outcomes $A$ and $B$. Assume that $A=A_1 \cup \dots \cup A_n$ for which $A_i \cap A_j = \emptyset$ for every $i \neq j$ (they are mutually exclusive; that is, no elements in common). Baye's theorem gives the conditional probability of $A_i$ given $B$ which is
 
@@ -56,7 +56,7 @@ More generally, for any outcome $A$ and $B$ we can write
 
 $$P(A|B)=\frac{P(B|A)P(A)}{P(B)} \propto P(B|A)P(A).$$
 
-This is also called Bayes Rule.
+This is also called Bayes' Rule.
 
 We can do inverse inference using the above rule. The idea is as follows (verbatim from Ntzoufras (2009))
 
@@ -66,7 +66,7 @@ This is the rationale that Bayesian inference is based on. The above equation, w
 
 **EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have ling cancer? 
 
-**Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(Smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes theorem
+**Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(Smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes' theorem
 
 $$P(case/smoker)=\frac{P(smoker|case)P(case)}{P(smoker|case)P(case)+P(smoker|control)P(control)}$$
 
@@ -82,7 +82,7 @@ The probability that a smoker will develop lung cancer is 87% higher than the co
 
 ## 1.4 Model-based Bayesian Inference
 
-The difference between Bayesian statistics and classical statistical theory is that in Bayesian statistics **all** unknown parameters are considered to be random variables which is why the *prior distribution* must be defined at the start in Bayesian statistics. This prior distribution encapsulates the information available to the researcher before any "data" are involved in the statistical analysis. Interest lies in  calculating the *posterior distribution* $f(\pmb{\theta}\|\pmb{y})$ of the parameter $\pmb{\theta}$ given the observed data $\pmb{y}$. Using Bayes theorem, the posterior distribution can be written as
+The difference between Bayesian statistics and classical statistical theory is that in Bayesian statistics **all** unknown parameters are considered to be random variables which is why the *prior distribution* must be defined at the start in Bayesian statistics. This prior distribution encapsulates the information available to the researcher before any "data" are involved in the statistical analysis. Interest lies in  calculating the *posterior distribution* $f(\pmb{\theta}\|\pmb{y})$ of the parameter $\pmb{\theta}$ given the observed data $\pmb{y}$. Using Bayes' theorem, the posterior distribution can be written as
 
 $$ f(\pmb{\theta}|\pmb{y})=\frac{f(\pmb{y}|\pmb{\theta})f(\pmb{\theta})}{f(\pmb{y})} \propto f(\pmb{y}|\pmb{\theta})f(\pmb{\theta}).$$
 
@@ -220,7 +220,7 @@ h_2 & P(h_2 \cap d_1) & P(h_2 \cap d_2) & P(h_2) \\ \hline
 \end{array}
 $$
 
-#### Updating beliefs using Bayes’ rule
+#### Updating beliefs using Bayes' rule
 
 The table above is a very powerful tool for solving the rainy day problem, because it considers all four logical possibilities and states exactly how confident you are in each of them before being given any data. It is now time to consider what happens to our beliefs when we are actually given the data. In the rainy day problem, you are told that I really am carrying an umbrella. This is something of a surprising event: according to our table, the probability of me carrying an umbrella is only 8.75%. But that makes sense, right? A guy carrying an umbrella on a summer day in a hot dry city is pretty unusual, and so you really weren’t expecting that. Nevertheless, the problem tells you that it is true. No matter how unlikely you thought it was, you must now adjust your beliefs to accommodate the fact that you now know that I have an umbrella. To reflect this new knowledge, our revised table must have the following numbers:
 
@@ -252,13 +252,13 @@ However, remember what I said at the start of the last section, namely that the 
 
 $$P(h|d)=\frac{P(d|h)\cdot P(h)}{P(d)}$$
 
-This formula is known as Bayes’ rule. It describes how a learner starts out with prior beliefs about the plausibility of different hypotheses, and tells you how those beliefs should be revised in the face of data. In the Bayesian paradigm, all statistical inference flows from this one simple rule.
+This formula is known as Bayes' rule. It describes how a learner starts out with prior beliefs about the plausibility of different hypotheses, and tells you how those beliefs should be revised in the face of data. In the Bayesian paradigm, all statistical inference flows from this one simple rule.
 
 #### Bayesian hypothesis tests
 
 The Bayesian approach to hypothesis testing is  simple. Using a setting that is closely analogous to the classical approach. There are two hypotheses that we want to compare, a null hypothesis  $h_0$
  and an alternative hypothesis $h_1$. Prior to running the experiment we have some beliefs  
-$P(h)$ about which hypotheses are true. We run an experiment and obtain data $d$. Unlike frequentist statistics, Bayesian statistics does allow us to talk about the probability that the null hypothesis is true. Better yet, it allows us to calculate the posterior probability of the null hypothesis, using Bayes’ rule:
+$P(h)$ about which hypotheses are true. We run an experiment and obtain data $d$. Unlike frequentist statistics, Bayesian statistics does allow us to talk about the probability that the null hypothesis is true. Better yet, it allows us to calculate the posterior probability of the null hypothesis, using Bayes' rule:
 
 $$P(h_0|d)=\frac{P(d|h_0)\cdot P(h_0)}{P(d)}$$
 
