@@ -40,8 +40,10 @@ The construction of probabilistic models that are a good approximation to the tr
 
 **DEFN: Likelihood of the model**
 
-Let the response $Y$ follow a probabilistic rule with density or probability function $f(y,\pmb{\theta})$ where  $\pmb{\theta}$ is the parameter vector. Let $y_1, \dots , y_n$ be independent and identically distributed and write the sample as $\pmb{y}=(y_1,\dots, y_n)^T$. The joint distribution 
+Let the response $Y$ follow a probabilistic rule with density or probability function $f(y,\pmb{\theta})$ where  $\pmb{\theta}$ is the parameter vector. Let $y_1, \dots , y_n$ be independent and identically distributed and write the sample as $\pmb{y}=(y_1,\dots, y_n)^T$. The joint distribution
+
 $$ f(\pmb{y}|\pmb{\theta})=\prod_{i=1}^n f(y_i|\pmb{\theta})$$
+
 is called the likelihood of the model and contains the information provided by the observed sample.
 
 **EXAMPLE** When fitting a multiple regression to data the model is $\pmb{y} \sim N(X\pmb{\beta},\sigma^2I)$ where the parameter vector is given by $\pmb{\theta}=[\pmb{\beta}^T,\sigma^2]$.
@@ -64,9 +66,9 @@ We can do inverse inference using the above rule. The idea is as follows (verbat
 
 This is the rationale that Bayesian inference is based on. The above equation, which is deceptively simple, provides a probabilistic mechanism of learning from data. After observing data $(y_1,y_2, \dots, y_n)$ we calculate the **posterior** distribution $f(\pmb{\theta}\|y_1,y_2,\dots,y_n)$, which combines prior and data information. The key element in Bayesian inference is this posterior distribution.
 
-**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have ling cancer? 
+**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have lung cancer? 
 
-**Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(Smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes' theorem
+**Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes' theorem
 
 $$P(case/smoker)=\frac{P(smoker|case)P(case)}{P(smoker|case)P(case)+P(smoker|control)P(control)}$$
 
@@ -166,7 +168,7 @@ $$\begin{array}{lc}\hline
 
 #### Likelihoods: theories about the data
 
-To solve the reasoning problem, you need a theory about my behaviour. When does Dan (the author) carry an umbrella? You might guess that I’m not a complete idiot, and I try to carry umbrellas only on rainy days. On the other hand, you also know that I have young kids, and you wouldn’t be all that surprised to know that I amm pretty forgetful about this sort of thing. Let’s suppose that on rainy days I remember my umbrella about 30% of the time (I really am awful at this). But let’s say that on dry days I’m only about 5% likely to be carrying an umbrella. So you might write out a little table like this:
+To solve the reasoning problem, you need a theory about my behaviour. When does Dan (the author) carry an umbrella? You might guess that I’m not a complete idiot, and I try to carry umbrellas only on rainy days. On the other hand, you also know that I have young kids, and you wouldn’t be all that surprised to know that I am pretty forgetful about this sort of thing. Let’s suppose that on rainy days I remember my umbrella about 30% of the time (I really am awful at this). But let’s say that on dry days I’m only about 5% likely to be carrying an umbrella. So you might write out a little table like this:
 
 $$\begin{array}{lcc}\hline
 \mbox{Hypothesis} &  \mbox{Umbrella} & \mbox{No umbrella}\\ \hline
