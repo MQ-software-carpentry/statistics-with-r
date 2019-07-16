@@ -508,7 +508,8 @@ The second plot is for the 6 blocks and one block obviously quite different from
 
 **EXERCISE** Work through this <http://www.bodowinter.com/tutorial/bw_LME_tutorial.pdf> if you are getting lost or just want extra practice. It is an easier exercise.
 
-**References**
+## References
+
 Winter, B. (2013). Linear models and linear mixed effects models in R with linguistic applications. arXiv:1308.5499.
 
 <https://web.stanford.edu/class/psych252/section/Mixed_models_tutorial.html#model-comparison>
