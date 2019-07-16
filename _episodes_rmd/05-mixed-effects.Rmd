@@ -321,7 +321,7 @@ I won't be looking at REML versus ML.
 
 #### Item effects
 
-Still with the pitch example, different stimuli (here scenario) might cause a different value for "pitch" (frequency). If this true then, pitch for a given scenario  subject could be correlated across subjects, and even within a subject for the polite and informal attributes. This can be modelled this as a random effect.
+Still with the pitch example, different stimuli (here scenario) might cause a different value for "pitch" (frequency). If this true then, pitch for a given scenario subject could be correlated across subjects, and even within a subject for the polite and informal attributes. This can be modelled this as a random effect.
 
 ```{r plot_scenario, warning=FALSE}
 mydata$scenario <- factor(mydata$scenario)
