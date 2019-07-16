@@ -1171,7 +1171,7 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-Notice the bit at the bottom showing that the “denominator” has changed. What that means is that the Bayes factors are now comparing each of those 3 models listed against the myGrump ~ mySleep model. Obviously, the Bayes factor in the first line is exactly 1, since that’s just comparing the best model to itself. More to the point, the other two Bayes factors are both less than 1, indicating that they’re all worse than that model. The Bayes factors of 0.06 to 1 imply that the odds for the best model over the second best model are about 16:1. You can work this out by simple arithmetic (i.e., 0.06/1≈16), but the other way to do it is to directly compare the models. To see what I mean, here’s the original output:
+Notice the bit at the bottom showing that the “denominator” has changed. What that means is that the Bayes factors are now comparing each of those 3 models listed against the `myGrump ~ mySleep` model. Obviously, the Bayes factor in the first line is exactly 1, since that’s just comparing the best model to itself. More to the point, the other two Bayes factors are both less than 1, indicating that they’re all worse than that model. The Bayes factors of 0.06 to 1 imply that the odds for the best model over the second best model are about 16:1. You can work this out by simple arithmetic (i.e., $\frac{1}{0.06} \approx 16$), but the other way to do it is to directly compare the models. To see what I mean, here’s the original output:
 
 
 ~~~
