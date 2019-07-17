@@ -45,8 +45,10 @@ library(tidyverse)
 library(ggpubr)
 library(olsrr)
 
-mydata <- read_csv(file.path("..", "data", "Macquarie2018.csv"))
-mydata
+theme_set(theme_bw())
+
+houses <- read_csv(file.path("..", "data", "Macquarie2018.csv"))
+houses
 ~~~
 {: .language-r}
 
@@ -74,6 +76,7 @@ mydata
 # ... with 1 more variable: Carports <dbl>
 ~~~
 {: .output}
+
 **Response** (Dependent variable, Outcome variable): Price ($Y$)
 
 **Predictors** (Explanatory variables, independent variables, covariates, regressors):
@@ -83,10 +86,6 @@ Carports ($X_6$).
 **Regression Model:**
 
 $$Y=f(X_1,X_2,X_3,X_4,X_5,X_6)+\varepsilon$$
-
-<!--
-![Regression equation](https://latex.codecogs.com/svg.latex?Y=f(X_1,X_2,X_3,X_4,X_5,X_6)&plus;\varepsilon)
--->
 
 This is used as an approximation to the true relationship between $Y$ and $X_1$, $X_2$, $X_3$,
 $X_4$, $X_5$, $X_6$.
@@ -224,12 +223,12 @@ documentation for more details about this package.
 
 
 ~~~
-ggplot(mydata, aes(x = Block_Size, y = Price)) +
+ggplot(houses, aes(x = Block_Size, y = Price)) +
     geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-plot_houses-1.png" title="plot of chunk plot_houses" alt="plot of chunk plot_houses" width="612" style="display: block; margin: auto;" />
 
 The agent feels that the relationship looks linear. A simple linear regression is fitted to the
 data by a first year Statistics student. 
@@ -247,13 +246,15 @@ We fit the model by estimating values for the parameters $\beta_0$, $\beta_1$ an
 
 
 ~~~
-fit <- lm(Price ~ Block_Size, data = mydata)
+houses_fit <- lm(Price ~ Block_Size, data = houses)
 ~~~
 {: .language-r}
+
 To get the estimated values of $\beta_0$ and $\beta_1$:
 
+
 ~~~
-fit
+houses_fit
 ~~~
 {: .language-r}
 
@@ -262,17 +263,19 @@ fit
 ~~~
 
 Call:
-lm(formula = Price ~ Block_Size, data = mydata)
+lm(formula = Price ~ Block_Size, data = houses)
 
 Coefficients:
 (Intercept)   Block_Size  
      616624          169  
 ~~~
 {: .output}
+
 To get more detailed output from the model fitted to the data:
 
+
 ~~~
-summary(fit)
+summary(houses_fit)
 ~~~
 {: .language-r}
 
@@ -281,7 +284,7 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Price ~ Block_Size, data = mydata)
+lm(formula = Price ~ Block_Size, data = houses)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -299,15 +302,17 @@ Multiple R-squared:  0.1476,	Adjusted R-squared:  0.08207
 F-statistic: 2.252 on 1 and 13 DF,  p-value: 0.1574
 ~~~
 {: .output}
+
 More importantly, before looking at any p-values, look at the diagnostic plots.
+
 
 ~~~
 par(mfrow = c(2, 2))
-plot(fit)
+plot(houses_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-6-1.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-houses_plot_residuals-1.png" title="plot of chunk houses_plot_residuals" alt="plot of chunk houses_plot_residuals" width="612" style="display: block; margin: auto;" />
 
 For you to be satisfied that the model is adequate and that you can proceed to make inference
 the Residual vs Fitted values plot should look like a random scatter about zero and the Normal
@@ -366,14 +371,16 @@ x1 & y1 & x2 & y2 & x3 & y3 & x4 & y4\\ \hline
 7 &	4.82 &	7 &	7.26 &	7 &	6.42 &	8 &	7.91\\
 5 &	5.68 &	5 &	4.74 &	5 &	5.73 &	8 &	6.89\\ \hline
 \end{array}$$
+
 The file `Anscombe.csv` contains this data.
 
 
 ~~~
 library(tidyverse)
 library(readr)
-mydata1 <- read_csv(file.path("..", "data", "Anscomb.csv"))
-mydata1
+
+anscomb <- read_csv(file.path("..", "data", "Anscomb.csv"))
+anscomb
 ~~~
 {: .language-r}
 
@@ -396,27 +403,28 @@ mydata1
 11     5  5.68     5  4.74     5  5.73     8  6.89
 ~~~
 {: .output}
+
 Now we want to see what each data set looks like.
 
 
 ~~~
-p1<-ggplot(mydata1,aes(x=x1,y=y1))+geom_point()+theme_bw()
-p2<-ggplot(mydata1,aes(x=x2,y=y2))+geom_point()+theme_bw()
-p3<-ggplot(mydata1,aes(x=x3,y=y3))+geom_point()+theme_bw()
-p4<-ggplot(mydata1,aes(x=x4,y=y4))+geom_point()+theme_bw()
-ggarrange(p1,p2,p3,p4,ncol=2,nrow=2)
+p1 <- ggplot(anscomb, aes(x = x1, y = y1)) + geom_point()
+p2 <- ggplot(anscomb, aes(x = x2, y = y2)) + geom_point()
+p3 <- ggplot(anscomb, aes(x = x3, y = y3)) + geom_point()
+p4 <- ggplot(anscomb, aes(x = x4, y = y4)) + geom_point()
+
+ggarrange(p1, p2, p3, p4, ncol = 2, nrow = 2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-anscomb_plot-1.png" title="plot of chunk anscomb_plot" alt="plot of chunk anscomb_plot" width="612" style="display: block; margin: auto;" />
 
-Base R has the `cor()` function to produce correlations and the `cov()` function to produce
+Base R has the `cor` function to produce correlations and the `cov` function to produce
 covariances. The default is Pearson's correlation.
 
 
 ~~~
-attach(mydata1)
-cor(x1,y1)
+cor(anscomb$x1, anscomb$y1)
 ~~~
 {: .language-r}
 
@@ -430,7 +438,7 @@ cor(x1,y1)
 
 
 ~~~
-cor(x2,y2)
+cor(anscomb$x2, anscomb$y2)
 ~~~
 {: .language-r}
 
@@ -444,7 +452,7 @@ cor(x2,y2)
 
 
 ~~~
-cor(x3,y3)
+cor(anscomb$x3, anscomb$y3)
 ~~~
 {: .language-r}
 
@@ -458,7 +466,7 @@ cor(x3,y3)
 
 
 ~~~
-cor(x4,y4)
+cor(anscomb$x4, anscomb$y4)
 ~~~
 {: .language-r}
 
@@ -508,35 +516,37 @@ $x$, is equal to $\beta_0+\beta_1 x$".
 #### 1.4.1 Least squares estimation
 
 The least squares estimates of $\beta_0$ and $\beta_1$ are those values $\hat{\beta}_0$ and
-$\hat{\beta}_1$ that minimise the 'residual sum of squares' function 
+$\hat{\beta}_1$ that minimise the 'residual sum of squares' function
+
 $$S(\beta_0,\beta_1)=\sum_{i=1}^{n}{(y_i-(\beta_0+\beta_1x_i))^2}.$$
 
-The least squares estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ are
-$\hat{\beta}_0=y-\beta_1 \bar{x}$, $\beta_1=S_{XY}/S_{XX}$
-where $S_{XX}=\sum (x_i-\bar{x})^2$,  $S_{XY}=\sum (x_i-\bar{x})(y_i-\bar{y})$, and  
-$S_{YY}=\sum (y_i-\bar{y})^2$.
-
+The least squares estimates $\hat{\beta}\_0$ and $\hat{\beta}\_1$ are
+$\hat{\beta}\_0=y-\beta\_1 \bar{x}$, $\beta_1=S_{XY}/S_{XX}$
+where $S_{XX}=\sum (x_i-\bar{x})^2$, $S_{XY}=\sum (x_i-\bar{x})(y_i-\bar{y})$,
+and $S_{YY}=\sum (y_i-\bar{y})^2$.
 
 We define the fitted values by $\hat{y}_i=\hat{\beta}_0+\hat{\beta}_1 x_i$, and residuals by
 $e_i=\hat{y}_i-y_i$. 
 	
-We estimate the variance $\sigma^2$ by 
+We estimate the variance $\sigma^2$ by
+
 $$\hat{\sigma}^2=\frac{SSE}{n-2}$$
-where $SSE=\sum e_i^2=\sum(y_i-\hat{y}_i)^2=(S_{YY}-\hat{\beta}_1S_{XY})$.
+
+where $SSE=\sum e_i^2=\sum(y_i-\hat{y}\_i)^2=(S_{YY}-\hat{\beta}\_1S_{XY})$.
 
 #### 1.4.2 Properties of the estimators
 
 $E(\hat{\beta}_1)=\beta_1$, 
 	
-$Var(\hat{\beta}_1)=\frac{\sigma^2}{S_{XX}} (1)$,
+$Var(\hat{\beta}\_1)=\frac{\sigma^2}{S_{XX}} (1)$,
 	
 $E(\hat{\beta}_0)=\beta_0$,
 	
-$Var(\hat{\beta}_0)=\sigma^2(\frac{1}{n}+\frac{\bar{x}^2}{S_{XX}}) (2)$,
+$Var(\hat{\beta}\_0)=\sigma^2(\frac{1}{n}+\frac{\bar{x}^2}{S_{XX}}) (2)$,
 	
 $E(\hat{y}_i)=\beta_0+\beta_1 x_i$,
 	
-$Var(\hat{y}_i)=\sigma^2(\frac{1}{n}+\frac{(x_i-\bar{x})^2}{S_{XX}}).$
+$Var(\hat{y}\_i)=\sigma^2(\frac{1}{n}+\frac{(x_i-\bar{x})^2}{S_{XX}}).$
 	
 The variance consists of two parts: 
 
@@ -555,19 +565,19 @@ variances of $\hat{\beta}_0$ and $\hat{\beta}_1$.
 ##### Hypothesis tests concerning the slope
 
 Test $H_0:\beta_1=\beta_1^0$ against $H_1:\beta_1 \neq \beta_1^0$ using  test statistic
-$t_1=\frac{\hat{\beta}_1-\beta_1^0}{s.e.(\hat{\beta}_1)}$ which has a $t_{n-2}$ distribution if
-H_0 is true.
+$t_1=\frac{\hat{\beta}\_1-\beta_1^0}{s.e.(\hat{\beta}\_1)}$ which has a $t_{n-2}$
+distribution if H_0 is true.
 
 **Rejection region:** $|t| \geq t_{n-2;\alpha/2}$ where $\alpha=0.05$ if testing at 5%
 significance level. 
 
 **P-value:** p-value>$\alpha$
 
-**EXAMPLE:** Regressing Price on Block Size. Done earlier, saved as `fit`.
+**EXAMPLE:** Regressing Price on Block Size. Done earlier, saved as `houses_fit`.
 
 
 ~~~
-summary(fit)
+summary(houses_fit)
 ~~~
 {: .language-r}
 
@@ -576,7 +586,7 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = Price ~ Block_Size, data = mydata)
+lm(formula = Price ~ Block_Size, data = houses)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -617,8 +627,8 @@ linear regression of $Y$ on $X$.
 ##### Hypothesis tests concerning the intercept
 
 Test of $H_0:\beta_0=\beta_0^0$ against $H_1:\beta_0\neq \beta_0^0$ is based on
-$t_0=\frac{\hat{\beta}_0-\beta_0^0}{s.e.(\hat{\beta}_0)}$ which has a $t_{n-2}$ distribution if
-$H_0$ is true.
+$t_0=\frac{\hat{\beta}\_0-\beta_0^0}{s.e.(\hat{\beta}\_0)}$ which has a $t_{n-2}$
+distribution if $H_0$ is true.
 
 **EXAMPLE:**
 
@@ -635,7 +645,7 @@ is available from `lm` in R. For more details see
 
 
 ~~~
-confint(fit)
+confint(houses_fit)
 ~~~
 {: .language-r}
 
@@ -662,7 +672,7 @@ size 800 m<sup>2<sup>.
 
 ~~~
 newdata <- data.frame(Block_Size = 800)
-predict(fit, newdata, interval = "predict")
+predict(houses_fit, newdata, interval = "predict")
 ~~~
 {: .language-r}
 
@@ -701,7 +711,7 @@ If SSR is small compared to SSE, the regression is not explaining much of the va
 $Y$. 
 
 The comparisons must take into account the degrees of freedom for each component, and so are
-made using \'mean squares\' (sums of squares divided by degrees of freedom), denoted by MS. The
+made using **mean squares** (sums of squares divided by degrees of freedom), denoted by MS. The
 test for significance of the regression is carried out by comparing the ratio of Regression Mean
 Square (MSR) and RMS to the $F_{1,n-2}$ distribution. To carry out the test, we must assume that
 the errors $\varepsilon_i \sim N(0,\sigma^2)$. The calculations are displayed in an analysis of
@@ -864,12 +874,11 @@ five potential predictors Insulation, East, South, North, and Time.
 
 
 ~~~
-attach(heat_flux)
 pairs(heat_flux)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-14-1.png" title="plot of chunk unnamed-chunk-14" alt="plot of chunk unnamed-chunk-14" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-pairs_heatflux-1.png" title="plot of chunk pairs_heatflux" alt="plot of chunk pairs_heatflux" width="612" style="display: block; margin: auto;" />
 
 Note that HeatFlux appears to be approximately linearly related to all predictors except time.
 We will fit a multiple linear regression of HeatFlux ($Y$) on the predictors
@@ -883,13 +892,14 @@ comments.
 
 
 ~~~
-fit <- lm(HeatFlux ~ Insulation + East + South + North + Time)
+heatflux_fit <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
+
 par(mfrow = c(2, 2))
-plot(fit)
+plot(heatflux_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-heatflux_full_model-1.png" title="plot of chunk heatflux_full_model" alt="plot of chunk heatflux_full_model" width="612" style="display: block; margin: auto;" />
 
 
 
@@ -902,7 +912,7 @@ intervals if the model assumptions do not hold.
 
 
 ~~~
-summary(fit)
+summary(heatflux_fit)
 ~~~
 {: .language-r}
 
@@ -911,7 +921,8 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = HeatFlux ~ Insulation + East + South + North + Time)
+lm(formula = HeatFlux ~ Insulation + East + South + North + Time, 
+    data = heat_flux)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
@@ -934,7 +945,7 @@ F-statistic: 40.84 on 5 and 23 DF,  p-value: 1.077e-10
 ~~~
 {: .output}
 
-The p-value for the F statistic is very small (much smaller than 0.05) so the regression is significant which means that at least one of the predictors is needed in the model. The five predictors explain for 87.7\% of the variability in the response HeatFlux.
+The p-value for the F statistic is very small (much smaller than 0.05) so the regression is significant which means that at least one of the predictors is needed in the model. The five predictors explain for 87.7% of the variability in the response HeatFlux.
 
 #### 1.7.2 Multiple linear regression: matrix form
 
@@ -990,7 +1001,6 @@ $\hat{\beta}$ is given by $\hat{\sigma}^2(X^TX)^{-1}$, and standard errors are o
 $\hat{\sigma}$ multiplied by the square root of the diagonal elements of the $(X^TX)^{-1}$
 matrix.
 
-
 ##### Predictions and fitted values
 
 If we observe a vector of predictors $x$ (including a 1) for which we don't know the response,
@@ -1013,7 +1023,9 @@ In general, we have a null model (reduced model), in which some or all of the pr
 left out of the model (i.e. some or all of $\beta_i$'s are hypothesised to be zero) and a full
 model which has all the predictors in the model (i.e. all $\beta_i$'s present). The general form
 of the test statistic is:
+
 $$F=\frac{\hat{\sigma}_0^2}{\hat{\sigma}^2}$$
+
 where $\hat{\sigma}^2$ is the usual estimate of $\sigma^2$ under the full model and
 $\hat{\sigma}_0^2$ is the estimate of $\sigma^2$ under the null model (reduced model). If the
 null model holds $\hat{\sigma}_0^2$ equals $\sigma^2$ and if the null model does not hold then
@@ -1030,18 +1042,24 @@ so we would use the null model.
 If we had $p$ predictors the full model would be
 
 $$y_i=\beta_0+\beta_1x_{i1}+\beta_2x_{i2}+\cdots+\beta_{ip}x_p+\varepsilon_i,   i=1,\cdots,n.$$
+
 If we are interested in testing whether the regression is significant or not we are interested
 in testing whether some of the predictors ($X_i$'s) are useful or not. 
 The null model would be that none of the predictors are useful:
+
 $$y_i=\beta_0+\varepsilon_i,   i=1,\cdots,n.$$
+
 We test the hypothesis $H_0:\beta_1=\beta_2=\cdots=\beta_p=0$ against
 $H_1:$ at least one $\beta_i\neq0$. In matrix notation
 	
 $$H_0:\left(\begin{matrix}\beta_1\\\beta_2\\\vdots\\\beta_p\\\end{matrix}\right)=\left(\begin{matrix}0\\0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\beta_1\\\beta_2\\\vdots\\\beta_p\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\vdots\\0\\\end{matrix}\right).$$
+
 Here the regression mean square would be used to estimate $\sigma^2$ under the full model and
 the residual mean square would be used to estimate $\sigma^2$ under the null model. 
 	The test statistic is 
+
 $$F=\frac{MSR}{MSE}=\frac{SSR/p}{SSE/(n-p-1)}$$
+
 which under the null hypothesis has a $F_{p,n-p-1}$ distribution. 
 We reject $H_0$ in favour of $H_1$ if $F$ lies in the upper tail of this distribution. 
 
@@ -1060,8 +1078,10 @@ SST = SSR + SSE
 
 Now, $R^2=\frac{SSR}{SST}$ is the proportion of the variance explained by the regression.
 
-We can show that 
+We can show that
+
 $$F=\frac{R^2/p}{(1-R^2)/(n-p-1)}.$$
+
 A small value of $R^2$ will result in a small value of $F$ and we will not reject $H_0$ in
 favour of $H_1$. A value of $R^2$ close to 1 will result in a large value of $F$ and we will
 reject $H_0$ in favour of $H_1$.
@@ -1094,8 +1114,10 @@ Squares and its associated degrees of freedom, which we denote by $SSE_{RM}$ and
 respectively. The same information is required from fitting the full model, label the residual
 sum of squares and its associated degrees of freedom by $SSE_{FM}$ and $DF_{FM}$.  The
 appropriate test statistic is
+
 $$T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}.$$
-	We reject $H_0$ in favour of $H_1$ at the $100\alpha\%$ significance level if
+
+We reject $H_0$ in favour of $H_1$ at the $100\alpha\%$ significance level if
 $T>F_{DF_{RM}-DF_{FM},DF_{FM};\alpha}$.	This is only valid if the model assumptions hold. We
 will look at regression diagnostics in detail the next section.
 
@@ -1115,8 +1137,9 @@ The disadvantage of partial F-tests is that they are not independent tests.
 
 ##### EXAMPLE: Heat Flux revisited
 
+
 ~~~
-summary(fit)
+summary(heatflux_fit)
 ~~~
 {: .language-r}
 
@@ -1125,7 +1148,8 @@ summary(fit)
 ~~~
 
 Call:
-lm(formula = HeatFlux ~ Insulation + East + South + North + Time)
+lm(formula = HeatFlux ~ Insulation + East + South + North + Time, 
+    data = heat_flux)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
@@ -1149,14 +1173,15 @@ F-statistic: 40.84 on 5 and 23 DF,  p-value: 1.077e-10
 {: .output}
 
 The Partial F-tests p-values are given in the Pr(>|t|) column. You only look at these if the
-model assumptions hold. Suppose they do, then you would conclude at the 5\% significance level
-that the predictors Insulation and South are significant. 
+model assumptions hold. Suppose they do, then you would conclude at the 5% significance level
+that the predictors `Insulation` and `South` are significant.
 
 ##### Sequential F tests
 
 Assume that we have $Sn$ observations. Variables are added to the model in a particular order
 and at each step the most recent predictor being entered into the model is tested for
 significance. 
+
 R function `lm` can provide the output. All you need do is divide the sequential sum of squares
 by the residual mean sum of squares for the full model and compare with $F_{1,n-p-1}$. 
 The advantage of the sequential $F$ tests are that they are independent tests. 
@@ -1213,7 +1238,7 @@ When a linear regression model is fitted using function `lm` in R you can extrac
 
 
 ~~~
-summary(fit)$r.squared
+summary(heatflux_fit)$r.squared
 ~~~
 {: .language-r}
 
@@ -1252,13 +1277,17 @@ Predicted values obtained from a regression equation based on a subset of variab
 generally biased. We use the mean square error of the predicted value to judge the performance
 of an equation. The	measure standardized total mean squared error of prediction for the observed
 data by
+
 $$J_p=\frac{1}{\sigma^2}\sum{MSE(\hat{y}_i)}$$
+
 where MSE($\hat{y}_i$) is the ith predicted value from an equation with $p$ terms (number of
 parameters in equation) and $\sigma^2$ is the variance of the random errors.	This statistic
 places special emphasis on observed data, and good subsets will result in small values. 
 
 We can estimate the value of this statistic from the data by Mallows' $C$, calculated from:
+
 $$C_p=\frac{SSE_p}{\hat{\sigma}^2}+(2p-n)$$
+
 where $\hat{\sigma}^2$ is from the linear model with the full set of $q$ variables.
 
 Mallows' $C_p$ has these properties:
@@ -1367,8 +1396,8 @@ If none of the VIFs are greater than 10 then collinearity is not a problem.
 ~~~
 library(car)
 
-model1 <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
-vif(model1)
+heatflux_fit <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
+vif(heatflux_fit)
 ~~~
 {: .language-r}
 
@@ -1549,7 +1578,6 @@ squid
 
 
 ~~~
-# attach(squid)
 pairs(squid)
 ~~~
 {: .language-r}
@@ -1564,11 +1592,10 @@ Seeing what happens when we fit the multiple linear regression.
 
 
 ~~~
-# fit3<-lm(squid$Y ~ squid$X1 + squid$X2 + squid$X3 + squid$X4 +squid$X5)
-fit3 <- lm(Y ~ X1 + X2 + X3 + X4 + X5, data = squid)
+squid_fit <- lm(Y ~ X1 + X2 + X3 + X4 + X5, data = squid)
 
 par(mfrow = c(2, 2))
-plot(fit3)
+plot(squid_fit)
 ~~~
 {: .language-r}
 
@@ -1582,7 +1609,7 @@ assumption held, look at the model out put.
 
 
 ~~~
-summary(fit3)
+summary(squid_fit)
 ~~~
 {: .language-r}
 
@@ -1624,8 +1651,6 @@ selection of order of variables based on subject matter expertise.
 
 
 ~~~
-library(stats)
-
 fit5 <- lm(Y ~ X1 + X2 + X3 + X4 + X5, data = squid)
 fit4 <- lm(Y ~ X1 + X2 + X3 + X4, data = squid)
 fit3 <- lm(Y ~ X1 + X2 + X3, data = squid)
@@ -1700,7 +1725,9 @@ F-statistic: 135.1 on 3 and 18 DF,  p-value: 1.572e-12
 The appropriate test statistic for testing
 $H_0: Y=\beta_0+\beta_1X_1+\beta_3X_3+\beta_5X_5+\varepsilon$  against
 $H_1: Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4+\beta_5X_5+\varepsilon$  is
+
 $$T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}$$
+
 We reject $H_0$ in favour of $H_1$ at the 100$\alpha\%$ significance level if
 $T>F_{DF_{RM}-DF_{FM},DF_{FM};\alpha}$.
 
@@ -1753,7 +1780,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Now, from the output above $SSE_{FM}=7.918$, $DF_{FM}=16$, $SSE_{REM}=9.183$,
 and $DF_{RM}=18$ so our test statistic
+
 $$T=\frac{\left(9.183-7.918\right)/(18-16)}{7.918/16}=1.28.$$
+
 Need to compare this with $F_{2,18;0.05}$. 
 
 
@@ -1782,6 +1811,7 @@ Illustrated on the squid data set.
 ~~~
 model <- lm(Y ~ ., data = squid)
 model$call$data <- squid # Should not be needed when running by hand
+
 ols_step_forward_p(model)
 ~~~
 {: .language-r}
@@ -1869,6 +1899,7 @@ Final model has $X_5$, $X_4$ and $X_2$.
 ~~~
 modelb <- lm(Y ~ ., data = squid)
 modelb$call$data <- squid # Should not be needed when running by hand
+
 ols_step_backward_p(modelb)
 ~~~
 {: .language-r}
@@ -1956,6 +1987,7 @@ Final model has $X_2$, $X_4$ and $X_5$.
 ~~~
 models <- lm(Y ~ ., data = squid)
 models$call$data <- squid # Should not be needed when running by hand
+
 ols_step_both_p(models)
 ~~~
 {: .language-r}
@@ -2042,6 +2074,7 @@ Final model has $X_5$ and $X_4$.
 ~~~
 modelbs <- lm(Y ~ ., data = squid)
 modelbs$call$data <- squid # Should not be needed when running by hand
+
 ols_step_best_subset(modelbs)
 ~~~
 {: .language-r}
@@ -2163,9 +2196,9 @@ Fitting the model without the controlling variable.
 
 
 ~~~
-fit1 <- lm(MCG ~ Members, data = mcg1)
+mcg_fit1 <- lm(MCG ~ Members, data = mcg1)
 
-summary(fit1)
+summary(mcg_fit1)
 ~~~
 {: .language-r}
 
@@ -2196,7 +2229,7 @@ F-statistic: 17.66 on 1 and 39 DF,  p-value: 0.0001488
 
 
 ~~~
-anova(fit1)
+anova(mcg_fit1)
 ~~~
 {: .language-r}
 
@@ -2218,9 +2251,9 @@ Fitting the model with the controlling variable.
 
 
 ~~~
-fit2 <- lm(MCG ~ Members + Top50, data = mcg1)
+mcg_fit2 <- lm(MCG ~ Members + Top50, data = mcg1)
 
-summary(fit2)
+summary(mcg_fit2)
 ~~~
 {: .language-r}
 
@@ -2252,7 +2285,7 @@ F-statistic: 9.401 on 2 and 38 DF,  p-value: 0.0004818
 
 
 ~~~
-anova(fit2)
+anova(mcg_fit2)
 ~~~
 {: .language-r}
 
@@ -2274,10 +2307,13 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 Calculating the partial correlation:
 
 $$T=\frac{\left(SSE_{RM}-SSE_{FM}\right)/(DF_{RM}-DF_{FM})}{SSE_{FM}/DF_{FM}}$$
+
 $$=\frac{\left(9451.5-9186.0\right)/(39-38)}{9186.0/38}$$
+
 $$=0.0280907$$
 
 $$r_{YX|Z}=\sqrt{0.0280907}=0.167603$$
+
 
 ~~~
 cor(mcg1$MCG, mcg1$Top50)
@@ -2310,7 +2346,7 @@ plot(males)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-35-1.png" title="plot of chunk unnamed-chunk-35" alt="plot of chunk unnamed-chunk-35" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-read_males-1.png" title="plot of chunk read_males" alt="plot of chunk read_males" width="612" style="display: block; margin: auto;" />
 
 and the following for the females:
 
@@ -2322,7 +2358,7 @@ plot(females)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-36-1.png" title="plot of chunk unnamed-chunk-36" alt="plot of chunk unnamed-chunk-36" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-read_females-1.png" title="plot of chunk read_females" alt="plot of chunk read_females" width="612" style="display: block; margin: auto;" />
 
 Plots look very similar but the ranges on the x-axes and y- axes are different. 
 
@@ -2332,9 +2368,9 @@ Simple linear regression for the genders separately give:
 
 
 ~~~
-m <- lm(y ~ x, data = males)
+males_fit <- lm(y ~ x, data = males)
 
-summary(m)
+summary(males_fit)
 ~~~
 {: .language-r}
 
@@ -2365,7 +2401,7 @@ F-statistic: 120.3 on 1 and 49 DF,  p-value: 8.599e-15
 
 
 ~~~
-anova(m)
+anova(males_fit)
 ~~~
 {: .language-r}
 
@@ -2391,15 +2427,15 @@ abline(a = 2.5815, b = -2.7407)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-37-1.png" title="plot of chunk unnamed-chunk-37" alt="plot of chunk unnamed-chunk-37" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-males_fit-1.png" title="plot of chunk males_fit" alt="plot of chunk males_fit" width="612" style="display: block; margin: auto;" />
 
 **Females**
 
 
 ~~~
-f <- lm(y1 ~ ., data = females)
+females_fit <- lm(y1 ~ ., data = females)
 
-summary(f)
+summary(females_fit)
 ~~~
 {: .language-r}
 
@@ -2430,7 +2466,7 @@ F-statistic: 66.64 on 1 and 49 DF,  p-value: 1.077e-10
 
 
 ~~~
-anova(f)
+anova(females_fit)
 ~~~
 {: .language-r}
 
@@ -2456,7 +2492,7 @@ abline(a = 15.3054, b = -3.0930)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-38-1.png" title="plot of chunk unnamed-chunk-38" alt="plot of chunk unnamed-chunk-38" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-females_fit-1.png" title="plot of chunk females_fit" alt="plot of chunk females_fit" width="612" style="display: block; margin: auto;" />
 
 Intercepts ($\hat{\beta}_0$’s) are quite different for male and female regression equations but
 slopes  ($\hat{\beta}_1’s$) are similar. 
@@ -2500,8 +2536,8 @@ mf
 
 
 ~~~
-fm1 <- lm(y ~ x, data = mf)
-summary(fm1)
+mf_fit <- lm(y ~ x, data = mf)
+summary(mf_fit)
 ~~~
 {: .language-r}
 
@@ -2538,7 +2574,7 @@ abline(a = -4.8558, b = 2.5324)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-40-1.png" title="plot of chunk unnamed-chunk-40" alt="plot of chunk unnamed-chunk-40" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-mf_plot-1.png" title="plot of chunk mf_plot" alt="plot of chunk mf_plot" width="612" style="display: block; margin: auto;" />
 
 Plot of $y$ vs $x$, with genders indicated by different symbols:
 
@@ -2550,7 +2586,7 @@ ggplot(mf, aes(x = x, y = y, colour = Sex)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-41-1.png" title="plot of chunk unnamed-chunk-41" alt="plot of chunk unnamed-chunk-41" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-mf_ggplot-1.png" title="plot of chunk mf_ggplot" alt="plot of chunk mf_ggplot" width="612" style="display: block; margin: auto;" />
 
 Gender is a **confounder** in the regression. A confounder is a variable in a study that may not
 be of direct interest, but has an association with both response and predictor(s). Confounders
@@ -2568,8 +2604,9 @@ Multivariable Methods_, Third Edition, Duxbury Press.
 
 
 ~~~
-fit <- lm(y ~ ., data = mf)
-summary(fit)
+mf_fit_all <- lm(y ~ ., data = mf)
+
+summary(mf_fit_all)
 ~~~
 {: .language-r}
 
@@ -2601,7 +2638,7 @@ F-statistic:  1098 on 2 and 99 DF,  p-value: < 2.2e-16
 
 
 ~~~
-anova(fit)
+anova(mf_fit_all)
 ~~~
 {: .language-r}
 
@@ -2631,7 +2668,9 @@ The coefficient of a predictor is very different when the confounder is added to
 $Y_i=\beta_0+\beta_1X_i+\varepsilon$
 for above example we get $\hat{\beta}_1=2.5324$.
 When gender is added to the model:
+
 $$Y_i=\beta_0+\beta_1X_i+\beta_2gender_i+\varepsilon$$
+
 we get $\hat{\beta}_1=-2.9168$. This is ample proof of confounding.
 No formal statistical test for the equality of the $\beta_1$’s obtained under the two models
 exists; we need to use judgement, in conjunction with graphical evidence such as above.
@@ -2646,7 +2685,7 @@ boxplot(y ~ Sex, data = mf)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-43-1.png" title="plot of chunk unnamed-chunk-43" alt="plot of chunk unnamed-chunk-43" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-mf_plot_by_sex-1.png" title="plot of chunk mf_plot_by_sex" alt="plot of chunk mf_plot_by_sex" width="612" style="display: block; margin: auto;" />
 
 **Continuous confounders**
 
@@ -2706,11 +2745,10 @@ mass
 {: .output}
 
 
-
 ~~~
-fit <- lm(Mass ~ Height, data = mass)
+mass_fit1 <- lm(Mass ~ Height, data = mass)
 
-summary(fit)
+summary(mass_fit1)
 ~~~
 {: .language-r}
 
@@ -2741,7 +2779,7 @@ F-statistic: 6.385 on 1 and 20 DF,  p-value: 0.02004
 
 
 ~~~
-anova(fit)
+anova(mass_fit1)
 ~~~
 {: .language-r}
 
@@ -2758,13 +2796,14 @@ Residuals 20 1913.29   95.66
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
+
 An extraneous variable in the study is $X_2=$ Waist. Let’s add it into the regression:
 
 
 ~~~
-fit <- lm(Mass ~ Height + Waist, data = mass)
+mass_fit2 <- lm(Mass ~ Height + Waist, data = mass)
 
-summary(fit)
+summary(mass_fit2)
 ~~~
 {: .language-r}
 
@@ -2796,7 +2835,7 @@ F-statistic: 63.88 on 2 and 19 DF,  p-value: 3.678e-09
 
 
 ~~~
-anova(fit)
+anova(mass_fit2)
 ~~~
 {: .language-r}
 
@@ -2838,8 +2877,7 @@ to incorrect conclusions concerning the relationship between the variables of in
 We have to rely on previous knowledge, such as that gained from previous studies, to identify
 which variables, besides those of direct interest, we should be measuring.
 
-
-**3.2 Interaction**
+### 3.2 Interaction
 
 Interaction occurs when the relationship between $Y$ and $X_1$ is different at different levels
 of a third variable $X_2$.
@@ -2850,31 +2888,31 @@ $x_1$ when $x_2=0$, and decreases linearly with $x_1$ when $x_2=1$.
 
 
 ~~~
-data1 <- read_csv(file.path("..", "Data", "confounding.csv"))
-names(data1) <- c("y", "x1", "x2")
+confounding <- read_csv(file.path("..", "Data", "confounding.csv"))
+names(confounding) <- c("y", "x1", "x2")
 
-ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
     ggtitle("Figure 1: Interaction") +
     geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-46-1.png" title="plot of chunk unnamed-chunk-46" alt="plot of chunk unnamed-chunk-46" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-read_confounding-1.png" title="plot of chunk read_confounding" alt="plot of chunk read_confounding" width="612" style="display: block; margin: auto;" />
 
 An example of no interaction is:
 
 
 ~~~
-data2 <- read_csv(file.path("..", "Data", "noconfounding.csv"))
-names(data2) <- c("y", "x1", "x2")
+noconfounding <- read_csv(file.path("..", "Data", "noconfounding.csv"))
+names(noconfounding) <- c("y", "x1", "x2")
 
-ggplot(data2, aes(x = x1, y = y, colour = x2)) +
+ggplot(noconfounding, aes(x = x1, y = y, colour = x2)) +
     ggtitle("Figure 2: No interaction") +
     geom_point()
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-47-1.png" title="plot of chunk unnamed-chunk-47" alt="plot of chunk unnamed-chunk-47" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-read_noconfounding-1.png" title="plot of chunk read_noconfounding" alt="plot of chunk read_noconfounding" width="612" style="display: block; margin: auto;" />
 
 Here $y$ increases linearly with $x_1$, at the same rate (slope), irrespective of the value of
 $x_2$.
@@ -2883,9 +2921,9 @@ A regression of $Y$ on $X_1$ and $X_2$ for the data in Figure 1 gives:
 
 
 ~~~
-fit1 <- lm(y ~ x1 + x2, data = data1)
+conf_fit <- lm(y ~ x1 + x2, data = confounding)
 
-summary(fit1)
+summary(conf_fit)
 ~~~
 {: .language-r}
 
@@ -2894,7 +2932,7 @@ summary(fit1)
 ~~~
 
 Call:
-lm(formula = y ~ x1 + x2, data = data1)
+lm(formula = y ~ x1 + x2, data = confounding)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
@@ -2917,7 +2955,7 @@ F-statistic: 23.28 on 2 and 97 DF,  p-value: 5.539e-09
 
 
 ~~~
-anova(fit1)
+anova(conf_fit)
 ~~~
 {: .language-r}
 
@@ -2938,29 +2976,31 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 We are fitting a common slope, and allowing different intercepts for $x_2=0$ and $x_2=1$.
 We can write the model as
+
 $$x_2=0: \hat{y}_i=12.4-0.623x_{1i}$$
+
 $$x_2=1:  \hat{y}_i=12.4-0.623x_{1i}-6.26\\
                     =6.14-0.623x_{1i}$$
-                    
+
 
 ~~~
-ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
     geom_point() +
     geom_abline(intercept = 12.4, slope = -0.623) +
     geom_abline(intercept = 6.14, slope = -0.623)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-49-1.png" title="plot of chunk unnamed-chunk-49" alt="plot of chunk unnamed-chunk-49" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-conf_fit_plot-1.png" title="plot of chunk conf_fit_plot" alt="plot of chunk conf_fit_plot" width="612" style="display: block; margin: auto;" />
 
 In order to capture the true relationship, we include an interaction term, which is
 $x_1\times x_2:$
 
 
 ~~~
-fit2 <- lm(y ~ x1 * x2, data = data1)
+conf_fit_int <- lm(y ~ x1 * x2, data = confounding)
 
-summary(fit2)
+summary(conf_fit_int)
 ~~~
 {: .language-r}
 
@@ -2969,7 +3009,7 @@ summary(fit2)
 ~~~
 
 Call:
-lm(formula = y ~ x1 * x2, data = data1)
+lm(formula = y ~ x1 * x2, data = confounding)
 
 Residuals:
     Min      1Q  Median      3Q     Max 
@@ -2993,7 +3033,7 @@ F-statistic: 214.2 on 3 and 96 DF,  p-value: < 2.2e-16
 
 
 ~~~
-anova(fit2)
+anova(conf_fit_int)
 ~~~
 {: .language-r}
 
@@ -3014,29 +3054,31 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 {: .output}
 
 We now have the following model:
+
 $$x_2=0: \hat{y}_i=4.29+0.999x_{1i}$$
+
 $$x_2=1:  \hat{y}_i=4.29+0.999x_{1i}+9.96-3.24x_{1i}\\      =14.25-2.241x_{1i}$$
 
 The fitted lines are shown with the data below:
 
 
 ~~~
-ggplot(data1, aes(x = x1, y = y, colour = x2)) +
+ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
     geom_point() +
     geom_abline(intercept =  4.29, slope =  0.999) +
     geom_abline(intercept = 14.25, slope = -2.241)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-51-1.png" title="plot of chunk unnamed-chunk-51" alt="plot of chunk unnamed-chunk-51" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-conf_fit_int_plot-1.png" title="plot of chunk conf_fit_int_plot" alt="plot of chunk conf_fit_int_plot" width="612" style="display: block; margin: auto;" />
 
 Fitting a model with an interaction term to the data in Figure 2 gives:
 
 
 ~~~
-fit3 <- lm(y ~ x1 * x2, data = data2)
+noconf_fit_int <- lm(y ~ x1 * x2, data = noconfounding)
 
-summary(fit3)
+summary(noconf_fit_int)
 ~~~
 {: .language-r}
 
@@ -3045,7 +3087,7 @@ summary(fit3)
 ~~~
 
 Call:
-lm(formula = y ~ x1 * x2, data = data2)
+lm(formula = y ~ x1 * x2, data = noconfounding)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
@@ -3069,7 +3111,7 @@ F-statistic: 94.79 on 3 and 96 DF,  p-value: < 2.2e-16
 
 
 ~~~
-anova(fit3)
+anova(noconf_fit_int)
 ~~~
 {: .language-r}
 
@@ -3094,9 +3136,9 @@ gives:
 
 
 ~~~
-fit3 <- lm(y ~ x1 + x2, data = data2)
+noconf_fit <- lm(y ~ x1 + x2, data = noconfounding)
 
-summary(fit3)
+summary(noconf_fit)
 ~~~
 {: .language-r}
 
@@ -3105,7 +3147,7 @@ summary(fit3)
 ~~~
 
 Call:
-lm(formula = y ~ x1 + x2, data = data2)
+lm(formula = y ~ x1 + x2, data = noconfounding)
 
 Residuals:
      Min       1Q   Median       3Q      Max 
@@ -3128,7 +3170,7 @@ F-statistic: 142.3 on 2 and 97 DF,  p-value: < 2.2e-16
 
 
 ~~~
-anova(fit3)
+anova(noconf_fit)
 ~~~
 {: .language-r}
 
@@ -3170,11 +3212,11 @@ $X_1$, $X_2$ and $X_3$.
 
 ~~~
 par(mfrow = c(2, 2))
-plot(fit3)
+plot(noconf_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-54-1.png" title="plot of chunk unnamed-chunk-54" alt="plot of chunk unnamed-chunk-54" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-noconf_fit_plot-1.png" title="plot of chunk noconf_fit_plot" alt="plot of chunk noconf_fit_plot" width="612" style="display: block; margin: auto;" />
 
 The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high
 leverage. To actually identify the points use `hatvalues(fit)` where `fit` is whatever name you
@@ -3185,7 +3227,9 @@ from those of the other observations* \\
 <https://en.wikipedia.org/wiki/Leverage_(statistics)>
 
 One rule of thumb for identifying such points is when
+
 $$h_{ii}>2\frac{(p+1)}{n}.$$
+
 We have $n=100$ and $p=2$ so high leverage points will have $h_{ii}>2\frac{(2+1)}{100}=0.06.$
 There are no high leverage points under the model fitted.
 
@@ -3203,7 +3247,7 @@ The following can be used to obtain Cook's Distances.
 ~~~
 library(car)
 
-cooks.distance(fit)
+cooks.distance(mass_fit2)
 ~~~
 {: .language-r}
 
@@ -3276,10 +3320,14 @@ The regression of `BMD` against `BMI` and `TRTPRV` gives:
 bmd <- read_csv(file.path("..", "data", "BMD.csv"))
 names(bmd) <- c("BMD", "BMI", "AGE", "CALCIUM", "WTKG", "HTCM", "MENOPYRS", "SMKCODE", "PARITY",
     "ALCOHOL", "TRTPRV", "AGEMENOP", "BMI_CAT", "OSTEOFAM")
+~~~
+{: .language-r}
 
-fit <- lm(BMD ~ BMI + TRTPRV, data = bmd)
 
-summary(fit)
+~~~
+bmd_fit <- lm(BMD ~ BMI + TRTPRV, data = bmd)
+
+summary(bmd_fit)
 ~~~
 {: .language-r}
 
@@ -3337,9 +3385,9 @@ If we regress `BMD` on `SMKCODE` we get:
 
 
 ~~~
-fit1 <- lm(BMD ~ SMKCODE, data = bmd)
+bmd_smoke_fit <- lm(BMD ~ SMKCODE, data = bmd)
 
-summary(fit1)
+summary(bmd_smoke_fit)
 ~~~
 {: .language-r}
 
@@ -3366,7 +3414,6 @@ Multiple R-squared:  0.05714,	Adjusted R-squared:  0.04929
 F-statistic: 7.273 on 1 and 120 DF,  p-value: 0.008007
 ~~~
 {: .output}
-
 
 SMKCODE=1: $BMD_i= 1.18-0.0571\times 1 =1.1229$
 
@@ -3422,9 +3469,9 @@ variable corresponding to the indicator variable which we leave out, is called t
 
 
 ~~~
-fit <- lm(BMD ~ factor(SMKCODE), data = bmd)
+bmd_smoke_fact_fit <- lm(BMD ~ factor(SMKCODE), data = bmd)
 
-summary(fit)
+summary(bmd_smoke_fact_fit)
 ~~~
 {: .language-r}
 
@@ -3466,13 +3513,14 @@ boxplot(BMD ~ SMKCODE, data = bmd)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-59-1.png" title="plot of chunk unnamed-chunk-59" alt="plot of chunk unnamed-chunk-59" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-bmd_smoke_boxplot-1.png" title="plot of chunk bmd_smoke_boxplot" alt="plot of chunk bmd_smoke_boxplot" width="612" style="display: block; margin: auto;" />
 
 in which we can see the lower BMDs of smokers. This suggests another method of analysis:
 one-way analysis of variance. The model is
+
 $$Y_{ij}=\mu+\alpha_j+\varepsilon_{ij},   i=1,\ldots,n_j;    j=1,2,3$$
-where
-$Y_{ij} =$ BMD of _i_-th subject in smoking group _j_
+
+where $Y_{ij} =$ BMD of _i_-th subject in smoking group _j_
 
 $\mu =$	Overall mean BMD
 
@@ -3484,7 +3532,7 @@ $$\sum_{j=1}^{3}{\alpha_j=0},  \varepsilon_{ij}\sim N(0,\sigma^2)$$
 
 
 ~~~
-anova(fit)
+anova(bmd_smoke_fact_fit)
 ~~~
 {: .language-r}
 
@@ -3533,7 +3581,7 @@ ggplot(data = example1, aes(x = x, y = y)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-61-1.png" title="plot of chunk unnamed-chunk-61" alt="plot of chunk unnamed-chunk-61" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-ancova_example1-1.png" title="plot of chunk ancova_example1" alt="plot of chunk ancova_example1" width="612" style="display: block; margin: auto;" />
 
 We say here that there is no interaction between X and S.
 
@@ -3543,9 +3591,9 @@ Another possible scenario is:
 ~~~
 x <- c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 y <- 13.4 + 1.623 * x
-example1 <- data.frame(x, y)
+example2 <- data.frame(x, y)
 
-ggplot(data = example1, aes(x = x, y = y)) +
+ggplot(data = example2, aes(x = x, y = y)) +
     geom_point() +
     geom_abline(intercept = 12.4, slope = 0.623, col = "blue") +
     geom_abline(intercept = 13.4, slope = 1.623) + 
@@ -3553,12 +3601,13 @@ ggplot(data = example1, aes(x = x, y = y)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-62-1.png" title="plot of chunk unnamed-chunk-62" alt="plot of chunk unnamed-chunk-62" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-ancova_example2-1.png" title="plot of chunk ancova_example2" alt="plot of chunk ancova_example2" width="612" style="display: block; margin: auto;" />
 
 The slope of the relationship between $y$ and $x$ depends on the value of $S$. 
 
-This is formulated as follows: 
-$$\begin{array}{cccc} 
+This is formulated as follows:
+
+$$\begin{array}{cccc}
 y_i	& =	& \beta_0	+ \beta_1 x_i	& \mbox{(covariate main effect)}\\
 & &	+ \gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1} &	\mbox{(factor main effects)}\\
 &	&	+ \delta_1(x_i \times S_{i1})+\cdots +\delta_{k-1}(x_i \times S_{i,k-1})&	\mbox{(interaction terms)}\\
@@ -3578,9 +3627,11 @@ We have differential slopes for different levels of $S$. For the referent catego
 the slope is $\beta_1$.
 
 No interaction hypothesis:
+
 $$H_0:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)=\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\vdots\\\delta_{k-1}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right)$$
 
 No effect of S hypothesis assuming no interaction:
+
 $$H_0:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)=\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\\vdots\\0\\\end{matrix}\right)$$
 
 **BMD example**
@@ -3588,7 +3639,9 @@ $$H_0:\left(\begin{matrix}\gamma_1\\\vdots\\\gamma_{k-1}\\\end{matrix}\right)=\l
 Body mass index (BMI) is an important predictor of bone mineral density (BMD). It is a simple
 matter to include BMI in the model. The following is the model with no interaction, i.e. the
 same slope between BMD and BMI, irrespective of the subject's smoking status:
+
 $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\varepsilon_i$$
+
 where
 
 $BMI_i$ = body mass index of i-th subject
@@ -3596,9 +3649,9 @@ and other definitions are as for model (1). The results are
 
 
 ~~~
-fit <- lm(BMD ~ BMI + factor(SMKCODE), data = bmd)
+bmd_bmi_smoke_fit <- lm(BMD ~ BMI + factor(SMKCODE), data = bmd)
 
-summary(fit)
+summary(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
@@ -3631,7 +3684,7 @@ F-statistic: 4.718 on 3 and 118 DF,  p-value: 0.003806
 
 
 ~~~
-anova(fit)
+anova(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
@@ -3649,7 +3702,11 @@ Residuals       118 2.32333 0.019689
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
-The fitted model is $$BMD_i=0.986+0.00543 \cdot BMI_i-0.12657\cdot S2-0.07874\cdot S3$$
+
+The fitted model is
+
+$$BMD_i=0.986+0.00543 \cdot BMI_i-0.12657\cdot S2-0.07874\cdot S3$$
+
 **Interpretation of parameters:**
 
 The predicted effect on BMD of an increase of 1 kg/m² of BMI, is a increase of 0.005 g/cm².
@@ -3661,14 +3718,15 @@ The predicted effect on BMD of a person being a heavy smoker, compared with a no
 is a decrease of 0.079 g/cm².
 
 The model with interaction is
+
 $$BMD_i=\beta_0+\beta_1\cdot BMI_i+\gamma_2S_{i2}+\gamma_3S_{i3}+\delta_2(BMI_i\cdot S_{i2})+\\
 \delta_3(BMI_i\cdot S_{i3})+\varepsilon_i$$
 
 
 ~~~
-fit1 <- lm(BMD ~ BMI * factor(SMKCODE), data = bmd)
+bmd_bmi_smoke_fit_int <- lm(BMD ~ BMI * factor(SMKCODE), data = bmd)
 
-summary(fit1)
+summary(bmd_bmi_smoke_fit_int)
 ~~~
 {: .language-r}
 
@@ -3703,7 +3761,7 @@ F-statistic:  3.07 on 5 and 116 DF,  p-value: 0.01222
 
 
 ~~~
-anova(fit1)
+anova(bmd_bmi_smoke_fit_int)
 ~~~
 {: .language-r}
 
@@ -3724,10 +3782,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 {: .output}
 
 Model fitted:
+
 $$B\hat{M}D_i	=	0.98157 +0.005607BMI_1
 		-0.2518S_{i2}+0.2591S_{i3}\\
 		+0.00483(BMI_i\times S_{i2})-0.01379(BMI_i\times S_{i3})
 $$
+
 Alternatively:
 
 SMKCODE=1: $B\hat{M}D_i=0.98157+0.005607\cdot BMI_i$
@@ -3762,12 +3822,14 @@ $0.2591-0.01379\cdot BMI_i$
 
 Always test for interaction before main effects. If interaction is present then we need to
 retain the main effects in the model. We want to test
+
 $$H_0:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\0\\\end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\delta_1\\\delta_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
+
 We can do this by looking at the ANOVA of the model we fitted with interaction.
 
 
 ~~~
-anova(fit1)
+anova(bmd_bmi_smoke_fit_int)
 ~~~
 {: .language-r}
 
@@ -3793,11 +3855,11 @@ if this model assumptions hold:
 
 ~~~
 par(mfrow = c(2, 2))
-plot(fit1)
+plot(bmd_bmi_smoke_fit_int)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-66-1.png" title="plot of chunk unnamed-chunk-66" alt="plot of chunk unnamed-chunk-66" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-bmd_bmi_smoke_fit_int_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_int_plot" alt="plot of chunk bmd_bmi_smoke_fit_int_plot" width="612" style="display: block; margin: auto;" />
 
 Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does
 look like a random scatter about zero and the Normal Q-Q plot looks linear.
@@ -3821,13 +3883,16 @@ y_i	& =	& \beta_0	+ \beta_1 x_i	& \mbox{(covariate main effect)}\\
 & &	+ \gamma_1S_{i1}+\ldots+\gamma_{k-1}S_{i,k-1} &	\mbox{(factor main effects)}\\
 & &		+ \epsilon_i & \\
 \end{array}$$
+
 We test:
+
 $$H_0:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)=\left(\begin{matrix}0\\ 0\\ \end{matrix}\right) \mbox{ versus } H_1:\left(\begin{matrix}\gamma_1\\ \gamma_{2}\\\end{matrix}\right)\neq\left(\begin{matrix}0\\0\\\end{matrix}\right)$$
+
 We can do this by looking at the ANOVA of the model we fitted with no interaction earlier.
 
 
 ~~~
-anova(fit)
+anova(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
@@ -3848,23 +3913,23 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 The p-value associated with the model is $0.0095$ which is significant. We strongly reject
 $H_0$ in favour of $H_1$. We conclude that Smoking is a significant predictor of BMD,
-after correcting (or controlling) for Body Mass Index.We only can say if this model assumptions
+after correcting (or controlling) for Body Mass Index. We only can say if this model assumptions
 hold:
 
 
 ~~~
 par(mfrow = c(2, 2))
-plot(fit1)
+plot(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-unnamed-chunk-68-1.png" title="plot of chunk unnamed-chunk-68" alt="plot of chunk unnamed-chunk-68" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-bmd_bmi_smoke_fit_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_plot" alt="plot of chunk bmd_bmi_smoke_fit_plot" width="612" style="display: block; margin: auto;" />
 
 **Tests for individual coefficients**
 
 
 ~~~
-summary(fit)
+summary(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
@@ -3925,9 +3990,10 @@ $$\begin{array}{cc}\hline
 \mbox{Total} &	122\\ \hline
 \end{array}
 $$
+
 There are few moderate and heavy smokers relative to non-smokers, and a comparison with
 reference to non-smokers makes sense.
 
-Transformation of variables will be covered in the last Exercise for Day 2.
+Transformation of variables will be covered in the last Exercise for this lesson.
 
 {% include links.md %}
