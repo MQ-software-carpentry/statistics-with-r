@@ -365,7 +365,7 @@ hist(post_fish)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-random_sample-1.png" title="plot of chunk random_sample" alt="plot of chunk random_sample" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-random_sample-1.png" title="plot of chunk random_sample" alt="plot of chunk random_sample" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -375,7 +375,7 @@ barplot(table(cut(post_fish, seq(0, 250, 20))) / length(post_fish), col = "salmo
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-fish_barplot-1.png" title="plot of chunk fish_barplot" alt="plot of chunk fish_barplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-fish_barplot-1.png" title="plot of chunk fish_barplot" alt="plot of chunk fish_barplot" width="612" style="display: block; margin: auto;" />
 
 #### Modified model that accounts for that marked fish get “shy”
 
@@ -402,7 +402,7 @@ hist(post_fish)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-marked_fish-1.png" title="plot of chunk marked_fish" alt="plot of chunk marked_fish" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-marked_fish-1.png" title="plot of chunk marked_fish" alt="plot of chunk marked_fish" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -423,7 +423,7 @@ barplot(table(cut(post_fish, seq(0, 250, 20))) / length(post_fish), col = "salmo
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-fish_barplot2-1.png" title="plot of chunk fish_barplot2" alt="plot of chunk fish_barplot2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-fish_barplot2-1.png" title="plot of chunk fish_barplot2" alt="plot of chunk fish_barplot2" width="612" style="display: block; margin: auto;" />
 
 #### Modified model that accounts for the “expert” opinion of the fisherman
 
@@ -436,7 +436,7 @@ hist(n_fish)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-fish_expert-1.png" title="plot of chunk fish_expert" alt="plot of chunk fish_expert" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-fish_expert-1.png" title="plot of chunk fish_expert" alt="plot of chunk fish_expert" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -457,7 +457,7 @@ hist(post_fish)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-fish_expert_full-1.png" title="plot of chunk fish_expert_full" alt="plot of chunk fish_expert_full" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-fish_expert_full-1.png" title="plot of chunk fish_expert_full" alt="plot of chunk fish_expert_full" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -478,7 +478,7 @@ barplot(table(cut(post_fish, seq(0, 250, 20))) / length(post_fish), col = "salmo
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-fish_expert_barplot-1.png" title="plot of chunk fish_expert_barplot" alt="plot of chunk fish_expert_barplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-fish_expert_barplot-1.png" title="plot of chunk fish_expert_barplot" alt="plot of chunk fish_expert_barplot" width="612" style="display: block; margin: auto;" />
 
 #### A JAGS implementation of the original model
 
@@ -1070,7 +1070,7 @@ plot(model)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-parenthood_lm_plot-1.png" title="plot of chunk parenthood_lm_plot" alt="plot of chunk parenthood_lm_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-06-parenthood_lm_plot-1.png" title="plot of chunk parenthood_lm_plot" alt="plot of chunk parenthood_lm_plot" width="612" style="display: block; margin: auto;" />
 
 Might be prepared to say model assumptions hold.
 

@@ -260,7 +260,7 @@ ggplot(pattani, aes(x = blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-histogram_bl-1.png" title="plot of chunk histogram_bl" alt="plot of chunk histogram_bl" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram_bl-1.png" title="plot of chunk histogram_bl" alt="plot of chunk histogram_bl" width="612" style="display: block; margin: auto;" />
 
 I am not a fan of the grey background that is the default with `ggplot` graphs. You can
 change that by adding a theme.
@@ -273,7 +273,7 @@ ggplot(pattani, aes(x = blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-histogram_bl_bw-1.png" title="plot of chunk histogram_bl_bw" alt="plot of chunk histogram_bl_bw" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram_bl_bw-1.png" title="plot of chunk histogram_bl_bw" alt="plot of chunk histogram_bl_bw" width="612" style="display: block; margin: auto;" />
 
 I will set the default theme so that I don't have to specify it each time.
 
@@ -296,7 +296,7 @@ theme_set(theme_bw())
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-cuckoo_histogram-1.png" title="plot of chunk cuckoo_histogram" alt="plot of chunk cuckoo_histogram" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-cuckoo_histogram-1.png" title="plot of chunk cuckoo_histogram" alt="plot of chunk cuckoo_histogram" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -320,7 +320,7 @@ ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-normal_dist-1.png" title="Normal distribution" alt="Normal distribution" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-normal_dist-1.png" title="Normal distribution" alt="Normal distribution" width="612" style="display: block; margin: auto;" />
 
 There are several other distributions. Several of the tests and models that we will discuss
 in this workshop have as one of the assumptions that either the data or the residuals
@@ -338,7 +338,7 @@ ggplot(pattani, aes(x = ln_blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-histogram_lnbl-1.png" title="plot of chunk histogram_lnbl" alt="plot of chunk histogram_lnbl" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram_lnbl-1.png" title="plot of chunk histogram_lnbl" alt="plot of chunk histogram_lnbl" width="612" style="display: block; margin: auto;" />
 
 It looks a little bit better. We can also use a QQ-plot to check for normality. The points
 should lie approximately along the line.
@@ -351,7 +351,7 @@ ggplot(pattani, aes(sample = blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-qqplot-1.png" title="plot of chunk qqplot" alt="plot of chunk qqplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-qqplot-1.png" title="plot of chunk qqplot" alt="plot of chunk qqplot" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -361,7 +361,7 @@ ggplot(pattani, aes(sample = ln_blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-qqplot_ln-1.png" title="plot of chunk qqplot_ln" alt="plot of chunk qqplot_ln" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-qqplot_ln-1.png" title="plot of chunk qqplot_ln" alt="plot of chunk qqplot_ln" width="612" style="display: block; margin: auto;" />
 
 What if we wanted to see the difference between the boys and girls?
 
@@ -372,7 +372,7 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-histogram_gender-1.png" title="plot of chunk histogram_gender" alt="plot of chunk histogram_gender" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram_gender-1.png" title="plot of chunk histogram_gender" alt="plot of chunk histogram_gender" width="612" style="display: block; margin: auto;" />
 
 That produced a stacked histogram, which isn't all that easy to read. It might be better
 if they were side-by-side.
@@ -384,7 +384,7 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-histogram_gender_dodge-1.png" title="plot of chunk histogram_gender_dodge" alt="plot of chunk histogram_gender_dodge" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-histogram_gender_dodge-1.png" title="plot of chunk histogram_gender_dodge" alt="plot of chunk histogram_gender_dodge" width="612" style="display: block; margin: auto;" />
 
 > ## Cuckoo egg lengths by host nest
 >
@@ -399,7 +399,7 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-cuckoo_histogram_nest-1.png" title="plot of chunk cuckoo_histogram_nest" alt="plot of chunk cuckoo_histogram_nest" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-cuckoo_histogram_nest-1.png" title="plot of chunk cuckoo_histogram_nest" alt="plot of chunk cuckoo_histogram_nest" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -418,7 +418,7 @@ ggplot(pattani, aes(x = blood_lead, fill = gender)) +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-cuckoo_dotplot-1.png" title="plot of chunk cuckoo_dotplot" alt="plot of chunk cuckoo_dotplot" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-cuckoo_dotplot-1.png" title="plot of chunk cuckoo_dotplot" alt="plot of chunk cuckoo_dotplot" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 -->
@@ -433,7 +433,7 @@ ggplot(pattani, aes(x = gender, y = blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-boxplot_gender-1.png" title="plot of chunk boxplot_gender" alt="plot of chunk boxplot_gender" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-boxplot_gender-1.png" title="plot of chunk boxplot_gender" alt="plot of chunk boxplot_gender" width="612" style="display: block; margin: auto;" />
 
 The box plot also suggests that there isn't much difference between boys and girls.
 What about between schools?
@@ -445,7 +445,7 @@ ggplot(pattani, aes(x = school, y = blood_lead)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-boxplot_school-1.png" title="plot of chunk boxplot_school" alt="plot of chunk boxplot_school" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-boxplot_school-1.png" title="plot of chunk boxplot_school" alt="plot of chunk boxplot_school" width="612" style="display: block; margin: auto;" />
 
 > ## Box plot of cuckoo egg lengths by host nest
 >
@@ -460,7 +460,7 @@ ggplot(pattani, aes(x = school, y = blood_lead)) +
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-cuckoo_boxplot-1.png" title="plot of chunk cuckoo_boxplot" alt="plot of chunk cuckoo_boxplot" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-02-cuckoo_boxplot-1.png" title="plot of chunk cuckoo_boxplot" alt="plot of chunk cuckoo_boxplot" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
@@ -474,7 +474,7 @@ ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-boxplot_school_gender-1.png" title="plot of chunk boxplot_school_gender" alt="plot of chunk boxplot_school_gender" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-boxplot_school_gender-1.png" title="plot of chunk boxplot_school_gender" alt="plot of chunk boxplot_school_gender" width="612" style="display: block; margin: auto;" />
 
 You can add a little bit of space between the boxes.
 
@@ -485,7 +485,7 @@ ggplot(pattani, aes(x = school, y = blood_lead, fill = gender)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-boxplot_school_gender_dodge-1.png" title="plot of chunk boxplot_school_gender_dodge" alt="plot of chunk boxplot_school_gender_dodge" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-02-boxplot_school_gender_dodge-1.png" title="plot of chunk boxplot_school_gender_dodge" alt="plot of chunk boxplot_school_gender_dodge" width="612" style="display: block; margin: auto;" />
 
 
 {% include links.md %}

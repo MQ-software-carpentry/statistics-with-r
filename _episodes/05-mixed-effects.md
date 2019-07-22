@@ -173,7 +173,7 @@ qplot(attitude, frequency, facets = . ~ subject,
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-polite_boxplots-1.png" title="plot of chunk polite_boxplots" alt="plot of chunk polite_boxplots" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-polite_boxplots-1.png" title="plot of chunk polite_boxplots" alt="plot of chunk polite_boxplots" width="612" style="display: block; margin: auto;" />
 
 Subjects F1, F2, F3 are female and M1, M2, M3 are male. You can see straight away that males have lower voices than females (as expected). But you can also see that, within the male and the female groups, there is lots of individual variation, with some people having relatively higher frequency values for their sex and others having relatively lower frequency values, regardless of the attitude. Within subjects we have correlation between frequency (pitch) and attitude (politeness).
 
@@ -245,7 +245,7 @@ ggplot(data = new, aes(x = Polite_Pitch, y = Informal_Pitch)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-split_data-1.png" title="plot of chunk split_data" alt="plot of chunk split_data" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-split_data-1.png" title="plot of chunk split_data" alt="plot of chunk split_data" width="612" style="display: block; margin: auto;" />
 
 #### Modeling individual means with random intercepts
 
@@ -423,7 +423,7 @@ ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = gender, group =
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-mean_bycond-1.png" title="plot of chunk mean_bycond" alt="plot of chunk mean_bycond" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-mean_bycond-1.png" title="plot of chunk mean_bycond" alt="plot of chunk mean_bycond" width="612" style="display: block; margin: auto;" />
 
 Note we will use library `dplyr` which was loaded at the beginning.
 
@@ -542,7 +542,7 @@ ggplot(mydata_bysubj, aes(x = factor(subject), y = mean_pitch)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-pitch_bysubject_value-1.png" title="plot of chunk pitch_bysubject_value" alt="plot of chunk pitch_bysubject_value" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-pitch_bysubject_value-1.png" title="plot of chunk pitch_bysubject_value" alt="plot of chunk pitch_bysubject_value" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -629,7 +629,7 @@ ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = subject, group 
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-pitch_bycond_plot-1.png" title="plot of chunk pitch_bycond_plot" alt="plot of chunk pitch_bycond_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-pitch_bycond_plot-1.png" title="plot of chunk pitch_bycond_plot" alt="plot of chunk pitch_bycond_plot" width="612" style="display: block; margin: auto;" />
 
 The slopes don't look parallel.
 
@@ -797,7 +797,7 @@ ggplot(mydata, aes(x = scenario, y = frequency, colour = scenario)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-plot_scenario-1.png" title="plot of chunk plot_scenario" alt="plot of chunk plot_scenario" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot_scenario-1.png" title="plot of chunk plot_scenario" alt="plot of chunk plot_scenario" width="612" style="display: block; margin: auto;" />
 
 Scenario seems to influence pitch (frequency).
 
@@ -948,7 +948,7 @@ ggplot(mydata_byscenario, aes(x = attitude, y = mean_pitch, colour = scenario, g
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-plot_by_scenario-1.png" title="plot of chunk plot_by_scenario" alt="plot of chunk plot_by_scenario" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot_by_scenario-1.png" title="plot of chunk plot_by_scenario" alt="plot of chunk plot_by_scenario" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -1099,7 +1099,7 @@ ggplot(data = oats, aes(N, Y)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-plot_oats-1.png" title="plot of chunk plot_oats" alt="plot of chunk plot_oats" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-plot_oats-1.png" title="plot of chunk plot_oats" alt="plot of chunk plot_oats" width="612" style="display: block; margin: auto;" />
  
 This is an example of a trellis graphic but when using `ggplot` you need to use `facet_grid` to get it. We have plotted Yield versus Nitrogen paneled by Block (rows) and Variety (columns). Always good, when possible, to obtain a visualisation of your data.
  
@@ -1396,7 +1396,7 @@ abline(h = 0, col = "tomato2")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-residual_scatter-1.png" title="plot of chunk residual_scatter" alt="plot of chunk residual_scatter" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-residual_scatter-1.png" title="plot of chunk residual_scatter" alt="plot of chunk residual_scatter" width="612" style="display: block; margin: auto;" />
 
 *qq-plot of residuals*
 
@@ -1407,7 +1407,7 @@ qqline(resid(model2), col = "maroon4")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-residual_qq_oats-1.png" title="plot of chunk residual_qq_oats" alt="plot of chunk residual_qq_oats" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-residual_qq_oats-1.png" title="plot of chunk residual_qq_oats" alt="plot of chunk residual_qq_oats" width="612" style="display: block; margin: auto;" />
 
 *Variance-checking plot:*
 
@@ -1417,7 +1417,7 @@ scatter.smooth(fitted(model2), sqrt(abs(resid(model2))))
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-check_variance-1.png" title="plot of chunk check_variance" alt="plot of chunk check_variance" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-check_variance-1.png" title="plot of chunk check_variance" alt="plot of chunk check_variance" width="612" style="display: block; margin: auto;" />
 
 *qq-plot of standardized block random effects:*
 
@@ -1428,7 +1428,7 @@ qqline(ranef(model2)[[1]][, 1], col = "steelblue4")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-random_effects_qq-1.png" title="plot of chunk random_effects_qq" alt="plot of chunk random_effects_qq" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-random_effects_qq-1.png" title="plot of chunk random_effects_qq" alt="plot of chunk random_effects_qq" width="612" style="display: block; margin: auto;" />
 
 *qq-plot of standardized variety within block random effects:*
 
@@ -1439,7 +1439,7 @@ qqline(ranef(model2)[[2]][, 1], col = "violetred3")
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-random_effects_qq2-1.png" title="plot of chunk random_effects_qq2" alt="plot of chunk random_effects_qq2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-random_effects_qq2-1.png" title="plot of chunk random_effects_qq2" alt="plot of chunk random_effects_qq2" width="612" style="display: block; margin: auto;" />
 
 #### Check assumptions
 
@@ -1451,7 +1451,7 @@ plot(model2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-oats_model_plots-1.png" title="plot of chunk oats_model_plots" alt="plot of chunk oats_model_plots" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-oats_model_plots-1.png" title="plot of chunk oats_model_plots" alt="plot of chunk oats_model_plots" width="612" style="display: block; margin: auto;" />
 
 This looks like a random scatter about zero.
 
@@ -1470,7 +1470,7 @@ $`V:B`
 ~~~
 {: .output}
 
-<img src="../fig/rmd-oats_random_effects_plot-1.png" title="plot of chunk oats_random_effects_plot" alt="plot of chunk oats_random_effects_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-oats_random_effects_plot-1.png" title="plot of chunk oats_random_effects_plot" alt="plot of chunk oats_random_effects_plot" width="612" style="display: block; margin: auto;" />
 
 ~~~
 
@@ -1478,7 +1478,7 @@ $B
 ~~~
 {: .output}
 
-<img src="../fig/rmd-oats_random_effects_plot-2.png" title="plot of chunk oats_random_effects_plot" alt="plot of chunk oats_random_effects_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-05-oats_random_effects_plot-2.png" title="plot of chunk oats_random_effects_plot" alt="plot of chunk oats_random_effects_plot" width="612" style="display: block; margin: auto;" />
 
 The first plot is for the 18 combinations we get from the 6 blocks and 3 yields of wheat. 
 

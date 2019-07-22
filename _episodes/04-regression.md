@@ -228,7 +228,7 @@ ggplot(houses, aes(x = Block_Size, y = Price)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-plot_houses-1.png" title="plot of chunk plot_houses" alt="plot of chunk plot_houses" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-plot_houses-1.png" title="plot of chunk plot_houses" alt="plot of chunk plot_houses" width="612" style="display: block; margin: auto;" />
 
 The agent feels that the relationship looks linear. A simple linear regression is fitted to the
 data by a first year Statistics student. 
@@ -312,7 +312,7 @@ plot(houses_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-houses_plot_residuals-1.png" title="plot of chunk houses_plot_residuals" alt="plot of chunk houses_plot_residuals" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-houses_plot_residuals-1.png" title="plot of chunk houses_plot_residuals" alt="plot of chunk houses_plot_residuals" width="612" style="display: block; margin: auto;" />
 
 For you to be satisfied that the model is adequate and that you can proceed to make inference
 the Residual vs Fitted values plot should look like a random scatter about zero and the Normal
@@ -417,7 +417,7 @@ ggarrange(p1, p2, p3, p4, ncol = 2, nrow = 2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-anscomb_plot-1.png" title="plot of chunk anscomb_plot" alt="plot of chunk anscomb_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-anscomb_plot-1.png" title="plot of chunk anscomb_plot" alt="plot of chunk anscomb_plot" width="612" style="display: block; margin: auto;" />
 
 Base R has the `cor` function to produce correlations and the `cov` function to produce
 covariances. The default is Pearson's correlation.
@@ -878,7 +878,7 @@ pairs(heat_flux)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-pairs_heatflux-1.png" title="plot of chunk pairs_heatflux" alt="plot of chunk pairs_heatflux" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-pairs_heatflux-1.png" title="plot of chunk pairs_heatflux" alt="plot of chunk pairs_heatflux" width="612" style="display: block; margin: auto;" />
 
 Note that HeatFlux appears to be approximately linearly related to all predictors except time.
 We will fit a multiple linear regression of HeatFlux ($Y$) on the predictors
@@ -899,7 +899,7 @@ plot(heatflux_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-heatflux_full_model-1.png" title="plot of chunk heatflux_full_model" alt="plot of chunk heatflux_full_model" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-heatflux_full_model-1.png" title="plot of chunk heatflux_full_model" alt="plot of chunk heatflux_full_model" width="612" style="display: block; margin: auto;" />
 
 
 
@@ -1582,7 +1582,7 @@ pairs(squid)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-read_squid-1.png" title="plot of chunk read_squid" alt="plot of chunk read_squid" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-read_squid-1.png" title="plot of chunk read_squid" alt="plot of chunk read_squid" width="612" style="display: block; margin: auto;" />
 
 The relationship between $Y$ and each predictor separately is approximately linear with positive
 slope. More worrying is the obvious correlations between most of the predictors, there may be
@@ -1599,7 +1599,7 @@ plot(squid_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-squid_lm-1.png" title="plot of chunk squid_lm" alt="plot of chunk squid_lm" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-squid_lm-1.png" title="plot of chunk squid_lm" alt="plot of chunk squid_lm" width="612" style="display: block; margin: auto;" />
 
 The model is not adequate, the Residual versus Fitted values plot does not look like a random
 scatter about zero. We cannot proceed to make valid inference.
@@ -2346,7 +2346,7 @@ plot(males)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-read_males-1.png" title="plot of chunk read_males" alt="plot of chunk read_males" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-read_males-1.png" title="plot of chunk read_males" alt="plot of chunk read_males" width="612" style="display: block; margin: auto;" />
 
 and the following for the females:
 
@@ -2358,7 +2358,7 @@ plot(females)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-read_females-1.png" title="plot of chunk read_females" alt="plot of chunk read_females" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-read_females-1.png" title="plot of chunk read_females" alt="plot of chunk read_females" width="612" style="display: block; margin: auto;" />
 
 Plots look very similar but the ranges on the x-axes and y- axes are different. 
 
@@ -2427,7 +2427,7 @@ abline(a = 2.5815, b = -2.7407)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-males_fit-1.png" title="plot of chunk males_fit" alt="plot of chunk males_fit" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-males_fit-1.png" title="plot of chunk males_fit" alt="plot of chunk males_fit" width="612" style="display: block; margin: auto;" />
 
 **Females**
 
@@ -2492,7 +2492,7 @@ abline(a = 15.3054, b = -3.0930)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-females_fit-1.png" title="plot of chunk females_fit" alt="plot of chunk females_fit" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-females_fit-1.png" title="plot of chunk females_fit" alt="plot of chunk females_fit" width="612" style="display: block; margin: auto;" />
 
 Intercepts ($\hat{\beta}_0$’s) are quite different for male and female regression equations but
 slopes  ($\hat{\beta}_1’s$) are similar. 
@@ -2574,7 +2574,7 @@ abline(a = -4.8558, b = 2.5324)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-mf_plot-1.png" title="plot of chunk mf_plot" alt="plot of chunk mf_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-mf_plot-1.png" title="plot of chunk mf_plot" alt="plot of chunk mf_plot" width="612" style="display: block; margin: auto;" />
 
 Plot of $y$ vs $x$, with genders indicated by different symbols:
 
@@ -2586,7 +2586,7 @@ ggplot(mf, aes(x = x, y = y, colour = Sex)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-mf_ggplot-1.png" title="plot of chunk mf_ggplot" alt="plot of chunk mf_ggplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-mf_ggplot-1.png" title="plot of chunk mf_ggplot" alt="plot of chunk mf_ggplot" width="612" style="display: block; margin: auto;" />
 
 Gender is a **confounder** in the regression. A confounder is a variable in a study that may not
 be of direct interest, but has an association with both response and predictor(s). Confounders
@@ -2685,7 +2685,7 @@ boxplot(y ~ Sex, data = mf)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-mf_plot_by_sex-1.png" title="plot of chunk mf_plot_by_sex" alt="plot of chunk mf_plot_by_sex" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-mf_plot_by_sex-1.png" title="plot of chunk mf_plot_by_sex" alt="plot of chunk mf_plot_by_sex" width="612" style="display: block; margin: auto;" />
 
 **Continuous confounders**
 
@@ -2897,7 +2897,7 @@ ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-read_confounding-1.png" title="plot of chunk read_confounding" alt="plot of chunk read_confounding" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-read_confounding-1.png" title="plot of chunk read_confounding" alt="plot of chunk read_confounding" width="612" style="display: block; margin: auto;" />
 
 An example of no interaction is:
 
@@ -2912,7 +2912,7 @@ ggplot(noconfounding, aes(x = x1, y = y, colour = x2)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-read_noconfounding-1.png" title="plot of chunk read_noconfounding" alt="plot of chunk read_noconfounding" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-read_noconfounding-1.png" title="plot of chunk read_noconfounding" alt="plot of chunk read_noconfounding" width="612" style="display: block; margin: auto;" />
 
 Here $y$ increases linearly with $x_1$, at the same rate (slope), irrespective of the value of
 $x_2$.
@@ -2991,7 +2991,7 @@ ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-conf_fit_plot-1.png" title="plot of chunk conf_fit_plot" alt="plot of chunk conf_fit_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-conf_fit_plot-1.png" title="plot of chunk conf_fit_plot" alt="plot of chunk conf_fit_plot" width="612" style="display: block; margin: auto;" />
 
 In order to capture the true relationship, we include an interaction term, which is
 $x_1\times x_2:$
@@ -3070,7 +3070,7 @@ ggplot(confounding, aes(x = x1, y = y, colour = x2)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-conf_fit_int_plot-1.png" title="plot of chunk conf_fit_int_plot" alt="plot of chunk conf_fit_int_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-conf_fit_int_plot-1.png" title="plot of chunk conf_fit_int_plot" alt="plot of chunk conf_fit_int_plot" width="612" style="display: block; margin: auto;" />
 
 Fitting a model with an interaction term to the data in Figure 2 gives:
 
@@ -3216,7 +3216,7 @@ plot(noconf_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-noconf_fit_plot-1.png" title="plot of chunk noconf_fit_plot" alt="plot of chunk noconf_fit_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-noconf_fit_plot-1.png" title="plot of chunk noconf_fit_plot" alt="plot of chunk noconf_fit_plot" width="612" style="display: block; margin: auto;" />
 
 The Residuals vs Leverage ($h_{ii}$) plot can be used to see if you have any points with high
 leverage. To actually identify the points use `hatvalues(fit)` where `fit` is whatever name you
@@ -3513,7 +3513,7 @@ boxplot(BMD ~ SMKCODE, data = bmd)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-bmd_smoke_boxplot-1.png" title="plot of chunk bmd_smoke_boxplot" alt="plot of chunk bmd_smoke_boxplot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-bmd_smoke_boxplot-1.png" title="plot of chunk bmd_smoke_boxplot" alt="plot of chunk bmd_smoke_boxplot" width="612" style="display: block; margin: auto;" />
 
 in which we can see the lower BMDs of smokers. This suggests another method of analysis:
 one-way analysis of variance. The model is
@@ -3581,7 +3581,7 @@ ggplot(data = example1, aes(x = x, y = y)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-ancova_example1-1.png" title="plot of chunk ancova_example1" alt="plot of chunk ancova_example1" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-ancova_example1-1.png" title="plot of chunk ancova_example1" alt="plot of chunk ancova_example1" width="612" style="display: block; margin: auto;" />
 
 We say here that there is no interaction between X and S.
 
@@ -3601,7 +3601,7 @@ ggplot(data = example2, aes(x = x, y = y)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-ancova_example2-1.png" title="plot of chunk ancova_example2" alt="plot of chunk ancova_example2" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-ancova_example2-1.png" title="plot of chunk ancova_example2" alt="plot of chunk ancova_example2" width="612" style="display: block; margin: auto;" />
 
 The slope of the relationship between $y$ and $x$ depends on the value of $S$. 
 
@@ -3859,7 +3859,7 @@ plot(bmd_bmi_smoke_fit_int)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-bmd_bmi_smoke_fit_int_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_int_plot" alt="plot of chunk bmd_bmi_smoke_fit_int_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-bmd_bmi_smoke_fit_int_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_int_plot" alt="plot of chunk bmd_bmi_smoke_fit_int_plot" width="612" style="display: block; margin: auto;" />
 
 Might be prepared to say the model assumptions hold. Residuals versus Fitted values plot does
 look like a random scatter about zero and the Normal Q-Q plot looks linear.
@@ -3923,7 +3923,7 @@ plot(bmd_bmi_smoke_fit)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-bmd_bmi_smoke_fit_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_plot" alt="plot of chunk bmd_bmi_smoke_fit_plot" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-04-bmd_bmi_smoke_fit_plot-1.png" title="plot of chunk bmd_bmi_smoke_fit_plot" alt="plot of chunk bmd_bmi_smoke_fit_plot" width="612" style="display: block; margin: auto;" />
 
 **Tests for individual coefficients**
 

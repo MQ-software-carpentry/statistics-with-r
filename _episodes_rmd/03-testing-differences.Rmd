@@ -17,6 +17,7 @@ mathjax: true
 
 ```{r setup, include=FALSE}
 source("../bin/chunk-options.R")
+knitr_fig_path("03-")
 ```
 
 ```{r setup2, include=FALSE}

@@ -16,7 +16,7 @@ mathjax: true
 
 ```{r setup, include=FALSE}
 source("../bin/chunk-options.R")
-
+knitr_fig_path("04-")
 knitr::opts_chunk$set(echo = TRUE)
 options(tinytex.verbose = TRUE)
 ```

@@ -425,7 +425,7 @@ ggplot(gender_aov_augment, aes(sample = .resid)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-residual_qq-1.png" title="plot of chunk residual_qq" alt="plot of chunk residual_qq" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-residual_qq-1.png" title="plot of chunk residual_qq" alt="plot of chunk residual_qq" width="612" style="display: block; margin: auto;" />
 
 The points deviate from the line, so the residuals are probably not normally distributed.
 Something to consider, but we will move on with the model.
@@ -530,7 +530,7 @@ ggplot(school_aov_augment, aes(sample = .resid)) +
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-residual_school-1.png" title="plot of chunk residual_school" alt="plot of chunk residual_school" width="612" style="display: block; margin: auto;" />
+<img src="../fig/rmd-03-residual_school-1.png" title="plot of chunk residual_school" alt="plot of chunk residual_school" width="612" style="display: block; margin: auto;" />
 
 They seem closer to normality than the model with gender, but still a small amount of concern.
 
@@ -550,7 +550,7 @@ They seem closer to normality than the model with gender, but still a small amou
 > > ~~~
 > > {: .language-r}
 > > 
-> > <img src="../fig/rmd-cuckoo_residuals-1.png" title="plot of chunk cuckoo_residuals" alt="plot of chunk cuckoo_residuals" width="612" style="display: block; margin: auto;" />
+> > <img src="../fig/rmd-03-cuckoo_residuals-1.png" title="plot of chunk cuckoo_residuals" alt="plot of chunk cuckoo_residuals" width="612" style="display: block; margin: auto;" />
 > {: .solution}
 {: .challenge}
 
