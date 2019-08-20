@@ -13,16 +13,18 @@ source: "Rmd"
 mathjax: true
 ---
 
+> ## Prerequisites
+>
+> * Experience with R, including importing, processing, and plotting of data.
+> * Basic familiarity with multiple linear regression.
+{: .prereq}
+
 
 ```{r setup, include=FALSE}
 source("../bin/chunk-options.R")
 knitr_fig_path("05-")
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## PDF version
-
-[PDF notes](../files/Mixed Effects and Bayesian Statistics.pdf)
 
 ```{r load_libraries, message=FALSE}
 library(tidyverse)
@@ -31,24 +33,34 @@ library(lme4)
 library(dplyr)
 ```
 
+> ## Discuss
+>
+> One assumption of multiple linear regression is that observations are independent of each other.
+> What are examples where this assumption may be violated?
+{: .challenge}
 
-## 1 Mixed Effects Models
+### Modelling clustered data
 
-### 1.1 Simple Mixed Effects Models
+> ## Definition
+>
+> A unit of observation is an object about which information is collected independently of other units.
+>
+> Examples include an individual, a family, a neighbourhood.
+{: .callout}
 
-**DEFN:** A unit of observation is an object about which information is collected. 
+Units of observation may be *related* to each other, forming *groups* or *clusters*.
 
-**EXAMPLES:** An individual. A family. A neighbourhood.
-
-Units of observation may fall into groups or clusters.
-
-**EXAMPLES:** Individuals could be nested in families. Individuals could be nested within schools. Individuals could be nested within neighbourhoods. Individuals could be nested within firms.
+Individuals could be grouped in families, or schools. Families could be clustered by neighbourhood. Schools could be clustered by state.
 
 Longitudinal data also consist of clusters of observations made at different occasions for the same subject.
 
-In clustered data it may be important to allow for correlations among the responses observed for units belonging to the same cluster.
+Clustered data violate the assumption of independent observations. It is usually helpful, and often critical, to reflect the structure present in the data in the model. Careful modelling of these clusters will help you to separate variations in the response due to experimental conditions (or other effect of interest) from those that are due to the intrinsic structure of the data.
 
-**EXAMPLES:** Adult height of siblings (if have same parents) will be correlated because siblings are genetically related to each other and often have been raised within the same family.
+> ## Example
+>
+> Adult height of siblings (with the same parents) will be correlated because siblings are genetically related to each other and often have been raised within the same family.
+{: .challenge}
+
 
 We can model and estimate within cluster correlations using mixed effects models. The simplest model is where we don't have explanatory variables (predictors, independent variables).
 
@@ -56,7 +68,7 @@ Linear mixed effects models (sometimes called multilevel models depending on the
 
 We will use the R package `lme4` to fit mixed effects models.
 
-The following example is from Winter and Grawunder (2012). 
+The following example is from Winter and Grawunder (2012).
 
 **EXAMPLE:** How is voice pitch related to politeness? Subjects are asked to respond to hypothetical scenarios (independent variable, within subject) that are from either formal situations that require politeness or more informal situations and voice pitch is measured (dependent variable). Each subject is given a list of all the scenarios, so each subject gives multiple polite or informal responses. Gender is also recorded (independent variable, between-subject), since it is known to influence on voice pitch.
 
@@ -164,14 +176,14 @@ Our final model is
 ```r
 lmer(frequency ~ attitude+sex+(1|subject))
 ```
- 
+
 $$E(\mbox{pitch}_j)=\mbox{intercept}+\mbox{intercept}_j+\mbox{attitude}+\mbox{gender}$$
 
 ```{r mean_bycond}
 mydata_bycond <- na.omit(mydata) %>%
     group_by(gender, attitude) %>%
     summarise(mean_pitch = mean(frequency))
-  
+
 ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = gender, group = gender)) +
     geom_line(size = 2) +
     geom_point(size = 5, shape = 21, fill = "white")
@@ -261,7 +273,7 @@ pitch for subject A = intercept + subject A's intercept shift + condition + subj
 mydata_bycond <- na.omit(mydata) %>%
     group_by(subject, attitude) %>%
     summarise(mean_pitch = mean(frequency))
-  
+
 ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = subject, group = subject)) +
     geom_line(size = 2) +
     geom_point(size = 5, shape = 21, fill = "white")
@@ -392,9 +404,9 @@ ggplot(data = oats, aes(N, Y)) +
     geom_point() +
     facet_grid(B ~ V)
 ```
- 
+
 This is an example of a trellis graphic but when using `ggplot` you need to use `facet_grid` to get it. We have plotted Yield versus Nitrogen paneled by Block (rows) and Variety (columns). Always good, when possible, to obtain a visualisation of your data.
- 
+
 More nitrogen higher the yield.
 
 #### Random effects
@@ -403,7 +415,7 @@ If we can assume that a factor with $n$ levels comes from a probability distribu
 
 #### Mixed Effects Models
 
-Fixed **and** random effects 
+Fixed **and** random effects
 
 **Classical Regression:** $Y=\alpha+\beta X +\varepsilon$
 
@@ -443,7 +455,7 @@ coef(model1)
 coef(model2)
 ```
 
-The output looks quite different. For `model2` every block and variety is given a different intercept (this came from the `(1|B/V)` which is setting up random intercepts for block (`B`) and variety (`V`) whereas for `model1` the intercept is the same). Blocks were chosen from many potential blocks hence should be treated as a random effect and the three varieties have been chosen from many varieties hence a random effect. 
+The output looks quite different. For `model2` every block and variety is given a different intercept (this came from the `(1|B/V)` which is setting up random intercepts for block (`B`) and variety (`V`) whereas for `model1` the intercept is the same). Blocks were chosen from many potential blocks hence should be treated as a random effect and the three varieties have been chosen from many varieties hence a random effect.
 
 We know how to check `model1` assumptions. We will now look at checking `model2` assumptions.
 
@@ -499,7 +511,7 @@ Now plot residuals.
 plot(ranef(model2))
 ```
 
-The first plot is for the 18 combinations we get from the 6 blocks and 3 yields of wheat. 
+The first plot is for the 18 combinations we get from the 6 blocks and 3 yields of wheat.
 
 The second plot is for the 6 blocks and one block obviously quite different from the rest.
 
