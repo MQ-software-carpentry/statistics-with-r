@@ -51,7 +51,7 @@ Clustered data violate the assumption of independent observations. It is usually
 
 ### Modelling the height of siblings
 
-Let's look how this works with some real data. In this section we will analyse the height data collected by Francis Galton in 1885. It consists of the heights (measured in inches) of the adult children from 197 families. We start by importing the data.
+Let's look how this works with some real data. In this section we will analyse the height data collected by [Francis Galton in 1885](https://www.jstor.org/stable/2841583?seq=1#metadata_info_tab_contents). It consists of the heights (measured in inches) of the adult children from 197 families. We start by importing the data.
 
 
 ~~~
@@ -376,6 +376,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 {: .output}
 
 The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) shows that the mixed effects model is clearly preferred.
+
+### Investigating the relationship between pitch and politeness
 
 The following example is from Winter and Grawunder (2012).
 
