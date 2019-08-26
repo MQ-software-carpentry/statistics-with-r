@@ -53,7 +53,7 @@ Clustered data violate the assumption of independent observations. It is usually
 
 ### Modelling the height of siblings
 
-Let's look how this works with some real data. In this section we will analyse the height data collected by Francis Galton in 1885. It consists of the heights (measured in inches) of the adult children from 197 families. We start by importing the data.
+Let's look how this works with some real data. In this section we will analyse the height data collected by [Francis Galton in 1885](https://www.jstor.org/stable/2841583?seq=1#metadata_info_tab_contents). It consists of the heights (measured in inches) of the adult children from 197 families. We start by importing the data.
 
 ```{r load_height_data}
 library(readr)
