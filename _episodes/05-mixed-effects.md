@@ -19,19 +19,12 @@ mathjax: true
 >
 > * Experience with R, including importing, processing, and plotting of data.
 > * Basic familiarity with multiple linear regression.
+>
+> R packages used: dplyr, ggplot2, lattice, lme4, lmerTest, readr
 {: .prereq}
 
 
 
-
-
-~~~
-library(tidyverse)
-library(ggplot2)
-library(lme4)
-library(dplyr)
-~~~
-{: .language-r}
 
 > ## Discuss
 >
@@ -39,7 +32,7 @@ library(dplyr)
 > What are examples where this assumption may be violated?
 {: .challenge}
 
-### Modelling clustered data
+## Modelling clustered data
 
 > ## Definition
 >
@@ -56,17 +49,364 @@ Longitudinal data also consist of clusters of observations made at different occ
 
 Clustered data violate the assumption of independent observations. It is usually helpful, and often critical, to reflect the structure present in the data in the model. Careful modelling of these clusters will help you to separate variations in the response due to experimental conditions (or other effect of interest) from those that are due to the intrinsic structure of the data.
 
-> ## Example
+### Modelling the height of siblings
+
+Let's look how this works with some real data. In this section we will analyse the height data collected by Francis Galton in 1885. It consists of the heights (measured in inches) of the adult children from 197 families. We start by importing the data.
+
+
+~~~
+library(readr)
+height <- read_table2("../data/Galton.tab", col_types = cols(Family = col_character()))
+height
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 898 x 6
+   Family Father Mother Gender Height  Kids
+   <chr>   <dbl>  <dbl> <chr>   <dbl> <dbl>
+ 1 1        78.5   67   M        73.2     4
+ 2 1        78.5   67   F        69.2     4
+ 3 1        78.5   67   F        69       4
+ 4 1        78.5   67   F        69       4
+ 5 2        75.5   66.5 M        73.5     4
+ 6 2        75.5   66.5 M        72.5     4
+ 7 2        75.5   66.5 F        65.5     4
+ 8 2        75.5   66.5 F        65.5     4
+ 9 3        75     64   M        71       2
+10 3        75     64   F        68       2
+# ... with 888 more rows
+~~~
+{: .output}
+
+As you can see there are 898 individual observations with information on family membership and gender. Before delving into the analysis we should take a closer look at the data.
+
+
+~~~
+length(unique(height$Family))
+~~~
+{: .language-r}
+
+
+
+~~~
+[1] 197
+~~~
+{: .output}
+
+
+
+~~~
+table(height$Gender)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+  F   M 
+433 465 
+~~~
+{: .output}
+
+
+
+~~~
+summary(height$Kids)
+~~~
+{: .language-r}
+
+
+
+~~~
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  1.000   4.000   6.000   6.136   8.000  15.000 
+~~~
+{: .output}
+
+We would expect that height is influenced by gender. We can confirm this based on numerical and graphical summaries of the data. We'll use `dplyr` for processing the data and `ggplot2` for plotting.
+
+
+~~~
+library(dplyr)
+height %>% group_by(Gender) %>% summarise(mean=mean(Height)) %>% ungroup()
+~~~
+{: .language-r}
+
+
+
+~~~
+# A tibble: 2 x 2
+  Gender  mean
+  <chr>  <dbl>
+1 F       64.1
+2 M       69.2
+~~~
+{: .output}
+
+
+~~~
+library(ggplot2)
+
+ggplot(height, aes(x=Gender, y=Height, fill=Gender)) + geom_violin() + theme_bw()
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-unnamed-chunk-1-1.png" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" width="612" style="display: block; margin: auto;" />
+
+Based on this, a reasonable first model might be to simply estimate the average height of males and females in the population. Using `lm` we can express this as
+
+
+~~~
+fit_lm <- lm(Height ~ Gender, data=height)
+~~~
+{: .language-r}
+
+We can look at some model diagnostics to confirm that this is an appropriate model.
+
+
+~~~
+qqnorm(rstandard(fit_lm))
+qqline(rstandard(fit_lm), col=2)
+~~~
+{: .language-r}
+
+<img src="../fig/rmd-05-height_lm_qc-1.png" title="plot of chunk height_lm_qc" alt="plot of chunk height_lm_qc" width="612" style="display: block; margin: auto;" />
+
+> ## Exercise
 >
-> Adult height of siblings (with the same parents) will be correlated because siblings are genetically related to each other and often have been raised within the same family.
+> When fitting a linear regression model you should always inspect the residuals and their relationship with the fitted values. Usually a scatter plot is helpful for this purpose. Since this model only produces two different predictions (one for males and one for females), that isn't very helpful here.
+>
+> * What type of plot could you use to examine the residuals instead?
+> * What would you expect that plot to look like?
+> * Create and examine the plot.
+>
+> > ## Solution
+> >
+> > A boxplot or violin plot can help to summarise the distribution of residuals by group. Since the model simply estimates the mean heights of males and females a violin plot of the residuals should look very similar to the violin plot of heights above, but with the means of both groups aligned at 0.
+> > 
+> > ~~~
+> > ggplot(height, aes(x=Gender, y=resid(fit_lm), fill=Gender)) + geom_violin() + theme_bw()
+> > ~~~
+> > {: .language-r}
+> > 
+> > <img src="../fig/rmd-05-unnamed-chunk-2-1.png" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" width="612" style="display: block; margin: auto;" />
+> {: .solution}
 {: .challenge}
 
+Now let's take a look at the model output:
 
-We can model and estimate within cluster correlations using mixed effects models. The simplest model is where we don't have explanatory variables (predictors, independent variables).
 
-Linear mixed effects models (sometimes called multilevel models depending on the context) have extra term(s) in addition to those found in the linear model (including multiple regression model) to allow for variation that is not explained by the independent variables of interest.
+~~~
+summary(fit_lm)
+~~~
+{: .language-r}
 
-We will use the R package `lme4` to fit mixed effects models.
+
+
+~~~
+
+Call:
+lm(formula = Height ~ Gender, data = height)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-9.2288 -1.6102 -0.1102  1.7712  9.7712 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  64.1102     0.1206  531.70   <2e-16 ***
+GenderM       5.1187     0.1676   30.55   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 2.509 on 896 degrees of freedom
+Multiple R-squared:  0.5102,	Adjusted R-squared:  0.5096 
+F-statistic: 933.2 on 1 and 896 DF,  p-value: < 2.2e-16
+~~~
+{: .output}
+
+According to this the average height of women is 64.11 inches and
+men are, on average, 5.12 inches taller than women.
+
+This all looks fairly reasonable but clearly there is a lot of variation in height not explained by gender. We would expect siblings to be somewhat similar in height as they share genetic factors through their parents and environmental factors through their shared upbringing.
+
+We can model this structure of the data, children clustering in families, using linear mixed effects models. In addition to estimating population means (*fixed* effects) these models will also allow us to estimate how average family heights vary around these population means (*random* effects).
+
+We will use the `lmer()` function from the `lme4` R package to fit mixed effects models.
+
+
+~~~
+library(lme4)
+~~~
+{: .language-r}
+
+
+
+~~~
+Loading required package: Matrix
+~~~
+{: .output}
+
+
+
+~~~
+fit_me <- lmer(Height ~ Gender + (1|Family), data=height)
+~~~
+{: .language-r}
+
+As you can see, `lmer()` uses a formula syntax similar to `lm()`. In addition to the already familiar fixed effect for gender this model includes an additional term, *(1|Family)*. This specifies the random effect for family, indicating that the mean height of each family may differ from the population mean.
+
+Now, let's take a closer look at the model.
+
+
+~~~
+summary(fit_me)
+~~~
+{: .language-r}
+
+
+
+~~~
+Linear mixed model fit by REML ['lmerMod']
+Formula: Height ~ Gender + (1 | Family)
+   Data: height
+
+REML criterion at convergence: 4007.8
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.9475 -0.5661  0.0067  0.5937  3.5069 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ Family   (Intercept) 2.448    1.564   
+ Residual             3.843    1.960   
+Number of obs: 898, groups:  Family, 197
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)  64.1489     0.1542  415.92
+GenderM       5.1529     0.1418   36.33
+
+Correlation of Fixed Effects:
+        (Intr)
+GenderM -0.486
+~~~
+{: .output}
+
+In addition to the gender fixed effect that we have already seen in the simple linear regression model, this model also provides us with an estimate of the variance in average height between families (2.4476539) as well as the remaining (residual) variance within families (3.8426678).
+
+A dot plot, also known as a caterpillar plot, can help to visualise random effects. The `lme4` package, in conjunction with the `lattice` package, provides a convenient function to create these plots.
+
+
+~~~
+library(lattice)
+
+randoms <- ranef(fit_me)
+dotplot(randoms)
+~~~
+{: .language-r}
+
+
+
+~~~
+$Family
+~~~
+{: .output}
+
+<img src="../fig/rmd-05-height_dotplot-1.png" title="plot of chunk height_dotplot" alt="plot of chunk height_dotplot" width="612" style="display: block; margin: auto;" />
+
+This plot shows the deviation from the mean population height for each family, together with standard errors. Note how some families fall clearly below or above the population mean.
+
+You can create QQ plots for random effects in a similar way, using the `qqmath()` function.
+
+
+~~~
+qqmath(randoms)
+~~~
+{: .language-r}
+
+
+
+~~~
+$Family
+~~~
+{: .output}
+
+<img src="../fig/rmd-05-height_qqplot-1.png" title="plot of chunk height_qqplot" alt="plot of chunk height_qqplot" width="612" style="display: block; margin: auto;" />
+
+#### Model comparison with `ranova()`
+
+In this case it seems fairly clear that inclusion of the family random effect improves model fit. It is sometimes desirable to test whether inclusion of a specific random effect is justified, similar to how you would compare multiple regression models to test for the inclusion of (fixed) effects using likelihood ratio tests. Although `lme4` doesn't provide an easy way to do that, you can however, augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
+
+
+~~~
+library(lme4)
+library(lmerTest)
+~~~
+{: .language-r}
+
+
+
+~~~
+
+Attaching package: 'lmerTest'
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:lme4':
+
+    lmer
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:stats':
+
+    step
+~~~
+{: .output}
+
+
+
+~~~
+fit_me <- lmer(Height ~ Gender + (1|Family), data=height)
+~~~
+{: .language-r}
+
+Then you can use the `ranova()` function to compare models with different random effects structure.
+
+
+~~~
+ranova(fit_me)
+~~~
+{: .language-r}
+
+
+
+~~~
+ANOVA-like table for random-effects: Single term deletions
+
+Model:
+Height ~ Gender + (1 | Family)
+             npar  logLik    AIC    LRT Df Pr(>Chisq)    
+<none>          4 -2003.9 4015.8                         
+(1 | Family)    3 -2101.7 4209.4 195.56  1  < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) shows that the mixed effects model is clearly preferred.
 
 The following example is from Winter and Grawunder (2012).
 
@@ -389,7 +729,8 @@ summary(fit1)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: frequency ~ (1 | subject)
    Data: mydata
 
@@ -406,8 +747,10 @@ Random effects:
 Number of obs: 83, groups:  subject, 6
 
 Fixed effects:
-            Estimate Std. Error t value
-(Intercept)   193.03      25.91   7.451
+            Estimate Std. Error      df t value Pr(>|t|)    
+(Intercept)  193.025     25.906   5.006   7.451 0.000683 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
@@ -444,8 +787,33 @@ We can also create contrasts. We will contrast code attitude and gender, so that
 
 ~~~
 mydata$attitude <- as_factor(mydata$attitude)
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in as_factor(mydata$attitude): could not find function "as_factor"
+~~~
+{: .error}
+
+
+
+~~~
 contrasts(mydata$attitude) <- cbind(inf_vs_pol = c(1, -1))
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in `contrasts<-`(`*tmp*`, value = structure(c(1, -1), .Dim = 2:1, .Dimnames = list(: contrasts apply only to factors
+~~~
+{: .error}
+
+
+
+~~~
 contrasts(mydata$attitude)
 ~~~
 {: .language-r}
@@ -453,17 +821,40 @@ contrasts(mydata$attitude)
 
 
 ~~~
-    inf_vs_pol
-pol          1
-inf         -1
+Error in contrasts(mydata$attitude): contrasts apply only to factors
 ~~~
-{: .output}
+{: .error}
 
 
 ~~~
 mydata$gender <- as_factor(mydata$gender)
+~~~
+{: .language-r}
 
+
+
+~~~
+Error in as_factor(mydata$gender): could not find function "as_factor"
+~~~
+{: .error}
+
+
+
+~~~
 contrasts(mydata$gender) <- cbind(f_vs_m = c(1, -1))
+~~~
+{: .language-r}
+
+
+
+~~~
+Error in `contrasts<-`(`*tmp*`, value = structure(c(1, -1), .Dim = 2:1, .Dimnames = list(: contrasts apply only to factors
+~~~
+{: .error}
+
+
+
+~~~
 contrasts(mydata$gender)
 ~~~
 {: .language-r}
@@ -471,11 +862,9 @@ contrasts(mydata$gender)
 
 
 ~~~
-  f_vs_m
-F      1
-M     -1
+Error in contrasts(mydata$gender): contrasts apply only to factors
 ~~~
-{: .output}
+{: .error}
 
 
 ~~~
@@ -487,11 +876,12 @@ summary(fit2)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: frequency ~ attitude + gender + (1 | subject)
    Data: mydata
 
-REML criterion at convergence: 789.5
+REML criterion at convergence: 786.7
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
@@ -504,15 +894,17 @@ Random effects:
 Number of obs: 83, groups:  subject, 6
 
 Fixed effects:
-                   Estimate Std. Error t value
-(Intercept)         192.883     10.532  18.315
-attitudeinf_vs_pol   -9.705      3.203  -3.030
-genderf_vs_m         54.102     10.532   5.137
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)  256.691     15.226    4.378  16.859 3.78e-05 ***
+attitudepol  -19.410      6.407   76.018  -3.030  0.00334 ** 
+genderM     -108.205     21.063    4.009  -5.137  0.00677 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
-            (Intr) attt__
-atttdnf_vs_  0.004       
-gendrf_vs_m -0.001 -0.004
+            (Intr) atttdp
+attitudepol -0.210       
+genderM     -0.692  0.004
 ~~~
 {: .output}
 
@@ -537,7 +929,7 @@ deviance
 
 
 ~~~
-[1] 789.5165
+[1] 786.7439
 ~~~
 {: .output}
 
@@ -566,13 +958,13 @@ coef(fit2)
 
 ~~~
 $subject
-   (Intercept) attitudeinf_vs_pol genderf_vs_m
-F1    179.3003          -9.704823     54.10244
-F2    203.0591          -9.704823     54.10244
-F3    196.2904          -9.704823     54.10244
-M3    220.3196          -9.704823     54.10244
-M4    198.7021          -9.704823     54.10244
-M7    159.6280          -9.704823     54.10244
+   (Intercept) attitudepol   genderM
+F1    243.1076   -19.40965 -108.2049
+F2    266.8664   -19.40965 -108.2049
+F3    260.0976   -19.40965 -108.2049
+M3    284.1269   -19.40965 -108.2049
+M4    262.5094   -19.40965 -108.2049
+M7    223.4353   -19.40965 -108.2049
 
 attr(,"class")
 [1] "coef.mer"
@@ -671,33 +1063,36 @@ summary(fit3)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: frequency ~ attitude + gender + (1 + attitude | subject)
    Data: mydata
 
-REML criterion at convergence: 789.5
+REML criterion at convergence: 786.7
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--2.3484 -0.5487 -0.2009  0.4836  3.2157 
+-2.3484 -0.5488 -0.2010  0.4838  3.2156 
 
 Random effects:
- Groups   Name               Variance Std.Dev. Corr
- subject  (Intercept)        604.3685 24.5839      
-          attitudeinf_vs_pol   0.4331  0.6581  1.00
- Residual                    850.5693 29.1645      
+ Groups   Name        Variance Std.Dev. Corr
+ subject  (Intercept) 572.588  23.929       
+          attitudepol   1.749   1.322   1.00
+ Residual             850.548  29.164       
 Number of obs: 83, groups:  subject, 6
 
 Fixed effects:
-                   Estimate Std. Error t value
-(Intercept)         192.887     10.535  18.309
-attitudeinf_vs_pol   -9.701      3.214  -3.018
-genderf_vs_m         55.156     10.498   5.254
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)  257.749     15.031    4.116  17.148 5.53e-05 ***
+attitudepol  -19.402      6.428   59.005  -3.018  0.00375 ** 
+genderM     -110.322     21.000    4.010  -5.253  0.00624 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
-            (Intr) attt__
-atttdnf_vs_  0.084       
-gendrf_vs_m -0.001 -0.003
+            (Intr) atttdp
+attitudepol -0.157       
+genderM     -0.699  0.003
 convergence code: 0
 boundary (singular) fit: see ?isSingular
 ~~~
@@ -717,13 +1112,13 @@ coef(fit3)
 
 ~~~
 $subject
-   (Intercept) attitudeinf_vs_pol genderf_vs_m
-F1    178.2286         -10.093413     55.15603
-F2    202.0455          -9.455816     55.15603
-F3    195.2150          -9.638675     55.15603
-M3    221.2954          -8.940481     55.15603
-M4    199.8862          -9.513621     55.15603
-M7    160.6519         -10.563953     55.15603
+   (Intercept) attitudepol   genderM
+F1    243.4792   -20.19058 -110.3224
+F2    266.6570   -18.90965 -110.3224
+F3    260.0096   -19.27703 -110.3224
+M3    285.3995   -17.87384 -110.3224
+M4    264.5661   -19.02521 -110.3224
+M7    226.3844   -21.13533 -110.3224
 
 attr(,"class")
 [1] "coef.mer"
@@ -746,8 +1141,8 @@ Models:
 fit2: frequency ~ attitude + gender + (1 | subject)
 fit3: frequency ~ attitude + gender + (1 + attitude | subject)
      Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(>Chisq)
-fit2  5 799.52 811.61 -394.76   789.52                         
-fit3  7 803.49 820.42 -394.75   789.49 0.0241      2      0.988
+fit2  5 796.74 808.84 -393.37   786.74                         
+fit3  7 800.72 817.65 -393.36   786.72 0.0241      2      0.988
 ~~~
 {: .output}
 
@@ -824,11 +1219,12 @@ summary(fit4)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: frequency ~ attitude + gender + (1 | subject) + (1 | scenario)
    Data: mydata
 
-REML criterion at convergence: 778.2
+REML criterion at convergence: 775.5
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
@@ -842,15 +1238,17 @@ Random effects:
 Number of obs: 83, groups:  scenario, 7; subject, 6
 
 Fixed effects:
-                   Estimate Std. Error t value
-(Intercept)         192.728     11.905  16.188
-attitudeinf_vs_pol   -9.861      2.792  -3.532
-genderf_vs_m         54.258     10.507   5.164
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)  256.846     16.116    5.430  15.937 9.09e-06 ***
+attitudepol  -19.721      5.584   70.053  -3.532 0.000735 ***
+genderM     -108.516     21.015    4.006  -5.164 0.006653 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
-            (Intr) attt__
-atttdnf_vs_  0.003       
-gendrf_vs_m -0.001 -0.004
+            (Intr) atttdp
+attitudepol -0.173       
+genderM     -0.652  0.004
 ~~~
 {: .output}
 
@@ -869,8 +1267,8 @@ Models:
 fit2: frequency ~ attitude + gender + (1 | subject)
 fit4: frequency ~ attitude + gender + (1 | subject) + (1 | scenario)
      Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(>Chisq)    
-fit2  5 799.52 811.61 -394.76   789.52                             
-fit4  6 790.23 804.74 -389.11   778.23 11.289      1  0.0007796 ***
+fit2  5 796.74 808.84 -393.37   786.74                             
+fit4  6 787.45 801.97 -387.73   775.45 11.289      1  0.0007796 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
@@ -888,23 +1286,23 @@ coef(fit4)
 
 ~~~
 $scenario
-  (Intercept) attitudeinf_vs_pol genderf_vs_m
-1    179.2226          -9.860535     54.25815
-2    199.3097          -9.860535     54.25815
-3    204.1341          -9.860535     54.25815
-4    213.3546          -9.860535     54.25815
-5    190.7917          -9.860535     54.25815
-6    180.5552          -9.860535     54.25815
-7    181.7251          -9.860535     54.25815
+  (Intercept) attitudepol   genderM
+1    243.3413   -19.72107 -108.5163
+2    263.4284   -19.72107 -108.5163
+3    268.2527   -19.72107 -108.5163
+4    277.4733   -19.72107 -108.5163
+5    254.9104   -19.72107 -108.5163
+6    244.6738   -19.72107 -108.5163
+7    245.8438   -19.72107 -108.5163
 
 $subject
-   (Intercept) attitudeinf_vs_pol genderf_vs_m
-F1    178.8198          -9.860535     54.25815
-F2    203.1468          -9.860535     54.25815
-F3    196.2161          -9.860535     54.25815
-M3    221.1098          -9.860535     54.25815
-M4    198.1062          -9.860535     54.25815
-M7    158.9667          -9.860535     54.25815
+   (Intercept) attitudepol   genderM
+F1    242.9385   -19.72107 -108.5163
+F2    267.2655   -19.72107 -108.5163
+F3    260.3348   -19.72107 -108.5163
+M3    285.2285   -19.72107 -108.5163
+M4    262.2249   -19.72107 -108.5163
+M7    223.0854   -19.72107 -108.5163
 
 attr(,"class")
 [1] "coef.mer"
@@ -966,21 +1364,7 @@ ggplot(mydata_byscenario, aes(x = attitude, y = mean_pitch, colour = scenario, g
 ~~~
 fit4b <- lmer(frequency ~ attitude + gender + (1|subject) + (1 + attitude|scenario),
     data = mydata)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =
-control$checkConv, : Model failed to converge with max|grad| = 0.0076045
-(tol = 0.002, component 1)
-~~~
-{: .error}
-
-
-
-~~~
 summary(fit4b)
 ~~~
 {: .language-r}
@@ -988,37 +1372,38 @@ summary(fit4b)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: frequency ~ attitude + gender + (1 | subject) + (1 + attitude |  
     scenario)
    Data: mydata
 
-REML criterion at convergence: 777.9
+REML criterion at convergence: 775.1
 
 Scaled residuals: 
     Min      1Q  Median      3Q     Max 
--2.1456 -0.6158 -0.0765  0.5071  3.3703 
+-2.1456 -0.6157 -0.0770  0.5075  3.3705 
 
 Random effects:
- Groups   Name               Variance Std.Dev. Corr
- scenario (Intercept)        221.33   14.877       
-          attitudeinf_vs_pol  17.59    4.194   0.29
- subject  (Intercept)        614.05   24.780       
- Residual                    628.15   25.063       
+ Groups   Name        Variance Std.Dev. Corr
+ scenario (Intercept) 203.43   14.263       
+          attitudepol  70.91    8.421   0.00
+ subject  (Intercept) 616.63   24.832       
+ Residual             627.82   25.056       
 Number of obs: 83, groups:  scenario, 7; subject, 6
 
 Fixed effects:
-                   Estimate Std. Error t value
-(Intercept)         192.707     11.897  16.198
-attitudeinf_vs_pol   -9.881      3.178  -3.109
-genderf_vs_m         54.278     10.485   5.177
+            Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)  256.867     16.035    5.297  16.019 1.09e-05 ***
+attitudepol  -19.762      6.360    6.104  -3.107  0.02046 *  
+genderM     -108.557     21.010    4.006  -5.167  0.00664 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
-            (Intr) attt__
-atttdnf_vs_  0.071       
-gendrf_vs_m -0.001 -0.003
-convergence code: 0
-Model failed to converge with max|grad| = 0.0076045 (tol = 0.002, component 1)
+            (Intr) atttdp
+attitudepol -0.148       
+genderM     -0.655  0.003
 ~~~
 {: .output}
 
@@ -1038,8 +1423,8 @@ fit4: frequency ~ attitude + gender + (1 | subject) + (1 | scenario)
 fit4b: frequency ~ attitude + gender + (1 | subject) + (1 + attitude | 
 fit4b:     scenario)
       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(>Chisq)
-fit4   6 790.23 804.74 -389.11   778.23                         
-fit4b  8 793.88 813.23 -388.94   777.88 0.3523      2     0.8385
+fit4   6 787.45 801.97 -387.73   775.45                         
+fit4b  8 791.10 810.45 -387.55   775.10 0.3523      2     0.8385
 ~~~
 {: .output}
 
@@ -1194,7 +1579,8 @@ summary(model2)
 
 
 ~~~
-Linear mixed model fit by REML ['lmerMod']
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
 Formula: Y ~ V * N + (1 | B/V)
    Data: oats
 
@@ -1212,19 +1598,21 @@ Random effects:
 Number of obs: 72, groups:  V:B, 18; B, 6
 
 Fixed effects:
-                    Estimate Std. Error t value
-(Intercept)          80.0000     9.1072   8.784
-VMarvellous           6.6667     9.7150   0.686
-VVictory             -8.5000     9.7150  -0.875
-N0.2cwt              18.5000     7.6829   2.408
-N0.4cwt              34.6667     7.6829   4.512
-N0.6cwt              44.8333     7.6829   5.835
-VMarvellous:N0.2cwt   3.3333    10.8653   0.307
-VVictory:N0.2cwt     -0.3333    10.8653  -0.031
-VMarvellous:N0.4cwt  -4.1667    10.8653  -0.383
-VVictory:N0.4cwt      4.6667    10.8653   0.430
-VMarvellous:N0.6cwt  -4.6667    10.8653  -0.430
-VVictory:N0.6cwt      2.1667    10.8653   0.199
+                    Estimate Std. Error      df t value Pr(>|t|)    
+(Intercept)          80.0000     9.1072 16.0782   8.784 1.55e-07 ***
+VMarvellous           6.6667     9.7150 30.2317   0.686   0.4978    
+VVictory             -8.5000     9.7150 30.2317  -0.875   0.3885    
+N0.2cwt              18.5000     7.6829 45.0002   2.408   0.0202 *  
+N0.4cwt              34.6667     7.6829 45.0002   4.512 4.58e-05 ***
+N0.6cwt              44.8333     7.6829 45.0002   5.835 5.48e-07 ***
+VMarvellous:N0.2cwt   3.3333    10.8653 45.0002   0.307   0.7604    
+VVictory:N0.2cwt     -0.3333    10.8653 45.0002  -0.031   0.9757    
+VMarvellous:N0.4cwt  -4.1667    10.8653 45.0002  -0.383   0.7032    
+VVictory:N0.4cwt      4.6667    10.8653 45.0002   0.430   0.6696    
+VMarvellous:N0.6cwt  -4.6667    10.8653 45.0002  -0.430   0.6696    
+VVictory:N0.6cwt      2.1667    10.8653 45.0002   0.199   0.8428    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Correlation of Fixed Effects:
             (Intr) VMrvll VVctry N0.2cw N0.4cw N0.6cw VM:N0.2 VV:N0.2
@@ -1264,11 +1652,13 @@ anova(model2)
 
 
 ~~~
-Analysis of Variance Table
-    Df  Sum Sq Mean Sq F value
-V    2   526.1   263.0  1.4854
-N    3 20020.5  6673.5 37.6860
-V:N  6   321.7    53.6  0.3028
+Type III Analysis of Variance Table with Satterthwaite's method
+     Sum Sq Mean Sq NumDF DenDF F value    Pr(>F)    
+V     526.1   263.0     2    10  1.4854    0.2724    
+N   20020.5  6673.5     3    45 37.6860 2.457e-12 ***
+V:N   321.7    53.6     6    45  0.3028    0.9322    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
