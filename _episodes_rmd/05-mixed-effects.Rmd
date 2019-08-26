@@ -179,6 +179,8 @@ ranova(fit_me)
 
 The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) shows that the mixed effects model is clearly preferred.
 
+### Investigating the relationship between pitch and politeness
+
 The following example is from Winter and Grawunder (2012).
 
 **EXAMPLE:** How is voice pitch related to politeness? Subjects are asked to respond to hypothetical scenarios (independent variable, within subject) that are from either formal situations that require politeness or more informal situations and voice pitch is measured (dependent variable). Each subject is given a list of all the scenarios, so each subject gives multiple polite or informal responses. Gender is also recorded (independent variable, between-subject), since it is known to influence on voice pitch.
