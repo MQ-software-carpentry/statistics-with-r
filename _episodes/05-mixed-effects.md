@@ -258,7 +258,7 @@ fit_me <- lmer(Height ~ Gender + (1|Family), data=height)
 ~~~
 {: .language-r}
 
-As you can see, `lmer()` uses a formula syntax similar to `lm()`. In addition to the already familiar fixed effect for gender this model includes an additional term, *(1|Family)*. This specifies the random effect for family, indicating that the mean height of each family may differ from the population mean.
+As you can see, `lmer()` uses a formula syntax similar to `lm()`. In addition to the already familiar fixed effect for gender this model includes an additional term, *(1\|Family)*. This specifies the random effect for family, indicating that the mean height of each family may differ from the population mean.
 
 Now, let's take a closer look at the model.
 
@@ -298,7 +298,7 @@ GenderM -0.486
 ~~~
 {: .output}
 
-In addition to the gender fixed effect that we have already seen in the simple linear regression model, this model also provides us with an estimate of the variance in average height between families (2.4476539) as well as the remaining (residual) variance within families (3.8426678).
+In addition to the gender fixed effect that we have already seen in the simple linear regression model, this model also provides us with an estimate of the variance in average height between families (2.45) as well as the remaining (residual) variance within families (3.84).
 
 A dot plot, also known as a caterpillar plot, can help to visualise random effects. The `lme4` package, in conjunction with the `lattice` package, provides a convenient function to create these plots.
 
@@ -347,38 +347,7 @@ In this case it seems fairly clear that inclusion of the family random effect im
 ~~~
 library(lme4)
 library(lmerTest)
-~~~
-{: .language-r}
 
-
-
-~~~
-
-Attaching package: 'lmerTest'
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:lme4':
-
-    lmer
-~~~
-{: .output}
-
-
-
-~~~
-The following object is masked from 'package:stats':
-
-    step
-~~~
-{: .output}
-
-
-
-~~~
 fit_me <- lmer(Height ~ Gender + (1|Family), data=height)
 ~~~
 {: .language-r}

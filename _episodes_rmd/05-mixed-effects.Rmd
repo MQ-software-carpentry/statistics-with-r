@@ -133,7 +133,7 @@ library(lme4)
 fit_me <- lmer(Height ~ Gender + (1|Family), data=height)
 ```
 
-As you can see, `lmer()` uses a formula syntax similar to `lm()`. In addition to the already familiar fixed effect for gender this model includes an additional term, *(1|Family)*. This specifies the random effect for family, indicating that the mean height of each family may differ from the population mean.
+As you can see, `lmer()` uses a formula syntax similar to `lm()`. In addition to the already familiar fixed effect for gender this model includes an additional term, *(1\|Family)*. This specifies the random effect for family, indicating that the mean height of each family may differ from the population mean.
 
 Now, let's take a closer look at the model.
 
@@ -141,7 +141,7 @@ Now, let's take a closer look at the model.
 summary(fit_me)
 ```
 
-In addition to the gender fixed effect that we have already seen in the simple linear regression model, this model also provides us with an estimate of the variance in average height between families (`r summary(fit_me)$varcor$Family`) as well as the remaining (residual) variance within families (`r summary(fit_me)$sigma^2`).
+In addition to the gender fixed effect that we have already seen in the simple linear regression model, this model also provides us with an estimate of the variance in average height between families (`r round(summary(fit_me)$varcor$Family,2)`) as well as the remaining (residual) variance within families (`r round(summary(fit_me)$sigma^2,2)`).
 
 A dot plot, also known as a caterpillar plot, can help to visualise random effects. The `lme4` package, in conjunction with the `lattice` package, provides a convenient function to create these plots.
 
@@ -164,7 +164,7 @@ qqmath(randoms)
 
 In this case it seems fairly clear that inclusion of the family random effect improves model fit. It is sometimes desirable to test whether inclusion of a specific random effect is justified, similar to how you would compare multiple regression models to test for the inclusion of (fixed) effects using likelihood ratio tests. Although `lme4` doesn't provide an easy way to do that, you can however, augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
 
-```{r height_lmerTest}
+```{r height_lmerTest, message=FALSE}
 library(lme4)
 library(lmerTest)
 
