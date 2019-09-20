@@ -71,7 +71,7 @@ summary(height$Kids)
 
 We would expect that height is influenced by gender. We can confirm this based on numerical and graphical summaries of the data. We'll use `dplyr` for processing the data and `ggplot2` for plotting.
 
-```{r height_gender_summary, message=FALSE}
+```{r height_gender_summary, message=FALSE, warning=FALSE}
 library(dplyr)
 height %>% group_by(Gender) %>% summarise(mean=mean(Height)) %>% ungroup()
 ```
@@ -107,7 +107,9 @@ qqline(rstandard(fit_lm), col=2)
 > >
 > > A boxplot or violin plot can help to summarise the distribution of residuals by group. Since the model simply estimates the mean heights of males and females a violin plot of the residuals should look very similar to the violin plot of heights above, but with the means of both groups aligned at 0.
 > > ```{r}
-> > ggplot(height, aes(x=Gender, y=resid(fit_lm), fill=Gender)) + geom_violin() + theme_bw()
+> > ggplot(height, aes(x=Gender, y=resid(fit_lm), fill=Gender)) +
+> >    geom_violin() +
+> >    theme_bw()
 > > ```
 > {: .solution}
 {: .challenge}
@@ -154,7 +156,7 @@ dotplot(randoms)
 
 This plot shows the deviation from the mean population height for each family, together with standard errors. Note how some families fall clearly below or above the population mean.
 
-You can create QQ plots for random effects in a similar way, using the `qqmath()` function.
+You can create Q-Q plots for random effects in a similar way, using the `qqmath()` function.
 
 ```{r height_qqplot}
 qqmath(randoms)
@@ -181,151 +183,37 @@ The comparison between the model with a random intercept for family (the mixed e
 
 ### Investigating the relationship between pitch and politeness
 
-The following example is from Winter and Grawunder (2012).
+In this section you will apply what you just learned to explore a dataset from a study (Winter and Grawunder, 2012) designed to investigate the relationship between voice pitch and politeness.
 
-**EXAMPLE:** How is voice pitch related to politeness? Subjects are asked to respond to hypothetical scenarios (independent variable, within subject) that are from either formal situations that require politeness or more informal situations and voice pitch is measured (dependent variable). Each subject is given a list of all the scenarios, so each subject gives multiple polite or informal responses. Gender is also recorded (independent variable, between-subject), since it is known to influence on voice pitch.
+> ## How is voice pitch related to politeness?
+>
+> Subjects are asked to respond to hypothetical scenarios that are from either formal situations that require politeness or more informal situations and voice pitch is measured. Each subject is given a list of all the scenarios, so each subject gives multiple polite or informal responses. Gender is also recorded, since it is known to influence voice pitch.
+>
+{: .callout}
 
-This could be modelled as
-
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \varepsilon $$
-
-where we only have one error term which is our unexplained random variation.
-
-Since each subject gave multiple responses (a repeated measures design) this model is inappropriate because the multiple responses made by one subject are not independent from each other. Also, every person has a slightly different pitch (frequency) which is a factor that affects all responses from the same subject so these responses will be correlated within the subject.
+Let's take a look at the structure of the data:
 
 ```{r read_politeness, message=FALSE}
-mydata <- read_csv(file.path("..", "data", "politeness_data.csv"))
+politeness_data <- read_csv(file.path("..", "data", "politeness_data2.csv"))
 
-summary(mydata)
-str(mydata)
+politeness_data
 
-table(mydata$subject)
-table(mydata$subject, mydata$attitude)
+table(politeness_data$subject)
+table(politeness_data$subject, politeness_data$attitude)
 ```
 
-We should look at the data using statistical graphics.
+There are observations from `r length(unique(politeness_data$subject))` subjects. Each subject has provided speech samples for `r length(unique(politeness_data$scenario))` different scenarios using both a polite and informal voice.
 
-```{r polite_boxplots, warning=FALSE}
-theme_set(theme_bw(base_size = 18))
-
-qplot(attitude, frequency, facets = . ~ subject,
-    colour = subject, geom = "boxplot", data = mydata)
-```
-
-Subjects F1, F2, F3 are female and M1, M2, M3 are male. You can see straight away that males have lower voices than females (as expected). But you can also see that, within the male and the female groups, there is lots of individual variation, with some people having relatively higher frequency values for their sex and others having relatively lower frequency values, regardless of the attitude. Within subjects we have correlation between frequency (pitch) and attitude (politeness).
-
-```{r split_data, warning=FALSE}
-polite   <- subset(mydata, attitude == "pol")
-informal <- subset(mydata, attitude == "inf")
-
-as_tibble(polite)
-as_tibble(informal)
-
-new <- data.frame(polite$frequency, informal$frequency)
-names(new) <- c("Polite_Pitch", "Informal_Pitch")
-
-ggplot(data = new, aes(x = Polite_Pitch, y = Informal_Pitch)) +
-    geom_point() +
-    geom_smooth(method = "lm")
-```
-
-#### Modeling individual means with random intercepts
-
-These individual differences in our politeness example can be modelled by assuming different random intercepts for each subject. This is reasonable to do because our subjects can be thought of as a random sample from a (very large) population. Each participant is given a different intercept value (i.e., a different mean voice pitch). These intercepts can be estimated using the function `lmer` in the package `lme`.
-
-Our fixed effects model was
-
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \varepsilon $$
-
-Our mixed effects model, using R syntax, is
-
-$$ \mbox{pitch} = \mbox{politeness} + \mbox{gender} + \mbox{(1|subject)} + \varepsilon $$
-
-The term `(1|subject)` models the random intercept; that is, a different intercept is given for each subject and the 1 stands for intercept. The formula `(1|subject)` informs your model that it should expect multiple responses per subject, and these responses will depend on each subject’s baseline level. The non-independence arising from multiple responses by the same subject is now no longer a problem. We still have $\varepsilon$ because even allowing for individual by-subject variation, there will still be “random” differences between different measurements made on the same subject.
-
-Getting an idea of these different means:
-
-```{r mean_freq}
-pitch_bysubj <- with(mydata, aggregate(frequency ~ subject, FUN = "mean"))
-pitch_bysubj
-```
-
-Now using the function `lmer` in the `lme4` package to fit the above mixed effects model:
-
-```{r fit_polite_model}
-fit1 <- lmer(frequency ~ (1 | subject), data = mydata)
-# summary(fit1)
-coef(fit1)$subject[1]
-```
-
-The estimates are very close to the actual mean frequencies (pitches).
-
-It can be shown that the actual mean frequency (pitch) across subjects is the estimated Intercept, and the standard deviation across the subjects’ mean frequency (pitch) is the standard deviation (Std.Dev.) of the random effects.
-
-```{r summary_stats}
-mean(pitch_bysubj$frequency)
-sd(pitch_bysubj$frequency)
-```
-
-Using the estimated intercepts for each subject
-
-```{r model_coef}
-mean(coef(fit1)$subject[1][, '(Intercept)'])
-sd(coef(fit1)$subject[1][, '(Intercept)'])
-```
-
-This is also in the model output when using `summary`.
-
-```{r model_summary}
-summary(fit1)
-```
-
-#### Including fixed effects
-
-We should also include the hypothesised scenario (polite vs informal) in our model. Recall that our original question was "How is voice pitch is related to politeness?". Since we know there is a gender difference this has to be controlled for in the model and since even within a subject there are differences this has to also be accomodated.
-
-Our final model is
-
-```r
-lmer(frequency ~ attitude+sex+(1|subject))
-```
-
-$$E(\mbox{pitch}_j)=\mbox{intercept}+\mbox{intercept}_j+\mbox{attitude}+\mbox{gender}$$
-
-```{r mean_bycond}
-mydata_bycond <- na.omit(mydata) %>%
-    group_by(gender, attitude) %>%
-    summarise(mean_pitch = mean(frequency))
-
-ggplot(mydata_bycond, aes(x = attitude, y = mean_pitch, colour = gender, group = gender)) +
-    geom_line(size = 2) +
-    geom_point(size = 5, shape = 21, fill = "white")
-```
-
-Note we will use library `dplyr` which was loaded at the beginning.
-
-We can also create contrasts. We will contrast code attitude and gender, so that we can see the effect of attitude at the “mean” between females and males, and the effect of gender at the mean between “informal” and “polite”.
-
-```{r attitude_contrast}
-mydata$attitude <- as_factor(mydata$attitude)
-
-contrasts(mydata$attitude) <- cbind(inf_vs_pol = c(1, -1))
-contrasts(mydata$attitude)
-```
-
-```{r gender_contrast}
-mydata$gender <- as_factor(mydata$gender)
-
-contrasts(mydata$gender) <- cbind(f_vs_m = c(1, -1))
-contrasts(mydata$gender)
-```
-
-```{r fit_full_model}
-fit2 <- lmer(frequency ~ attitude + gender + (1|subject), data = mydata)
-summary(fit2)
-```
-
-Our mean frequency (pitch) is 192.883, pitch is lower higher for informal than polite scenarios, coefficient of attitudeinf_vs_pol=9.7105, t=3.203, and pitch (frequency) is higher for females than males, b=54.102, t=5.137. By a rough rule-of-thumb _t_ is probably significant if it’s greater than 2. If time permits, testing significance of parameter estimates will be discussed.
+> ## Exercise
+>
+> Download the exercise [starter code](FIXME). Follow the instructions in the R script
+> file to carry out an analysis of the pitch and politeness data.
+>
+> > ## Solution
+> >
+> > You can take a look at a [sample solution](FIXME) online.
+> {: .solution}
+{: .challenge}
 
 #### More model information
 
@@ -440,7 +328,7 @@ fit4b <- lmer(frequency ~ attitude + gender + (1 | subject), REML = FALSE, data 
 anova(fit4, fit4b)
 ```
 
-Attitude needs to stay in the model (when you look at the output the full model has a highly significan p-value, p=0.003).
+Attitude needs to stay in the model (when you look at the output the full model has a highly significant p-value, p=0.003).
 
 I won't be looking at REML versus ML.
 

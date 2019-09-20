@@ -1,0 +1,133 @@
+---
+title: "Investigating the relationship between politeness and voice pitch"
+author: "Peter Humburg"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_packages}
+library(ggplot2)
+library(lattice)
+library(lme4)
+library(lmerTest)
+library(readr)
+library(tidyr)
+library(dplyr)
+```
+
+## Data exploration
+
+* Load the pitch and politeness data.
+
+```{r load_data}
+politeness_data <- read_csv(file.path("..", "..", "data", "politeness_data.csv"))
+```
+
+* Examine the data. Some questions you should be able to answer after examining the data are:
+    - How many individuals are in the study? 
+    - How many conditions? 
+    - How many observations did each individual contribute per condition?
+
+```{r examine_data}
+politeness_data
+
+# Use 'View()' when examining data interactively
+# View(politeness_data)
+
+table(politeness_data$subject)
+table(politeness_data$subject, politeness_data$attitude)
+```
+
+* Create a scatterplot of pitch in the informal and polite conditions. Colour points by the speaker's gender and add a regression line.
+    - **Hint**: Use `geom_smooth(method="lm")` to add regression lines to your scatter plot.
+
+```{r politeness_scatter}
+politeness_wide <- politeness_data %>% select(-total_duration) %>% spread(key=attitude, value=frequency)
+ggplot(politeness_wide, aes(x=inf, y=pol, colour=gender)) + geom_point() + geom_smooth(method="lm")
+```
+
+* What do you observe?
+
+As expected, female particpants tend to have higher pitched voices than male participants. Considering the slopes of the regression lines in the plot, an interaction between attitude and gender seems plausible and should be investigated.
+
+* Create a plot showing frequency by attitude for each subject.
+
+```{r attitude_freq_plot}
+ggplot(politeness_data, aes(x=attitude, y=frequency, fill=gender)) + geom_boxplot() + facet_wrap(~subject)
+```
+
+* What trends do you observe in the data?
+
+As expected, the female participants have higher pitched voices and there is considerable
+variation in pitch between participants. There is also evidence that the samples produced by participants
+in the polite condition tend to have lower pitch compared to the informal samples from the same participant.
+
+## Multiple linear regression
+
+* Fit a multiple linear regression model to the data, using `frequency` as dependent variable and `attitude` and `gender`
+  as independent variables. Based on the plots of the data above, does it seem necessary to include an interaction between attitude and gender?
+  
+The scatter plot suggests that the effects of attitude for male and female participants may differ somewhat, suggesting that an interaction should be considered.
+  
+```{r politeness_lm}
+fit_lm <- lm(frequency ~ attitude*gender, data=politeness_data)
+```
+
+* Why is this model likely to be inappropriate?
+
+Since each subject gave multiple responses (a repeated measures design) this model is inappropriate because the multiple responses made by one subject are not independent from each other. For example, every person has a slightly different pitch (frequency) which is a factor that affects all responses from the same subject so these responses will be correlated within the subject.
+
+* Examine the model fit using a Q-Q plot and a residual plot.
+
+```{r politeness_lm_qq}
+qqnorm(rstandard(fit_lm))
+qqline(rstandard(fit_lm), col=2)
+```
+
+The Q-Q plot shows that the distribution of residuals is skewed slightly to the right, with fewer residuals than expected in the left tail and one or two unexpectedly large residuals in the right tail.
+
+* Create a plot of residuals and fitted values. Distinguish between the two attitudes and between subjects.
+
+```{r politeness_lm_fitted}
+politeness_lm_fit <- politeness_data %>% mutate(residuals=rstandard(fit_lm), fitted=fitted(fit_lm))
+ggplot(politeness_lm_fit, aes(x=fitted, y=residuals, shape=attitude, colour=subject)) + geom_point(size=2)
+```
+
+Note how the residuals for the same subject tend to cluster together. This is especially pronounced for the males.
+
+* Use a linear mixed effects model to account for the clustering of the data. In the height example, we used a *Family* random effect to model the structure of the data. Here a *subject* random effect seems appropriate.
+
+```{r}
+fit_me <- lmer(frequency ~ attitude*gender + (1|subject), data=politeness_data)
+summary(fit_me)
+```
+
+* Use the `ranova()` function to check whether the subject random effect is justified.
+
+```{r}
+ranova(fit_me)
+```
+
+* Create diagnostic plots to examine the model fit.
+
+```{r}
+dotplot(ranef(fit_me))
+```
+
+```{r}
+qqmath(ranef(fit_me))
+```
+
+```{r}
+plot(fit_me)
+```
+
+* In addition to repeated measures from each subject the data also contain multiple observations for each scenario. This may create another layer of clustering, separately from the one based on subjects
+
+```{r}
+fit_me <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
+summary(fit_me)
+```
