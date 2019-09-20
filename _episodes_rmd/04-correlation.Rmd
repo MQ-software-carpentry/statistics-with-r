@@ -6,7 +6,7 @@ exercises: 30
 questions:
     - ""
 objectives:
-    - ""
+    - "Investigate data with continuous response and continuous predictor variables."
 keypoints:
     - ""
 source: "Rmd"
@@ -22,7 +22,11 @@ knitr_fig_path("04-")
 
 ## Covariance and Correlation Coefficient
 
-We are interested in studying the relationship between a response variable $Y$ and a single
+In the previous section we looked at the relationship between a continuous response variable
+and one or more categorical predictors.
+
+We are interested in studying the relationship between a continuous response variable $Y$ and
+a single continuous
 predictor $X$.The covariance between $Y$ and $X$ measures the direction of the linear
 relationship between $Y$ and $X$ but tells us nothing about the strength of the relationship
 since it changes if we change the unit of measurement. If $Cov(Y,X)>0$ then there is a positive
