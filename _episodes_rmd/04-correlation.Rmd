@@ -37,22 +37,6 @@ data sets are given below. Explore the data graphically and obtain the correlati
 for each data set.
 ($r^2=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2\sum(y_i-\bar{y})^2)}$)
 
-$$ \begin{array}{cccccccc}\hline
-\mbox{Data} & \mbox{Set 1} & \mbox{Data} & \mbox{Set 2} & \mbox{Data} & \mbox{Set 3} & \mbox{Data} & \mbox{Set 4}\\
-x1 & y1 & x2 & y2 & x3 & y3 & x4 & y4\\ \hline
-10 &	8.04 &	10	& 9.14 &	10 &	7.46 &	8	& 6.58\\
-8	& 6.95 &	8	& 8.14 & 8 &	6.77 &	8 &	5.76\\
-13 &	7.58 &	13 &	8.74 &	13 &	12.74 &	8	& 7.71\\
-9 &	8.81 &	9 &	8.77 &	9 &	7.11 &	8 &	8.84\\
-11 &	8.33 &	11 &	9.26 &	11 &	7.81 &	8 &	8.47\\
-14 &	9.96 &	14 &	8.10 &	14 &	8.84 &	8 &	7.04\\
-6 &	7.24 &	6 &	6.13 &	6 &	6.08 &	8 &	5.25\\
-4 &	4.26 &	4 &	3.10 &	4 &	5.39 &	19 &	12.5\\
-12 &	10.84 &	12 &	9.13 &	12 &	8.15 &	8 &	5.56\\
-7 &	4.82 &	7 &	7.26 &	7 &	6.42 &	8 &	7.91\\
-5 &	5.68 &	5 &	4.74 &	5 &	5.73 &	8 &	6.89\\ \hline
-\end{array}$$
-
 The file `Anscombe.csv` contains this data.
 
 ```{r read_anscomb, message=FALSE}
@@ -62,6 +46,15 @@ library(ggpubr)
 
 anscomb <- read_csv(file.path("..", "data", "Anscomb.csv"))
 anscomb
+```
+
+```{r anscomb_table, echo=FALSE, message=FALSE}
+library(kableExtra)
+library(formattable)
+
+kable(anscomb) %>%
+  kable_styling(c("striped", "hover"), full_width = FALSE) %>%
+  add_header_above(c("Data set 1" = 2, "Data set 2" = 2, "Data set 3" = 2, "Data set 4" = 2))
 ```
 
 Now we want to see what each data set looks like.
@@ -78,7 +71,7 @@ ggarrange(p1, p2, p3, p4, ncol = 2, nrow = 2)
 Base R has the `cor` function to produce correlations and the `cov` function to produce
 covariances. The default is Pearson's correlation.
 
-```{r anscomb_cor, collapse=TRUE}
+```{r anscomb_cor, results='hold'}
 cor(anscomb$x1, anscomb$y1)
 cor(anscomb$x2, anscomb$y2)
 cor(anscomb$x3, anscomb$y3)
