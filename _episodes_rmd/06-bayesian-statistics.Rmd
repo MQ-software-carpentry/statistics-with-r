@@ -18,6 +18,7 @@ mathjax: true
 source("../bin/chunk-options.R")
 knitr_fig_path("06-")
 knitr::opts_chunk$set(echo = TRUE)
+options(encoding = 'UTF-8')
 ```
 
 ## PDF version

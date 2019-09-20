@@ -86,7 +86,7 @@ We can do inverse inference using the above rule. The idea is as follows (verbat
 
 This is the rationale that Bayesian inference is based on. The above equation, which is deceptively simple, provides a probabilistic mechanism of learning from data. After observing data $(y_1,y_2, \dots, y_n)$ we calculate the **posterior** distribution $f(\pmb{\theta}\|y_1,y_2,\dots,y_n)$, which combines prior and data information. The key element in Bayesian inference is this posterior distribution.
 
-**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have lung cancer? 
+**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have lung cancer?
 
 **Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes' theorem
 
@@ -108,11 +108,11 @@ The difference between Bayesian statistics and classical statistical theory is t
 
 $$ f(\pmb{\theta}|\pmb{y})=\frac{f(\pmb{y}|\pmb{\theta})f(\pmb{\theta})}{f(\pmb{y})} \propto f(\pmb{y}|\pmb{\theta})f(\pmb{\theta}).$$
 
-The posterior distribution has  $f(\pmb{y}\|\pmb{\theta})$, containing the observed data information, multiplied by, $f(\pmb{\theta})$, the prior ditribution. The likelihood is 
+The posterior distribution has  $f(\pmb{y}\|\pmb{\theta})$, containing the observed data information, multiplied by, $f(\pmb{\theta})$, the prior ditribution. The likelihood is
 
 $$f(\pmb{y}|\pmb{\theta})=\prod_{i=1}^n f(y_i|\pmb{\theta}).$$
 
-Shorthand notation is to suppress $\pmb{\theta}$. For the marginal probability of density function of random variable $X$ evaluated at $x$ this is written as $f(x)$, while the conditional probability or density function of random variable $X$ estimated at $x$ given that $Y=y$ is written as $f(x|y)$. 
+Shorthand notation is to suppress $\pmb{\theta}$. For the marginal probability of density function of random variable $X$ evaluated at $x$ this is written as $f(x)$, while the conditional probability or density function of random variable $X$ estimated at $x$ given that $Y=y$ is written as $f(x|y)$.
 If the random variable $X$ follows a specific distribution $D$ with parameters $\pmb{\theta}$, the notation  $f_D(x;\pmb{\theta})$ is used to denote the corresponding probability or density function evaluated at $X=x$.
 
 Specification of the prior distribution is important in Bayesian inference because it influences the posterior inference. Noninformative or vague distributions are used when no prior information is available. A common vague improper distribution is $f(\pmb{\theta}) \propto 1$, the uniform prior over the parameter space. Improper is used for distributions that do not integrate to one. Provided the posterior prior is proper such improper priors can be used.
@@ -123,13 +123,13 @@ Both the prior distribution and the likelihood must be fully specified to define
 
 Model-based Bayesian inference can be divided into four stages: model building, calculation of the posterior distribution, and inference followed by final conclusions about the problem under consideration.
 
-**Stage 1:** Consider a model (likelihood/parameters/prior) with reasonable assumptions. To do this 
+**Stage 1:** Consider a model (likelihood/parameters/prior) with reasonable assumptions. To do this
 
 1. Identify the response $Y$ (main variable of the problem) and the corresponding data $\pmb{y}$.
 
 2. Find a distribution that adequately describes $Y$.
 
-3. I dentify other variables that may influence $Y$ (called *covariates* or *explanatory variables*).
+3. Identify other variables that may influence $Y$ (called *covariates* or *explanatory variables*).
 
 4. Using deterministic functions build a structure for the parameters of the distribution.
 
@@ -149,32 +149,32 @@ Model-based Bayesian inference can be divided into four stages: model building, 
 
 2. Calculate posterior summaries (means, medians, standard deviations, correlations, quantiles) and 95% or 99% credible intervals (what Bayesian Inference uses instead of Confidence Intervals).
 
-3. If posible calculate the posterior mode and the area of highest posterior density.
+3. If possible calculate the posterior mode and the area of highest posterior density.
 
 The above description can be expanded.
 
-We also need to consider the implementation of diagnostic tests or checks of the appropriateness of the adopted model. Many techniques can be used to check if the model assumptions hold and if model fit is adequate. 
+We also need to consider the implementation of diagnostic tests or checks of the appropriateness of the adopted model. Many techniques can be used to check if the model assumptions hold and if model fit is adequate.
 
-Robustness of the posterior distribution is another important issue, sensitivity analysis can be used to see how robust the posterior distribution is to the selection of the prior distribution. Sensirivity analysis focuses on different things depending on whether a noninformative prior is being used or not being used.
+Robustness of the posterior distribution is another important issue, sensitivity analysis can be used to see how robust the posterior distribution is to the selection of the prior distribution. Sensitivity analysis focuses on different things depending on whether a noninformative prior is being used or not being used.
 
 Prediction is also important, the predictive distribution is used.
 
 ## 1.5 Inference using conjugate prior distributions
 
-Conjugate prior distributions were used to avoid using intractible posterior distributions. Conjugate prior distributions lead to posterior distributions from the same distributional family.
+Conjugate prior distributions were used to avoid using intractable posterior distributions. Conjugate prior distributions lead to posterior distributions from the same distributional family.
 
 If you are interested in finding out more about conjugate prior distributions the reference text I am using *Bayesian Modeling Using WinBUGS* by Ioannis Ntzoufras has more details.
 
 ## 1.6 Simple example from Learning statistics with R with an alternative presentation of Bayesian statistics
 
 The material in this section is from Chapter 17 of Learning Statistics with R
-(<https://learningstatisticswithr.com/book/bayes.htm>). 
+(<https://learningstatisticswithr.com/book/bayes.htm>).
 
-*From a Bayesian perspective, statistical inference is all about belief revision. I start out with a set of candidate hypotheses  $h$ about the world. I don’t know which of these hypotheses is true, but I do have some beliefs about which hypotheses are plausible and which are not. When I observe the data  d, I have to revise those beliefs. If the data are consistent with a hypothesis, my belief in that hypothesis is strengthened. If the data inconsistent with the hypothesis, my belief in that hypothesis is weakened.*
+*From a Bayesian perspective, statistical inference is all about belief revision. I start out with a set of candidate hypotheses  $h$ about the world. I donâ€™t know which of these hypotheses is true, but I do have some beliefs about which hypotheses are plausible and which are not. When I observe the data  d, I have to revise those beliefs. If the data are consistent with a hypothesis, my belief in that hypothesis is strengthened. If the data inconsistent with the hypothesis, my belief in that hypothesis is weakened.*
 
 The simple example starts with: *I am carrying an umbrella. Do you think it will rain?*
 
-In this problem, you have been presented with a single piece of data ($d$ = I am carrying the umbrella), and you are being ask to tell me your beliefs about whether it’s raining. You have two possible hypotheses, $h$: either it rains today or it does not. How should you solve this problem?
+In this problem, you have been presented with a single piece of data ($d$ = I am carrying the umbrella), and you are being ask to tell me your beliefs about whether itâ€™s raining. You have two possible hypotheses, $h$: either it rains today or it does not. How should you solve this problem?
 
 #### Priors: what you believed before
 
@@ -188,7 +188,7 @@ $$\begin{array}{lc}\hline
 
 #### Likelihoods: theories about the data
 
-To solve the reasoning problem, you need a theory about my behaviour. When does Dan (the author) carry an umbrella? You might guess that I’m not a complete idiot, and I try to carry umbrellas only on rainy days. On the other hand, you also know that I have young kids, and you wouldn’t be all that surprised to know that I am pretty forgetful about this sort of thing. Let’s suppose that on rainy days I remember my umbrella about 30% of the time (I really am awful at this). But let’s say that on dry days I’m only about 5% likely to be carrying an umbrella. So you might write out a little table like this:
+To solve the reasoning problem, you need a theory about my behaviour. When does Dan (the author) carry an umbrella? You might guess that Iâ€™m not a complete idiot, and I try to carry umbrellas only on rainy days. On the other hand, you also know that I have young kids, and you wouldnâ€™t be all that surprised to know that I am pretty forgetful about this sort of thing. Letâ€™s suppose that on rainy days I remember my umbrella about 30% of the time (I really am awful at this). But letâ€™s say that on dry days Iâ€™m only about 5% likely to be carrying an umbrella. So you might write out a little table like this:
 
 $$\begin{array}{lcc}\hline
 \mbox{Hypothesis} &  \mbox{Umbrella} & \mbox{No umbrella}\\ \hline
@@ -196,13 +196,13 @@ $$\begin{array}{lcc}\hline
 \mbox{Dry day}     &    0.05    &      0.95\\ \hline
 \end{array}$$
 
-It is important to remember that each cell in this table describes your beliefs about what data  $d$ will be observed, given the truth of a particular hypothesis $h$. This “conditional probability” is written $P(d\|h)$, which you can read as “the probability of $d$ given $h$”. In Bayesian statistics, this is referred to as likelihood of data $d$ given hypothesis $h$.
+It is important to remember that each cell in this table describes your beliefs about what data  $d$ will be observed, given the truth of a particular hypothesis $h$. This â€œconditional probabilityâ€ is written $P(d\|h)$, which you can read as â€œthe probability of $d$ given $h$â€. In Bayesian statistics, this is referred to as likelihood of data $d$ given hypothesis $h$.
 
 #### The joint probability of data and hypothesis
 
-At this point, all the elements are in place. Having written down the priors and the likelihood, you have all the information you need to do Bayesian reasoning. The question now becomes, how do we use this information? As it turns out, there is a very simple equation that we can use here, but it is important that you understand why we use it, so I’m going to try to build it up from more basic ideas.
+At this point, all the elements are in place. Having written down the priors and the likelihood, you have all the information you need to do Bayesian reasoning. The question now becomes, how do we use this information? As it turns out, there is a very simple equation that we can use here, but it is important that you understand why we use it, so Iâ€™m going to try to build it up from more basic ideas.
 
-Let’s start out with one of the rules of probability theory. The rule in question is the one that talks about the probability that two things are true. In our example, you might want to calculate the probability that today is rainy (i.e., hypothesis  $h$ is true) and I’m carrying an umbrella (i.e., data  $d$ is observed). The joint probability of the hypothesis and the data is written  $P(d \cap h)$, and you can calculate it by multiplying the prior  $P(h)$ by the likelihood  
+Letâ€™s start out with one of the rules of probability theory. The rule in question is the one that talks about the probability that two things are true. In our example, you might want to calculate the probability that today is rainy (i.e., hypothesis  $h$ is true) and Iâ€™m carrying an umbrella (i.e., data  $d$ is observed). The joint probability of the hypothesis and the data is written  $P(d \cap h)$, and you can calculate it by multiplying the prior  $P(h)$ by the likelihood
 $P(d\|h)$. Mathematically, we say that:
 
 $$P(d\cap h)=P(d|h)\cdot P(h)$$
@@ -211,8 +211,8 @@ So, what is the probability that today is a rainy day and I remember to carry an
 
 $$P(\mbox{rainy} \cap \mbox{umbrella})=P(\mbox{umbrella}|\mbox{rainy})\times P(\mbox{rainy})\\
 = 0.30 \times 0.15 = 0.045$$
- 
-In other words, before being told anything about what actually happened, you think that there is a 4.5% probability that today will be a rainy day and that I will remember an umbrella. However, there are of course four possible things that could happen, right? So let’s repeat the exercise for all four. If we do that, we end up with the following table:
+
+In other words, before being told anything about what actually happened, you think that there is a 4.5% probability that today will be a rainy day and that I will remember an umbrella. However, there are of course four possible things that could happen, right? So letâ€™s repeat the exercise for all four. If we do that, we end up with the following table:
 
 $$\begin{array}{lcc}\\\hline
   & \mbox{Umbrella} & \mbox{No umbrella}\\ \hline
@@ -230,9 +230,9 @@ $$\begin{array}{lccc}\\\hline
 \end{array}
 $$
 
-This is a very useful table, so it’s worth taking a moment to think about what all these numbers are telling us. First, notice that the row sums aren’t telling us anything new at all. For example, the first row tells us that if we ignore all this umbrella business, the chance that today will be a rainy day is 15%. That’s not surprising, of course: that’s our prior. The important thing isn’t the number itself: rather, the important thing is that it gives us some confidence that our calculations are sensible! Now take a look at the column sums, and notice that they tell us something that we haven’t explicitly stated yet. In the same way that the row sums tell us the probability of rain, the column sums tell us the probability of me carrying an umbrella. Specifically, the first column tells us that on average (i.e., ignoring whether it’s a rainy day or not), the probability of me carrying an umbrella is 8.75%. Finally, notice that when we sum across all four logically-possible events, everything adds up to 1. In other words, what we have written down is a proper probability distribution defined over all possible combinations of data and hypothesis.
+This is a very useful table, so itâ€™s worth taking a moment to think about what all these numbers are telling us. First, notice that the row sums arenâ€™t telling us anything new at all. For example, the first row tells us that if we ignore all this umbrella business, the chance that today will be a rainy day is 15%. Thatâ€™s not surprising, of course: thatâ€™s our prior. The important thing isnâ€™t the number itself: rather, the important thing is that it gives us some confidence that our calculations are sensible! Now take a look at the column sums, and notice that they tell us something that we havenâ€™t explicitly stated yet. In the same way that the row sums tell us the probability of rain, the column sums tell us the probability of me carrying an umbrella. Specifically, the first column tells us that on average (i.e., ignoring whether itâ€™s a rainy day or not), the probability of me carrying an umbrella is 8.75%. Finally, notice that when we sum across all four logically-possible events, everything adds up to 1. In other words, what we have written down is a proper probability distribution defined over all possible combinations of data and hypothesis.
 
-Finally, let’s use “proper” statistical notation. In the rainy day problem, the data corresponds to the observation that I do or do not have an umbrella. So we’ll let $d_1$ refer to the possibility that you observe me carrying an umbrella, and $d_2$ refers to you observing me not carrying one. Similarly, $h_1$ is your hypothesis that today is rainy, and $h_2$ is the hypothesis that it is not. Using this notation, the table looks like this:
+Finally, letâ€™s use â€œproperâ€ statistical notation. In the rainy day problem, the data corresponds to the observation that I do or do not have an umbrella. So weâ€™ll let $d_1$ refer to the possibility that you observe me carrying an umbrella, and $d_2$ refers to you observing me not carrying one. Similarly, $h_1$ is your hypothesis that today is rainy, and $h_2$ is the hypothesis that it is not. Using this notation, the table looks like this:
 
 $$\begin{array}{lccc}\\\hline
   & d_1 & d_2 & \mbox{Total}\\ \hline
@@ -244,7 +244,7 @@ $$
 
 #### Updating beliefs using Bayes' rule
 
-The table above is a very powerful tool for solving the rainy day problem, because it considers all four logical possibilities and states exactly how confident you are in each of them before being given any data. It is now time to consider what happens to our beliefs when we are actually given the data. In the rainy day problem, you are told that I really am carrying an umbrella. This is something of a surprising event: according to our table, the probability of me carrying an umbrella is only 8.75%. But that makes sense, right? A guy carrying an umbrella on a summer day in a hot dry city is pretty unusual, and so you really weren’t expecting that. Nevertheless, the problem tells you that it is true. No matter how unlikely you thought it was, you must now adjust your beliefs to accommodate the fact that you now know that I have an umbrella. To reflect this new knowledge, our revised table must have the following numbers:
+The table above is a very powerful tool for solving the rainy day problem, because it considers all four logical possibilities and states exactly how confident you are in each of them before being given any data. It is now time to consider what happens to our beliefs when we are actually given the data. In the rainy day problem, you are told that I really am carrying an umbrella. This is something of a surprising event: according to our table, the probability of me carrying an umbrella is only 8.75%. But that makes sense, right? A guy carrying an umbrella on a summer day in a hot dry city is pretty unusual, and so you really werenâ€™t expecting that. Nevertheless, the problem tells you that it is true. No matter how unlikely you thought it was, you must now adjust your beliefs to accommodate the fact that you now know that I have an umbrella. To reflect this new knowledge, our revised table must have the following numbers:
 
 $$\begin{array}{lcc}\\\hline
   & \mbox{Umbrella} & \mbox{No umbrella}\\ \hline
@@ -253,9 +253,9 @@ $$\begin{array}{lcc}\\\hline
 \mbox{Total} & 1 & 0\\ \hline\end{array}
 $$
 
-In other words, the facts have eliminated any possibility of “no umbrella”, so we have to put zeros into any cell in the table that implies that I’m not carrying an umbrella. Also, you know for a fact that I am carrying an umbrella, so the column sum on the left must be 1 to correctly describe the fact that  $P(\mbox{umbrella})=1$.
+In other words, the facts have eliminated any possibility of â€œno umbrellaâ€, so we have to put zeros into any cell in the table that implies that Iâ€™m not carrying an umbrella. Also, you know for a fact that I am carrying an umbrella, so the column sum on the left must be 1 to correctly describe the fact that  $P(\mbox{umbrella})=1$.
 
-What two numbers should we put in the empty cells? Again, let’s not worry about the maths, and instead think about our intuitions. When we wrote out our table the first time, it turned out that those two cells had almost identical numbers, right? We worked out that the joint probability of “rain and umbrella” was 4.5%, and the joint probability of “dry and umbrella” was 4.25%. In other words, before I told you that I am in fact carrying an umbrella, you’d have said that these two events were almost identical in probability, yes? But notice that both of these possibilities are consistent with the fact that I actually am carrying an umbrella. From the perspective of these two possibilities, very little has changed. I hope you’d agree that it’s still true that these two possibilities are equally plausible. So what we expect to see in our final table is some numbers that preserve the fact that “rain and umbrella” is slightly more plausible than “dry and umbrella”, while still ensuring that numbers in the table add up. Something like this, perhaps?
+What two numbers should we put in the empty cells? Again, letâ€™s not worry about the maths, and instead think about our intuitions. When we wrote out our table the first time, it turned out that those two cells had almost identical numbers, right? We worked out that the joint probability of â€œrain and umbrellaâ€ was 4.5%, and the joint probability of â€œdry and umbrellaâ€ was 4.25%. In other words, before I told you that I am in fact carrying an umbrella, youâ€™d have said that these two events were almost identical in probability, yes? But notice that both of these possibilities are consistent with the fact that I actually am carrying an umbrella. From the perspective of these two possibilities, very little has changed. I hope youâ€™d agree that itâ€™s still true that these two possibilities are equally plausible. So what we expect to see in our final table is some numbers that preserve the fact that â€œrain and umbrellaâ€ is slightly more plausible than â€œdry and umbrellaâ€, while still ensuring that numbers in the table add up. Something like this, perhaps?
 
 $$\begin{array}{lcc}\\\hline
   & \mbox{Umbrella} & \mbox{No umbrella}\\ \hline
@@ -264,13 +264,13 @@ $$\begin{array}{lcc}\\\hline
 \mbox{Total} & 1 & 0\\ \hline\end{array}
 $$
 
-What this table is telling you is that, after being told that I’m carrying an umbrella, you believe that there’s a 51.4% chance that today will be a rainy day, and a 48.6% chance that it won’t. That’s the answer to our problem! The posterior probability of rain  given that I am carrying an umbrella, $P(h\|d)$, is 51.4%
+What this table is telling you is that, after being told that Iâ€™m carrying an umbrella, you believe that thereâ€™s a 51.4% chance that today will be a rainy day, and a 48.6% chance that it wonâ€™t. Thatâ€™s the answer to our problem! The posterior probability of rain  given that I am carrying an umbrella, $P(h\|d)$, is 51.4%
 
-How did I calculate these numbers? You can probably guess. To work out that there was a 0.514 probability of “rain”, all I did was take the 0.045 probability of “rain and umbrella” and divide it by the 0.0875 chance of “umbrella”. This produces a table that satisfies our need to have everything sum to 1, and our need not to interfere with the relative plausibility of the two events that are actually consistent with the data. To say the same thing using fancy statistical jargon, what I’ve done here is divide the joint probability of the hypothesis and the data $P(d \cap h)$ by the marginal probability of the data $P(d)$, and this is what gives us the posterior probability of the hypothesis given that we know the data have been observed. To write this as an equation:
+How did I calculate these numbers? You can probably guess. To work out that there was a 0.514 probability of â€œrainâ€, all I did was take the 0.045 probability of â€œrain and umbrellaâ€ and divide it by the 0.0875 chance of â€œumbrellaâ€. This produces a table that satisfies our need to have everything sum to 1, and our need not to interfere with the relative plausibility of the two events that are actually consistent with the data. To say the same thing using fancy statistical jargon, what Iâ€™ve done here is divide the joint probability of the hypothesis and the data $P(d \cap h)$ by the marginal probability of the data $P(d)$, and this is what gives us the posterior probability of the hypothesis given that we know the data have been observed. To write this as an equation:
 
 $$P(h|d)=\frac{P(h \cap d)}{P(d)}$$
 
-However, remember what I said at the start of the last section, namely that the joint probability $P(d \cap h)$ is calculated by multiplying the prior $P(h)$ by the likelihood $P(d\|h)$. In real life, the things we actually know how to write down are the priors and the likelihood, so let’s substitute those back into the equation. This gives us the following formula for the posterior probability:
+However, remember what I said at the start of the last section, namely that the joint probability $P(d \cap h)$ is calculated by multiplying the prior $P(h)$ by the likelihood $P(d\|h)$. In real life, the things we actually know how to write down are the priors and the likelihood, so letâ€™s substitute those back into the equation. This gives us the following formula for the posterior probability:
 
 $$P(h|d)=\frac{P(d|h)\cdot P(h)}{P(d)}$$
 
@@ -279,7 +279,7 @@ This formula is known as Bayes' rule. It describes how a learner starts out with
 #### Bayesian hypothesis tests
 
 The Bayesian approach to hypothesis testing is  simple. Using a setting that is closely analogous to the classical approach. There are two hypotheses that we want to compare, a null hypothesis  $h_0$
- and an alternative hypothesis $h_1$. Prior to running the experiment we have some beliefs  
+ and an alternative hypothesis $h_1$. Prior to running the experiment we have some beliefs
 $P(h)$ about which hypotheses are true. We run an experiment and obtain data $d$. Unlike frequentist statistics, Bayesian statistics does allow us to talk about the probability that the null hypothesis is true. Better yet, it allows us to calculate the posterior probability of the null hypothesis, using Bayes' rule:
 
 $$P(h_0|d)=\frac{P(d|h_0)\cdot P(h_0)}{P(d)}$$
@@ -287,7 +287,7 @@ $$P(h_0|d)=\frac{P(d|h_0)\cdot P(h_0)}{P(d)}$$
 This formula tells us exactly how much belief we should have in the null hypothesis after having observed the data $d$. Similarly, we can work out how much belief to place in the alternative hypothesis using essentially the same equation. All we do is change the subscript:
 
 $$P(h_1|d)=\frac{P(d|h_1)\cdot P(h_1)}{P(d)}$$
- 
+
 ### 1.6.2 The Bayes factor
 
 In practice, most Bayesian data analysts tend not to talk in terms of the raw posterior probabilities $P(h_0\|d)$ and $P(h_1\|d)$. Instead, we tend to talk in terms of the posterior odds ratio. Think of it like betting. Suppose, for instance, the posterior probability of the null hypothesis is 25%, and the posterior probability of the alternative is 75%. The alternative hypothesis is three times as probable as the null, so we say that the odds are 3:1 in favour of the alternative. Mathematically, all we have to do to calculate the posterior odds is divide one posterior probability by the other:
@@ -298,17 +298,17 @@ Or, to write the same thing in terms of the equations above:
 
 $$\frac{P(h_1|d)}{P(h_0|d)}=\frac{P(d|h_1)}{P(d|h_0)}\cdot \frac{P(h_1)}{P(h_0)} $$
 
-Actually, this equation is worth expanding on. There are three different terms here that you should know. On the left hand side, we have the posterior odds, which tells you what you believe about the relative plausibilty of the null hypothesis and the alternative hypothesis after seeing the data. On the right hand side, we have the prior odds, which indicates what you thought before seeing the data. In the middle, we have the Bayes factor, which describes the amount of evidence provided by the data.
+Actually, this equation is worth expanding on. There are three different terms here that you should know. On the left hand side, we have the posterior odds, which tells you what you believe about the relative plausibility of the null hypothesis and the alternative hypothesis after seeing the data. On the right hand side, we have the prior odds, which indicates what you thought before seeing the data. In the middle, we have the Bayes factor, which describes the amount of evidence provided by the data.
 
 The Bayes factor (sometimes abbreviated as BF) has a special place in the Bayesian hypothesis testing, because it serves a similar role to the  p-value in orthodox hypothesis testing: it quantifies the strength of evidence provided by the data, and as such it is the Bayes factor that people tend to report when running a Bayesian hypothesis test. The reason for reporting Bayes factors rather than posterior odds is that different researchers will have different priors. Some people might have a strong bias to believe the null hypothesis is true, others might have a strong bias to believe it is false. Because of this, the polite thing for an applied researcher to do is report the Bayes factor. That way, anyone reading the paper can multiply the Bayes factor by their own personal prior odds, and they can work out for themselves what the posterior odds would be. In any case, by convention we like to pretend that we give equal consideration to both the null hypothesis and the alternative, in which case the prior odds equals 1, and the posterior odds becomes the same as the Bayes factor.
 
 #### Interpreting Bayes factors
 
-The Bayes factor numbers are inherently meaningful. If you run an experiment and you compute a Bayes factor of 4, it means that the evidence provided by your data corresponds to betting odds of 4:1 in favour of the alternative. However, there have been some attempts to quantify the standards of evidence that would be considered meaningful in a scientific context. The two most widely used are from Jeffreys (1961) and Kass and Raftery (1995). Of the two, I tend to prefer the Kass and Raftery (1995) table because it’s a bit more conservative. So here it is in words: A Bayes factor 1 - 3 is interpreted as negligible evidence, a Bayes factor of 3-20 is interpreted as positive evidence, a Bayes factor of 20-150 is interpreted as strong evidence, and a Bayes factor greater than 150 is interpreted as very strong evidence.
+The Bayes factor numbers are inherently meaningful. If you run an experiment and you compute a Bayes factor of 4, it means that the evidence provided by your data corresponds to betting odds of 4:1 in favour of the alternative. However, there have been some attempts to quantify the standards of evidence that would be considered meaningful in a scientific context. The two most widely used are from Jeffreys (1961) and Kass and Raftery (1995). Of the two, I tend to prefer the Kass and Raftery (1995) table because itâ€™s a bit more conservative. So here it is in words: A Bayes factor 1 - 3 is interpreted as negligible evidence, a Bayes factor of 3-20 is interpreted as positive evidence, a Bayes factor of 20-150 is interpreted as strong evidence, and a Bayes factor greater than 150 is interpreted as very strong evidence.
 
-There are no hard and fast rules here: what counts as strong or weak evidence depends entirely on how conservative you are, and upon the standards that your community insists upon before it is willing to label a finding as “true”.
+There are no hard and fast rules here: what counts as strong or weak evidence depends entirely on how conservative you are, and upon the standards that your community insists upon before it is willing to label a finding as â€œtrueâ€.
 
-Note that all the numbers above make sense if the Bayes factor is greater than 1 (i.e., the evidence favours the alternative hypothesis). However, one big practical advantage of the Bayesian approach relative to the orthodox approach is that it also allows you to quantify evidence for the null. When that happens, the Bayes factor will be less than 1. You can choose to report a Bayes factor less than 1. Instead could take reciprical of BF, call it BF', The statements about the BF given earlier now refer to the evidence in favou of the null hypothesis.
+Note that all the numbers above make sense if the Bayes factor is greater than 1 (i.e., the evidence favours the alternative hypothesis). However, one big practical advantage of the Bayesian approach relative to the orthodox approach is that it also allows you to quantify evidence for the null. When that happens, the Bayes factor will be less than 1. You can choose to report a Bayes factor less than 1. Instead could take reciprocal of BF, call it BF', The statements about the BF given earlier now refer to the evidence in favour of the null hypothesis.
 
 ### 1.6.3 EXAMPLE from Rasmus B&aring;&aring;th, Lund University
 
@@ -316,7 +316,7 @@ Note that all the numbers above make sense if the Bayes factor is greater than 1
 
 This is an actual problem in Abundance estimation which is used in, for example, wildlife management.
 
-- The problem: We can’t catch them all.
+- The problem: We canâ€™t catch them all.
 - But we can catch some of them...
 
 #### Mark and re-capture
@@ -349,8 +349,8 @@ We could model the prior distribution for the parameters as being `Uniform(0, 25
 
 #### One simple way of fitting the model
 
-1. Draw a large random sample from the “prior” probability distribution on the parameters.
-2. Plug in each draw into the generative model which generates a vector of “fake” data. 
+1. Draw a large random sample from the â€œpriorâ€ probability distribution on the parameters.
+2. Plug in each draw into the generative model which generates a vector of â€œfakeâ€ data.
 
 #### Original capture re-capture using approximate Bayesian Computation
 
@@ -397,7 +397,7 @@ barplot(table(cut(post_fish, seq(0, 250, 20))) / length(post_fish), col = "salmo
 
 <img src="../fig/rmd-06-fish_barplot-1.png" title="plot of chunk fish_barplot" alt="plot of chunk fish_barplot" width="612" style="display: block; margin: auto;" />
 
-#### Modified model that accounts for that marked fish get “shy”
+#### Modified model that accounts for that marked fish get â€œshyâ€
 
 
 ~~~
@@ -445,7 +445,7 @@ barplot(table(cut(post_fish, seq(0, 250, 20))) / length(post_fish), col = "salmo
 
 <img src="../fig/rmd-06-fish_barplot2-1.png" title="plot of chunk fish_barplot2" alt="plot of chunk fish_barplot2" width="612" style="display: block; margin: auto;" />
 
-#### Modified model that accounts for the “expert” opinion of the fisherman
+#### Modified model that accounts for the â€œexpertâ€ opinion of the fisherman
 
 
 ~~~
@@ -509,7 +509,7 @@ Here the `dhyper` distribution (Hypergeometric distribution) is used as it imple
 ## 1.7 Bayesian versions of various statistical tests
 
 These are brief notes from Chapter 17 of Learning Statistics with R
-(<https://learningstatisticswithr.com/book/bayes.htm>). I have removed some of the author's comments and cherry picked what I wanted. Please note that the Creative Commons license is <https://creativecommons.org/licenses/by-sa/4.0/>.
+([<https://learningstatisticswithr.com/book/bayes.htm>](https://learningstatisticswithr.com/book/bayes.htm)). I have removed some of the author's comments and cherry picked what I wanted. Please note that the Creative Commons license is <https://creativecommons.org/licenses/by-sa/4.0/>.
 
 ### 1.7.1 Bayesian analysis of contingency tables
 
@@ -718,17 +718,17 @@ Warning: package 'BayesFactor' was built under R version 3.6.1
 
 You need a sampling plan. You can specify the sampling plan using the sampleType argument. The `contingencyTableBF` function distinguishes between four different types of experiment:
 
-*Fixed sample size*. Suppose that in our `chapek9` example, our experiment was designed like this: we deliberately set out to test 180 people, but we didn’t try to control the number of humans or robots, nor did we try to control the choices they made. In this design, the total number of observations  N is fixed, but everything else is random. This is referred to as “joint multinomial” sampling, and if that’s what you did you should specify sampleType = "jointMulti". In the case of the chapek9 data, that’s actually what I had in mind when I invented the data set.
+*Fixed sample size*. Suppose that in our `chapek9` example, our experiment was designed like this: we deliberately set out to test 180 people, but we didnâ€™t try to control the number of humans or robots, nor did we try to control the choices they made. In this design, the total number of observations  N is fixed, but everything else is random. This is referred to as â€œjoint multinomialâ€ sampling, and if thatâ€™s what you did you should specify sampleType = "jointMulti". In the case of the chapek9 data, thatâ€™s actually what I had in mind when I invented the data set.
 
-*Fixed row (or column) totals*. A different kind of design might work like this. We decide ahead of time that we want 180 people, but we try to be a little more systematic about it. Specifically, the experimenter constrains it so that we get a predetermined number of humans and robots (e.g., 90 of each). In this design, either the row totals or the column totals are fixed, but not both. This is referred to as “independent multinomial” sampling, and if that’s what you did you should specify sampleType = "indepMulti".
+*Fixed row (or column) totals*. A different kind of design might work like this. We decide ahead of time that we want 180 people, but we try to be a little more systematic about it. Specifically, the experimenter constrains it so that we get a predetermined number of humans and robots (e.g., 90 of each). In this design, either the row totals or the column totals are fixed, but not both. This is referred to as â€œindependent multinomialâ€ sampling, and if thatâ€™s what you did you should specify sampleType = "indepMulti".
 
-*Both row and column totals fixed*. Another logical possibility is that you designed the experiment so that both the row totals and the column totals are fixed. This doesn’t make any sense at all in the chapek9 example, but there are other deisgns that can work this way. Suppose that I show you a collection of 20 toys, and then given them 10 stickers that say boy and another 10 that say girl. I then give them 10 blue stickers and 10 pink stickers. I then ask you to put the stickers on the 20 toys such that every toy has a colour and every toy has a gender. No matter how you assign the stickers, the total number of pink and blue toys will be 10, as will the number of boys and girls. In this design both the rows and columns of the contingency table are fixed. This is referred to as “hypergeometric” sampling, and if that’s what you’ve done you should specify sampleType = "hypergeom".
+*Both row and column totals fixed*. Another logical possibility is that you designed the experiment so that both the row totals and the column totals are fixed. This doesnâ€™t make any sense at all in the chapek9 example, but there are other deisgns that can work this way. Suppose that I show you a collection of 20 toys, and then given them 10 stickers that say boy and another 10 that say girl. I then give them 10 blue stickers and 10 pink stickers. I then ask you to put the stickers on the 20 toys such that every toy has a colour and every toy has a gender. No matter how you assign the stickers, the total number of pink and blue toys will be 10, as will the number of boys and girls. In this design both the rows and columns of the contingency table are fixed. This is referred to as â€œhypergeometricâ€ sampling, and if thatâ€™s what youâ€™ve done you should specify sampleType = "hypergeom".
 
-*Nothing is fixed*. Finally, it might be the case that nothing is fixed. Not the row columns, not the column totals, and not the total sample size either. For instance, in the chapek9 scenario, suppose what I’d done is run the study for a fixed length of time. By chance, it turned out that I got 180 people to turn up to study, but it could easily have been something else. This is referred to as “Poisson” sampling, and if that’s what you’ve done you should specify sampleType="poisson".
+*Nothing is fixed*. Finally, it might be the case that nothing is fixed. Not the row columns, not the column totals, and not the total sample size either. For instance, in the chapek9 scenario, suppose what Iâ€™d done is run the study for a fixed length of time. By chance, it turned out that I got 180 people to turn up to study, but it could easily have been something else. This is referred to as â€œPoissonâ€ sampling, and if thatâ€™s what youâ€™ve done you should specify sampleType="poisson".
 
 Okay, so now we have enough knowledge to actually run a test. For the chapek9 data, I implied that we designed the study such that the total sample sizeN
   was fixed, so we should set sampleType ="jointMulti".
-  
+
 
 ~~~
 contingencyTableBF(crosstab, sampleType = "jointMulti")
@@ -740,7 +740,7 @@ contingencyTableBF(crosstab, sampleType = "jointMulti")
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 15.92684 �0%
+[1] Non-indep. (a=1) : 15.92684 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -749,11 +749,11 @@ Bayes factor type: BFcontingencyTable, joint multinomial
 ~~~
 {: .output}
 
-The Bayes factor is 15.92684. It is  telling you that the odds for the alternative hypothesis against the null are about 16:1. The ± 0% part is not very interesting: essentially, all it’s telling you is that R has calculated an exact Bayes factor, so the uncertainty about the Bayes factor is 0%. In any case, the data are telling us that we have moderate evidence for the alternative hypothesis.
+The Bayes factor is 15.92684. It is  telling you that the odds for the alternative hypothesis against the null are about 16:1. The Â± 0% part is not very interesting: essentially, all itâ€™s telling you is that R has calculated an exact Bayes factor, so the uncertainty about the Bayes factor is 0%. In any case, the data are telling us that we have moderate evidence for the alternative hypothesis.
 
 #### Other sampling plans
 
-Up to this point all I’ve shown you is how to use the contingencyTableBF() function for the joint multinomial sampling plan (i.e., when the total sample size N is fixed, but nothing else is). For the Poisson sampling plan (i.e., nothing fixed), the command you need is identical except for the sampleType argument:
+Up to this point all Iâ€™ve shown you is how to use the contingencyTableBF() function for the joint multinomial sampling plan (i.e., when the total sample size N is fixed, but nothing else is). For the Poisson sampling plan (i.e., nothing fixed), the command you need is identical except for the sampleType argument:
 
 
 ~~~
@@ -766,7 +766,7 @@ contingencyTableBF(crosstab, sampleType = "poisson" )
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 28.20757 �0%
+[1] Non-indep. (a=1) : 28.20757 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -777,7 +777,7 @@ Bayes factor type: BFcontingencyTable, poisson
 
 Notice that the Bayes factor of 28:1 here is not the identical to the Bayes factor of 16:1 that we obtained from the last test. **The sampling plan actually does matter.**
 
-What about the design in which the row columns (or column totals) are fixed? As I mentioned earlier, this corresponds to the “independent multinomial” sampling plan. Again, you need to specify the sampleType argument, but this time you need to specify whether you fixed the rows or the columns. For example, suppose I deliberately sampled 87 humans and 93 robots, then I would need to indicate that the fixedMargin of the contingency table is the "rows". So the command I would use is:
+What about the design in which the row columns (or column totals) are fixed? As I mentioned earlier, this corresponds to the â€œindependent multinomialâ€ sampling plan. Again, you need to specify the sampleType argument, but this time you need to specify whether you fixed the rows or the columns. For example, suppose I deliberately sampled 87 humans and 93 robots, then I would need to indicate that the fixedMargin of the contingency table is the "rows". So the command I would use is:
 
 
 ~~~
@@ -790,7 +790,7 @@ contingencyTableBF(crosstab, sampleType = "indepMulti", fixedMargin = "rows")
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 8.605897 �0%
+[1] Non-indep. (a=1) : 8.605897 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -801,7 +801,7 @@ Bayes factor type: BFcontingencyTable, independent multinomial
 
 Again, the Bayes factor is different, with the evidence for the alternative dropping to a mere 9:1. As you might expect, the answers would be diffrent again if it were the columns of the contingency table that the experimental design fixed.
 
-Finally, if we turn to hypergeometric sampling in which everything is fixed, we get…
+Finally, if we turn to hypergeometric sampling in which everything is fixed, we getâ€¦
 
 ```r
 contingencyTableBF(crosstab, sampleType = "hypergeom")
@@ -890,9 +890,9 @@ harpo
 ~~~
 {: .output}
 
-In this data set, we have two groups of students, those who received lessons from Anastasia and those who took their classes with Bernadette. The question we want to answer is whether there’s any difference in the grades received by these two groups of student. You could analyse this kind of data using the independentSamples TTest() function in the lsr package.
+In this data set, we have two groups of students, those who received lessons from Anastasia and those who took their classes with Bernadette. The question we want to answer is whether thereâ€™s any difference in the grades received by these two groups of student. You could analyse this kind of data using the independentSamples TTest() function in the lsr package.
 
-What does the Bayesian version of the t-test look like? Using the ttestBF() function, we can obtain a Bayesian analog of Student’s independent samples  
+What does the Bayesian version of the t-test look like? Using the ttestBF() function, we can obtain a Bayesian analog of Studentâ€™s independent samples
 t-test using the following command:
 
 
@@ -913,7 +913,7 @@ Warning: data coerced from tibble to data frame
 ~~~
 Bayes factor analysis
 --------------
-[1] Alt., r=0.707 : 1.754927 �0%
+[1] Alt., r=0.707 : 1.754927 ±0%
 
 Against denominator:
   Null, mu1-mu2 = 0 
@@ -924,7 +924,7 @@ Bayes factor type: BFindepSample, JZS
 
 You should focus on the part that reads 1.754927. This is the Bayes factor: the evidence provided by these data are about 1.8:1 in favour of the alternative. Insufficient evidence to suggest a difference in mean grades.
 
-Before moving on, it’s worth highlighting the difference between the orthodox test results and the Bayesian one. According to the orthodox test, we obtained a significant result, though only barely. Nevertheless, many people would happily accept  p=0.043 as reasonably strong evidence for an effect. In contrast, notice that the Bayesian test doesn’t even reach 2:1 odds in favour of an effect, and would be considered very weak evidence at best. In my experience that’s a pretty typical outcome. Bayesian methods usually require more evidence before rejecting the null.
+Before moving on, itâ€™s worth highlighting the difference between the orthodox test results and the Bayesian one. According to the orthodox test, we obtained a significant result, though only barely. Nevertheless, many people would happily accept  p=0.043 as reasonably strong evidence for an effect. In contrast, notice that the Bayesian test doesnâ€™t even reach 2:1 odds in favour of an effect, and would be considered very weak evidence at best. In my experience thatâ€™s a pretty typical outcome. Bayesian methods usually require more evidence before rejecting the null.
 
 #### Paired samples t-test
 
@@ -989,7 +989,7 @@ Classes 'spec_tbl_df', 'tbl_df', 'tbl' and 'data.frame':	20 obs. of  4 variables
 ~~~
 {: .output}
 
-We will use the `ttestBF` function from the `BayesFactor` package to do test if the $H_0:\mu_D=0$ vs $H_1:\mu_D \neq 0$. The easiest way to do it with this data set is to use the x argument to specify one variable and the y argument to specify the other. All we need to do then is specify `paired = TRUE` to tell R that this is a paired samples test. So here’s our command:
+We will use the `ttestBF` function from the `BayesFactor` package to do test if the $H_0:\mu_D=0$ vs $H_1:\mu_D \neq 0$. The easiest way to do it with this data set is to use the x argument to specify one variable and the y argument to specify the other. All we need to do then is specify `paired = TRUE` to tell R that this is a paired samples test. So hereâ€™s our command:
 
 
 ~~~
@@ -1006,7 +1006,7 @@ ttestBF(
 ~~~
 Bayes factor analysis
 --------------
-[1] Alt., r=0.707 : 5992.05 �0%
+[1] Alt., r=0.707 : 5992.05 ±0%
 
 Against denominator:
   Null, mu = 0 
@@ -1121,13 +1121,13 @@ regressionBF(
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep                   : 1.622545e+34 �0.01%
-[2] day                       : 0.2724027    �0%
-[3] babySleep                 : 10018411     �0%
-[4] mySleep + day             : 1.016576e+33 �0%
-[5] mySleep + babySleep       : 9.77022e+32  �0%
-[6] day + babySleep           : 2340755      �0%
-[7] mySleep + day + babySleep : 7.835625e+31 �0%
+[1] mySleep                   : 1.622545e+34 ±0.01%
+[2] day                       : 0.2724027    ±0%
+[3] babySleep                 : 10018411     ±0%
+[4] mySleep + day             : 1.016576e+33 ±0%
+[5] mySleep + babySleep       : 9.77022e+32  ±0%
+[6] day + babySleep           : 2340755      ±0%
+[7] mySleep + day + babySleep : 7.835625e+31 ±0%
 
 Against denominator:
   Intercept only 
@@ -1136,13 +1136,13 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-The output, however, is a little different from what you get from `lm`. The format of this is pretty familiar. What’s new is the fact that we seem to have lots of Bayes factors here. What’s all this about?
+The output, however, is a little different from what you get from `lm`. The format of this is pretty familiar. Whatâ€™s new is the fact that we seem to have lots of Bayes factors here. Whatâ€™s all this about?
 
-The trick to understanding this output is to recognise that if we’re interested in working out which of the 3 predictor variables are related to `myGrump`, there are actually 8 possible regression models that could be considered. One possibility is the intercept only model, in which none of the three variables have an effect. At the other end of the spectrum is the full model in which all three variables matter. So what `regressionBF` does is treat the intercept only model as the null hypothesis, and print out the Bayes factors for all other models when compared against that null. For example, if we look at line 4 in the table, we see that the evidence is about $10^{33}$ to 1 in favour of the claim that a model that includes both mySleep and day is better than the intercept only model. Or if we look at line 1, we can see that the odds are about 1.6 × $10^{34}$ that a model containing the `mySleep` variable (but no others) is better than the intercept only model.
+The trick to understanding this output is to recognise that if weâ€™re interested in working out which of the 3 predictor variables are related to `myGrump`, there are actually 8 possible regression models that could be considered. One possibility is the intercept only model, in which none of the three variables have an effect. At the other end of the spectrum is the full model in which all three variables matter. So what `regressionBF` does is treat the intercept only model as the null hypothesis, and print out the Bayes factors for all other models when compared against that null. For example, if we look at line 4 in the table, we see that the evidence is about $10^{33}$ to 1 in favour of the claim that a model that includes both mySleep and day is better than the intercept only model. Or if we look at line 1, we can see that the odds are about 1.6 Ã— $10^{34}$ that a model containing the `mySleep` variable (but no others) is better than the intercept only model.
 
 #### Finding the best model
 
-In practice, this isn’t helpful. In most situations the intercept only model is the one that you don’t really care about at all. What I find helpful is to start out by working out which model is the best one, and then seeing how well all the alternatives compare to it. Here’s how you do that. In this case, it’s easy enough to see that the best model is actually the one that contains `mySleep` only (line 1), because it has the largest Bayes factor. However, if you’ve got a lot of possible models in the output, it’s handy to know that you can use the `head` function to pick out the best few models. First, we have to go back and save the Bayes factor information to a variable:
+In practice, this isnâ€™t helpful. In most situations the intercept only model is the one that you donâ€™t really care about at all. What I find helpful is to start out by working out which model is the best one, and then seeing how well all the alternatives compare to it. Hereâ€™s how you do that. In this case, itâ€™s easy enough to see that the best model is actually the one that contains `mySleep` only (line 1), because it has the largest Bayes factor. However, if youâ€™ve got a lot of possible models in the output, itâ€™s handy to know that you can use the `head` function to pick out the best few models. First, we have to go back and save the Bayes factor information to a variable:
 
 
 ~~~
@@ -1150,7 +1150,7 @@ models <- regressionBF(formula = myGrump ~ mySleep + day + babySleep, data = par
 ~~~
 {: .language-r}
 
-Let’s say I want to see the best three models. To do this, I use the `head` function specifying `n = 3`, and here’s what I get as the result:
+Letâ€™s say I want to see the best three models. To do this, I use the `head` function specifying `n = 3`, and hereâ€™s what I get as the result:
 
 
 ~~~
@@ -1163,9 +1163,9 @@ head(models, n = 3)
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep             : 1.622545e+34 �0.01%
-[2] mySleep + day       : 1.016576e+33 �0%
-[3] mySleep + babySleep : 9.77022e+32  �0%
+[1] mySleep             : 1.622545e+34 ±0.01%
+[2] mySleep + day       : 1.016576e+33 ±0%
+[3] mySleep + babySleep : 9.77022e+32  ±0%
 
 Against denominator:
   Intercept only 
@@ -1174,7 +1174,7 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-This is telling us that the model in line 1 (i.e., `myGrump ~ mySleep`) is the best one. That’s almost what I’m looking for, but it’s still comparing all the models against the intercept only model. That seems silly. What I’d like to know is how big the difference is between the best model and the other good models. For that, there’s this trick:
+This is telling us that the model in line 1 (i.e., `myGrump ~ mySleep`) is the best one. Thatâ€™s almost what Iâ€™m looking for, but itâ€™s still comparing all the models against the intercept only model. That seems silly. What Iâ€™d like to know is how big the difference is between the best model and the other good models. For that, thereâ€™s this trick:
 
 
 ~~~
@@ -1187,9 +1187,9 @@ head(models/max(models), n = 3)
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep             : 1         �0%
-[2] mySleep + day       : 0.0626532 �0.01%
-[3] mySleep + babySleep : 0.0602154 �0.01%
+[1] mySleep             : 1         ±0%
+[2] mySleep + day       : 0.0626532 ±0.01%
+[3] mySleep + babySleep : 0.0602154 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep 
@@ -1198,7 +1198,7 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-Notice the bit at the bottom showing that the “denominator” has changed. What that means is that the Bayes factors are now comparing each of those 3 models listed against the `myGrump ~ mySleep` model. Obviously, the Bayes factor in the first line is exactly 1, since that’s just comparing the best model to itself. More to the point, the other two Bayes factors are both less than 1, indicating that they’re all worse than that model. The Bayes factors of 0.06 to 1 imply that the odds for the best model over the second best model are about 16:1. You can work this out by simple arithmetic (i.e., $\frac{1}{0.06} \approx 16$), but the other way to do it is to directly compare the models. To see what I mean, here’s the original output:
+Notice the bit at the bottom showing that the â€œdenominatorâ€ has changed. What that means is that the Bayes factors are now comparing each of those 3 models listed against the `myGrump ~ mySleep` model. Obviously, the Bayes factor in the first line is exactly 1, since thatâ€™s just comparing the best model to itself. More to the point, the other two Bayes factors are both less than 1, indicating that theyâ€™re all worse than that model. The Bayes factors of 0.06 to 1 imply that the odds for the best model over the second best model are about 16:1. You can work this out by simple arithmetic (i.e., $\frac{1}{0.06} \approx 16$), but the other way to do it is to directly compare the models. To see what I mean, hereâ€™s the original output:
 
 
 ~~~
@@ -1211,13 +1211,13 @@ models
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep                   : 1.622545e+34 �0.01%
-[2] day                       : 0.2724027    �0%
-[3] babySleep                 : 10018411     �0%
-[4] mySleep + day             : 1.016576e+33 �0%
-[5] mySleep + babySleep       : 9.77022e+32  �0%
-[6] day + babySleep           : 2340755      �0%
-[7] mySleep + day + babySleep : 7.835625e+31 �0%
+[1] mySleep                   : 1.622545e+34 ±0.01%
+[2] day                       : 0.2724027    ±0%
+[3] babySleep                 : 10018411     ±0%
+[4] mySleep + day             : 1.016576e+33 ±0%
+[5] mySleep + babySleep       : 9.77022e+32  ±0%
+[6] day + babySleep           : 2340755      ±0%
+[7] mySleep + day + babySleep : 7.835625e+31 ±0%
 
 Against denominator:
   Intercept only 
@@ -1239,7 +1239,7 @@ models[1] / models[4]
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep : 15.96088 �0.01%
+[1] mySleep : 15.96088 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep + day 
@@ -1248,15 +1248,15 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-And there you have it. You’ve found the regression model with the highest Bayes factor (i.e., `myGrump ~ mySleep`), and you know that the evidence for that model over the next best alternative (i.e., `myGrump ~ mySleep + day`) is about 16:1.
+And there you have it. Youâ€™ve found the regression model with the highest Bayes factor (i.e., `myGrump ~ mySleep`), and you know that the evidence for that model over the next best alternative (i.e., `myGrump ~ mySleep + day`) is about 16:1.
 
-Okay, let’s say you’ve settled on a specific regression model. What Bayes factors should you report? In this example, I’m going to pretend that you decided that `myGrump ~ mySleep + babySleep` is the model you think is best. Sometimes it’s sensible to do this, even when it’s not the one with the highest Bayes factor. Usually this happens because you have a substantive theoretical reason to prefer one model over the other. However, in this case I’m doing it because I want to use a model with more than one predictor as my example!
+Okay, letâ€™s say youâ€™ve settled on a specific regression model. What Bayes factors should you report? In this example, Iâ€™m going to pretend that you decided that `myGrump ~ mySleep + babySleep` is the model you think is best. Sometimes itâ€™s sensible to do this, even when itâ€™s not the one with the highest Bayes factor. Usually this happens because you have a substantive theoretical reason to prefer one model over the other. However, in this case Iâ€™m doing it because I want to use a model with more than one predictor as my example!
 
-Having figured out which model you prefer, it can be really useful to call the `regressionBF` function and specifying `whichModels = "top"`. You use your “preferred” model as the formula argument, and then the output will show you the Bayes factors that result when you try to drop predictors from this model:
+Having figured out which model you prefer, it can be really useful to call the `regressionBF` function and specifying `whichModels = "top"`. You use your â€œpreferredâ€ model as the formula argument, and then the output will show you the Bayes factors that result when you try to drop predictors from this model:
 
 
 ~~~
-regressionBF( 
+regressionBF(
     formula = myGrump ~ mySleep + babySleep,
     data = parenthood,
     whichModels = "top"
@@ -1270,8 +1270,8 @@ regressionBF(
 Bayes factor top-down analysis
 --------------
 When effect is omitted from mySleep + babySleep , BF is...
-[1] Omit babySleep : 16.60705     �0.01%
-[2] Omit mySleep   : 1.025403e-26 �0.01%
+[1] Omit babySleep : 16.60705     ±0.01%
+[2] Omit mySleep   : 1.025403e-26 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep + babySleep 
@@ -1280,11 +1280,11 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-Okay, so now you can see the results a bit more clearly. The Bayes factor when you try to drop the mySleep predictor is about  $10^{−26}$, which is very strong evidence that you shouldn’t drop it. On the other hand, the Bayes factor actually goes up to 17 if you drop `babySleep`, so you’d usually say that’s pretty strong evidence for dropping that one.
+Okay, so now you can see the results a bit more clearly. The Bayes factor when you try to drop the mySleep predictor is about  $10^{âˆ’26}$, which is very strong evidence that you shouldnâ€™t drop it. On the other hand, the Bayes factor actually goes up to 17 if you drop `babySleep`, so youâ€™d usually say thatâ€™s pretty strong evidence for dropping that one.
 
 ## 1.8 Bayesian ANOVA
 
-The BayesFactor package is pretty flexible, and can do more things. There’s only one other topic I want to cover: Bayesian ANOVA.
+The BayesFactor package is pretty flexible, and can do more things. Thereâ€™s only one other topic I want to cover: Bayesian ANOVA.
 
 
 ~~~
@@ -1366,7 +1366,7 @@ Warning: package 'car' was built under R version 3.6.1
 ~~~
 model <- aov(mood.gain ~ drug * therapy, data = clin.trial)
 
-Anova(model) 
+Anova(model)
 ~~~
 {: .language-r}
 
@@ -1401,7 +1401,7 @@ models <- anovaBF(formula = mood.gain ~ drug * therapy, data = clin.trial)
 ~~~
 {: .language-r}
 
-The output is quite different to the traditional ANOVA, but it’s not too bad once you understand what you’re looking for. Let’s take a look:
+The output is quite different to the traditional ANOVA, but itâ€™s not too bad once you understand what youâ€™re looking for. Letâ€™s take a look:
 
 
 ~~~
@@ -1414,10 +1414,10 @@ models
 ~~~
 Bayes factor analysis
 --------------
-[1] drug                          : 245.9026  �0%
-[2] therapy                       : 0.7316007 �0%
-[3] drug + therapy                : 692.9066  �1.26%
-[4] drug + therapy + drug:therapy : 689.588   �1.13%
+[1] drug                          : 245.9026  ±0%
+[2] therapy                       : 0.7316007 ±0%
+[3] drug + therapy                : 692.9066  ±1.26%
+[4] drug + therapy + drug:therapy : 689.588   ±1.13%
 
 Against denominator:
   Intercept only 
@@ -1439,10 +1439,10 @@ models/max(models)
 ~~~
 Bayes factor analysis
 --------------
-[1] drug                          : 0.3548856   �1.26%
-[2] therapy                       : 0.001055843 �1.26%
-[3] drug + therapy                : 1           �0%
-[4] drug + therapy + drug:therapy : 0.9952106   �1.69%
+[1] drug                          : 0.3548856   ±1.26%
+[2] therapy                       : 0.001055843 ±1.26%
+[3] drug + therapy                : 1           ±0%
+[4] drug + therapy + drug:therapy : 0.9952106   ±1.69%
 
 Against denominator:
   mood.gain ~ drug + therapy 
@@ -1451,7 +1451,7 @@ Bayes factor type: BFlinearModel, JZS
 ~~~
 {: .output}
 
-By “dividing” the models output by the best model (i.e., `max(models))`, what R is doing is using the best model (which in this case is `drugs + therapy`) as the denominator, which gives you a pretty good sense of how close the competitors are. For instance, the model that contains the interaction term is almost as good as the model without the interaction, since the Bayes factor is 0.98. In other words, the data do not clearly indicate whether there is or is not an interaction.
+By â€œdividingâ€ the models output by the best model (i.e., `max(models))`, what R is doing is using the best model (which in this case is `drugs + therapy`) as the denominator, which gives you a pretty good sense of how close the competitors are. For instance, the model that contains the interaction term is almost as good as the model without the interaction, since the Bayes factor is 0.98. In other words, the data do not clearly indicate whether there is or is not an interaction.
 
 ## REFERENCES
 
@@ -1460,7 +1460,7 @@ Ntzoufras, I. (2009) *Bayesian Modeling Using WinBUGS.* New Jersey: John Wiley a
 Navarro, D. (2019) *Learning statistics with R: A tutorial for psychology students and other beginners. (Version 0.6.1)*
 <https://learningstatisticswithr.com/book/bayes.html#bayescontingency>
 
-Baath, R. (2015) "Introduction to Bayesian Data Analysis using R." UseR! Conference 2015. 
+Baath, R. (2015) "Introduction to Bayesian Data Analysis using R." UseR! Conference 2015.
 <https://analisereal.files.wordpress.com/2015/07/user_2015_tutorial_bayesian_data_analysis_short_version.pdf>
 
 {% include links.md %}
