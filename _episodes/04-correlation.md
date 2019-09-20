@@ -36,62 +36,14 @@ data sets are given below. Explore the data graphically and obtain the correlati
 for each data set.
 ($r^2=\frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{\sum(x_i-\bar{x})^2\sum(y_i-\bar{y})^2)}$)
 
-$$ \begin{array}{cccccccc}\hline
-\mbox{Data} & \mbox{Set 1} & \mbox{Data} & \mbox{Set 2} & \mbox{Data} & \mbox{Set 3} & \mbox{Data} & \mbox{Set 4}\\
-x1 & y1 & x2 & y2 & x3 & y3 & x4 & y4\\ \hline
-10 &	8.04 &	10	& 9.14 &	10 &	7.46 &	8	& 6.58\\
-8	& 6.95 &	8	& 8.14 & 8 &	6.77 &	8 &	5.76\\
-13 &	7.58 &	13 &	8.74 &	13 &	12.74 &	8	& 7.71\\
-9 &	8.81 &	9 &	8.77 &	9 &	7.11 &	8 &	8.84\\
-11 &	8.33 &	11 &	9.26 &	11 &	7.81 &	8 &	8.47\\
-14 &	9.96 &	14 &	8.10 &	14 &	8.84 &	8 &	7.04\\
-6 &	7.24 &	6 &	6.13 &	6 &	6.08 &	8 &	5.25\\
-4 &	4.26 &	4 &	3.10 &	4 &	5.39 &	19 &	12.5\\
-12 &	10.84 &	12 &	9.13 &	12 &	8.15 &	8 &	5.56\\
-7 &	4.82 &	7 &	7.26 &	7 &	6.42 &	8 &	7.91\\
-5 &	5.68 &	5 &	4.74 &	5 &	5.73 &	8 &	6.89\\ \hline
-\end{array}$$
-
 The file `Anscombe.csv` contains this data.
 
 
 ~~~
 library(tidyverse)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: package 'tibble' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 library(readr)
 library(ggpubr)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning: package 'ggpubr' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 anscomb <- read_csv(file.path("..", "data", "Anscomb.csv"))
 anscomb
 ~~~
@@ -110,12 +62,145 @@ anscomb
  5    11  8.33    11  9.26    11  7.81     8  8.47
  6    14  9.96    14  8.1     14  8.84     8  7.04
  7     6  7.24     6  6.13     6  6.08     8  5.25
- 8     4  4.26     4  3.1      4  5.39    19 12.5 
+ 8     4  4.26     4  3.1      4  5.39    19 12.5
  9    12 10.8     12  9.13    12  8.15     8  5.56
 10     7  4.82     7  7.26     7  6.42     8  7.91
 11     5  5.68     5  4.74     5  5.73     8  6.89
 ~~~
 {: .output}
+
+<table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
+ <thead>
+<tr>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Data set 1</div></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Data set 2</div></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Data set 3</div></th>
+<th style="border-bottom:hidden; padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="2"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">Data set 4</div></th>
+</tr>
+  <tr>
+   <th style="text-align:right;"> x1 </th>
+   <th style="text-align:right;"> y1 </th>
+   <th style="text-align:right;"> x2 </th>
+   <th style="text-align:right;"> y2 </th>
+   <th style="text-align:right;"> x3 </th>
+   <th style="text-align:right;"> y3 </th>
+   <th style="text-align:right;"> x4 </th>
+   <th style="text-align:right;"> y4 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 8.04 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 9.14 </td>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:right;"> 7.46 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6.58 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6.95 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 8.14 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6.77 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 5.76 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 7.58 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 8.74 </td>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:right;"> 12.74 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 7.71 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 8.81 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 8.77 </td>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 7.11 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 8.84 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 8.33 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 9.26 </td>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:right;"> 7.81 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 8.47 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 9.96 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 8.10 </td>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:right;"> 8.84 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 7.04 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 7.24 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.13 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 6.08 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 5.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 4.26 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 3.10 </td>
+   <td style="text-align:right;"> 4 </td>
+   <td style="text-align:right;"> 5.39 </td>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:right;"> 12.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 10.84 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 9.13 </td>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:right;"> 8.15 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 5.56 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 4.82 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 7.26 </td>
+   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 6.42 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 7.91 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 5.68 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 4.74 </td>
+   <td style="text-align:right;"> 5 </td>
+   <td style="text-align:right;"> 5.73 </td>
+   <td style="text-align:right;"> 8 </td>
+   <td style="text-align:right;"> 6.89 </td>
+  </tr>
+</tbody>
+</table>
 
 Now we want to see what each data set looks like.
 
@@ -138,47 +223,8 @@ covariances. The default is Pearson's correlation.
 
 ~~~
 cor(anscomb$x1, anscomb$y1)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0.8164205
-~~~
-{: .output}
-
-
-
-~~~
 cor(anscomb$x2, anscomb$y2)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0.8162365
-~~~
-{: .output}
-
-
-
-~~~
 cor(anscomb$x3, anscomb$y3)
-~~~
-{: .language-r}
-
-
-
-~~~
-[1] 0.8162867
-~~~
-{: .output}
-
-
-
-~~~
 cor(anscomb$x4, anscomb$y4)
 ~~~
 {: .language-r}
@@ -186,6 +232,9 @@ cor(anscomb$x4, anscomb$y4)
 
 
 ~~~
+[1] 0.8164205
+[1] 0.8162365
+[1] 0.8162867
 [1] 0.8165214
 ~~~
 {: .output}
