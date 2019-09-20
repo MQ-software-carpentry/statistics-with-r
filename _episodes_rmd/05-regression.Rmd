@@ -151,6 +151,13 @@ The disadvantage of partial F-tests is that they are not independent tests.
 
 ##### EXAMPLE: Heat Flux revisited
 
+```{r heatflux_fit, include=FALSE}
+library(tidyverse)
+
+heat_flux <- read_csv(file.path("..", "Data", "heatflux.csv"))
+heatflux_fit <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
+```
+
 ```{r heatflux_fit_summary2}
 summary(heatflux_fit)
 ```
@@ -211,6 +218,10 @@ When a linear regression model is fitted using `lm` in R you can always obtain $
 (Adjusted R-Squared). This is $R_{ADJ}^2=1-\frac{n-1}{n-p}(1-R^2)$ which does not necessarily
 increase if more terms are added to the model. The model with the largest $R_{ADJ}^2$ is usually
 chosen.
+
+```{r heatflux_glance, include=FALSE}
+heatflux_glance <- broom::glance(heatflux_fit)
+```
 
 **EXAMPLE** For the Heat Flux data using all the predictors the Adjusted R-squared is
 `r I(sprintf("%0.4f", heatflux_glance$adj.r.squared))`. See earlier output.
