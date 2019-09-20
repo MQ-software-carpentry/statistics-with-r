@@ -24,6 +24,20 @@ library(tidyverse)
 ~~~
 {: .language-r}
 
+
+
+~~~
+Warning: package 'tibble' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 3.6.1
+~~~
+{: .error}
+
 We can now load the **Pattani** data from the Excel file. For the notes, this is stored
 in the `data` directory. It might be different for you.
 

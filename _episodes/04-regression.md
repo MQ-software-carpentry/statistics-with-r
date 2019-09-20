@@ -42,9 +42,54 @@ records by removing the addresses.
 
 ~~~
 library(tidyverse)
-library(ggpubr)
-library(olsrr)
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning: package 'tibble' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+library(ggpubr)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: package 'ggpubr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+library(olsrr)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: package 'olsrr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 theme_set(theme_bw())
 
 houses <- read_csv(file.path("..", "data", "Macquarie2018.csv"))
@@ -1306,7 +1351,19 @@ predictors in the full model that Mallow's $C_p$ always equals $p$.
 
 ~~~
 library(leaps)
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning: package 'leaps' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 x <- heat_flux[, -1]
 y <- heat_flux$HeatFlux
 
@@ -1395,7 +1452,19 @@ If none of the VIFs are greater than 10 then collinearity is not a problem.
 
 ~~~
 library(car)
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning: package 'car' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 heatflux_fit <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
 vif(heatflux_fit)
 ~~~

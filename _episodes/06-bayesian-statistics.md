@@ -25,6 +25,26 @@ mathjax: true
 
 ~~~
 library(tidyverse)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: package 'tibble' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 library(ggplot2)
 library(dplyr)
 ~~~
@@ -689,6 +709,13 @@ library(BayesFactor)
 ~~~
 {: .language-r}
 
+
+
+~~~
+Warning: package 'BayesFactor' was built under R version 3.6.1
+~~~
+{: .error}
+
 You need a sampling plan. You can specify the sampling plan using the sampleType argument. The `contingencyTableBF` function distinguishes between four different types of experiment:
 
 *Fixed sample size*. Suppose that in our `chapek9` example, our experiment was designed like this: we deliberately set out to test 180 people, but we didnâ€™t try to control the number of humans or robots, nor did we try to control the choices they made. In this design, the total number of observations  N is fixed, but everything else is random. This is referred to as â€œjoint multinomialâ€ sampling, and if thatâ€™s what you did you should specify sampleType = "jointMulti". In the case of the chapek9 data, thatâ€™s actually what I had in mind when I invented the data set.
@@ -713,7 +740,7 @@ contingencyTableBF(crosstab, sampleType = "jointMulti")
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 15.92684 Â±0%
+[1] Non-indep. (a=1) : 15.92684 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -739,7 +766,7 @@ contingencyTableBF(crosstab, sampleType = "poisson" )
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 28.20757 Â±0%
+[1] Non-indep. (a=1) : 28.20757 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -763,7 +790,7 @@ contingencyTableBF(crosstab, sampleType = "indepMulti", fixedMargin = "rows")
 ~~~
 Bayes factor analysis
 --------------
-[1] Non-indep. (a=1) : 8.605897 Â±0%
+[1] Non-indep. (a=1) : 8.605897 ±0%
 
 Against denominator:
   Null, independence, a = 1 
@@ -886,7 +913,7 @@ Warning: data coerced from tibble to data frame
 ~~~
 Bayes factor analysis
 --------------
-[1] Alt., r=0.707 : 1.754927 Â±0%
+[1] Alt., r=0.707 : 1.754927 ±0%
 
 Against denominator:
   Null, mu1-mu2 = 0 
@@ -979,7 +1006,7 @@ ttestBF(
 ~~~
 Bayes factor analysis
 --------------
-[1] Alt., r=0.707 : 5992.05 Â±0%
+[1] Alt., r=0.707 : 5992.05 ±0%
 
 Against denominator:
   Null, mu = 0 
@@ -1094,13 +1121,13 @@ regressionBF(
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep                   : 1.622545e+34 Â±0.01%
-[2] day                       : 0.2724027    Â±0%
-[3] babySleep                 : 10018411     Â±0%
-[4] mySleep + day             : 1.016576e+33 Â±0%
-[5] mySleep + babySleep       : 9.77022e+32  Â±0%
-[6] day + babySleep           : 2340755      Â±0%
-[7] mySleep + day + babySleep : 7.835625e+31 Â±0%
+[1] mySleep                   : 1.622545e+34 ±0.01%
+[2] day                       : 0.2724027    ±0%
+[3] babySleep                 : 10018411     ±0%
+[4] mySleep + day             : 1.016576e+33 ±0%
+[5] mySleep + babySleep       : 9.77022e+32  ±0%
+[6] day + babySleep           : 2340755      ±0%
+[7] mySleep + day + babySleep : 7.835625e+31 ±0%
 
 Against denominator:
   Intercept only 
@@ -1136,9 +1163,9 @@ head(models, n = 3)
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep             : 1.622545e+34 Â±0.01%
-[2] mySleep + day       : 1.016576e+33 Â±0%
-[3] mySleep + babySleep : 9.77022e+32  Â±0%
+[1] mySleep             : 1.622545e+34 ±0.01%
+[2] mySleep + day       : 1.016576e+33 ±0%
+[3] mySleep + babySleep : 9.77022e+32  ±0%
 
 Against denominator:
   Intercept only 
@@ -1160,9 +1187,9 @@ head(models/max(models), n = 3)
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep             : 1         Â±0%
-[2] mySleep + day       : 0.0626532 Â±0.01%
-[3] mySleep + babySleep : 0.0602154 Â±0.01%
+[1] mySleep             : 1         ±0%
+[2] mySleep + day       : 0.0626532 ±0.01%
+[3] mySleep + babySleep : 0.0602154 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep 
@@ -1184,13 +1211,13 @@ models
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep                   : 1.622545e+34 Â±0.01%
-[2] day                       : 0.2724027    Â±0%
-[3] babySleep                 : 10018411     Â±0%
-[4] mySleep + day             : 1.016576e+33 Â±0%
-[5] mySleep + babySleep       : 9.77022e+32  Â±0%
-[6] day + babySleep           : 2340755      Â±0%
-[7] mySleep + day + babySleep : 7.835625e+31 Â±0%
+[1] mySleep                   : 1.622545e+34 ±0.01%
+[2] day                       : 0.2724027    ±0%
+[3] babySleep                 : 10018411     ±0%
+[4] mySleep + day             : 1.016576e+33 ±0%
+[5] mySleep + babySleep       : 9.77022e+32  ±0%
+[6] day + babySleep           : 2340755      ±0%
+[7] mySleep + day + babySleep : 7.835625e+31 ±0%
 
 Against denominator:
   Intercept only 
@@ -1212,7 +1239,7 @@ models[1] / models[4]
 ~~~
 Bayes factor analysis
 --------------
-[1] mySleep : 15.96088 Â±0.01%
+[1] mySleep : 15.96088 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep + day 
@@ -1243,8 +1270,8 @@ regressionBF(
 Bayes factor top-down analysis
 --------------
 When effect is omitted from mySleep + babySleep , BF is...
-[1] Omit babySleep : 16.60705     Â±0.01%
-[2] Omit mySleep   : 1.025403e-26 Â±0.01%
+[1] Omit babySleep : 16.60705     ±0.01%
+[2] Omit mySleep   : 1.025403e-26 ±0.01%
 
 Against denominator:
   myGrump ~ mySleep + babySleep 
@@ -1324,7 +1351,19 @@ str(clin.trial)
 
 ~~~
 library(car)
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning: package 'car' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 model <- aov(mood.gain ~ drug * therapy, data = clin.trial)
 
 Anova(model) 
@@ -1375,10 +1414,10 @@ models
 ~~~
 Bayes factor analysis
 --------------
-[1] drug                          : 245.9026  Â±0%
-[2] therapy                       : 0.7316007 Â±0%
-[3] drug + therapy                : 692.9066  Â±1.26%
-[4] drug + therapy + drug:therapy : 689.588   Â±1.13%
+[1] drug                          : 245.9026  ±0%
+[2] therapy                       : 0.7316007 ±0%
+[3] drug + therapy                : 692.9066  ±1.26%
+[4] drug + therapy + drug:therapy : 689.588   ±1.13%
 
 Against denominator:
   Intercept only 
@@ -1400,10 +1439,10 @@ models/max(models)
 ~~~
 Bayes factor analysis
 --------------
-[1] drug                          : 0.3548856   Â±1.26%
-[2] therapy                       : 0.001055843 Â±1.26%
-[3] drug + therapy                : 1           Â±0%
-[4] drug + therapy + drug:therapy : 0.9952106   Â±1.69%
+[1] drug                          : 0.3548856   ±1.26%
+[2] therapy                       : 0.001055843 ±1.26%
+[3] drug + therapy                : 1           ±0%
+[4] drug + therapy + drug:therapy : 0.9952106   ±1.69%
 
 Against denominator:
   mood.gain ~ drug + therapy 
