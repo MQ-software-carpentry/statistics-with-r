@@ -66,7 +66,7 @@ We can do inverse inference using the above rule. The idea is as follows (verbat
 
 This is the rationale that Bayesian inference is based on. The above equation, which is deceptively simple, provides a probabilistic mechanism of learning from data. After observing data $(y_1,y_2, \dots, y_n)$ we calculate the **posterior** distribution $f(\pmb{\theta}\|y_1,y_2,\dots,y_n)$, which combines prior and data information. The key element in Bayesian inference is this posterior distribution.
 
-**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have lung cancer? 
+**EXAMPLE** (Ntzoufras (2009)) In a case-control study, we trace 51 smokers in a group of 83 cases of lung cancer and 23 smokers in the control group of 70 disease-free subjects. The prevalence rate (estimate of the proportion of the disease in the population) of lung cancer is equal to 1%. What is the probability that a smoker will have lung cancer?
 
 **Solution** With the information given we can estimate the following probabilities: $P(smoker\|case)=\frac{51}{83}=0.615$, $P(smoker\|control) =\frac{23}{70}=0.329$ and $P(case)=0.01$. From Bayes' theorem
 
@@ -88,11 +88,11 @@ The difference between Bayesian statistics and classical statistical theory is t
 
 $$ f(\pmb{\theta}|\pmb{y})=\frac{f(\pmb{y}|\pmb{\theta})f(\pmb{\theta})}{f(\pmb{y})} \propto f(\pmb{y}|\pmb{\theta})f(\pmb{\theta}).$$
 
-The posterior distribution has  $f(\pmb{y}\|\pmb{\theta})$, containing the observed data information, multiplied by, $f(\pmb{\theta})$, the prior ditribution. The likelihood is 
+The posterior distribution has  $f(\pmb{y}\|\pmb{\theta})$, containing the observed data information, multiplied by, $f(\pmb{\theta})$, the prior ditribution. The likelihood is
 
 $$f(\pmb{y}|\pmb{\theta})=\prod_{i=1}^n f(y_i|\pmb{\theta}).$$
 
-Shorthand notation is to suppress $\pmb{\theta}$. For the marginal probability of density function of random variable $X$ evaluated at $x$ this is written as $f(x)$, while the conditional probability or density function of random variable $X$ estimated at $x$ given that $Y=y$ is written as $f(x|y)$. 
+Shorthand notation is to suppress $\pmb{\theta}$. For the marginal probability of density function of random variable $X$ evaluated at $x$ this is written as $f(x)$, while the conditional probability or density function of random variable $X$ estimated at $x$ given that $Y=y$ is written as $f(x|y)$.
 If the random variable $X$ follows a specific distribution $D$ with parameters $\pmb{\theta}$, the notation  $f_D(x;\pmb{\theta})$ is used to denote the corresponding probability or density function evaluated at $X=x$.
 
 Specification of the prior distribution is important in Bayesian inference because it influences the posterior inference. Noninformative or vague distributions are used when no prior information is available. A common vague improper distribution is $f(\pmb{\theta}) \propto 1$, the uniform prior over the parameter space. Improper is used for distributions that do not integrate to one. Provided the posterior prior is proper such improper priors can be used.
@@ -103,13 +103,13 @@ Both the prior distribution and the likelihood must be fully specified to define
 
 Model-based Bayesian inference can be divided into four stages: model building, calculation of the posterior distribution, and inference followed by final conclusions about the problem under consideration.
 
-**Stage 1:** Consider a model (likelihood/parameters/prior) with reasonable assumptions. To do this 
+**Stage 1:** Consider a model (likelihood/parameters/prior) with reasonable assumptions. To do this
 
 1. Identify the response $Y$ (main variable of the problem) and the corresponding data $\pmb{y}$.
 
 2. Find a distribution that adequately describes $Y$.
 
-3. I dentify other variables that may influence $Y$ (called *covariates* or *explanatory variables*).
+3. Identify other variables that may influence $Y$ (called *covariates* or *explanatory variables*).
 
 4. Using deterministic functions build a structure for the parameters of the distribution.
 
@@ -129,26 +129,26 @@ Model-based Bayesian inference can be divided into four stages: model building, 
 
 2. Calculate posterior summaries (means, medians, standard deviations, correlations, quantiles) and 95% or 99% credible intervals (what Bayesian Inference uses instead of Confidence Intervals).
 
-3. If posible calculate the posterior mode and the area of highest posterior density.
+3. If possible calculate the posterior mode and the area of highest posterior density.
 
 The above description can be expanded.
 
-We also need to consider the implementation of diagnostic tests or checks of the appropriateness of the adopted model. Many techniques can be used to check if the model assumptions hold and if model fit is adequate. 
+We also need to consider the implementation of diagnostic tests or checks of the appropriateness of the adopted model. Many techniques can be used to check if the model assumptions hold and if model fit is adequate.
 
-Robustness of the posterior distribution is another important issue, sensitivity analysis can be used to see how robust the posterior distribution is to the selection of the prior distribution. Sensirivity analysis focuses on different things depending on whether a noninformative prior is being used or not being used.
+Robustness of the posterior distribution is another important issue, sensitivity analysis can be used to see how robust the posterior distribution is to the selection of the prior distribution. Sensitivity analysis focuses on different things depending on whether a noninformative prior is being used or not being used.
 
 Prediction is also important, the predictive distribution is used.
 
 ## 1.5 Inference using conjugate prior distributions
 
-Conjugate prior distributions were used to avoid using intractible posterior distributions. Conjugate prior distributions lead to posterior distributions from the same distributional family.
+Conjugate prior distributions were used to avoid using intractable posterior distributions. Conjugate prior distributions lead to posterior distributions from the same distributional family.
 
 If you are interested in finding out more about conjugate prior distributions the reference text I am using *Bayesian Modeling Using WinBUGS* by Ioannis Ntzoufras has more details.
 
 ## 1.6 Simple example from Learning statistics with R with an alternative presentation of Bayesian statistics
 
 The material in this section is from Chapter 17 of Learning Statistics with R
-(<https://learningstatisticswithr.com/book/bayes.htm>). 
+(<https://learningstatisticswithr.com/book/bayes.htm>).
 
 *From a Bayesian perspective, statistical inference is all about belief revision. I start out with a set of candidate hypotheses  $h$ about the world. I don’t know which of these hypotheses is true, but I do have some beliefs about which hypotheses are plausible and which are not. When I observe the data  d, I have to revise those beliefs. If the data are consistent with a hypothesis, my belief in that hypothesis is strengthened. If the data inconsistent with the hypothesis, my belief in that hypothesis is weakened.*
 
@@ -182,7 +182,7 @@ It is important to remember that each cell in this table describes your beliefs 
 
 At this point, all the elements are in place. Having written down the priors and the likelihood, you have all the information you need to do Bayesian reasoning. The question now becomes, how do we use this information? As it turns out, there is a very simple equation that we can use here, but it is important that you understand why we use it, so I’m going to try to build it up from more basic ideas.
 
-Let’s start out with one of the rules of probability theory. The rule in question is the one that talks about the probability that two things are true. In our example, you might want to calculate the probability that today is rainy (i.e., hypothesis  $h$ is true) and I’m carrying an umbrella (i.e., data  $d$ is observed). The joint probability of the hypothesis and the data is written  $P(d \cap h)$, and you can calculate it by multiplying the prior  $P(h)$ by the likelihood  
+Let’s start out with one of the rules of probability theory. The rule in question is the one that talks about the probability that two things are true. In our example, you might want to calculate the probability that today is rainy (i.e., hypothesis  $h$ is true) and I’m carrying an umbrella (i.e., data  $d$ is observed). The joint probability of the hypothesis and the data is written  $P(d \cap h)$, and you can calculate it by multiplying the prior  $P(h)$ by the likelihood
 $P(d\|h)$. Mathematically, we say that:
 
 $$P(d\cap h)=P(d|h)\cdot P(h)$$
@@ -191,7 +191,7 @@ So, what is the probability that today is a rainy day and I remember to carry an
 
 $$P(\mbox{rainy} \cap \mbox{umbrella})=P(\mbox{umbrella}|\mbox{rainy})\times P(\mbox{rainy})\\
 = 0.30 \times 0.15 = 0.045$$
- 
+
 In other words, before being told anything about what actually happened, you think that there is a 4.5% probability that today will be a rainy day and that I will remember an umbrella. However, there are of course four possible things that could happen, right? So let’s repeat the exercise for all four. If we do that, we end up with the following table:
 
 $$\begin{array}{lcc}\\\hline
@@ -259,7 +259,7 @@ This formula is known as Bayes' rule. It describes how a learner starts out with
 #### Bayesian hypothesis tests
 
 The Bayesian approach to hypothesis testing is  simple. Using a setting that is closely analogous to the classical approach. There are two hypotheses that we want to compare, a null hypothesis  $h_0$
- and an alternative hypothesis $h_1$. Prior to running the experiment we have some beliefs  
+ and an alternative hypothesis $h_1$. Prior to running the experiment we have some beliefs
 $P(h)$ about which hypotheses are true. We run an experiment and obtain data $d$. Unlike frequentist statistics, Bayesian statistics does allow us to talk about the probability that the null hypothesis is true. Better yet, it allows us to calculate the posterior probability of the null hypothesis, using Bayes' rule:
 
 $$P(h_0|d)=\frac{P(d|h_0)\cdot P(h_0)}{P(d)}$$
@@ -267,7 +267,7 @@ $$P(h_0|d)=\frac{P(d|h_0)\cdot P(h_0)}{P(d)}$$
 This formula tells us exactly how much belief we should have in the null hypothesis after having observed the data $d$. Similarly, we can work out how much belief to place in the alternative hypothesis using essentially the same equation. All we do is change the subscript:
 
 $$P(h_1|d)=\frac{P(d|h_1)\cdot P(h_1)}{P(d)}$$
- 
+
 ### 1.6.2 The Bayes factor
 
 In practice, most Bayesian data analysts tend not to talk in terms of the raw posterior probabilities $P(h_0\|d)$ and $P(h_1\|d)$. Instead, we tend to talk in terms of the posterior odds ratio. Think of it like betting. Suppose, for instance, the posterior probability of the null hypothesis is 25%, and the posterior probability of the alternative is 75%. The alternative hypothesis is three times as probable as the null, so we say that the odds are 3:1 in favour of the alternative. Mathematically, all we have to do to calculate the posterior odds is divide one posterior probability by the other:
@@ -278,7 +278,7 @@ Or, to write the same thing in terms of the equations above:
 
 $$\frac{P(h_1|d)}{P(h_0|d)}=\frac{P(d|h_1)}{P(d|h_0)}\cdot \frac{P(h_1)}{P(h_0)} $$
 
-Actually, this equation is worth expanding on. There are three different terms here that you should know. On the left hand side, we have the posterior odds, which tells you what you believe about the relative plausibilty of the null hypothesis and the alternative hypothesis after seeing the data. On the right hand side, we have the prior odds, which indicates what you thought before seeing the data. In the middle, we have the Bayes factor, which describes the amount of evidence provided by the data.
+Actually, this equation is worth expanding on. There are three different terms here that you should know. On the left hand side, we have the posterior odds, which tells you what you believe about the relative plausibility of the null hypothesis and the alternative hypothesis after seeing the data. On the right hand side, we have the prior odds, which indicates what you thought before seeing the data. In the middle, we have the Bayes factor, which describes the amount of evidence provided by the data.
 
 The Bayes factor (sometimes abbreviated as BF) has a special place in the Bayesian hypothesis testing, because it serves a similar role to the  p-value in orthodox hypothesis testing: it quantifies the strength of evidence provided by the data, and as such it is the Bayes factor that people tend to report when running a Bayesian hypothesis test. The reason for reporting Bayes factors rather than posterior odds is that different researchers will have different priors. Some people might have a strong bias to believe the null hypothesis is true, others might have a strong bias to believe it is false. Because of this, the polite thing for an applied researcher to do is report the Bayes factor. That way, anyone reading the paper can multiply the Bayes factor by their own personal prior odds, and they can work out for themselves what the posterior odds would be. In any case, by convention we like to pretend that we give equal consideration to both the null hypothesis and the alternative, in which case the prior odds equals 1, and the posterior odds becomes the same as the Bayes factor.
 
@@ -288,7 +288,7 @@ The Bayes factor numbers are inherently meaningful. If you run an experiment and
 
 There are no hard and fast rules here: what counts as strong or weak evidence depends entirely on how conservative you are, and upon the standards that your community insists upon before it is willing to label a finding as “true”.
 
-Note that all the numbers above make sense if the Bayes factor is greater than 1 (i.e., the evidence favours the alternative hypothesis). However, one big practical advantage of the Bayesian approach relative to the orthodox approach is that it also allows you to quantify evidence for the null. When that happens, the Bayes factor will be less than 1. You can choose to report a Bayes factor less than 1. Instead could take reciprical of BF, call it BF', The statements about the BF given earlier now refer to the evidence in favou of the null hypothesis.
+Note that all the numbers above make sense if the Bayes factor is greater than 1 (i.e., the evidence favours the alternative hypothesis). However, one big practical advantage of the Bayesian approach relative to the orthodox approach is that it also allows you to quantify evidence for the null. When that happens, the Bayes factor will be less than 1. You can choose to report a Bayes factor less than 1. Instead could take reciprocal of BF, call it BF', The statements about the BF given earlier now refer to the evidence in favour of the null hypothesis.
 
 ### 1.6.3 EXAMPLE from Rasmus B&aring;&aring;th, Lund University
 
@@ -330,7 +330,7 @@ We could model the prior distribution for the parameters as being `Uniform(0, 25
 #### One simple way of fitting the model
 
 1. Draw a large random sample from the “prior” probability distribution on the parameters.
-2. Plug in each draw into the generative model which generates a vector of “fake” data. 
+2. Plug in each draw into the generative model which generates a vector of “fake” data.
 
 #### Original capture re-capture using approximate Bayesian Computation
 
@@ -446,7 +446,7 @@ Here the `dhyper` distribution (Hypergeometric distribution) is used as it imple
 ## 1.7 Bayesian versions of various statistical tests
 
 These are brief notes from Chapter 17 of Learning Statistics with R
-(<https://learningstatisticswithr.com/book/bayes.htm>). I have removed some of the author's comments and cherry picked what I wanted. Please note that the Creative Commons license is <https://creativecommons.org/licenses/by-sa/4.0/>.
+([<https://learningstatisticswithr.com/book/bayes.htm>](https://learningstatisticswithr.com/book/bayes.htm)). I have removed some of the author's comments and cherry picked what I wanted. Please note that the Creative Commons license is <https://creativecommons.org/licenses/by-sa/4.0/>.
 
 ### 1.7.1 Bayesian analysis of contingency tables
 
@@ -512,7 +512,7 @@ You need a sampling plan. You can specify the sampling plan using the sampleType
 
 Okay, so now we have enough knowledge to actually run a test. For the chapek9 data, I implied that we designed the study such that the total sample sizeN
   was fixed, so we should set sampleType ="jointMulti".
-  
+
 ```{r contingency_table_multi}
 contingencyTableBF(crosstab, sampleType = "jointMulti")
 ```
@@ -582,7 +582,7 @@ harpo
 
 In this data set, we have two groups of students, those who received lessons from Anastasia and those who took their classes with Bernadette. The question we want to answer is whether there’s any difference in the grades received by these two groups of student. You could analyse this kind of data using the independentSamples TTest() function in the lsr package.
 
-What does the Bayesian version of the t-test look like? Using the ttestBF() function, we can obtain a Bayesian analog of Student’s independent samples  
+What does the Bayesian version of the t-test look like? Using the ttestBF() function, we can obtain a Bayesian analog of Student’s independent samples
 t-test using the following command:
 
 ```{r bayes_ttest_harpo}
@@ -698,7 +698,7 @@ Okay, let’s say you’ve settled on a specific regression model. What Bayes fa
 Having figured out which model you prefer, it can be really useful to call the `regressionBF` function and specifying `whichModels = "top"`. You use your “preferred” model as the formula argument, and then the output will show you the Bayes factors that result when you try to drop predictors from this model:
 
 ```{r parenthood_lmBF_topmodels}
-regressionBF( 
+regressionBF(
     formula = myGrump ~ mySleep + babySleep,
     data = parenthood,
     whichModels = "top"
@@ -726,7 +726,7 @@ library(car)
 
 model <- aov(mood.gain ~ drug * therapy, data = clin.trial)
 
-Anova(model) 
+Anova(model)
 ```
 
 Provided model assumptions hold, we conclude that there is evidence for a main effect of drug at p<0.001, an effect of therapy at p<0.05 and no interaction.
@@ -763,7 +763,7 @@ Ntzoufras, I. (2009) *Bayesian Modeling Using WinBUGS.* New Jersey: John Wiley a
 Navarro, D. (2019) *Learning statistics with R: A tutorial for psychology students and other beginners. (Version 0.6.1)*
 <https://learningstatisticswithr.com/book/bayes.html#bayescontingency>
 
-Baath, R. (2015) "Introduction to Bayesian Data Analysis using R." UseR! Conference 2015. 
+Baath, R. (2015) "Introduction to Bayesian Data Analysis using R." UseR! Conference 2015.
 <https://analisereal.files.wordpress.com/2015/07/user_2015_tutorial_bayesian_data_analysis_short_version.pdf>
 
 {% include links.md %}
