@@ -66,6 +66,8 @@ workshop-check :
 # RMarkdown files
 RMD_SRC = $(wildcard _episodes_rmd/??-*.Rmd)
 RMD_DST = $(patsubst _episodes_rmd/%.Rmd,_episodes/%.md,$(RMD_SRC))
+EX_SRC = $(wildcard exercises/solutions/*.Rmd)
+EX_DST = $(patsubst exercises/solutions/%.Rmd,exercises/solutions/%.md,$(EX_SRC))
 
 # Lesson source files in the order they appear in the navigation menu.
 MARKDOWN_SRC = \
@@ -91,6 +93,12 @@ HTML_DST = \
 lesson-md : ${RMD_DST}
 
 _episodes/%.md: _episodes_rmd/%.Rmd
+	${BASH} bin/knit_lessons.sh $< $@
+
+## exercises: convert Rmarkdown solutions
+exercises: ${EX_DST}
+
+exercises/solutions/%.md: exercises/solutions/%.Rmd
 	${BASH} bin/knit_lessons.sh $< $@
 
 ## lesson-check     : validate lesson Markdown.
