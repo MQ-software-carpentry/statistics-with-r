@@ -27,8 +27,8 @@ politeness_data <- read_csv(file.path("..", "..", "data", "politeness_data.csv")
 ```
 
 * Examine the data. Some questions you should be able to answer after examining the data are:
-    - How many individuals are in the study? 
-    - How many conditions? 
+    - How many individuals are in the study?
+    - How many conditions?
     - How many observations did each individual contribute per condition?
 
 ```{r examine_data}
@@ -69,9 +69,9 @@ in the polite condition tend to have lower pitch compared to the informal sample
 
 * Fit a multiple linear regression model to the data, using `frequency` as dependent variable and `attitude` and `gender`
   as independent variables. Based on the plots of the data above, does it seem necessary to include an interaction between attitude and gender?
-  
+
 The scatter plot suggests that the effects of attitude for male and female participants may differ somewhat, suggesting that an interaction should be considered.
-  
+
 ```{r politeness_lm}
 fit_lm <- lm(frequency ~ attitude*gender, data=politeness_data)
 ```
@@ -125,9 +125,10 @@ qqmath(ranef(fit_me))
 plot(fit_me)
 ```
 
-* In addition to repeated measures from each subject the data also contain multiple observations for each scenario. This may create another layer of clustering, separately from the one based on subjects
+* In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
 ```{r}
 fit_me <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
 summary(fit_me)
+ranova(fit_me)
 ```
