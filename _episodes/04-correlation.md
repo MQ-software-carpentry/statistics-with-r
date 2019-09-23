@@ -45,9 +45,55 @@ The file `Anscombe.csv` contains this data.
 
 ~~~
 library(tidyverse)
+~~~
+{: .language-r}
+
+
+
+~~~
+Warning: package 'ggplot2' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'tibble' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'tidyr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'dplyr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 library(readr)
 library(ggpubr)
+~~~
+{: .language-r}
 
+
+
+~~~
+Warning: package 'ggpubr' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 anscomb <- read_csv(file.path("..", "data", "Anscomb.csv"))
 anscomb
 ~~~
@@ -72,6 +118,19 @@ anscomb
 11     5  5.68     5  4.74     5  5.73     8  6.89
 ~~~
 {: .output}
+
+
+~~~
+Warning: package 'kableExtra' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
+Warning: package 'formattable' was built under R version 3.6.1
+~~~
+{: .error}
 
 <table class="table table-striped table-hover" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>

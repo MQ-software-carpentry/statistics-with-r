@@ -14,11 +14,7 @@ library(ggplot2)
 ```
 
 ```
-## Registered S3 methods overwritten by 'ggplot2':
-##   method         from 
-##   [.quosures     rlang
-##   c.quosures     rlang
-##   print.quosures rlang
+## Warning: package 'ggplot2' was built under R version 3.6.1
 ```
 
 ```r
@@ -54,6 +50,10 @@ library(lmerTest)
 ```r
 library(readr)
 library(tidyr)
+```
+
+```
+## Warning: package 'tidyr' was built under R version 3.6.1
 ```
 
 ```
@@ -114,8 +114,8 @@ politeness_data <- read_csv(file.path("..", "..", "data", "politeness_data.csv")
 ```
 
 * Examine the data. Some questions you should be able to answer after examining the data are:
-    - How many individuals are in the study? 
-    - How many conditions? 
+    - How many individuals are in the study?
+    - How many conditions?
     - How many observations did each individual contribute per condition?
 
 
@@ -204,9 +204,9 @@ in the polite condition tend to have lower pitch compared to the informal sample
 
 * Fit a multiple linear regression model to the data, using `frequency` as dependent variable and `attitude` and `gender`
   as independent variables. Based on the plots of the data above, does it seem necessary to include an interaction between attitude and gender?
-  
+
 The scatter plot suggests that the effects of attitude for male and female participants may differ somewhat, suggesting that an interaction should be considered.
-  
+
 
 ```r
 fit_lm <- lm(frequency ~ attitude*gender, data=politeness_data)
@@ -332,7 +332,7 @@ plot(fit_me)
 
 ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
 
-* In addition to repeated measures from each subject the data also contain multiple observations for each scenario. This may create another layer of clustering, separately from the one based on subjects
+* In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
 
 ```r
@@ -373,4 +373,22 @@ summary(fit_me)
 ## attitudepol -0.198              
 ## genderM     -0.673  0.147       
 ## atttdpl:gnM  0.140 -0.707 -0.209
+```
+
+```r
+ranova(fit_me)
+```
+
+```
+## ANOVA-like table for random-effects: Single term deletions
+## 
+## Model:
+## frequency ~ attitude + gender + (1 | subject) + (1 | scenario) + 
+##     attitude:gender
+##                npar  logLik    AIC    LRT Df Pr(>Chisq)    
+## <none>            7 -348.53 711.06                         
+## (1 | subject)     6 -375.67 763.33 54.276  1  1.742e-13 ***
+## (1 | scenario)    6 -353.55 719.10 10.046  1   0.001527 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
