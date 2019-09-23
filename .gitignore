@@ -11,3 +11,4 @@ _site
 desktop.ini
 *.Rproj
 Gemfile.lock
+.vscode/*
