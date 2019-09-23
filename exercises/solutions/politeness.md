@@ -9,7 +9,6 @@ output: html_document
 
 
 
-
 ~~~
 library(ggplot2)
 ~~~
@@ -250,7 +249,7 @@ ggplot(politeness_wide, aes(x=inf, y=pol, colour=gender)) + geom_point() + geom_
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-ex1-politeness_scatter-1.png" title="plot of chunk politeness_scatter" alt="plot of chunk politeness_scatter" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-politeness_scatter-1.png" title="plot of chunk politeness_scatter" alt="plot of chunk politeness_scatter" width="612" style="display: block; margin: auto;" />
 
 * What do you observe?
 
@@ -264,7 +263,7 @@ ggplot(politeness_data, aes(x=attitude, y=frequency, fill=gender)) + geom_boxplo
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-ex1-attitude_freq_plot-1.png" title="plot of chunk attitude_freq_plot" alt="plot of chunk attitude_freq_plot" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-attitude_freq_plot-1.png" title="plot of chunk attitude_freq_plot" alt="plot of chunk attitude_freq_plot" width="612" style="display: block; margin: auto;" />
 
 * What trends do you observe in the data?
 
@@ -298,7 +297,7 @@ qqline(rstandard(fit_lm), col=2)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-ex1-politeness_lm_qq-1.png" title="plot of chunk politeness_lm_qq" alt="plot of chunk politeness_lm_qq" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-politeness_lm_qq-1.png" title="plot of chunk politeness_lm_qq" alt="plot of chunk politeness_lm_qq" width="612" style="display: block; margin: auto;" />
 
 The Q-Q plot shows that the distribution of residuals is skewed slightly to the right, with fewer residuals than expected in the left tail and one or two unexpectedly large residuals in the right tail.
 
@@ -311,7 +310,7 @@ ggplot(politeness_lm_fit, aes(x=fitted, y=residuals, shape=attitude, colour=subj
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-ex1-politeness_lm_fitted-1.png" title="plot of chunk politeness_lm_fitted" alt="plot of chunk politeness_lm_fitted" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-politeness_lm_fitted-1.png" title="plot of chunk politeness_lm_fitted" alt="plot of chunk politeness_lm_fitted" width="612" style="display: block; margin: auto;" />
 
 Note how the residuals for the same subject tend to cluster together. This is especially pronounced for the males.
 
@@ -399,7 +398,7 @@ $subject
 ~~~
 {: .output}
 
-<img src="../fig/rmd-05-ex1-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -414,7 +413,7 @@ $subject
 ~~~
 {: .output}
 
-<img src="../fig/rmd-05-ex1-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
 
 
 ~~~
@@ -422,7 +421,7 @@ plot(fit_me)
 ~~~
 {: .language-r}
 
-<img src="../fig/rmd-05-ex1-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
+<img src="../../fig/rmd-05-ex1-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 
 * In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
