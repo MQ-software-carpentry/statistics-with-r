@@ -9,109 +9,163 @@ output: html_document
 
 
 
-```r
+
+~~~
 library(ggplot2)
-```
+~~~
+{: .language-r}
 
-```
-## Warning: package 'ggplot2' was built under R version 3.6.1
-```
 
-```r
+
+~~~
+Warning: package 'ggplot2' was built under R version 3.6.1
+~~~
+{: .error}
+
+
+
+~~~
 library(lattice)
 library(lme4)
-```
+~~~
+{: .language-r}
 
-```
-## Loading required package: Matrix
-```
 
-```r
+
+~~~
+Loading required package: Matrix
+~~~
+{: .output}
+
+
+
+~~~
 library(lmerTest)
-```
+~~~
+{: .language-r}
 
-```
-## 
-## Attaching package: 'lmerTest'
-```
 
-```
-## The following object is masked from 'package:lme4':
-## 
-##     lmer
-```
 
-```
-## The following object is masked from 'package:stats':
-## 
-##     step
-```
+~~~
 
-```r
+Attaching package: 'lmerTest'
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:lme4':
+
+    lmer
+~~~
+{: .output}
+
+
+
+~~~
+The following object is masked from 'package:stats':
+
+    step
+~~~
+{: .output}
+
+
+
+~~~
 library(readr)
 library(tidyr)
-```
+~~~
+{: .language-r}
 
-```
-## Warning: package 'tidyr' was built under R version 3.6.1
-```
 
-```
-## 
-## Attaching package: 'tidyr'
-```
 
-```
-## The following objects are masked from 'package:Matrix':
-## 
-##     expand, pack, unpack
-```
+~~~
+Warning: package 'tidyr' was built under R version 3.6.1
+~~~
+{: .error}
 
-```r
+
+
+~~~
+
+Attaching package: 'tidyr'
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:Matrix':
+
+    expand, pack, unpack
+~~~
+{: .output}
+
+
+
+~~~
 library(dplyr)
-```
+~~~
+{: .language-r}
 
-```
-## Warning: package 'dplyr' was built under R version 3.6.1
-```
 
-```
-## 
-## Attaching package: 'dplyr'
-```
 
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
+~~~
+Warning: package 'dplyr' was built under R version 3.6.1
+~~~
+{: .error}
 
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
+
+
+~~~
+
+Attaching package: 'dplyr'
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:stats':
+
+    filter, lag
+~~~
+{: .output}
+
+
+
+~~~
+The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union
+~~~
+{: .output}
 
 ## Data exploration
 
 * Load the pitch and politeness data.
 
 
-```r
+~~~
 politeness_data <- read_csv(file.path("..", "..", "data", "politeness_data.csv"))
-```
+~~~
+{: .language-r}
 
-```
-## Parsed with column specification:
-## cols(
-##   subject = col_character(),
-##   gender = col_character(),
-##   scenario = col_double(),
-##   attitude = col_character(),
-##   total_duration = col_double(),
-##   frequency = col_double()
-## )
-```
+
+
+~~~
+Parsed with column specification:
+cols(
+  subject = col_character(),
+  gender = col_character(),
+  scenario = col_double(),
+  attitude = col_character(),
+  total_duration = col_double(),
+  frequency = col_double()
+)
+~~~
+{: .output}
 
 * Examine the data. Some questions you should be able to answer after examining the data are:
     - How many individuals are in the study?
@@ -119,67 +173,84 @@ politeness_data <- read_csv(file.path("..", "..", "data", "politeness_data.csv")
     - How many observations did each individual contribute per condition?
 
 
-```r
+~~~
 politeness_data
-```
+~~~
+{: .language-r}
 
-```
-## # A tibble: 80 x 6
-##    subject gender scenario attitude total_duration frequency
-##    <chr>   <chr>     <dbl> <chr>             <dbl>     <dbl>
-##  1 F1      F             1 pol               18.4       215.
-##  2 F1      F             1 inf               13.6       211.
-##  3 F1      F             2 pol                5.22      285.
-##  4 F1      F             2 inf                4.25      266.
-##  5 F1      F             3 pol                6.79      211.
-##  6 F1      F             3 inf                4.13      286.
-##  7 F1      F             4 pol                6.24      252.
-##  8 F1      F             4 inf                3.24      282.
-##  9 F1      F             5 pol                5.62      230.
-## 10 F1      F             5 inf                3.95      250.
-## # ... with 70 more rows
-```
 
-```r
+
+~~~
+# A tibble: 80 x 6
+   subject gender scenario attitude total_duration frequency
+   <chr>   <chr>     <dbl> <chr>             <dbl>     <dbl>
+ 1 F1      F             1 pol               18.4       215.
+ 2 F1      F             1 inf               13.6       211.
+ 3 F1      F             2 pol                5.22      285.
+ 4 F1      F             2 inf                4.25      266.
+ 5 F1      F             3 pol                6.79      211.
+ 6 F1      F             3 inf                4.13      286.
+ 7 F1      F             4 pol                6.24      252.
+ 8 F1      F             4 inf                3.24      282.
+ 9 F1      F             5 pol                5.62      230.
+10 F1      F             5 inf                3.95      250.
+# ... with 70 more rows
+~~~
+{: .output}
+
+
+
+~~~
 # Use 'View()' when examining data interactively
 # View(politeness_data)
 
 table(politeness_data$subject)
-```
+~~~
+{: .language-r}
 
-```
-## 
-## F1 F3 F7 F8 M1 M3 M5 M7 
-## 10 10 10 10 10 10 10 10
-```
 
-```r
+
+~~~
+
+F1 F3 F7 F8 M1 M3 M5 M7 
+10 10 10 10 10 10 10 10 
+~~~
+{: .output}
+
+
+
+~~~
 table(politeness_data$subject, politeness_data$attitude)
-```
+~~~
+{: .language-r}
 
-```
-##     
-##      inf pol
-##   F1   5   5
-##   F3   5   5
-##   F7   5   5
-##   F8   5   5
-##   M1   5   5
-##   M3   5   5
-##   M5   5   5
-##   M7   5   5
-```
+
+
+~~~
+    
+     inf pol
+  F1   5   5
+  F3   5   5
+  F7   5   5
+  F8   5   5
+  M1   5   5
+  M3   5   5
+  M5   5   5
+  M7   5   5
+~~~
+{: .output}
 
 * Create a scatterplot of pitch in the informal and polite conditions. Colour points by the speaker's gender and add a regression line.
     - **Hint**: Use `geom_smooth(method="lm")` to add regression lines to your scatter plot.
 
 
-```r
+~~~
 politeness_wide <- politeness_data %>% select(-total_duration) %>% spread(key=attitude, value=frequency)
 ggplot(politeness_wide, aes(x=inf, y=pol, colour=gender)) + geom_point() + geom_smooth(method="lm")
-```
+~~~
+{: .language-r}
 
-![plot of chunk politeness_scatter](figure/politeness_scatter-1.png)
+<img src="../fig/rmd-05-ex1-politeness_scatter-1.png" title="plot of chunk politeness_scatter" alt="plot of chunk politeness_scatter" width="612" style="display: block; margin: auto;" />
 
 * What do you observe?
 
@@ -188,11 +259,12 @@ As expected, female particpants tend to have higher pitched voices than male par
 * Create a plot showing frequency by attitude for each subject.
 
 
-```r
+~~~
 ggplot(politeness_data, aes(x=attitude, y=frequency, fill=gender)) + geom_boxplot() + facet_wrap(~subject)
-```
+~~~
+{: .language-r}
 
-![plot of chunk attitude_freq_plot](figure/attitude_freq_plot-1.png)
+<img src="../fig/rmd-05-ex1-attitude_freq_plot-1.png" title="plot of chunk attitude_freq_plot" alt="plot of chunk attitude_freq_plot" width="612" style="display: block; margin: auto;" />
 
 * What trends do you observe in the data?
 
@@ -208,9 +280,10 @@ in the polite condition tend to have lower pitch compared to the informal sample
 The scatter plot suggests that the effects of attitude for male and female participants may differ somewhat, suggesting that an interaction should be considered.
 
 
-```r
+~~~
 fit_lm <- lm(frequency ~ attitude*gender, data=politeness_data)
-```
+~~~
+{: .language-r}
 
 * Why is this model likely to be inappropriate?
 
@@ -219,176 +292,205 @@ Since each subject gave multiple responses (a repeated measures design) this mod
 * Examine the model fit using a Q-Q plot and a residual plot.
 
 
-```r
+~~~
 qqnorm(rstandard(fit_lm))
 qqline(rstandard(fit_lm), col=2)
-```
+~~~
+{: .language-r}
 
-![plot of chunk politeness_lm_qq](figure/politeness_lm_qq-1.png)
+<img src="../fig/rmd-05-ex1-politeness_lm_qq-1.png" title="plot of chunk politeness_lm_qq" alt="plot of chunk politeness_lm_qq" width="612" style="display: block; margin: auto;" />
 
 The Q-Q plot shows that the distribution of residuals is skewed slightly to the right, with fewer residuals than expected in the left tail and one or two unexpectedly large residuals in the right tail.
 
 * Create a plot of residuals and fitted values. Distinguish between the two attitudes and between subjects.
 
 
-```r
+~~~
 politeness_lm_fit <- politeness_data %>% mutate(residuals=rstandard(fit_lm), fitted=fitted(fit_lm))
 ggplot(politeness_lm_fit, aes(x=fitted, y=residuals, shape=attitude, colour=subject)) + geom_point(size=2)
-```
+~~~
+{: .language-r}
 
-![plot of chunk politeness_lm_fitted](figure/politeness_lm_fitted-1.png)
+<img src="../fig/rmd-05-ex1-politeness_lm_fitted-1.png" title="plot of chunk politeness_lm_fitted" alt="plot of chunk politeness_lm_fitted" width="612" style="display: block; margin: auto;" />
 
 Note how the residuals for the same subject tend to cluster together. This is especially pronounced for the males.
 
 * Use a linear mixed effects model to account for the clustering of the data. In the height example, we used a *Family* random effect to model the structure of the data. Here a *subject* random effect seems appropriate.
 
 
-```r
+~~~
 fit_me <- lmer(frequency ~ attitude*gender + (1|subject), data=politeness_data)
 summary(fit_me)
-```
+~~~
+{: .language-r}
 
-```
-## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-## lmerModLmerTest]
-## Formula: frequency ~ attitude * gender + (1 | subject)
-##    Data: politeness_data
-## 
-## REML criterion at convergence: 707.1
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -2.1121 -0.5958 -0.1297  0.4716  2.8488 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  subject  (Intercept) 711.7    26.68   
-##  Residual             438.6    20.94   
-## Number of obs: 80, groups:  subject, 8
-## 
-## Fixed effects:
-##                     Estimate Std. Error       df t value Pr(>|t|)    
-## (Intercept)          252.860     14.137    6.715  17.886 6.48e-07 ***
-## attitudepol          -13.530      6.623   70.000  -2.043  0.04483 *  
-## genderM             -109.075     19.993    6.715  -5.456  0.00109 ** 
-## attitudepol:genderM   -8.375      9.366   70.000  -0.894  0.37430    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) atttdp gendrM
-## attitudepol -0.234              
-## genderM     -0.707  0.166       
-## atttdpl:gnM  0.166 -0.707 -0.234
-```
+
+
+~~~
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: frequency ~ attitude * gender + (1 | subject)
+   Data: politeness_data
+
+REML criterion at convergence: 707.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1121 -0.5958 -0.1297  0.4716  2.8488 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept) 711.7    26.68   
+ Residual             438.6    20.94   
+Number of obs: 80, groups:  subject, 8
+
+Fixed effects:
+                    Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)          252.860     14.137    6.715  17.886 6.48e-07 ***
+attitudepol          -13.530      6.623   70.000  -2.043  0.04483 *  
+genderM             -109.075     19.993    6.715  -5.456  0.00109 ** 
+attitudepol:genderM   -8.375      9.366   70.000  -0.894  0.37430    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) atttdp gendrM
+attitudepol -0.234              
+genderM     -0.707  0.166       
+atttdpl:gnM  0.166 -0.707 -0.234
+~~~
+{: .output}
 
 * Use the `ranova()` function to check whether the subject random effect is justified.
 
 
-```r
+~~~
 ranova(fit_me)
-```
+~~~
+{: .language-r}
 
-```
-## ANOVA-like table for random-effects: Single term deletions
-## 
-## Model:
-## frequency ~ attitude + gender + (1 | subject) + attitude:gender
-##               npar  logLik    AIC    LRT Df Pr(>Chisq)    
-## <none>           6 -353.55 719.10                         
-## (1 | subject)    5 -376.34 762.69 45.589  1  1.459e-11 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
+
+
+~~~
+ANOVA-like table for random-effects: Single term deletions
+
+Model:
+frequency ~ attitude + gender + (1 | subject) + attitude:gender
+              npar  logLik    AIC    LRT Df Pr(>Chisq)    
+<none>           6 -353.55 719.10                         
+(1 | subject)    5 -376.34 762.69 45.589  1  1.459e-11 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
 
 * Create diagnostic plots to examine the model fit.
 
 
-```r
+~~~
 dotplot(ranef(fit_me))
-```
-
-```
-## $subject
-```
-
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3-1.png)
+~~~
+{: .language-r}
 
 
-```r
+
+~~~
+$subject
+~~~
+{: .output}
+
+<img src="../fig/rmd-05-ex1-unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" width="612" style="display: block; margin: auto;" />
+
+
+~~~
 qqmath(ranef(fit_me))
-```
-
-```
-## $subject
-```
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4-1.png)
+~~~
+{: .language-r}
 
 
-```r
+
+~~~
+$subject
+~~~
+{: .output}
+
+<img src="../fig/rmd-05-ex1-unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="612" style="display: block; margin: auto;" />
+
+
+~~~
 plot(fit_me)
-```
+~~~
+{: .language-r}
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+<img src="../fig/rmd-05-ex1-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 
 * In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
 
-```r
+~~~
 fit_me <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
 summary(fit_me)
-```
+~~~
+{: .language-r}
 
-```
-## Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-## lmerModLmerTest]
-## Formula: frequency ~ attitude * gender + (1 | subject) + (1 | scenario)
-##    Data: politeness_data
-## 
-## REML criterion at convergence: 697.1
-## 
-## Scaled residuals: 
-##     Min      1Q  Median      3Q     Max 
-## -1.9900 -0.5817 -0.1213  0.4320  2.8881 
-## 
-## Random effects:
-##  Groups   Name        Variance Std.Dev.
-##  subject  (Intercept) 721.2    26.86   
-##  scenario (Intercept) 104.1    10.20   
-##  Residual             343.5    18.53   
-## Number of obs: 80, groups:  subject, 8; scenario, 5
-## 
-## Fixed effects:
-##                     Estimate Std. Error       df t value Pr(>|t|)    
-## (Intercept)          252.860     14.775    7.805  17.114 1.81e-07 ***
-## attitudepol          -13.530      5.861   66.001  -2.308  0.02412 *  
-## genderM             -109.075     19.874    6.556  -5.488  0.00114 ** 
-## attitudepol:genderM   -8.375      8.289   66.001  -1.010  0.31600    
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Correlation of Fixed Effects:
-##             (Intr) atttdp gendrM
-## attitudepol -0.198              
-## genderM     -0.673  0.147       
-## atttdpl:gnM  0.140 -0.707 -0.209
-```
 
-```r
+
+~~~
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: frequency ~ attitude * gender + (1 | subject) + (1 | scenario)
+   Data: politeness_data
+
+REML criterion at convergence: 697.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-1.9900 -0.5817 -0.1213  0.4320  2.8881 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept) 721.2    26.86   
+ scenario (Intercept) 104.1    10.20   
+ Residual             343.5    18.53   
+Number of obs: 80, groups:  subject, 8; scenario, 5
+
+Fixed effects:
+                    Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)          252.860     14.775    7.805  17.114 1.81e-07 ***
+attitudepol          -13.530      5.861   66.001  -2.308  0.02412 *  
+genderM             -109.075     19.874    6.556  -5.488  0.00114 ** 
+attitudepol:genderM   -8.375      8.289   66.001  -1.010  0.31600    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) atttdp gendrM
+attitudepol -0.198              
+genderM     -0.673  0.147       
+atttdpl:gnM  0.140 -0.707 -0.209
+~~~
+{: .output}
+
+
+
+~~~
 ranova(fit_me)
-```
+~~~
+{: .language-r}
 
-```
-## ANOVA-like table for random-effects: Single term deletions
-## 
-## Model:
-## frequency ~ attitude + gender + (1 | subject) + (1 | scenario) + 
-##     attitude:gender
-##                npar  logLik    AIC    LRT Df Pr(>Chisq)    
-## <none>            7 -348.53 711.06                         
-## (1 | subject)     6 -375.67 763.33 54.276  1  1.742e-13 ***
-## (1 | scenario)    6 -353.55 719.10 10.046  1   0.001527 ** 
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-```
+
+
+~~~
+ANOVA-like table for random-effects: Single term deletions
+
+Model:
+frequency ~ attitude + gender + (1 | subject) + (1 | scenario) + 
+    attitude:gender
+               npar  logLik    AIC    LRT Df Pr(>Chisq)    
+<none>            7 -348.53 711.06                         
+(1 | subject)     6 -375.67 763.33 54.276  1  1.742e-13 ***
+(1 | scenario)    6 -353.55 719.10 10.046  1   0.001527 ** 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
