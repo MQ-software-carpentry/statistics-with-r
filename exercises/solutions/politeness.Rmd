@@ -53,7 +53,7 @@ ggplot(politeness_wide, aes(x=inf, y=pol, colour=gender)) + geom_point() + geom_
 
 * What do you observe?
 
-As expected, female particpants tend to have higher pitched voices than male participants. Considering the slopes of the regression lines in the plot, an interaction between attitude and gender seems plausible and should be investigated.
+As expected, female participants tend to have higher pitched voices than male participants. Considering the slopes of the regression lines in the plot, an interaction between attitude and gender seems plausible and should be investigated.
 
 * Create a plot showing frequency by attitude for each subject.
 
