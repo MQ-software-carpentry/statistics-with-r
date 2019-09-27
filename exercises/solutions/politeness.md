@@ -11,19 +11,6 @@ output: html_document
 
 ~~~
 library(ggplot2)
-~~~
-{: .language-r}
-
-
-
-~~~
-Warning: package 'ggplot2' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 library(lattice)
 library(lme4)
 ~~~
@@ -80,13 +67,6 @@ library(tidyr)
 
 
 ~~~
-Warning: package 'tidyr' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 
 Attaching package: 'tidyr'
 ~~~
@@ -107,13 +87,6 @@ The following objects are masked from 'package:Matrix':
 library(dplyr)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Warning: package 'dplyr' was built under R version 3.6.1
-~~~
-{: .error}
 
 
 

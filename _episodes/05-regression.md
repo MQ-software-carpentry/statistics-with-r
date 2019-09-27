@@ -321,19 +321,7 @@ predictors in the full model that Mallow's $C_p$ always equals $p$.
 
 ~~~
 library(leaps)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning: package 'leaps' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 x <- heat_flux[, -1]
 y <- heat_flux$HeatFlux
 
@@ -422,19 +410,7 @@ If none of the VIFs are greater than 10 then collinearity is not a problem.
 
 ~~~
 library(car)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning: package 'car' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 heatflux_fit <- lm(HeatFlux ~ Insulation + East + South + North + Time, data = heat_flux)
 vif(heatflux_fit)
 ~~~
@@ -588,19 +564,7 @@ Before doing this we should first obtain a matrix scatter plot of the data.
 ~~~
 library(tidyverse)
 library(ggpubr)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning: package 'ggpubr' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 squid <- read_csv(file.path("..", "Data", "Squid.csv"))
 squid
 ~~~

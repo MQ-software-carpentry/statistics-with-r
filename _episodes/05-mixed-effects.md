@@ -152,19 +152,7 @@ height %>% group_by(Gender) %>% summarise(mean=mean(Height)) %>% ungroup()
 
 ~~~
 library(ggplot2)
-~~~
-{: .language-r}
 
-
-
-~~~
-Warning: package 'ggplot2' was built under R version 3.6.1
-~~~
-{: .error}
-
-
-
-~~~
 ggplot(height, aes(x=Gender, y=Height, fill=Gender)) + geom_violin() + theme_bw()
 ~~~
 {: .language-r}
