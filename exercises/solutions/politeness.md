@@ -319,46 +319,8 @@ Note how the residuals for the same subject tend to cluster together. This is es
 
 ~~~
 fit_me <- lmer(frequency ~ attitude*gender + (1|subject), data=politeness_data)
-summary(fit_me)
 ~~~
 {: .language-r}
-
-
-
-~~~
-Linear mixed model fit by REML. t-tests use Satterthwaite's method [
-lmerModLmerTest]
-Formula: frequency ~ attitude * gender + (1 | subject)
-   Data: politeness_data
-
-REML criterion at convergence: 707.1
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--2.1121 -0.5958 -0.1297  0.4716  2.8488 
-
-Random effects:
- Groups   Name        Variance Std.Dev.
- subject  (Intercept) 711.7    26.68   
- Residual             438.6    20.94   
-Number of obs: 80, groups:  subject, 8
-
-Fixed effects:
-                    Estimate Std. Error       df t value Pr(>|t|)    
-(Intercept)          252.860     14.137    6.715  17.886 6.48e-07 ***
-attitudepol          -13.530      6.623   70.000  -2.043  0.04483 *  
-genderM             -109.075     19.993    6.715  -5.456  0.00109 ** 
-attitudepol:genderM   -8.375      9.366   70.000  -0.894  0.37430    
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
-            (Intr) atttdp gendrM
-attitudepol -0.234              
-genderM     -0.707  0.166       
-atttdpl:gnM  0.166 -0.707 -0.234
-~~~
-{: .output}
 
 * Use the `ranova()` function to check whether the subject random effect is justified.
 
@@ -423,12 +385,62 @@ plot(fit_me)
 
 <img src="../../fig/rmd-05-ex1-unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="612" style="display: block; margin: auto;" />
 
+* Take a look at the model summary.
+
+
+~~~
+summary(fit_me)
+~~~
+{: .language-r}
+
+
+
+~~~
+Linear mixed model fit by REML. t-tests use Satterthwaite's method [
+lmerModLmerTest]
+Formula: frequency ~ attitude * gender + (1 | subject)
+   Data: politeness_data
+
+REML criterion at convergence: 707.1
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-2.1121 -0.5958 -0.1297  0.4716  2.8488 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ subject  (Intercept) 711.7    26.68   
+ Residual             438.6    20.94   
+Number of obs: 80, groups:  subject, 8
+
+Fixed effects:
+                    Estimate Std. Error       df t value Pr(>|t|)    
+(Intercept)          252.860     14.137    6.715  17.886 6.48e-07 ***
+attitudepol          -13.530      6.623   70.000  -2.043  0.04483 *  
+genderM             -109.075     19.993    6.715  -5.456  0.00109 ** 
+attitudepol:genderM   -8.375      9.366   70.000  -0.894  0.37430    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) atttdp gendrM
+attitudepol -0.234              
+genderM     -0.707  0.166       
+atttdpl:gnM  0.166 -0.707 -0.234
+~~~
+{: .output}
+
+* How do the estimates for the fixed effects from this model compare to the estimates from the multiple regression model?
+
+The estimates themselves are the same but the standard errors (and as a consequence of that, the p-values) have changed. The estimate for the effect of politeness (the within subject effect) has a much lower standard error in the mixed effects model but the standard error for gender (the between subject effect) has increased.
+
+
 * In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
 
 ~~~
-fit_me <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
-summary(fit_me)
+fit_me2 <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
+summary(fit_me2)
 ~~~
 {: .language-r}
 
@@ -473,7 +485,7 @@ atttdpl:gnM  0.140 -0.707 -0.209
 
 
 ~~~
-ranova(fit_me)
+ranova(fit_me2)
 ~~~
 {: .language-r}
 

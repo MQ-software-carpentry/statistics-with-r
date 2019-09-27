@@ -104,7 +104,6 @@ Note how the residuals for the same subject tend to cluster together. This is es
 
 ```{r}
 fit_me <- lmer(frequency ~ attitude*gender + (1|subject), data=politeness_data)
-summary(fit_me)
 ```
 
 * Use the `ranova()` function to check whether the subject random effect is justified.
@@ -127,10 +126,21 @@ qqmath(ranef(fit_me))
 plot(fit_me)
 ```
 
+* Take a look at the model summary.
+
+```{r}
+summary(fit_me)
+```
+
+* How do the estimates for the fixed effects from this model compare to the estimates from the multiple regression model?
+
+The estimates themselves are the same but the standard errors (and as a consequence of that, the p-values) have changed. The estimate for the effect of politeness (the within subject effect) has a much lower standard error in the mixed effects model but the standard error for gender (the between subject effect) has increased.
+
+
 * In addition to repeated measures from each *subject* the data also contain multiple observations for each *scenario*. This may create another layer of clustering, separately from the one based on subjects. Try adding a second random effect to the model.
 
 ```{r}
-fit_me <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
-summary(fit_me)
-ranova(fit_me)
+fit_me2 <- lmer(frequency ~ attitude*gender + (1|subject) + (1|scenario), data=politeness_data)
+summary(fit_me2)
+ranova(fit_me2)
 ```

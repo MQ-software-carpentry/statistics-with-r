@@ -69,6 +69,12 @@ politeness_lm_fit <- politeness_data %>% mutate(residuals=rstandard(fit_lm), fit
 ## Create diagnostic plots to examine the model fit.
 
 
+# Take a look at the model summary.
+
+
+# How do the estimates for the fixed effects from this model compare to the estimates from the multiple regression model?
+  
+
 ## In addition to repeated measures from each *subject* the data also contain multiple
 ## observations for each *scenario*. This may create another layer of clustering,
 ## separately from the one based on subjects. Try adding a second random effect to the model.

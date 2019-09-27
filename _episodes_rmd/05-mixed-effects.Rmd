@@ -164,9 +164,20 @@ You can create Q-Q plots for random effects in a similar way, using the `qqmath(
 qqmath(randoms)
 ```
 
-#### Model comparison with `ranova()`
+#### Model comparison with `anova()` and `ranova()`
 
-In this case it seems fairly clear that inclusion of the family random effect improves model fit. It is sometimes desirable to test whether inclusion of a specific random effect is justified, similar to how you would compare multiple regression models to test for the inclusion of (fixed) effects using likelihood ratio tests. Although `lme4` doesn't provide an easy way to do that, you can however, augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
+You can compare the mixed effects model to the multiple regression model using `anova()` in the same
+way you would compare two different multiple regression models. For this to work, you have to fit the
+model using maximum likelihood, rather than the default restricted maximum likelihood, and the first
+argument to `anova()` has to be the *lmer* model.
+
+```{r height_anova}
+## Re-fit model using ML, rather than REML
+fit_me <- lmer(Height ~ Gender + (1|Family), data=height, REML=FALSE)
+anova(fit_me, fit_lm)
+```
+
+In this case, the inclusion of the family random effect clearly improves model fit, with all the provided metrics favouring the mixed effects model. It is sometimes desirable to compare models with different random effect structures to decide which random effects should be included. Although `lme4` doesn't provide an easy way to do that, you can augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
 
 ```{r height_lmerTest, message=FALSE}
 library(lme4)
@@ -181,7 +192,7 @@ Then you can use the `ranova()` function to compare models with different random
 ranova(fit_me)
 ```
 
-The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) shows that the mixed effects model is clearly preferred.
+The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) again shows that the mixed effects model is clearly preferred.
 
 ### Investigating the relationship between pitch and politeness
 

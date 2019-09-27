@@ -355,9 +355,37 @@ $Family
 
 <img src="../fig/rmd-05-height_qqplot-1.png" title="plot of chunk height_qqplot" alt="plot of chunk height_qqplot" width="612" style="display: block; margin: auto;" />
 
-#### Model comparison with `ranova()`
+#### Model comparison with `anova()` and `ranova()`
 
-In this case it seems fairly clear that inclusion of the family random effect improves model fit. It is sometimes desirable to test whether inclusion of a specific random effect is justified, similar to how you would compare multiple regression models to test for the inclusion of (fixed) effects using likelihood ratio tests. Although `lme4` doesn't provide an easy way to do that, you can however, augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
+You can compare the mixed effects model to the multiple regression model using `anova()` in the same
+way you would compare two different multiple regression models. For this to work, you have to fit the
+model using maximum likelihood, rather than the default restricted maximum likelihood, and the first
+argument to `anova()` has to be the *lmer* model.
+
+
+~~~
+## Re-fit model using ML, rather than REML
+fit_me <- lmer(Height ~ Gender + (1|Family), data=height, REML=FALSE)
+anova(fit_me, fit_lm)
+~~~
+{: .language-r}
+
+
+
+~~~
+Data: height
+Models:
+fit_lm: Height ~ Gender
+fit_me: Height ~ Gender + (1 | Family)
+       Df    AIC    BIC  logLik deviance  Chisq Chi Df Pr(>Chisq)    
+fit_lm  3 4204.5 4218.9 -2099.3   4198.5                             
+fit_me  4 4011.6 4030.8 -2001.8   4003.6 194.94      1  < 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+~~~
+{: .output}
+
+In this case, the inclusion of the family random effect clearly improves model fit, with all the provided metrics favouring the mixed effects model. It is sometimes desirable to compare models with different random effect structures to decide which random effects should be included. Although `lme4` doesn't provide an easy way to do that, you can augment its abilities with the `lmerTest` package. To do so, you'll have to load the `lmerTest` package after `lme4` but prior to fitting the model.
 
 
 ~~~
@@ -391,7 +419,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ~~~
 {: .output}
 
-The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) shows that the mixed effects model is clearly preferred.
+The comparison between the model with a random intercept for family (the mixed effects model) and the model without any random effects (the simple regression model) again shows that the mixed effects model is clearly preferred.
 
 ### Investigating the relationship between pitch and politeness
 
